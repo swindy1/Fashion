@@ -1,0 +1,131 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <script src="~/Scripts/jquery-2.0.0.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('../../Images/people-register-bg.png');
+            background-repeat:no-repeat;
+            background-color:#222222;
+            text-align:center;
+        }
+        #content{
+            width:700px;
+            height:360px;
+            margin-top:50px;
+            margin-left:auto;
+            margin-right:auto;
+            border:red 1px solid;
+            
+        }
+        #back{
+            width:auto;
+            height:auto;
+            float:left;
+            font-family:'Microsoft YaHei';
+            color:white;
+            font-size:30px;
+            line-height:360px;
+        }
+        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+            color: #e3e3e3;
+            font-family:'Microsoft YaHei';
+            font-size:24px;
+        }
+        input:-moz-placeholder, textarea:-moz-placeholder {
+            color: #e3e3e3;
+            font-family:'Microsoft YaHei';
+            font-size:24px;
+        }
+        input::-moz-placeholder, textarea::-moz-placeholder {
+            color: #e3e3e3;
+            font-family:'Microsoft YaHei';
+            font-size:24px;
+        }
+        input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+            color: #e3e3e3;
+            font-family:'Microsoft YaHei';
+            font-size:24px;
+        }
+          .ui-input{
+              padding-left:15px;
+              width:256px;
+              height:50px;
+              margin-top:50px;
+              border-radius: 10px; 
+              line-height:50px;
+              margin-left:120px;
+              color: #fff;
+              font-family:'Microsoft YaHei';
+              font-size:24px;
+              border:  none;
+              background:rgba(255, 255, 255, 0.54);
+          }
+          .ui-button{
+              width:270px;
+              height:60px;
+              margin-top:50px;
+              margin-left:120px;
+              border-radius: 10px; 
+              line-height:50px;
+              color: #fff;
+              font-family:'Microsoft YaHei';
+              font-size:24px;
+              border:  none;
+              background:rgba(255, 0, 255, 0.54) ;
+          }
+          .ui-button:hover{
+              background:rgba(255, 0, 255, .8) ;
+         }
+          .ui-button:focus{
+              background:#ff00ff;
+          }
+        #error{
+            background-color:rgba(7, 6, 6, 0.60);
+            color:red;
+            font-size:24px;
+            width:auto;
+            border:red 1px solid;
+        }
+    </style>    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#backimg").mouseenter(function () {
+                $("#backimg").attr("src", "../Images/people-login-back_2.png");
+            });
+            $("#backimg").mouseout(function () {
+                $("#backimg").attr("src", "../Images/people-login-back_1.png");
+            });
+        })
+    </script>
+</head>
+<body>
+    <form action="makeLogin" method="post">
+        <div id="content">
+            <div id="back">
+                <a href="Register" style="text-decoration:none;">
+                    <img style=" vertical-align: middle;" src="../Images/people-login-back_1.png" id="backimg" />
+                </a>
+                注册
+            </div>
+            <div id="error">
+                <img style="width:24px;height:24px" src="~/Images/people-error.png" />
+                用户名或密码出错！
+            </div>
+            <div id="login">
+                <input type="text" id="username" name="username" class="ui-input" placeholder="用户名" /><br />
+                <input type="password"id="password" name="password" placeholder="密码" class="ui-input" /><br />
+                <input type="submit" id="password" name="password" value="登录" class="ui-button "/>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

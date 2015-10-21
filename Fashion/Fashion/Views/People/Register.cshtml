@@ -1,0 +1,136 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <script src="~/Scripts/jquery-2.0.0.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('../../Images/people-register-bg.png');
+            background-repeat: no-repeat;
+            background-color: #222222;
+            text-align: center;
+        }
+
+        #content {
+            width: 700px;
+            height: 360px;
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #back {
+            width: auto;
+            height: auto;
+            float: right;
+            font-family: 'Microsoft YaHei';
+            color: white;
+            font-size: 30px;
+            line-height: 360px;
+        }
+
+        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+            color: #e3e3e3;
+            font-family: 'Microsoft YaHei';
+            font-size: 24px;
+        }
+
+        input:-moz-placeholder, textarea:-moz-placeholder {
+            color: #e3e3e3;
+            font-family: 'Microsoft YaHei';
+            font-size: 24px;
+        }
+
+        input::-moz-placeholder, textarea::-moz-placeholder {
+            color: #e3e3e3;
+            font-family: 'Microsoft YaHei';
+            font-size: 24px;
+        }
+
+        input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+            color: #e3e3e3;
+            font-family: 'Microsoft YaHei';
+            font-size: 24px;
+        }
+
+        .ui-input {
+            padding-left: 15px;
+            width: 256px;
+            height: 50px;
+            margin-top: 30px;
+            border-radius: 10px;
+            line-height: 50px;
+            margin-right: 200px;
+            color: #fff;
+            font-family: 'Microsoft YaHei';
+            font-size: 24px;
+            border: none;
+            background: rgba(255, 255, 255, 0.54);
+        }
+
+        .ui-button {
+            width: 270px;
+            height: 60px;
+            margin-top: 50px;
+            margin-right: 200px;
+            border-radius: 10px;
+            line-height: 50px;
+            color: #fff;
+            font-family: 'Microsoft YaHei';
+            font-size: 24px;
+            border: none;
+            background: rgba(255, 0, 255, 0.54);
+        }
+
+            .ui-button:hover {
+                background: rgba(255, 0, 255, .8);
+            }
+
+            .ui-button:focus {
+                background: #ff00ff;
+            }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#nextimg").mouseenter(function () {
+                $("#nextimg").attr("src", "../Images/people-register-next_2.png");
+            });
+            $("#nextimg").mouseout(function () {
+                $("#nextimg").attr("src", "../Images/people-register-next_1.png");
+            });
+        })
+    </script>
+
+
+
+</head>
+<body>
+    <div id="content">
+        <div id="back">
+            登录
+            <a href="Login" style="text-decoration:none;">
+                <img id="nextimg" style=" vertical-align: middle;" src="../Images/people-register-next_1.png" ;name="next" />
+            </a>
+        </div>
+
+        <div id="login">
+            <input type="text" class="ui-input" placeholder="用户名" />
+            <br />
+            <input type="email" class="ui-input" placeholder="手机号或邮箱" />
+            <br />
+            <input type="password" class="ui-input" placeholder="密码（不少于6位）" />
+            <br />
+            <input type="submit" class="ui-button " value="注册" />
+        </div>
+
+    </div>
+</body>
+</html>
