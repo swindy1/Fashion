@@ -113,24 +113,26 @@
 
 </head>
 <body>
-    <div id="content">
-        <div id="back">
-            登录
-            <a href="Login" style="text-decoration:none;">
-                <img id="nextimg" style=" vertical-align: middle;" src="../Images/people-register-next_1.png" ;name="next" />
-            </a>
-        </div>
+    <form action="makeRegister" method="post">
+        <div id="content">
+            <div id="back">
+                登录
+                <a href="Login" style="text-decoration:none;">
+                    <img id="nextimg" style=" vertical-align: middle;" src="../Images/people-register-next_1.png" ;name="next" />
+                </a>
+            </div>
 
-        <div id="login">
-            <input type="text" class="ui-input" placeholder="用户名" />
-            <br />
-            <input type="email" class="ui-input" placeholder="手机号或邮箱" />
-            <br />
-            <input type="password" class="ui-input" placeholder="密码（不少于6位）" />
-            <br />
-            <input type="submit" class="ui-button " value="注册" />
-        </div>
+            <div id="login">
+                <input type="text" class="ui-input" placeholder="用户名" name="username" id="username" />
+                <br />
+                <input type="email" class="ui-input" placeholder="手机号或邮箱" />
+                <br />
+                <input type="password" class="ui-input" placeholder="密码（不少于6位）" name="password" id="password" />
+                <br />
+                <input type="submit" class="ui-button " value="注册" />
+            </div>
 
-    </div>
+        </div>
+    </form>
 </body>
 </html>

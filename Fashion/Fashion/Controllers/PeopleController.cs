@@ -21,6 +21,28 @@ namespace Fashion.Controllers
             
             return View();
         }
+        /// <summary>
+        /// 判断登录是否成功，登录成功则返回论坛首页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult makeLogin()
+        {
+            People_bll people = new People_bll();
+
+            string username = Request["username"];
+            string password = Request["password"];
+            bool login = people.LoginYes(username, password);
+            if (login)
+            {
+                return RedirectToAction("../Topic/Home");
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+
 
         public ActionResult Register()
         {
@@ -38,13 +60,32 @@ namespace Fashion.Controllers
         }
 
 
-
-
-        public ActionResult makeLogin()
+        /// <summary>
+        /// 实现注册功能，把数据保存到数据库
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult makeRegister()
         {
-            
-            return View();
-            
+            People_bll people = new People_bll();
+            string username = Request["username"];
+            string password = Request["password"];
+            if (people.Register(username, password, "普通用户") == 0)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View();
+            }
+
         }
+
+
+       
+
+
+
+
+     
     }
 }
