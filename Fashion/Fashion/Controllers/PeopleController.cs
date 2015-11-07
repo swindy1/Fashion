@@ -18,7 +18,7 @@ namespace Fashion.Controllers
         }
         public ActionResult Login()
         {
-            
+
             return View();
         }
         /// <summary>
@@ -27,6 +27,7 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult makeLogin()
         {
+
             People_bll people = new People_bll();
 
             string username = Request["username"];
@@ -34,14 +35,34 @@ namespace Fashion.Controllers
             bool login = people.LoginYes(username, password);
             if (login)
             {
-                return RedirectToAction("../Topic/Home");
+                //登录成功之后，保存用户的用户名，权限等资料到session
+                Session["userName"] = username;
+                Session["rank"] = "rank";
+                return RedirectToAction("Home", "Topic");
             }
             else
             {
                 return RedirectToAction("Login");
             }
+            
         }
 
+
+
+        /// <summary>
+        // 测试用的
+        /// </summary>
+        /// <returns></returns>
+        
+        public ActionResult ajax()
+        {
+            
+//            return JavaScript("window.location.href = '../Topic/Answer'");
+            
+            return View();
+            //return RedirectToAction("Answer","Home");
+            
+        }
 
 
         public ActionResult Register()

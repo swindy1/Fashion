@@ -24,9 +24,15 @@ namespace Fashion
 
             
            // SqlHelper.executeNonquery("select LoginId from Login where LoginId=@LoginId and Password=@Password",new SqlParameter[] {});
-           
-            
 
+
+            string salt = "90d9862b-0788-4cab-a";
+            byte[] pwdAndSaltBytes = System.Text.Encoding.UTF8.GetBytes("222" + salt);
+            byte[] hashBytes = new System.Security.Cryptography.SHA256Managed().ComputeHash(pwdAndSaltBytes);
+            //string hashPassword = hashBytes.ToString();
+            string hashPassword = Convert.ToBase64String(hashBytes);
+            pwd.Text = hashPassword;
+            TextBox1.Text = salt;
             
 
         }

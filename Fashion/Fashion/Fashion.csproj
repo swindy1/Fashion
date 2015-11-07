@@ -128,6 +128,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Code\BLL\People_bll.cs" />
     <Compile Include="Code\BLL\User_bll.cs" />
+    <Compile Include="Code\DAL\Post_dal.cs" />
     <Compile Include="Code\DAL\Rank_dal.cs" />
     <Compile Include="Code\DAL\SqlHelper.cs" />
     <Compile Include="Code\DAL\User_dal.cs" />
@@ -136,9 +137,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Post_model.cs" />
     <Compile Include="Models\Rank_model.cs" />
     <Compile Include="Models\User_model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\People\test.ashx.cs">
+      <DependentUpon>test.ashx</DependentUpon>
+    </Compile>
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -205,6 +210,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HtmlPage1.html" />
     <Content Include="Images\people-error.png" />
     <Content Include="Images\people-login-back_1.png" />
     <Content Include="Images\people-login-back_2.png" />
@@ -241,7 +247,9 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -252,7 +260,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Topic\Index.cshtml" />
     <Content Include="Views\Topic\Answer.cshtml" />
     <Content Include="Views\Topic\Post.cshtml" />
     <Content Include="Views\People\Register.cshtml" />
@@ -260,6 +267,10 @@
     <Content Include="Views\Topic\Home.cshtml" />
     <Content Include="Views\People\makeLogin.cshtml" />
     <Content Include="Views\Topic\fabu.cshtml" />
+    <Content Include="Views\People\test.ashx" />
+    <Content Include="Views\People\ajax.cshtml" />
+    <Content Include="Views\Topic\Index2.cshtml" />
+    <Content Include="Views\People\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

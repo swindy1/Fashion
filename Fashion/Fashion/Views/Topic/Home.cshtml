@@ -4,6 +4,18 @@
 }
 
 <script src="~/Scripts/jquery-2.0.0.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {        
+        if ($("#loginYes").val() == "1") {
+            $("#MySetting").css("display","");
+        }
+        else {
+            $("#MySetting").css("display", "none");
+        }
+    });
+</script>
+
+
   <div id="TheContent">
       <div id="TheContentLeft" style="display:inline-block; width: 60%;  margin-left: 8%;">
           <div id="TheContentLeft-head" style="height:30px;width:100%;margin-top:20px;">
@@ -14,6 +26,7 @@
                   <div style="width:100px;float:left;">
                       最新动态
                   </div>
+                  
                   <div style="float:right;margin-right:10px;font-size:18px;">
                       设置
                   </div>
@@ -44,8 +57,10 @@
                        饰品
                    </div>
                    
+                  
                    <div style="color:#0d1aa4;margin-left:1px;font-size:15px;font-weight:bold">
-                       应该如何佩戴首饰？
+                       <a href="answer" target="_blank" style="text-decoration: none; color: #0d1aa4;" onmousemove="this.style.textDecoration = 'underline';" onmouseout="    this.style.textDecoration = 'none';">应该如何佩戴首饰？</a>
+                       
                    </div>
                    <div style="color:#5410b6;font-size:14px;font-weight:bold;font-family:Calibri;">
                        simple，在旅程中，谁都可以蜕变
@@ -86,32 +101,38 @@
     <div style="display:inline-block;vertical-align:top; width: 20%;  margin-left:50px;" id="TheContentRight">
 
         <div style="height:100px;margin-top:70px;color:#808080;">
-            <hr style="border: none; border-top: 1px solid #f8cfcf; height: 0px;" />
-            <div style="height:20px;margin-bottom:5px;">
-                <div style="float:left;">
-                    <img style="width:18px;" src="~/Images/Topic-Home-caoGao.png" />
-                </div>
-                <div style="float:left;margin-left:3px;">
-                    我的草稿
-                </div>
+            <div title="可点击进行时尚资讯" style="height:33px;width:140px;margin-left:10px;margin-top:0px;box-shadow:1px 1px 3px #aa9e9e;border-radius:5px 5px;text-align:center;padding-top:6px;background-color:aliceblue;margin-bottom:25px;">
+                <a href="" style="text-decoration:none;font-size:16px;" >点击成为时尚达人</a>
+                
             </div>
-            <div style="height: 20px; margin-bottom: 5px;">
-                <div style="float:left;">
-                    <img style="width:18px;" src="~/Images/Topic-Home-souCang.png" />
+            <div id="MySetting">
+                <hr style="border: none; border-top: 1px solid #f8cfcf; height: 0px;" />
+                <div style="height:20px;margin-bottom:5px;">
+                    <div style="float:left;">
+                        <img style="width:18px;" src="~/Images/Topic-Home-caoGao.png" />
+                    </div>
+                    <div style="float:left;margin-left:3px;">
+                        我的草稿
+                    </div>
                 </div>
-                <div style="float: left; margin-left: 3px;">
-                    我的收藏
+                <div style="height: 20px; margin-bottom: 5px;">
+                    <div style="float:left;">
+                        <img style="width:18px;" src="~/Images/Topic-Home-souCang.png" />
+                    </div>
+                    <div style="float: left; margin-left: 3px;">
+                        我的收藏
+                    </div>
                 </div>
+                <div style="height: 20px; margin-bottom: 5px;">
+                    <div style="float:left;">
+                        <img style="width:18px;" src="~/Images/Topic-Home-guanZhu.png" />
+                    </div>
+                    <div style="float: left; margin-left: 3px;">
+                        我关注的问题
+                    </div>
+                </div>
+                <hr style="border: none; border-top: 1px solid #f8cfcf;">
             </div>
-            <div style="height: 20px; margin-bottom: 5px;">
-                <div style="float:left;">
-                    <img style="width:18px;" src="~/Images/Topic-Home-guanZhu.png" />
-                </div>
-                <div style="float: left; margin-left: 3px;">
-                    我关注的问题
-                </div>
-            </div>
-            <hr style="border: none; border-top: 1px solid #f8cfcf;">
         </div>
     </div>
 </div>

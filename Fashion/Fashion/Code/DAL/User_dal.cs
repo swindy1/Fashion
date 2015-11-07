@@ -10,36 +10,67 @@ namespace Fashion.Code.DAL
     public class User_dal
     {
 
+
+        /// <summary>
+        /// 通过用户名查询数据库里该用户的条数
+        /// </summary>
+        /// <param name="userName">用户名</param>       
+        /// <returns></returns>
+        public object getAccountCount(string userName)
+        {
+            string sqlStr = "select count(*) from [user] where userName=@userName";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.executeScalar(sqlStr, parameters);
+        }
+
        /// <summary>
        /// 获取用户的密码
        /// </summary>
-       /// <param name="userId">用户的账号</param>
+        /// <param name="userName">用户的账号</param>
        /// <returns></returns>
-        public object getPassword(string userId)
+        public object getPassword(string userName)
         {
-            string sqlStr = "select [password] from [User] where userId=@userId";
+            string sqlStr = "select [password] from [User] where userName=@userName";
             SqlParameter[] parameters = new SqlParameter[]{
-                new SqlParameter("@userId",userId)
+                new SqlParameter("@userName",userName)
             };
             return SqlHelper.executeScalar(sqlStr, parameters);
         }
 
         /// <summary>
-        /// 查询数据库里的账号数，
-        /// 通过用户名和密码，查询数据库是否有该用户
+        /// 通过用户名查询该用户的盐值，返回类型为object
         /// </summary>
         /// <param name="userName">用户名</param>
-        /// <param name="password">密码</param>
         /// <returns></returns>
-        public object getAccountCount(string userName, string password)
+        public object getSalt(string userName)
         {
-            string sqlStr = "select count(*) from [user] where userName=@userName and [password]=@password";
-            SqlParameter[] parameters = new SqlParameter[] { 
-                new SqlParameter("@userName",userName),
-                new SqlParameter("@password",password)
+            string sqlStr = "select salt from [user] where userName=@userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
             };
-            return SqlHelper.executeScalar(sqlStr,parameters);
+            return SqlHelper.executeScalar(sqlStr, parameters);
         }
+
+        /// <summary>
+        /// 通过用户名获取该用户的密码和盐值
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public DataTable getPwdAndSalt(string userName)
+        {
+            string sqlStr = "select [password],[salt] from [user] where userName=@userName";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.executeDataTable(sqlStr,parameters);
+        }
+
+
+        
+
+       
 
 
 
@@ -47,15 +78,17 @@ namespace Fashion.Code.DAL
         /// 用户注册，注册成功返回1
         /// </summary>
         /// <param name="userName">用户名</param>
+        /// <param name="salt">盐值</param>
         /// <param name="password">密码</param>
         /// <param name="rankId">等级编号</param>
         /// <returns></returns>
-        public int InsertRegister(string userName,string password,string rankId)
+        public int InsertRegister(string userName,string salt,string password,string rankId)
         {
 
-            string sqlStr = "insert into [user] (userName,[password],rankId) values (@userName,@password,@rankId)";
+            string sqlStr = "insert into [user] (userName,salt,[password],rankId) values (@userName,@salt,@password,@rankId)";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("userName",userName),
+                new SqlParameter("@salt",salt),
                 new SqlParameter("password",password),
                 new SqlParameter("rankId",rankId)
             };

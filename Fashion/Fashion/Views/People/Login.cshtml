@@ -24,7 +24,7 @@
             margin-top:50px;
             margin-left:auto;
             margin-right:auto;
-            border:red 1px solid;
+            
             
         }
         #back{
@@ -105,10 +105,24 @@
                 $("#backimg").attr("src", "../Images/people-login-back_1.png");
             });
         })
+        function ajax()
+        {
+            $.ajax({
+                url: "ajax",
+                type:"post",
+                success: function (data) {
+                    alert(data);
+                }
+            });
+            //ajax("People/ajax", function (data) {
+            //    alert(data);
+            //});
+            //alert();
+        }
     </script>
 </head>
-<body>
-    <form action="makeLogin" method="post">
+<body style="height:800px;">
+    <form action="makeLogin" >
         <div id="content">
             <div id="back">
                 <a href="Register" style="text-decoration:none;">
@@ -116,14 +130,15 @@
                 </a>
                 注册
             </div>
-            <div id="error">
+            <div id="error" style="display:none;">
                 <img style="width:24px;height:24px" src="~/Images/people-error.png" />
                 用户名或密码出错！
             </div>
             <div id="login">
                 <input type="text" id="username" name="username" class="ui-input" placeholder="用户名" /><br />
-                <input type="password"id="password" name="password" placeholder="密码" class="ui-input" /><br />
+                <input type="password" id="password" name="password" placeholder="密码" class="ui-input" /><br />
                 <input type="submit" id="Login" name="Login" value="登录" class="ui-button " />
+                @*<input type="button" id="dd" value="ajax" onclick="ajax();" />*@
             </div>
         </div>
     </form>

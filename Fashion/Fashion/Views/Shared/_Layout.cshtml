@@ -15,10 +15,11 @@
             padding: 0px;
             margin: 0px;
         }
+       
         /*导航栏*/
         .nav {
             height: 10%;
-            width: 70%;
+            width: 80%;
             /*position: fixed;
             top: 9%;
             left: 9%;*/
@@ -84,9 +85,10 @@
             margin-top: 8px;   
             left: 14%;
             position: relative;
-            z-index:-1;
+            
             
         }
+      
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -101,7 +103,9 @@
                 $("#iconOut").css("display", "none");
                 $("#theRightBar").css("display", "none");
             });
-
+            $("#consult").click(function () {
+                window.location.href = "Post";
+            });
             $("#iconIn").click(function () {
                 //$("#TheContent").animate({ right: "100px" }, "slow");
                 $("#theContainer").css("left", "14%");
@@ -110,16 +114,22 @@
                 $("#iconOut").css("display", "");
                 $("#theRightBar").css("display", "");
             });
+            $("#ask").click(function () {
+                window.location.href = "Post";
+            });
+
         });
     </script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+
+<body style="background-color: #f6f6f6; ">
     
     
       
-        <div class="nav " id="nav" >
+        <div class="nav " id="nav"  >
+           
             <div style="font-family:MingLiU; font-size:33px;font-weight:bold; width:140px;margin-left:80px;margin-top:10px;float:left;margin-right:80px;">
                 时尚达人
             </div>
@@ -144,14 +154,18 @@
                 </a>
 
             </div>
-            <div id="search" class="nav-tag" style="width:200px;margin-left:28px;margin-top:18px;">
+            <div id="search" class="nav-tag" style="width: 200px; margin-left: 28px; margin-top: 18px; margin-right: 0px;">
                 <input  type="text" style="height:30px;border-radius:15px;padding-left:10px;"  placeholder="Search"/>
+            </div>
+            <div id="ask" class="nav-tag" style="width:30px;margin-left:0px;margin-top:18px;">
+                <input type="button" style="height:33px;border-radius:5px;padding-left:10px;font-size:20px;text-align:center;color:#1586a3;" value="提问"  />
             </div>
         </div>
     
     <div style="width:100%;height:2px;margin-top:10px;">
         <hr style="border:none;border-top:1px solid #c4bfbf;" />
     </div>
+   
     <div class="theRightBar " id="TheRightBar">
     </div>
     <div id="iconOut"  style="position:fixed;right:0px;top:0px;">
@@ -196,6 +210,31 @@
     </div>
    
     
+    <input type="hidden" value="@ViewData["LoginYes"]" id="loginYes" />
+    <div id="userName" style="width: 100px; position: absolute; top: 8px; left: 10px; color: #8cc152;">
+        用户名：<span style="">@ViewData["userName"]</span>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if ($("#loginYes").val() == 1) {
+                $("#userName").css("display", "");
+                
+            }
+
+            else {
+                $("#userName").css("display", "none");
+                
+            }
+
+
+        });
+    </script>
+
+
+
+
+
     <div id="theContainer" class="theContainer">
         @RenderBody()
     </div>
@@ -204,5 +243,7 @@
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
+
+    
 </body>
 </html>

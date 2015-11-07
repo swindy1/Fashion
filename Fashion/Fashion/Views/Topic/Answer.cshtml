@@ -2,3 +2,25 @@
     ViewBag.Title = "Answer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+
+
+<div id="div1">
+
+</div>
+
+
+
+
+<script type="text/javascript">
+    $.ajax({
+        url: "AjaxAnswer",
+        type: "post",
+        success: function (data) {
+            
+            $("#div1").text(data);
+        }
+
+    })
+</script>

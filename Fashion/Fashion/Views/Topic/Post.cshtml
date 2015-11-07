@@ -2,400 +2,343 @@
     ViewBag.Title = "Post";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="~/Scripts/jquery-1.4.2.js"></script>
-<script type="text/javascript">
-    function answer(x){                        //切换问题模块
-        var y = document.getElementById(x).value;
-        if (y == "发型") {
-            document.getElementById("hair").style.display = "block";
-            document.getElementById("collocation").style.display = "none";
-            document.getElementById("Answer").style.display = "none";
-            document.getElementById("popular").style.display = "none";
 
+<head>
+
+    <link href="~/Content/themes/default.css" rel="stylesheet" />  <!--编辑器引用-->
+    <script charset="utf-8" src="~/Scripts/kindeditor-min.js"></script>
+    <script charset="utf-8" src="~/Scripts/zh_CN.js"></script>
+    <script src="~/Scripts/media.js"></script>
+    <script src="~/Scripts/link.js"></script>
+    <script src="~/Scripts/image.js"></script>
+    <script src="~/Scripts/flash.js"></script>
+    <script src="~/Scripts/emoticons.js"></script>
+    <script src="~/Scripts/jquery-1.11.0.min.js"></script>
+    <style>
+        body {
+            background-image: url(../Images/Topic-Post-congruent_pentagon.png);
         }
-        
-        else if (y == "流行") {
-            document.getElementById("hair").style.display = "none";
-            document.getElementById("collocation").style.display = "none";
-            document.getElementById("Answer").style.display = "none";
-            document.getElementById("popular").style.display = "block";
-            
+
+        #left {
+            float: left;
+            padding-top: 30px;
+            width:57%;
+            height:450px;
+           // width: 570px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
         }
-        else if (y == "搭配") {
-            document.getElementById("hair").style.display = "none";
-            document.getElementById("collocation").style.display = "block";
-            document.getElementById("Answer").style.display = "none";
-            document.getElementById("popular").style.display = "none";
 
+        #title {
+            width: 500px;
+            height: 40px;
+            background-color: #0094ff;
+            border-radius: 4px;
+            margin-left: 25px;
         }
-        else {
-            document.getElementById("hair").style.display = "none";
-            document.getElementById("collocation").style.display = "none";
-            document.getElementById("Answer").style.display = "block";
-            document.getElementById("popular").style.display = "none";
 
-        }            
-    }
+        #title_word {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: bold;
+            padding-left: 15px;
+            padding-top: 8px;
+        }
 
-    </script>
-<script type="text/javascript">                        //图片上传功能
-    function CheckImg(fileUpload) {
-        var imags = document.getElementsByTagName("img");
-        for (i = 0; i < imags.length; i++) {
-            if (imags[i].name == 'imagePhoto') {
-                imags[i].src = fileUpload.value;
+        #form {
+            padding-left: 30px;
+        }
+
+        #form_one {
+            padding: 15px 0px 5px 0px;
+        }
+
+        #user_search {
+            width: 470px;
+            height: 30px;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid #9D9D9D;
+            padding-left: 10px;
+        }
+
+        .ke-container.ke-container-default {
+            width: 485px !important;
+            //编译器宽度;
+        }
+
+        .content {
+            height: 70px;
+            visibility: hidden;
+        }
+
+        p.p1 {
+            float: left;
+        }
+
+        p.p2 {
+            float: right;
+            color: #ADADAD;
+            padding-right: 30px;
+        }
+
+        #huati {
+            width: 500px;
+            height: 30px;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid #9D9D9D;
+            padding-left: 5px;
+        }
+
+        #niming {
+            padding-top: 10px;
+        }
+
+        #tijiao {
+            float: right;
+            margin-right:25px;
+        }
+
+        .submit {
+            height: 35px;
+            width: 50px;
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        #fenge {
+            padding: 0px 10px 0px 10px;
+            float: left;
+        }
+
+        #fengexian {
+            background-color: #5B5B5B;
+            width: 2px;
+            height: 475px;
+        }
+
+        .Answer {
+            display: none;
+            width: 350px;
+           // width:90%;
+            height: 450px;
+            float: left;
+            padding-top: 30px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .question {
+            padding-left: 45px;
+            color: #3C3C3C;
+            text-decoration: none;
+        }
+
+        .xian {
+            height: 1px;
+            width: 260px;
+            border: none;
+            border-top: 1px solid #D0D0D0;
+        }
+
+        .xiangguan {
+            padding: 10px 0px 0px 100px;
+            color: #808080;
+        }
+    </style>
+    <script type="text/javascript" >
+                                                         //提交和清除键颜色的切换
+        $(document).ready(function () {
+            $("input#qingchu").mouseover(function () {
+                $("input#qingchu").css("background-color", "#0094ff");
+                $("input#submit").css("background-color", "#7dcaf6");
+            })
+            $("input#qingchu").mouseout(function () {
+                $("input#qingchu").css("background-color", "#7dcaf6")
+                $("input#submit").css("background-color", "#0094ff");
+            })
+        })
+        </script>
+
+        <script type="text/javascript">
+
+        function answer(x) {                        //右边切换模块
+            var y = document.getElementById(x).value;
+            if (y.length == 0) {
+                document.getElementById("hair").style.display = "none";
+                document.getElementById("wu").style.display = "none";
+                document.getElementById("zhu").style.display = "block";
+            }
+            else if (y == "发型") {
+                document.getElementById("hair").style.display = "block";
+                document.getElementById("wu").style.display = "none";
+                document.getElementById("zhu").style.display = "none";
+            }
+            else {
+                document.getElementById("wu").style.display = "block";
+                document.getElementById("hair").style.display = "none";
+                document.getElementById("zhu").style.display = "none";
             }
         }
-    }
 
-</script>
+        
 
-<style>
-    #theContainer {
-        background-image: url(../../Images/Topic-Post-bg-image.jpg);
-        background-position: 50% 50%;
-        background-repeat: repeat;
-        background-size: inherit;
-        margin-left: -100px;
-        width: 1500px;
-        height: 550px;
-        position: absolute;
-    }
 
-    #theMain {
-        background-color: white;
-        height: 450px;
-        width: 68%;
-        position: absolute;
-        margin: 40px 8.5%;
-    }
+        function del() {                        //提交按钮
+            if (confirm("确实要提交吗？"))
+                alert("已经提交！")
+            else
+                alert("已经取消了提交操作");
+        }
 
-    .Question {
-        height: 380px;
-        width: 400px;
-        margin-left: 80px;
-        margin-top: 30px;
-        float: left;
-    }
+        var editor;                               //编辑器
+        KindEditor.ready(function (K) {
+            editor = K.create('textarea[name="content"]', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'flash', 'media', 'link']
+            });
+        });
 
-    .b { /*画框*/
-        border: 1px solid red;
-    }
 
-    .question {
-        height: 40px;
-        width: 260px;
-        border-radius: 20px;
-        border: 1px solid white;
-        padding-left: 15px;
-        background-color:#f5f2f2;
-    }
-
-    .editor {
-        border: 1px solid white;
-        border-radius: 20px;
-        height: 100px;
-        width: 255px;
-        background-color: #f5f2f2;
-        padding: 6px 10px;
-        margin-top: 7px;
-    }
+    </script>
 
     
-    .Answer {
-        width: 350px;
-        height: 350px;
-        margin-right: 60px;
-        margin-top: 57px;
-        overflow: auto;
-        float: right;
-    }
-
-    .bb {
-        border: 1px solid red;
-    }
-    .huida {
-        color: gray;
-        font-size: 12px;
-        float: left;
-        text-decoration: none;
-        margin-left: 20px;
-        margin-top:2px;
-    }
-    .wenti {
-        float: left;
-        text-decoration: none;
-        color: black;
-        font-size:14px;
-    }
-    /* 超链接的样式 */
+</head>
+<body>
     
-    a:hover {
-        text-decoration: underline;
-    }
-
-</style>
-<div id="theContainer">
-    <div id="theMain">
-        <div>
-            <form id="Question" class="Question">
-                <div style="font-size:20px;">提出问题</div>
-                <hr />
-                <div style="width:400px;height:30px;margin-top:25px;">
-                    <input type="text" style="float:right;margin-right:45px;" placeholder="您的问题" id="text1" class="question" onkeyup="answer(this.id)" />
-                    <div style="float: right;margin-top:4px; ">问题：</div>
+        <div id="left">
+            <div id="title">
+                <div id="title_word">
+                    我想咨询
                 </div>
-                <div style="margin-top: 15px;">
-                    <textarea id="textbox" name="content" class="editor" placeholder="问题背景等相关信息" style="float: right; margin-right: 45px;"></textarea>
-                    <div style="float: right; margin-top: 12px;">详细内容：</div>
-                </div>
-                <div style="float: right; margin-right: 120px;width:200px;height:30px;margin-top:5px;">
-                    <input id="ImagePath" type="file" onchange="CheckImg(this)" style="border-radius: 8px; margin-top: 3px; background-color: #f5f2f2;width:273px;" />
-                </div>
-                <div style="width: 272px; height: auto; float: right; margin-right: 40px; margin-top: 15px;">
-                    <input type="checkbox" />流行&nbsp;&nbsp;
-                    <input type="checkbox" />男生&nbsp;&nbsp;
-                    <input type="checkbox" />女生&nbsp;&nbsp;
-                    <input type="checkbox" />风格&nbsp;&nbsp;
-                    <br />
-                    <input type="checkbox" />首饰&nbsp;&nbsp;
-                    <input type="checkbox" />时装&nbsp;&nbsp;
-                    <input type="checkbox" />街拍&nbsp;&nbsp;
-                    <input type="checkbox" />技巧&nbsp;&nbsp;
-                </div>
-                <div style="width: auto; height: 20px; float: right; margin-top: 5px;">分类：</div>
-                <div style="float:right;margin-top:30px;">
-                    <input type="submit" onclick="window.open('fabu')" value="发布" style="float:right;margin-right:20px;margin-right:55px;">
-                    <input type=reset value=清空 style="float:right;margin-right:20px;">
-
-                    <div style="float: right; width: 80px; height: 20px;margin-right:100px;">
-                        <input type="checkbox" />匿名
+            </div>
+            <form action="Answer">
+                <div id="form">
+                    <div id="form_one">
+                        <input type="text" placeholder="写下你的问题" id="user_search" class="question" onchange="answer(this.id)" />
                     </div>
-                </div>
+                    <div>
+                        <div style=" float:left ;"><p>问题说明（可选）：</p></div>
+                    </div>
+                    <div>
+                        <textarea name="content" id="content" placeholder="问题背景、条件等详细信息"></textarea>
+                    </div>
+                    <div>
+                        <p class="p1">选择话题：</p>
+                        <p class="p2">话题越精准，越容易让相关领域专业人士看到你的问题</p>
+                    </div>
+                <!--  
+                    复选框风格
+                     
+                     <div style="float:left; width:100%; padding:0px 0px 5px 80px;">
+                        <div style="float:left ;width:60px;">
+                            <input type="checkbox"/>流行
+                        </div>
+                        <div style="float:left ;width:60px;">
+                            <input type="checkbox" />男生
+                        </div>
+                        <div style="float:left ;width:60px;">
+                            <input type="checkbox" />女生
+                        </div>
+                        <div style="float:left ;width:60px;">
+                            <input type="checkbox" />风格
+                        </div>
+                    </div>
+                    <div style="float:left; width:100%; padding:0px 0px 20px 80px;">
+                        <div style="float:left ;width:60px;">
+                            <input type="checkbox" />首饰
+                        </div>
+                        <div style="float:left ;width:60px;">
+                            <input type="checkbox" />时装
+                        </div>
+                        <div style="float:left ;width:60px;">
+                            <input type="checkbox" />街拍
+                        </div>
+                        <div style="float:left ;width:60px;">
+                            <input type="checkbox" />技巧
+                        </div>
+                    </div>
+                    -->
+
+                    <!-- 下拉列表风格-->
+                    <div style="float:left; width:100%; padding:0px 0px 15px 0px;">
+                        <select name="cars" style="width: 480px; height: 30px; border-radius: 4px;">  
+                            <option value="流行">流行</option>
+                            <option value="女生">女生</option>
+                            <option value="男生">男生</option>
+                            <option value="风格">风格</option>
+                            <option value="首饰">首饰</option>
+                            <option value="时装">时装</option>
+                            <option value="街拍">街拍</option>
+                            <option value="技巧">技巧</option>
+                        </select>
+                        </div>
+                        <br />
+                        <div id="niming" style="float:left;">
+                            <input type="checkbox" />匿名
+                        </div>
+                        <div id="tijiao">
+                            <input id="qingchu" class="submit" type="reset" value="清除" style="border: 1px solid #7dcaf6; background-color: #7dcaf6; " />
+                            
+                            <input type="submit" id="submit" value="提交" style="border: 1px solid #0094ff;
+            background-color: #0094ff;" class="submit" />
+                            
+                        </div>
+                    </div>
             </form>
         </div>
-        <div id="Answer" class="Answer" style="display:block;font-size:15px;">    <!--问题模块初始界面-->
-            <p>
-                时尚达人网欢迎您的提问。
-                <br />
-                如若您的问题已被提出，请不要重复发布，以免造成信息重复。
-                <br />
-                您的支持是我们最大的动力！时尚达人将尽快为您解答。
-            </p>
-        </div>
+        <div style=" float:left ;">
+            <div id="fenge">
+                <div id="fengexian"></div>
+            </div>
 
+            <div id="hair" class="Answer">
+                <div class="xiangguan">
+                    您的问题可能已经有答案
+                </div>
+                <hr class="xian" />
+                <a href="http://www.yoka.com/dna/195/997/index.html" class="question">发型很重要么？</a>
+                <hr class="xian" />
+                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跪求发型。？</a>
+                <hr class="xian" />
+                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">关于发型？</a>
+                <hr class="xian" />
+                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">男士发型？</a>
+                <hr class="xian" />
+                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跛co发型？</a>
+                <hr class="xian" />
+                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跪求发型？</a>
+                <hr class="xian" />
+                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">求发型简单好打理的发型推荐？</a>
+                <hr class="xian" />
+                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">最近发型被各种人吐槽，求换发型？</a>
+                <hr class="xian" />
+                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">脸大适合什么发型？</a>
+                <hr class="xian" />
+            </div>
 
-        <div id="hair" class="Answer" style="display:none;padding-right:20px;">  <!--发型div-->
-            <hr />
-            <div style="width: 300px; height: 15px; padding-left: 5px;">
-                <div style="float:left;color:gray;">您的问题可能已经有答案</div>
+            <div id="wu" class="Answer">
+                <div class="xiangguan">
+                    目前还没有相似的问题
+                </div>
+                <hr class="xian" />
             </div>
-            <hr />
 
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行短发</a>
-                <a href="" class="huida">有4个回答</a>
+         <div id="zhu" class="Answer" style="display:block;">
+                    <p class="question">时尚达人网欢迎您的提问。</p>
+                    <p class="question">若您的问题已曾被提出，</p>
+                    <p class="question">请不要发布，以免造成信息重复。</p>
+                    <p class="question">您的支持是我们最大的动力！</p>
+                    <p class="question">时尚达人将尽快为您解答。</p>
             </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">流行发型</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">本人脸偏大，适合什么发型？</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">适合大脸的短发发型</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">跪求适合本人的发型</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">短发适合穿什么衣服？</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行短发</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行短发</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-
 
         </div>
-
-        <div id="popular" class="Answer" style="display:none;">          <!--流行div-->
-            <hr />
-            <div style="width: 300px; height: 15px; padding-left: 5px;">
-                <div style="float:left;color:gray;">您的问题可能已经有答案</div>
-            </div>
-            <hr />
-
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行短发</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">现在流行什么发型</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">今年流行的颜色搭配</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">2015流行趋势</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行短发</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">最新流行</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-
-
-
-
-
-
-
-        </div>
-        <div id="collocation" class="Answer" style="display:none;">           <!--搭配div-->
-            <hr />
-            <div style="width: 300px; height: 15px; padding-left: 5px;">
-                <div style="float:left;color:gray;">您的问题可能已经有答案</div>
-            </div>
-            <hr />
-
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">夏季最流行搭配</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">红色马丁靴能搭配什么裤子？</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">秋冬搭配</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">短靴搭配什么裙子好看</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">灰色长靴可以搭什么衣服？</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">夏季最流行搭配</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">红色马丁靴能搭配什么裤子？</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">秋冬搭配</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">夏季最流行搭配</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">红色马丁靴能搭配什么裤子？</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-            <div style="width:300px;height:15px;padding-left:5px;">
-                <a href="" class="wenti">秋冬搭配</a>
-                <a href="" class="huida">有4个回答</a>
-            </div>
-            <hr />
-        </div>
-        </div>
-    </div>
-   
-   
+</body>

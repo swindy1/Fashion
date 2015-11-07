@@ -14,6 +14,7 @@ namespace Fashion.Models
         //用户名
         public string userName;
         public string password;
+        public string salt;
         public char sex;
         public int age;
         //手机号码

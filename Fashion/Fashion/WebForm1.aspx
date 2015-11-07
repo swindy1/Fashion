@@ -11,8 +11,11 @@
 </head>
 
 <body>
+    <form runat="server">
 <div style="height:300px;">
-
+    <asp:TextBox ID="pwd" runat="server" Width="400px"></asp:TextBox>
+   <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
 </div>
+        </form>
 </body>
 </html>
