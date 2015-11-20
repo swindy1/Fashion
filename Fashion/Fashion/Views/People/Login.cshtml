@@ -19,13 +19,11 @@
             text-align:center;
         }
         #content{
-            width:700px;
+            width:800px;
             height:360px;
             margin-top:50px;
             margin-left:auto;
             margin-right:auto;
-            
-            
         }
         #back{
             width:auto;
@@ -35,6 +33,15 @@
             color:white;
             font-size:30px;
             line-height:360px;
+        }
+        #visitor {
+            width: auto;
+            height: auto;
+            float: right;
+            font-family: 'Microsoft YaHei';
+            color: white;
+            font-size: 30px;
+            line-height: 360px;
         }
         input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
             color: #e3e3e3;
@@ -63,7 +70,7 @@
               margin-top:50px;
               border-radius: 10px; 
               line-height:50px;
-              margin-left:120px;
+              margin-left:15px;
               color: #fff;
               font-family:'Microsoft YaHei';
               font-size:24px;
@@ -74,7 +81,7 @@
               width:270px;
               height:60px;
               margin-top:50px;
-              margin-left:120px;
+              margin-left:15px;
               border-radius: 10px; 
               line-height:50px;
               color: #fff;
@@ -89,40 +96,123 @@
           .ui-button:focus{
               background:#ff00ff;
           }
-        #error{
+        .error{
             background-color:rgba(7, 6, 6, 0.60);
             color:red;
             font-size:24px;
             width:auto;
             border:red 1px solid;
+            display:none ;
         }
-    </style>    <script type="text/javascript">
-        $(document).ready(function () {
+    </style>    
+    <script type="text/javascript">
+        $(document).ready(function () {                  //点击换图片（箭头）
             $("#backimg").mouseenter(function () {
                 $("#backimg").attr("src", "../Images/people-login-back_2.png");
             });
             $("#backimg").mouseout(function () {
                 $("#backimg").attr("src", "../Images/people-login-back_1.png");
             });
-        })
-        function ajax()
-        {
-            $.ajax({
-                url: "ajax",
-                type:"post",
-                success: function (data) {
-                    alert(data);
-                }
+            $("#nextimg").mouseenter(function () {
+                $("#nextimg").attr("src", "../Images/people-register-next_2.png");
             });
-            //ajax("People/ajax", function (data) {
-            //    alert(data);
-            //});
-            //alert();
+            $("#nextimg").mouseout(function () {
+                $("#nextimg").attr("src", "../Images/people-register-next_1.png");
+            });
+        });
+
+        //
+        function check_name() {  
+            if ($("#username").val() != "") {
+                $.ajax({
+                url: "ajaxUserName",
+                data:{userName:$("#username").val()},
+                type: "post",
+                success: function (data) {
+                    if (data ==0)
+                    {
+                      document.getElementById("error_name").style.display = "block";//显示账号错误提示 
+                      document.getElementById("password").disabled = true;//禁止输入
+            }
+            }
+            });
+            }
+            
+
+
+            //var username = document.getElementById("username").value;
+            //if (username !== "" && username!="22222") {
+            //    document.getElementById("error_name").style.display = "block";//显示账号错误提示 
+            //    document.getElementById("password").disabled = true;//禁止输入
+            //   }
+        };
+
+
+
+
+
+
+        function check_pwd() {
+            if ($("#username").val() == "") {
+                $("#error_name").text("请输入用户名");
+                $("#error_name").css("display", "block");
+                return false;
+            }
+            if ($("#password").val() == "")
+            {
+                $("#error_pwd").text("请输入密码");
+                $("#error_pwd").css("display", "block");
+                return false;
+            }
+            if ($("#password").val() != "" && $("#username").val()!="")
+            {
+                $.ajax({
+                    url: "ajaxMakeLogin",
+                    data: { userName: $("#username").val(), password: $("#password").val() },
+                    type: "post",
+                    success: function (data) {
+                        if (data == "1") {
+                            window.location.href = "../Topic/Home";
+                        }
+                        else {
+                            $("#error_pwd").text("请输入正确的密码");
+                            $("#error_pwd").css("display", "block");//显示密码错误提示 
+                        }
+                    }
+                });
+            }
+            
+          
+            //var password = document.getElementById("password").value;
+            document.getElementById("#form1").sunmit();
+            //if (password == "2") {
+            //    document.getElementById("#form1").sunmit();
+            //} else {
+            //    document.getElementById("error_pwd").style.display = "block";//显示密码错误提示 
+            //}
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function hide_error() {
+            document.getElementById("error_pwd").style.display = "none";//隐藏密码错误提示 
+            document.getElementById("error_name").style.display = "none";//隐藏账号错误提示 
+            document.getElementById("password").disabled = false;//允许输入
         }
     </script>
 </head>
-<body style="height:800px;">
-    <form action="makeLogin" >
+<body>
+   
         <div id="content">
             <div id="back">
                 <a href="Register" style="text-decoration:none;">
@@ -130,17 +220,28 @@
                 </a>
                 注册
             </div>
-            <div id="error" style="display:none;">
-                <img style="width:24px;height:24px" src="~/Images/people-error.png" />
-                用户名或密码出错！
+            <div id="visitor">
+                游客
+                <a href="../Topic/Home" style="text-decoration:none;">
+                    <img style=" vertical-align: middle;" src="../Images/people-register-next_1.png" id="nextimg" />
+                </a>
             </div>
-            <div id="login">
-                <input type="text" id="username" name="username" class="ui-input" placeholder="用户名" /><br />
-                <input type="password" id="password" name="password" placeholder="密码" class="ui-input" /><br />
-                <input type="submit" id="Login" name="Login" value="登录" class="ui-button " />
-                @*<input type="button" id="dd" value="ajax" onclick="ajax();" />*@
+            <div id="error_name" class="error">
+                <img style="width:24px;height:24px;" src="~/Images/people-wrong.png" />
+                请检查用户名是否正确
             </div>
+            <div id="error_pwd" class="error">
+                <img style="width:24px;height:24px;" src="~/Images/people-wrong.png" />
+                请输入正确的密码
+            </div>
+            
+            
+                <div id="login">
+                    <input type="text" id="username" name="username" class="ui-input" placeholder="用户名" onfocus="hide_error()" onblur="check_name()" /><br />
+                    <input type="password" id="password" name="password" placeholder="密码" class="ui-input" onfocus="hide_error()"  /><br />
+                    <input type="button" id="login" name="login" value="登录" class="ui-button " onclick="check_name();check_pwd()" />
+                </div>
         </div>
-    </form>
+
 </body>
 </html>

@@ -24,7 +24,7 @@
             padding-top: 30px;
             width:57%;
             height:450px;
-           // width: 570px;
+            /*width: 570px;*/
             border-radius: 8px;
             background-color: rgba(255, 255, 255, 0.8);
         }
@@ -163,9 +163,10 @@
         })
         </script>
 
+
         <script type="text/javascript">
 
-        function answer(x) {                        //右边切换模块
+            function answer(x) {//右边切换模块
             var y = document.getElementById(x).value;
             if (y.length == 0) {
                 document.getElementById("hair").style.display = "none";
@@ -223,14 +224,15 @@
             <form action="Answer">
                 <div id="form">
                     <div id="form_one">
-                        <input type="text" placeholder="写下你的问题" id="user_search" class="question" onchange="answer(this.id)" />
+                        <input type="text" placeholder="写下你的问题" id="user_search" class="question" onchange="answer(this.id)" oninput="answer(this.id)" />
                     </div>
                     <div>
-                        <div style=" float:left ;"><p>问题说明（可选）：</p></div>
+                        <div style=" display:inline-block;"><p>问题说明（可选）：</p></div>
                     </div>
                     <div>
-                        <textarea name="content" id="content" placeholder="问题背景、条件等详细信息"></textarea>
+                        <textarea name="content" style="width:480px;height:100px;"  id="content" placeholder="问题背景、条件等详细信息"></textarea>
                     </div>
+                    
                     <div>
                         <p class="p1">选择话题：</p>
                         <p class="p2">话题越精准，越容易让相关领域专业人士看到你的问题</p>

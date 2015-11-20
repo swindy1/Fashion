@@ -25,7 +25,7 @@ namespace Fashion.Controllers
         /// 判断登录是否成功，登录成功则返回论坛首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult makeLogin()
+        public ActionResult ajaxMakeLogin()
         {
 
             People_bll people = new People_bll();
@@ -38,15 +38,33 @@ namespace Fashion.Controllers
                 //登录成功之后，保存用户的用户名，权限等资料到session
                 Session["userName"] = username;
                 Session["rank"] = "rank";
-                return RedirectToAction("Home", "Topic");
+
+                return Content("1");
             }
             else
             {
-                return RedirectToAction("Login");
+                return Content("0");
             }
             
         }
 
+        /// <summary>
+        /// 判断账号名是否存在
+        /// </summary>
+        /// <returns></returns>
+        
+        public ActionResult ajaxUserName()
+        {
+            string userName = Request["userName"].ToString();
+            People_bll people = new People_bll();
+            if (people.HavingUserName(userName) != 1)
+            {
+                return Content("0");
+            }
+            else
+                return Content("1");
+            
+        }
 
 
         /// <summary>

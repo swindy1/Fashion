@@ -133,6 +133,7 @@
     <Compile Include="Code\DAL\SqlHelper.cs" />
     <Compile Include="Code\DAL\User_dal.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
+    <Compile Include="Controllers\StreetSnapController.cs" />
     <Compile Include="Controllers\TopicController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -217,6 +218,8 @@
     <Content Include="Images\people-register-bg.png" />
     <Content Include="Images\people-register-next_1.png" />
     <Content Include="Images\people-register-next_2.png" />
+    <Content Include="Images\people-right.png" />
+    <Content Include="Images\people-wrong.png" />
     <Content Include="WebForm1.aspx" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Layout-iconIn.png" />
@@ -271,6 +274,7 @@
     <Content Include="Views\People\ajax.cshtml" />
     <Content Include="Views\Topic\Index2.cshtml" />
     <Content Include="Views\People\Index.cshtml" />
+    <Content Include="Views\StreetSnap\streetHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

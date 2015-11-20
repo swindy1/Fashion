@@ -12,6 +12,33 @@
         else {
             $("#MySetting").css("display", "none");
         }
+        $.ajax({
+            url: "AjaxHomeGetData",
+            type: "post",
+            success: function (data) {
+                alert(data);
+                var data1 = JSON.parse(data);
+                alert(data1[1]["name3"]);
+
+                //var jsonData1 = eval("("+data+")");
+                //alert(jsonData1.name);
+                //var jsonData2 = new Function("return" + data)();
+                //alert(jsonData2.name);
+
+                
+                
+                
+
+                //var value1 = { "name":1};
+                //var obj1 = eval(value1);
+                //alert(obj1.name);
+                
+                
+                
+
+                
+            }
+        });
     });
 </script>
 
@@ -101,8 +128,11 @@
     <div style="display:inline-block;vertical-align:top; width: 20%;  margin-left:50px;" id="TheContentRight">
 
         <div style="height:100px;margin-top:70px;color:#808080;">
-            <div title="可点击进行时尚资讯" style="height:33px;width:140px;margin-left:10px;margin-top:0px;box-shadow:1px 1px 3px #aa9e9e;border-radius:5px 5px;text-align:center;padding-top:6px;background-color:aliceblue;margin-bottom:25px;">
-                <a href="" style="text-decoration:none;font-size:16px;" >点击成为时尚达人</a>
+            <div id="ask" class="" style="margin-bottom:20px;margin-left:10px;">
+                <input type="button" style="height:33px;border-radius:5px;padding-left:10px;font-size:20px;text-align:center;color:#1586a3;" value="提问" />
+            </div>
+            <div title="可点击进行时尚资讯" style="height:33px;width:140px;margin-left:10px;margin-top:0px;box-shadow:1px 1px 3px #aa9e9e;border-radius:5px 5px;text-align:center;padding-top:6px;background-color:#d4cbcb;margin-bottom:25px;">
+                <a href="" style="text-decoration:none;font-size:16px;" >特点咨询</a>
                 
             </div>
             <div id="MySetting">

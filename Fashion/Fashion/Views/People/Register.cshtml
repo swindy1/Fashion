@@ -16,13 +16,12 @@
             background-image: url('../../Images/people-register-bg.png');
             background-repeat: no-repeat;
             background-color: #222222;
-            text-align: center;
         }
 
         #content {
             width: 700px;
             height: 360px;
-            margin-top: 50px;
+            margin-top: 100px; /*50改成80*/
             margin-left: auto;
             margin-right: auto;
         }
@@ -35,6 +34,7 @@
             color: white;
             font-size: 30px;
             line-height: 360px;
+            text-align: center;
         }
 
         input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
@@ -64,11 +64,10 @@
         .ui-input {
             padding-left: 15px;
             width: 256px;
-            height: 50px;
-            margin-top: 30px;
+            margin-bottom: 30px; /*改成下面留空*/
             border-radius: 10px;
             line-height: 50px;
-            margin-right: 200px;
+            float: left;
             color: #fff;
             font-family: 'Microsoft YaHei';
             font-size: 24px;
@@ -77,10 +76,9 @@
         }
 
         .ui-button {
-            width: 270px;
+            width: 271px;
             height: 60px;
-            margin-top: 50px;
-            margin-right: 200px;
+            margin-bottom: 30px;
             border-radius: 10px;
             line-height: 50px;
             color: #fff;
@@ -107,32 +105,132 @@
                 $("#nextimg").attr("src", "../Images/people-register-next_1.png");
             });
         })
+        function check_Nusername() {//检查数据库中的用户名,测试已有账号 1
+            var Nusername = document.getElementById("Nusername").value;
+            var nameTips = document.getElementById("nameTips");
+            if (Nusername == "") {
+                nameTips.innerHTML = "";
+                //nameTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>用户名不能为空</font>";
+                return false;
+            }
+            else
+            {
+                $.ajax({
+                    url: "ajaxUserName",
+                    data: { userName: $("#Nusername").val() },
+                    type: "post",
+                    success: function (data) {
+                        if (data == 1) {
+                            nameTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>该用户名已被注册</font>";
+                        } else {
+                            nameTips.innerHTML = "<img src='../Images/people-right.png' width='20' height='20' />" + "<font color='green'>可注册</font>";
+                        }
+                    }
+                });
+                //if (Nusername != "1") {
+                //    nameTips.innerHTML = "<img src='../Images/people-right.png' width='20' height='20' />" + "<font color='green'>可注册</font>";
+                //    return true;
+                //}
+                //else {
+                //    nameTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>该用户名已被注册</font>";
+                //    return false;
+                //}
+            }
+        }
+        function check_number() { //测试已用号码 1
+            var number = document.getElementById("number").value;
+            var numberTips = document.getElementById("numberTips");
+            if (number == "") {
+                numberTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>此项不能为空</font>";
+                return false;
+            }
+            else {
+                if (number != "1") {
+                    numberTips.innerHTML = "<img src='../Images/people-right.png' width='20' height='20' />" + "<font color='green'>可注册</font>";
+                    return true;
+                }
+                else {
+                    numberTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>该号码已被注册</font>";
+                    return false;
+                }
+            }
+        }
+        function check_Npassword() {
+            var Npassword = document.getElementById("Npassword").value;
+            var passTips = document.getElementById("passTips");
+            if (Npassword == "") {
+                passTips.innerHTML = "";
+                return false;
+            }
+            else {
+                if (Npassword.length >= 6) {
+                    passTips.innerHTML = "";
+                    return true;
+                }
+                else {
+                    passTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>密码至少6位</font>";
+                    return false;
+                }
+            }
+        }
+        function checkNull()
+        {
+            if ($("#Nusername").val() == "")
+            {
+                $("#nameTips").html("<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>用户名不能为空</font>");
+                return false;
+            }
+            if ($("#Npassword").val() == "")
+            {
+                $("#passTips").html("<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>密码不能为空</font>");
+                return false;
+            }
+            $("#form1").submit();
+
+        }
     </script>
-
-
-
 </head>
 <body>
-    <form action="makeRegister" method="post">
-        <div id="content">
-            <div id="back">
-                登录
-                <a href="Login" style="text-decoration:none;">
-                    <img id="nextimg" style=" vertical-align: middle;" src="../Images/people-register-next_1.png" ;name="next" />
-                </a>
-            </div>
 
-            <div id="login">
-                <input type="text" class="ui-input" placeholder="用户名" name="username" id="username" />
-                <br />
-                <input type="email" class="ui-input" placeholder="手机号或邮箱" />
-                <br />
-                <input type="password" class="ui-input" placeholder="密码（不少于6位）" name="password" id="password" />
-                <br />
-                <input type="submit" class="ui-button " value="注册" />
-            </div>
-
+    <div id="content">
+        <div id="back">
+            登录
+            <a href="Login" style="text-decoration:none;">
+                <img id="nextimg" style=" vertical-align: middle;" src="../Images/people-register-next_1.png" />
+            </a>
         </div>
-    </form>
+        <form name="RegisterForm" id="form1" action="makeRegister" method="post">
+            <div id="register">
+                <div style="vertical-align:central;">
+                    <span style="display:inline-block;">
+                        <input type="text" id="Nusername" name="username" class="ui-input" placeholder="用户名" onblur="check_Nusername()" />
+                        <br />
+                    </span>
+                    <span id="nameTips" style="">
+                    </span>
+                </div>
+                <div>
+                    <span style="display:inline-block;">
+                        <input type="text" id="number" class="ui-input" placeholder="手机号或邮箱" /> <!--这里的类型要改-->
+                        <br />
+                    </span>
+                    <span id="numberTips" style="">
+                    </span>
+                </div>
+                <div>
+                    <span style="display:inline-block;">
+                        <input type="password" id="Npassword" name="password" class="ui-input" placeholder="密码(不少于6位)" onblur="check_Npassword()" />
+                        <br />
+                    </span>
+                    <span id="passTips" style="">
+                    </span>
+                </div>
+                <div>
+                    <input type="button" class="ui-button " value="注册" onclick="checkNull();" />
+                </div>
+            </div>
+        </form>
+    </div>
+
 </body>
 </html>
