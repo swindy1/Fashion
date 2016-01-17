@@ -88,7 +88,7 @@ namespace Fashion.Code.DAL
             string sqlStr = "insert into [user] (userName,salt,[password],rankId) values (@userName,@salt,@password,@rankId)";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("userName",userName),
-                new SqlParameter("@salt",salt),
+                new SqlParameter("salt",salt),
                 new SqlParameter("password",password),
                 new SqlParameter("rankId",rankId)
             };
