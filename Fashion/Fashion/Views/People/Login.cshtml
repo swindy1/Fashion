@@ -1,7 +1,6 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 
 <html>
@@ -9,6 +8,10 @@
     <meta name="viewport" content="width=device-width" />
     <title>Login</title>
     <script src="~/Scripts/jquery-2.0.0.js"></script>
+    <script type="text/javascript">
+       
+        
+    </script>
     <style type="text/css">
         body {
             margin: 0;
@@ -137,21 +140,12 @@
             }
             });
             }
-            
-
-
             //var username = document.getElementById("username").value;
             //if (username !== "" && username!="22222") {
             //    document.getElementById("error_name").style.display = "block";//显示账号错误提示 
             //    document.getElementById("password").disabled = true;//禁止输入
             //   }
         };
-
-
-
-
-
-
         function check_pwd() {
             if ($("#username").val() == "") {
                 $("#error_name").text("请输入用户名");
@@ -181,8 +175,6 @@
                     }
                 });
             }
-            
-          
             //var password = document.getElementById("password").value;
             document.getElementById("#form1").sunmit();
             //if (password == "2") {
@@ -191,19 +183,6 @@
             //    document.getElementById("error_pwd").style.display = "block";//显示密码错误提示 
             //}
         };
-
-
-
-
-
-
-
-
-
-
-
-
-
         function hide_error() {
             document.getElementById("error_pwd").style.display = "none";//隐藏密码错误提示 
             document.getElementById("error_name").style.display = "none";//隐藏账号错误提示 
@@ -242,6 +221,6 @@
                     <input type="button" id="login" name="login" value="登录" class="ui-button " onclick="check_name();check_pwd()" />
                 </div>
         </div>
-
+    
 </body>
 </html>

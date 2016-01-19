@@ -154,6 +154,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\People_Login.css" />
+    <Content Include="Content\share.css" />
     <Content Include="Content\test.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -268,13 +270,10 @@
     <Content Include="Views\People\Register.cshtml" />
     <Content Include="Views\People\Login.cshtml" />
     <Content Include="Views\Topic\Home.cshtml" />
-    <Content Include="Views\People\makeLogin.cshtml" />
     <Content Include="Views\Topic\fabu.cshtml" />
     <Content Include="Views\People\test.ashx" />
-    <Content Include="Views\People\ajax.cshtml" />
-    <Content Include="Views\Topic\Index2.cshtml" />
-    <Content Include="Views\People\Index.cshtml" />
     <Content Include="Views\StreetSnap\streetHome.cshtml" />
+    <Content Include="Views\People\PeopleHomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

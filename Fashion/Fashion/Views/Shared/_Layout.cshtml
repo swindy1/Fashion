@@ -51,15 +51,7 @@
         .bb {
             border: 1px solid green;
         }
-        /*右边的棒棒*/
-        .theRightBar {
-            width: 7px;
-            height: 100%;
-            background-color: #8cc152;
-            position: fixed;
-            top: 0px;
-            right: 0px;
-        }
+        
         .theRightHiddenPage {
             height: 2000px;
             width: 10px;
@@ -101,7 +93,7 @@
                 $("#theRightHiddenPage").animate({ width: "250px" }, "slow");
 
                 $("#iconOut").css("display", "none");
-                $("#theRightBar").css("display", "none");
+              
             });
             $("#consult").click(function () {
                 window.location.href = "Post";
@@ -112,7 +104,7 @@
                 $("#theRightHiddenPage").animate({ width: "10px" }, "slow");
                 $("#theRightHiddenPage").css("display", "none");
                 $("#iconOut").css("display", "");
-                $("#theRightBar").css("display", "");
+             
             });
             $("#ask").click(function () {
                 window.location.href = "Post";
@@ -164,48 +156,9 @@
         <hr style="border:none;border-top:1px solid #c4bfbf;" />
     </div>
    
-    <div class="theRightBar " id="TheRightBar">
-    </div>
-    <div id="iconOut"  style="position:fixed;right:0px;top:0px;">
-        <img src="~/Images/Layout-iconOut.png" />
-    </div>
-    <div id="theRightHiddenPage" style="z-index:1;" class="theRightHiddenPage">
-        <div style="float:right;" id="iconIn">
-            <img src="~/Images/Layout-iconIn.png" />
-        </div>
-        <div style="height:30px;width:60%;font-family:AngsanaUPC;font-weight:bold;font-size:25px;margin-top:25px;margin-left:20px;text-shadow:2px 4px 4px #5cbbd3;">
-            时尚达人
-        </div>
-        
-       
-        <div id="theRightPagetag1" style="margin-top:20px;" class="theRightHiddenPage-tag">
-            <a href="~/Topic/Home">
-                首页
-            </a>
-        </div>
-        <div id="theRightPagetag2" style="width: 55px;" class="theRightHiddenPage-tag">
-            <a href="~/Test/jiepai">
-                街拍
-            </a>
-
-        </div>
-        <div id="theRightPagetag3" style="width:80px;" class="theRightHiddenPage-tag">
-            <a href="~/Test/gerenxiu">个人秀</a>
-
-        </div>
-        <div id="theRightPagetag4" class="theRightHiddenPage-tag">
-            <a href="~/Test/chaoliuzixun">
-                潮流资讯
-            </a>
-
-        </div>
-        <div id="theRightPagetagSearch"  style="width:200px;margin-left:20px;margin-top:10px;">
-            <input type="text" style="height:30px;border-radius:15px;padding-left:10px;" placeholder="Search" />
-        </div>
-      
-
-
-    </div>
+   
+  
+    
    
     
     <input type="hidden" value="@ViewData["LoginYes"]" id="loginYes" />

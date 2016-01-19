@@ -119,8 +119,8 @@
                     url: "ajaxUserName",
                     data: { userName: $("#Nusername").val() },
                     type: "post",
-                    success: function (data) {
-                        if (data == 1) {
+                    success: function (userCount) {
+                        if (userCount == 1) {
                             nameTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>该用户名已被注册</font>";
                         } else {
                             nameTips.innerHTML = "<img src='../Images/people-right.png' width='20' height='20' />" + "<font color='green'>可注册</font>";
@@ -185,7 +185,7 @@
                 $("#passTips").html("<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>密码不能为空</font>");
                 return false;
             }
-            $("#form1").submit();
+            $("#RegisterForm").submit();
 
         }
     </script>
@@ -199,7 +199,7 @@
                 <img id="nextimg" style=" vertical-align: middle;" src="../Images/people-register-next_1.png" />
             </a>
         </div>
-        <form name="RegisterForm" id="form1" action="makeRegister" method="post">
+        <form name="RegisterForm" id="RegisterForm" action="makeRegister" method="post">
             <div id="register">
                 <div style="vertical-align:central;">
                     <span style="display:inline-block;">

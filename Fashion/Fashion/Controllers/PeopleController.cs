@@ -16,13 +16,17 @@ namespace Fashion.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// 登录页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Login()
         {
 
             return View();
         }
         /// <summary>
-        /// 判断登录是否成功，登录成功则返回论坛首页
+        /// 判断登录是否成功，登录成功返回1，登录失败返回0
         /// </summary>
         /// <returns></returns>
         public ActionResult ajaxMakeLogin()
@@ -49,21 +53,14 @@ namespace Fashion.Controllers
         }
 
         /// <summary>
-        /// 判断账号名是否存在
+        /// 根据用户名判断账号名是否存在，存在返回1，不存在返回0，数据库出错返回2
         /// </summary>
-        /// <returns></returns>
-        
+        /// <returns></returns>      
         public ActionResult ajaxUserName()
         {
             string userName = Request["userName"].ToString();
             People_bll people = new People_bll();
-            if (people.HavingUserName(userName) != 1)
-            {
-                return Content("0");
-            }
-            else
-                return Content("1");
-            
+            return Content(people.HavingUserName(userName).ToString());
         }
 
 
@@ -82,23 +79,14 @@ namespace Fashion.Controllers
             
         }
 
-
+        /// <summary>
+        /// 注册页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Register()
         {
-
-
-            //People_bll people = new People_bll();
-            //if (people.Register("simple", "1", "普通用1户") == 0)
-            //{
-            //    Response.Write("注册成功");
-            //}
-            //else {
-            //    Response.Write("注册失败");
-            //}
             return View();
         }
-
-
         /// <summary>
         /// 实现注册功能，把数据保存到数据库
         /// </summary>
@@ -117,6 +105,14 @@ namespace Fashion.Controllers
                 return View();
             }
 
+        }
+        /// <summary>
+        /// 我的主页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult PeopleHomePage()
+        {
+            return View();
         }
 
 
