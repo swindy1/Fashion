@@ -16,14 +16,27 @@ namespace Fashion.Controllers
         {
             return View();
         }
+
+
+       
         /// <summary>
         /// 登录页面
         /// </summary>
         /// <returns></returns>
         public ActionResult Login()
         {
-
-            return View();
+            string finshRegister1 = Request["finshRegister"]; //获取一个值，1代表用户是通过注册跳转到该函数的，0则相反
+            ViewData["finshRegister1"] = Convert.ToInt32(finshRegister1);
+            if (Convert.ToInt32(finshRegister1) == 1)
+            {
+                ViewData["finshRegister"] = 1;
+                return View();
+            }
+            else
+            {
+                ViewData["finshRegister"] = 0;
+                return View();
+            }
         }
         /// <summary>
         /// 判断登录是否成功，登录成功返回1，登录失败返回0
@@ -96,9 +109,10 @@ namespace Fashion.Controllers
             People_bll people = new People_bll();
             string username = Request["username"];
             string password = Request["password"];
+            
             if (people.Register(username, password, "普通用户") == 0)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", new { finshRegister = 1 });
             }
             else
             {

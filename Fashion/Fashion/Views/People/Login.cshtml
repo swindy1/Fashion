@@ -108,6 +108,7 @@
             display:none ;
         }
     </style>    
+    
     <script type="text/javascript">
         $(document).ready(function () {                  //点击换图片（箭头）
             $("#backimg").mouseenter(function () {
@@ -122,8 +123,20 @@
             $("#nextimg").mouseout(function () {
                 $("#nextimg").attr("src", "../Images/people-register-next_1.png");
             });
+            dealIsFromRegister();//处理是否为用户通过注册跳转进来的
+            
         });
 
+        //本函数实现判断用户是否是通过注册登录进来的，如果是则显示“注册成功，请开始登录”
+        function dealIsFromRegister() {
+            var finshRegister = '@ViewData["finshRegister1"]';//获取后端传回来的值，该值为代表是用户通过注册跳转到该页面的，为0则相反
+            if (finshRegister == 1) {
+                document.getElementById("firstRegister").style.display = "block";
+            }
+            else {
+                document.getElementById("firstRegister").style.display = "none";
+            }
+        }
         //
         function check_name() {  
             if ($("#username").val() != "") {
@@ -204,6 +217,10 @@
                 <a href="../Topic/Home" style="text-decoration:none;">
                     <img style=" vertical-align: middle;" src="../Images/people-register-next_1.png" id="nextimg" />
                 </a>
+            </div>
+            <div id="firstRegister" style="border:1px solid red;">
+                <img style="width:24px;height:24px;" src="~/Images/people-right.png" />
+                注册成功请开始登录
             </div>
             <div id="error_name" class="error">
                 <img style="width:24px;height:24px;" src="~/Images/people-wrong.png" />
