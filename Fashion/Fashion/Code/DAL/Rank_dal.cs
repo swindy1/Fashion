@@ -15,7 +15,7 @@ namespace Fashion.Code.DAL
         /// <returns></returns>
         public object GetRankId(string rankName)
         {
-            string sqlStr = "select rankId from [Rank] where rankName=@rankName";
+            string sqlStr = "select Rank_Id from [tb_Rank] where Rank_Name=@rankName";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@rankName",rankName)
             };
@@ -24,7 +24,7 @@ namespace Fashion.Code.DAL
 
         public object GetRankName(char rankId)
         {
-            string sqlStr = "select rankName from [Rank] where rankId=@rankId";
+            string sqlStr = "select Rank_Name from [tb_Rank] where Rank_Id=@rankId";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@rankId",rankId)
             };

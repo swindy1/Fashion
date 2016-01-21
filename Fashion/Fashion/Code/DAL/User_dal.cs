@@ -19,7 +19,7 @@ namespace Fashion.Code.DAL
         /// <returns></returns>
         public object GetAccountCount(string userName)
         {
-            string sqlStr = "select count(*) from [user] where userName=@userName";
+            string sqlStr = "select count(*) from [tb_User] where User_Name=@userName";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@userName",userName)
             };
@@ -33,7 +33,7 @@ namespace Fashion.Code.DAL
        /// <returns></returns>
         public object GetPassword(string userName)
         {
-            string sqlStr = "select [password] from [User] where userName=@userName";
+            string sqlStr = "select [User_Password] from [tb_User] where User_Name=@userName";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userName",userName)
             };
@@ -47,7 +47,7 @@ namespace Fashion.Code.DAL
         /// <returns></returns>
         public object GetSalt(string userName)
         {
-            string sqlStr = "select salt from [user] where userName=@userName";
+            string sqlStr = "select User_Salt from [tb_User] where User_Name=@userName";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userName",userName)
             };
@@ -69,7 +69,7 @@ namespace Fashion.Code.DAL
         //}
         public User_model GetPwdAndSaltModel(string userName)
         {
-            string sqlStr = "select [password],[salt] from [user] where userName=@userName";
+            string sqlStr = "select [User_Password],[User_Salt] from [tb_User] where User_Name=@userName";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@userName",userName)
             };
@@ -85,8 +85,8 @@ namespace Fashion.Code.DAL
             DataRow row = dt.Rows[0];
             //把取回来的dt_User表的一行数据转化为model
             User_model model = new User_model();
-            model.password = (string)row["password"];
-            model.salt = (string)row["salt"];
+            model.password = (string)row["User_Password"];
+            model.salt = (string)row["User_Salt"];
             return model;
         }
 
@@ -152,7 +152,7 @@ namespace Fashion.Code.DAL
         public int InsertRegister(string userName,string salt,string password,string rankId)
         {
 
-            string sqlStr = "insert into [user] (userName,salt,[password],rankId) values (@userName,@salt,@password,@rankId)";
+            string sqlStr = "insert into [tb_User] (User_Name,User_Salt,[User_Password],User_RankId ) values (@userName,@salt,@password,@rankId)";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("userName",userName),
                 new SqlParameter("salt",salt),
