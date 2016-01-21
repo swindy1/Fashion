@@ -59,19 +59,77 @@ namespace Fashion.Code.DAL
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public DataTable GetPwdAndSalt(string userName)
+        //public DataTable GetPwdAndSalt(string userName)
+        //{
+        //    string sqlStr = "select [password],[salt] from [user] where userName=@userName";
+        //    SqlParameter[] parameters = new SqlParameter[] { 
+        //        new SqlParameter("@userName",userName)
+        //    };
+        //    return SqlHelper.ExecuteDataTable(sqlStr,parameters);
+        //}
+        public User_model GetPwdAndSaltModel(string userName)
         {
             string sqlStr = "select [password],[salt] from [user] where userName=@userName";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@userName",userName)
             };
-            return SqlHelper.ExecuteDataTable(sqlStr,parameters);
+            DataTable dt=SqlHelper.ExecuteDataTable(sqlStr,parameters);
+            if (dt.Rows.Count > 1)
+            {
+                throw new Exception("more than 1 row was found");
+            }
+            if (dt.Rows.Count <= 0)
+            {
+                return null;
+            }
+            DataRow row = dt.Rows[0];
+            //把取回来的dt_User表的一行数据转化为model
+            User_model model = new User_model();
+            model.password = (string)row["password"];
+            model.salt = (string)row["salt"];
+            return model;
         }
-        //public private User_model toModel(DataRow row)
-        //{
-        //    User_model model=new User_model();
-        //    model.
-        //}
+
+        /// <summary>
+        /// 查询tb_User表，获取指定的一行数据
+        /// </summary>
+        /// <param name="user_id"></param>
+        /// <returns></returns>
+        public User_model Get(string user_id)
+        {
+            DataTable dt = SqlHelper.ExecuteDataTable("select  * from tb_User where User_Id=@user_id", new SqlParameter("@user_id", user_id));
+            if(dt.Rows.Count>1)
+            {
+                throw new Exception("more than 1 row was found");
+            }
+            if(dt.Rows.Count<=0)
+            {
+                return null;
+            }
+           /////////////////////////////////////////////////////////
+            //还没写完，因为还没用到，所以以后再写
+            DataRow row=dt.Rows[0];
+            User_model model = ToModel(row);
+            /////////////////////////////////////////////////////////
+            return model;     
+        }
+
+        /// <summary>
+        /// 将从数据库里取回的一行数据转化为User_model数据
+        /// </summary>
+        /// <param name="row">一行数据</param>
+        /// <returns></returns>
+        private static User_model ToModel(DataRow row)
+        {
+            User_model model=new User_model();
+            /////////////////////////////////////////////////////////
+            //还没写完，因为还没用到，所以以后再写
+            model.userId=(int)row["User_Id"];
+            model.userName = (string)row["User_Name"];
+            /////////////////////////////////////////////////////////
+            return model;
+        }
+     
         
        
       

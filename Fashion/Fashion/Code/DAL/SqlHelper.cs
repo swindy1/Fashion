@@ -21,6 +21,7 @@ namespace Fashion.Code.DAL
         /// <returns></returns>
         public static int ExecuteNonquery(string sqlStr, params SqlParameter[] parameters)
         {
+            //params实现动态参数个数（也可以为0）
             using (SqlConnection conn = new SqlConnection(sqlConnectionString))
             {
                 conn.Open();
@@ -47,7 +48,7 @@ namespace Fashion.Code.DAL
         }
 
         //返回一个数据表
-        public static DataTable ExecuteDataTable(string sqlStr,SqlParameter[] parameters)
+        public static DataTable ExecuteDataTable(string sqlStr,params SqlParameter[] parameters)
         { 
             using(SqlConnection conn=new SqlConnection(sqlConnectionString))
             {

@@ -10,9 +10,9 @@ namespace Fashion.Code.BLL
 {
     public class People_bll
     {
-        
+        /////////////////////////////////////////////
         //user表
-        ///////////////////////////////
+        ////////////////////////////////////////////
         /// <summary>
         ///  user表
         /// 判断是否存在该用户
@@ -44,15 +44,16 @@ namespace Fashion.Code.BLL
 
         /// <summary>
         /// 判断登录是否成功，成功返回true，失败返回false
+        /// 使用者：People控制器里的ajaxMakeLogin
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <param name="password">密码</param>
         /// <returns></returns>
         public bool LoginYes(string userName,string password)
         {
-            User_dal user = new User_dal();
+            User_dal user_dal = new User_dal();
             //用户的数量
-            object AccountCount = user.GetAccountCount(userName);
+            object AccountCount = user_dal.GetAccountCount(userName);
             //null代表数据库不存在该数据，System.DBNull.Value代表数据库里存在数据，但是该字段的值为null
             if (AccountCount == null || AccountCount == System.DBNull.Value)
             {
@@ -68,9 +69,10 @@ namespace Fashion.Code.BLL
                 return false;
             }
             //以上判断存在该用户后，获取其盐值和密码
-            DataTable dtPwdAndSalt = user.GetPwdAndSalt(userName);
-            string salt = dtPwdAndSalt.Rows[0]["salt"].ToString();
-            string realPassword = dtPwdAndSalt.Rows[0]["password"].ToString();
+
+            User_model user_model = user_dal.GetPwdAndSaltModel(userName);
+            string salt = user_model.salt; //颜值
+            string realPassword = user_model.password; //密码
             //将盐值加在密码的后面，并转化为二进制
             byte[] pwdAndSaltBytes = System.Text.Encoding.UTF8.GetBytes(password + salt);
             //经过哈希算法加密后得到的二进制值
@@ -88,10 +90,12 @@ namespace Fashion.Code.BLL
         }
 
 
-       
 
 
 
+        /////////////////////////////////////////////
+        //user表和Rank表
+        ////////////////////////////////////////////
         /// <summary>
         /// 实现注册功能，返回结果为int型
         /// 0代表注册成功；

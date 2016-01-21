@@ -27,7 +27,6 @@ namespace Fashion.Controllers
         {
             //throw new Exception("more than 1 row was found");
             string finshRegister1 = Request["finshRegister"]; //获取一个值，1代表用户是通过注册跳转到该函数的，0则相反
-            ViewData["finshRegister1"] = Convert.ToInt32(finshRegister1);
             if (Convert.ToInt32(finshRegister1) == 1)
             {
                 ViewData["finshRegister"] = 1;

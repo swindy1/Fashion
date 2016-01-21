@@ -124,7 +124,7 @@
                     data: { userName: $("#Nusername").val() },
                     type: "post",
                     success: function (userCount) {
-                        if (userCount == 1) {
+                        if (userCount == "1") {
                             nameTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>该用户名已被注册</font>";
                             document.getElementById("startRegister").disabled = true;
                             
