@@ -1,4 +1,5 @@
-﻿ using System;
+﻿ using Fashion.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,13 +17,13 @@ namespace Fashion.Code.DAL
         /// </summary>
         /// <param name="userName">用户名</param>       
         /// <returns></returns>
-        public object getAccountCount(string userName)
+        public object GetAccountCount(string userName)
         {
             string sqlStr = "select count(*) from [user] where userName=@userName";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@userName",userName)
             };
-            return SqlHelper.executeScalar(sqlStr, parameters);
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
         }
 
        /// <summary>
@@ -30,13 +31,13 @@ namespace Fashion.Code.DAL
        /// </summary>
         /// <param name="userName">用户的账号</param>
        /// <returns></returns>
-        public object getPassword(string userName)
+        public object GetPassword(string userName)
         {
             string sqlStr = "select [password] from [User] where userName=@userName";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userName",userName)
             };
-            return SqlHelper.executeScalar(sqlStr, parameters);
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
         }
 
         /// <summary>
@@ -44,13 +45,13 @@ namespace Fashion.Code.DAL
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <returns></returns>
-        public object getSalt(string userName)
+        public object GetSalt(string userName)
         {
             string sqlStr = "select salt from [user] where userName=@userName";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userName",userName)
             };
-            return SqlHelper.executeScalar(sqlStr, parameters);
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
         }
 
         /// <summary>
@@ -58,14 +59,22 @@ namespace Fashion.Code.DAL
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public DataTable getPwdAndSalt(string userName)
+        public DataTable GetPwdAndSalt(string userName)
         {
             string sqlStr = "select [password],[salt] from [user] where userName=@userName";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@userName",userName)
             };
-            return SqlHelper.executeDataTable(sqlStr,parameters);
+            return SqlHelper.ExecuteDataTable(sqlStr,parameters);
         }
+        //public private User_model toModel(DataRow row)
+        //{
+        //    User_model model=new User_model();
+        //    model.
+        //}
+        
+       
+      
 
 
         
@@ -92,12 +101,12 @@ namespace Fashion.Code.DAL
                 new SqlParameter("password",password),
                 new SqlParameter("rankId",rankId)
             };
-            return SqlHelper.executeNonquery(sqlStr,parameters);
+            return SqlHelper.ExecuteNonquery(sqlStr,parameters);
         }
         
 
       
-        //public DataTable get(string[] columnNames,)
+        //public DataTable Get(string[] columnNames,)
         //{ 
         //    if(columnNames.Length<=0)
         //    { }

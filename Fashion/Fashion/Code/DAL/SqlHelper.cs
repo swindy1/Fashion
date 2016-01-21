@@ -19,7 +19,7 @@ namespace Fashion.Code.DAL
         /// <param name="sqlStr">sqlStr代表数据库操作语句</param>
         /// <param name="parameters">parameters代表数据库操作语句里的参数</param>
         /// <returns></returns>
-        public static int executeNonquery(string sqlStr, params SqlParameter[] parameters)
+        public static int ExecuteNonquery(string sqlStr, params SqlParameter[] parameters)
         {
             using (SqlConnection conn = new SqlConnection(sqlConnectionString))
             {
@@ -32,7 +32,7 @@ namespace Fashion.Code.DAL
             }
         }
         //返回查询后的第一行的第一列
-        public static object executeScalar(string sqlStr,params SqlParameter[] parameters)
+        public static object ExecuteScalar(string sqlStr,params SqlParameter[] parameters)
         { 
             using(SqlConnection conn=new SqlConnection(sqlConnectionString))
             {
@@ -47,7 +47,7 @@ namespace Fashion.Code.DAL
         }
 
         //返回一个数据表
-        public static DataTable executeDataTable(string sqlStr,SqlParameter[] parameters)
+        public static DataTable ExecuteDataTable(string sqlStr,SqlParameter[] parameters)
         { 
             using(SqlConnection conn=new SqlConnection(sqlConnectionString))
             {

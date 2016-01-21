@@ -13,22 +13,22 @@ namespace Fashion.Code.DAL
         /// </summary>
         /// <param name="rankName">用户等级名</param>
         /// <returns></returns>
-        public object getRankId(string rankName)
+        public object GetRankId(string rankName)
         {
             string sqlStr = "select rankId from [Rank] where rankName=@rankName";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@rankName",rankName)
             };
-            return SqlHelper.executeScalar(sqlStr, parameters);
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
         }
 
-        public object getRankName(char rankId)
+        public object GetRankName(char rankId)
         {
             string sqlStr = "select rankName from [Rank] where rankId=@rankId";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@rankId",rankId)
             };
-            return SqlHelper.executeScalar(sqlStr,parameters);
+            return SqlHelper.ExecuteScalar(sqlStr,parameters);
         }
 
 

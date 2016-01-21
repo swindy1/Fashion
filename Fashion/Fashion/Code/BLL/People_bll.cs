@@ -1,4 +1,5 @@
 ﻿using Fashion.Code.DAL;
+using Fashion.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,7 +22,7 @@ namespace Fashion.Code.BLL
         public int HavingUserName(string userName)
         {
             User_dal user = new User_dal();
-            int accountCount = (int)user.getAccountCount(userName);
+            int accountCount = (int)user.GetAccountCount(userName);
             if (accountCount<=0)
             {
                 return 0;
@@ -36,7 +37,7 @@ namespace Fashion.Code.BLL
             }  
         }
 
-
+       
 
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace Fashion.Code.BLL
         {
             User_dal user = new User_dal();
             //用户的数量
-            object AccountCount = user.getAccountCount(userName);
+            object AccountCount = user.GetAccountCount(userName);
             //null代表数据库不存在该数据，System.DBNull.Value代表数据库里存在数据，但是该字段的值为null
             if (AccountCount == null || AccountCount == System.DBNull.Value)
             {
@@ -65,7 +66,7 @@ namespace Fashion.Code.BLL
                 return false;
             }
             //以上判断存在该用户后，获取其盐值和密码
-            DataTable dtPwdAndSalt = user.getPwdAndSalt(userName);
+            DataTable dtPwdAndSalt = user.GetPwdAndSalt(userName);
             string salt = dtPwdAndSalt.Rows[0]["salt"].ToString();
             string realPassword = dtPwdAndSalt.Rows[0]["password"].ToString();
             //将盐值加在密码的后面，并转化为二进制
@@ -104,7 +105,7 @@ namespace Fashion.Code.BLL
         {
             //通过等级名得到等级编号
             Rank_dal rankDal = new Rank_dal();
-            object rankIdObj = rankDal.getRankId(rankName);
+            object rankIdObj = rankDal.GetRankId(rankName);
             if (rankIdObj == null)
             {
                 return 2;

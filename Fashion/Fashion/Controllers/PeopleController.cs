@@ -25,6 +25,7 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult Login()
         {
+            //throw new Exception("more than 1 row was found");
             string finshRegister1 = Request["finshRegister"]; //获取一个值，1代表用户是通过注册跳转到该函数的，0则相反
             ViewData["finshRegister1"] = Convert.ToInt32(finshRegister1);
             if (Convert.ToInt32(finshRegister1) == 1)
@@ -40,6 +41,7 @@ namespace Fashion.Controllers
         }
         /// <summary>
         /// 判断登录是否成功，登录成功返回1，登录失败返回0
+        /// login
         /// </summary>
         /// <returns></returns>
         public ActionResult ajaxMakeLogin()
@@ -67,6 +69,7 @@ namespace Fashion.Controllers
 
         /// <summary>
         /// 根据用户名判断账号名是否存在，存在返回1，不存在返回0，数据库出错返回2
+        /// 用于Login页面
         /// </summary>
         /// <returns></returns>      
         public ActionResult ajaxUserName()

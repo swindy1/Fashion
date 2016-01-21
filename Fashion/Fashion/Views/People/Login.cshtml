@@ -70,7 +70,7 @@
               padding-left:15px;
               width:256px;
               height:50px;
-              margin-top:50px;
+              margin-top:40px;
               border-radius: 10px; 
               line-height:50px;
               margin-left:15px;
@@ -110,21 +110,9 @@
     </style>    
     
     <script type="text/javascript">
-        $(document).ready(function () {                  //点击换图片（箭头）
-            $("#backimg").mouseenter(function () {
-                $("#backimg").attr("src", "../Images/people-login-back_2.png");
-            });
-            $("#backimg").mouseout(function () {
-                $("#backimg").attr("src", "../Images/people-login-back_1.png");
-            });
-            $("#nextimg").mouseenter(function () {
-                $("#nextimg").attr("src", "../Images/people-register-next_2.png");
-            });
-            $("#nextimg").mouseout(function () {
-                $("#nextimg").attr("src", "../Images/people-register-next_1.png");
-            });
+        $(document).ready(function () {                 
+            mouseTuBiaoEffect();//实现鼠标经过时的效果
             dealIsFromRegister();//处理是否为用户通过注册跳转进来的
-            
         });
 
         //本函数实现判断用户是否是通过注册登录进来的，如果是则显示“注册成功，请开始登录”
@@ -137,28 +125,39 @@
                 document.getElementById("firstRegister").style.display = "none";
             }
         }
-        //
+        //本函数实现鼠标经过注册和登录图标时的特效
+        function mouseTuBiaoEffect() {
+            $("#backimg").mouseenter(function () {
+                $("#backimg").attr("src", "../Images/people-login-back_2.png");
+            });
+            $("#backimg").mouseout(function () {
+                $("#backimg").attr("src", "../Images/people-login-back_1.png");
+            });
+            $("#nextimg").mouseenter(function () {
+                $("#nextimg").attr("src", "../Images/people-register-next_2.png");
+            });
+            $("#nextimg").mouseout(function () {
+                $("#nextimg").attr("src", "../Images/people-register-next_1.png");
+            });
+        }
+        //本函数实现利用ajax动态查看数据库里是否存在该用户，不存做提示
         function check_name() {  
             if ($("#username").val() != "") {
                 $.ajax({
                 url: "ajaxUserName",
                 data:{userName:$("#username").val()},
                 type: "post",
-                success: function (data) {
-                    if (data ==0)
+                success: function (isExistUser) {
+                    if (isExistUser == 0)//不存在
                     {
                       document.getElementById("error_name").style.display = "block";//显示账号错误提示 
                       document.getElementById("password").disabled = true;//禁止输入
-            }
-            }
-            });
-            }
-            //var username = document.getElementById("username").value;
-            //if (username !== "" && username!="22222") {
-            //    document.getElementById("error_name").style.display = "block";//显示账号错误提示 
-            //    document.getElementById("password").disabled = true;//禁止输入
-            //   }
+                    }
+                }
+              });
+           }
         };
+        //本函数实现利用ajax动态查看数据库里该用户的密码是否正确，不存在做提示
         function check_pwd() {
             if ($("#username").val() == "") {
                 $("#error_name").text("请输入用户名");
@@ -177,8 +176,8 @@
                     url: "ajaxMakeLogin",
                     data: { userName: $("#username").val(), password: $("#password").val() },
                     type: "post",
-                    success: function (data) {
-                        if (data == "1") {
+                    success: function (passwordCorrect) {
+                        if (passwordCorrect == "1") {
                             window.location.href = "../Topic/Home";
                         }
                         else {
@@ -188,14 +187,8 @@
                     }
                 });
             }
-            //var password = document.getElementById("password").value;
-            document.getElementById("#form1").sunmit();
-            //if (password == "2") {
-            //    document.getElementById("#form1").sunmit();
-            //} else {
-            //    document.getElementById("error_pwd").style.display = "block";//显示密码错误提示 
-            //}
         };
+        //本函数实现隐藏错误提示信息，允许输入，主要是在鼠标点击输出账号框和密码框时触发
         function hide_error() {
             document.getElementById("error_pwd").style.display = "none";//隐藏密码错误提示 
             document.getElementById("error_name").style.display = "none";//隐藏账号错误提示 
@@ -206,7 +199,7 @@
 <body>
    
         <div id="content">
-            <div id="back">
+            <div id="back"  >
                 <a href="Register" style="text-decoration:none;">
                     <img style=" vertical-align: middle;" src="../Images/people-login-back_1.png" id="backimg" />
                 </a>
@@ -218,10 +211,10 @@
                     <img style=" vertical-align: middle;" src="../Images/people-register-next_1.png" id="nextimg" />
                 </a>
             </div>
-            <div id="firstRegister" style="border:1px solid red;">
-                <img style="width:24px;height:24px;" src="~/Images/people-right.png" />
-                注册成功请开始登录
-            </div>
+            <div id="firstRegister" style="width:50%;text-align:left;margin-left:220px;">
+                <div style="display:inline-block;"><img style="width:30px;height:30px; " src="~/Images/people-right.png" /></div>
+                <div style="display:inline-block;font-size:30px;">注册成功请开始登录</div>
+                </div>
             <div id="error_name" class="error">
                 <img style="width:24px;height:24px;" src="~/Images/people-wrong.png" />
                 请检查用户名是否正确
@@ -230,9 +223,7 @@
                 <img style="width:24px;height:24px;" src="~/Images/people-wrong.png" />
                 请输入正确的密码
             </div>
-            
-            
-                <div id="login">
+                <div id="login" style="">
                     <input type="text" id="username" name="username" class="ui-input" placeholder="用户名" onfocus="hide_error()" onblur="check_name()" /><br />
                     <input type="password" id="password" name="password" placeholder="密码" class="ui-input" onfocus="hide_error()"  /><br />
                     <input type="button" id="login" name="login" value="登录" class="ui-button " onclick="check_name();check_pwd()" />

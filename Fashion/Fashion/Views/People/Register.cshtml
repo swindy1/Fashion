@@ -97,6 +97,10 @@
             }
     </style>
     <script type="text/javascript">
+        
+        
+    </script>
+    <script type="text/javascript">
         $(document).ready(function () {
             $("#nextimg").mouseenter(function () {
                 $("#nextimg").attr("src", "../Images/people-register-next_2.png");
@@ -122,6 +126,8 @@
                     success: function (userCount) {
                         if (userCount == 1) {
                             nameTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>该用户名已被注册</font>";
+                            document.getElementById("startRegister").disabled = true;
+                            
                         } else {
                             nameTips.innerHTML = "<img src='../Images/people-right.png' width='20' height='20' />" + "<font color='green'>可注册</font>";
                         }
@@ -226,7 +232,7 @@
                     </span>
                 </div>
                 <div>
-                    <input type="button" class="ui-button " value="注册" onclick="checkNull();" />
+                    <input id="startRegister" type="button" class="ui-button " value="注册" onclick="checkNull();" />
                 </div>
             </div>
         </form>
