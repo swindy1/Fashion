@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Fashion.Code.BLL
+namespace Fashion.aaaaa
 {
-    public class User_bll
+    public class aaaaa
     {
-
     }
 }

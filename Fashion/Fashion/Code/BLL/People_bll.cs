@@ -10,9 +10,11 @@ namespace Fashion.Code.BLL
 {
     public class People_bll
     {
+        
         //user表
         ///////////////////////////////
         /// <summary>
+        ///  user表
         /// 判断是否存在该用户
         /// 结果返回1代表存在
         /// 结果返回0代表不存在
