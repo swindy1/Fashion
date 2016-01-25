@@ -7,15 +7,16 @@ namespace Fashion.Models
 {
     public class User_model
     {
+        //用户信息
         public int userId;//编号
         public string realName;//真是姓名
         public string userName;//用户名
-        public string password;
-        public string salt;
-        public char sex;
-        public int age;
+        public string password;//密码
+        public string salt;//盐值
+        public char sex;//性别    
+        public int age;//年龄
         public string phoneNumber;//手机号码
-        public string email;
+        public string email;//邮箱
         public char rank;//用户等级或类型编号
         public string rankName;//用户等级或类型名
         public int starCount;//星星数

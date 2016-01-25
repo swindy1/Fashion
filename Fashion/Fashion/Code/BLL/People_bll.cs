@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace Fashion.Code.BLL
@@ -52,8 +53,7 @@ namespace Fashion.Code.BLL
         public bool LoginYes(string userName,string password)
         {
             User_dal user_dal = new User_dal();
-            //用户的数量
-            object AccountCount = user_dal.GetAccountCount(userName);
+            /*object AccountCount = user_dal.GetAccountCount(userName);//用户的数量
             //null代表数据库不存在该数据，System.DBNull.Value代表数据库里存在数据，但是该字段的值为null
             if (AccountCount == null || AccountCount == System.DBNull.Value)
             {
@@ -67,10 +67,22 @@ namespace Fashion.Code.BLL
             if ((int)AccountCount > 1)
             {
                 return false;
-            }
+            }*/
             //以上判断存在该用户后，获取其盐值和密码
+            User_model user_model = new User_model();
+            user_model = user_dal.GetPwdAndSaltModel(userName);
+            try
+            {
+                user_model = user_dal.GetPwdAndSaltModel(userName);
+            }
+            catch (Exception e)
+            {
+                //数据库异常处理，数据库里存在大于两条用户名一样的数据,抛出异常
+                throw new Exception(e.ToString());
+            }
 
-            User_model user_model = user_dal.GetPwdAndSaltModel(userName);
+            //finally { }
+            
             string salt = user_model.salt; //颜值
             string realPassword = user_model.password; //密码
             //将盐值加在密码的后面，并转化为二进制
@@ -107,7 +119,7 @@ namespace Fashion.Code.BLL
         /// <param name="password">密码</param>
         /// <param name="rankName">等级名（管理员，普通用户，时尚达人，专家）</param>
         /// <returns></returns>
-        public int Register(string userName,string password,string rankName)
+        public int Register(string userName,string password,string rankName,string phoneNumberOrEmail)
         {
             //通过等级名得到等级编号
             Rank_dal rankDal = new Rank_dal();
@@ -130,14 +142,36 @@ namespace Fashion.Code.BLL
             byte[] hashBytes = new System.Security.Cryptography.SHA256Managed().ComputeHash(pwdAndSaltBytes);
             string hashPassword = Convert.ToBase64String(hashBytes);
             User_dal userDal = new User_dal();
-            if (userDal.InsertRegister(userName,salt,hashPassword, rankId) == 1)
+            ////////////////////////////////////////////
+            //通过正则表达式判断传进来的值是手机号还是邮箱
+            //正则表达式字符串
+            string emailStr =
+            @"([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5})+$";
+            //邮箱正则表达式对象
+            Regex emailReg = new Regex(emailStr);
+            if (emailReg.IsMatch(phoneNumberOrEmail))
             {
-                return 0;
+                if (userDal.InsertEmailRegister(userName, salt, hashPassword, rankId, phoneNumberOrEmail) == 1)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
             }
             else
             {
-                return 1;
+                if (userDal.InsertPhoneNumberRegister(userName, salt, hashPassword, rankId, phoneNumberOrEmail) == 1)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
             }
+            /////////////////////////////////////////////////
             
         }
 

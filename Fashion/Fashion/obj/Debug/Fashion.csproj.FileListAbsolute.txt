@@ -170,3 +170,4 @@ D:\Fashion\Fashion\Fashion\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 D:\Fashion\Fashion\Fashion\obj\Debug\Fashion.dll
 D:\Fashion\Fashion\Fashion\obj\Debug\Fashion.pdb
 D:\Fashion\Fashion\Fashion\obj\Debug\Fashion.csprojResolveAssemblyReference.cache
+D:\Fashion\Fashion\Fashion\bin\RouteDebug.dll

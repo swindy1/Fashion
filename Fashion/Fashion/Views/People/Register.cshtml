@@ -109,12 +109,14 @@
                 $("#nextimg").attr("src", "../Images/people-register-next_1.png");
             });
         })
-        function check_Nusername() {//检查数据库中的用户名,测试已有账号 1
+
+        //本函数主要实现检查账号是否已经存在，在账号输入框离开时触发
+        function check_Nusername() {//检查数据库中的用户名,测试是否已经存在该账号，如果是，则使注册失效，并给予一定的提示
             var Nusername = document.getElementById("Nusername").value;
             var nameTips = document.getElementById("nameTips");
+            //如果账号输入框为空，则什么都不用做，否则需要调用ajax判断用户名是否已经存在
             if (Nusername == "") {
                 nameTips.innerHTML = "";
-                //nameTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>用户名不能为空</font>";
                 return false;
             }
             else
@@ -124,12 +126,13 @@
                     data: { userName: $("#Nusername").val() },
                     type: "post",
                     success: function (userCount) {
-                        if (userCount == "1") {
+                        //userCount为该用户名在数据库里存在的个数
+                        if (userCount >= "1") {
                             nameTips.innerHTML = "<img src='../Images/people-wrong.png' width='20' height='20' />" + "<font color='red'>该用户名已被注册</font>";
                             document.getElementById("startRegister").disabled = true;
-                            
                         } else {
                             nameTips.innerHTML = "<img src='../Images/people-right.png' width='20' height='20' />" + "<font color='green'>可注册</font>";
+                            document.getElementById("startRegister").disabled = false;
                         }
                     }
                 });
@@ -143,6 +146,8 @@
                 //}
             }
         }
+
+        //本函数暂时没有用到
         function check_number() { //测试已用号码 1
             var number = document.getElementById("number").value;
             var numberTips = document.getElementById("numberTips");
@@ -161,6 +166,7 @@
                 }
             }
         }
+        //本函数实现密码至少6位数
         function check_Npassword() {
             var Npassword = document.getElementById("Npassword").value;
             var passTips = document.getElementById("passTips");
@@ -201,11 +207,11 @@
     <div id="content">
         <div id="back">
             登录
-            <a href="Login" style="text-decoration:none;">
+            <a href="~/People/Login" style="text-decoration:none;">
                 <img id="nextimg" style=" vertical-align: middle;" src="../Images/people-register-next_1.png" />
             </a>
         </div>
-        <form name="RegisterForm" id="RegisterForm" action="makeRegister" method="post">
+        <form name="RegisterForm" id="RegisterForm" action="~/People/makeRegister" method="post">
             <div id="register">
                 <div style="vertical-align:central;">
                     <span style="display:inline-block;">
@@ -217,7 +223,7 @@
                 </div>
                 <div>
                     <span style="display:inline-block;">
-                        <input type="text" id="number" class="ui-input" placeholder="手机号或邮箱" /> <!--这里的类型要改-->
+                        <input type="text" id="number" name="phoneNumberOrEmail" class="ui-input" placeholder="手机号或邮箱" /> <!--这里的类型要改-->
                         <br />
                     </span>
                     <span id="numberTips" style="">

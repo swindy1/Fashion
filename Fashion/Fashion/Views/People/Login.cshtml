@@ -9,8 +9,6 @@
     <title>Login</title>
     <script src="~/Scripts/jquery-2.0.0.js"></script>
     <script type="text/javascript">
-       
-        
     </script>
     <style type="text/css">
         body {
@@ -107,17 +105,24 @@
             border:red 1px solid;
             display:none ;
         }
+
+
+
+       
+
+
     </style>    
     
     <script type="text/javascript">
-        $(document).ready(function () {                 
+        $(document).ready(function () {
             mouseTuBiaoEffect();//实现鼠标经过时的效果
             dealIsFromRegister();//处理是否为用户通过注册跳转进来的
         });
 
+
         //本函数实现判断用户是否是通过注册登录进来的，如果是则显示“注册成功，请开始登录”
         function dealIsFromRegister() {
-            var finshRegister = '@ViewData["finshRegister1"]';//获取后端传回来的值，该值为代表是用户通过注册跳转到该页面的，为0则相反
+            var finshRegister = '@ViewData["finshRegister"]';//获取后端传回来的值，该值为代表是用户通过注册跳转到该页面的，为0则相反
             if (finshRegister == 1) {
                 document.getElementById("firstRegister").style.display = "block";
             }
@@ -140,7 +145,7 @@
                 $("#nextimg").attr("src", "../Images/people-register-next_1.png");
             });
         }
-        //本函数实现利用ajax动态查看数据库里是否存在该用户，不存做提示
+        //本函数实现利用ajax动态查看数据库里是否存在该用户，不存在时要做提示
         function check_name() {  
             if ($("#username").val() != "") {
                 $.ajax({
@@ -159,6 +164,7 @@
         };
         //本函数实现利用ajax动态查看数据库里该用户的密码是否正确，不存在做提示
         function check_pwd() {
+            
             if ($("#username").val() == "") {
                 $("#error_name").text("请输入用户名");
                 $("#error_name").css("display", "block");
@@ -181,8 +187,18 @@
                             window.location.href = "../Topic/Home";
                         }
                         else {
-                            $("#error_pwd").text("请输入正确的密码");
-                            $("#error_pwd").css("display", "block");//显示密码错误提示 
+                            if (passwordCorrect == "0") {
+                                $("#error_pwd").text("请输入正确的密码");
+                                $("#error_pwd").css("display", "block");//显示密码错误提示 
+                            }
+                            else {
+                                if (passwordCorrect == "2") {
+                                    $("#error_pwd").text("数据库出错");
+                                    $("#error_pwd").css("display", "block");//显示数据库出错提示 
+                                }
+                            
+                            }
+                            
                         }
                     }
                 });
@@ -200,7 +216,7 @@
    
         <div id="content">
             <div id="back"  >
-                <a href="Register" style="text-decoration:none;">
+                <a href="~/People/Register" style="text-decoration:none;">
                     <img style=" vertical-align: middle;" src="../Images/people-login-back_1.png" id="backimg" />
                 </a>
                 注册
@@ -226,7 +242,7 @@
                 <div id="login" style="">
                     <input type="text" id="username" name="username" class="ui-input" placeholder="用户名" onfocus="hide_error()" onblur="check_name()" /><br />
                     <input type="password" id="password" name="password" placeholder="密码" class="ui-input" onfocus="hide_error()"  /><br />
-                    <input type="button" id="login" name="login" value="登录" class="ui-button " onclick="check_name();check_pwd()" />
+                    <input type="button" id="login" name="login" value="登录" class="ui-button " onclick="check_pwd()" />
                 </div>
         </div>
     

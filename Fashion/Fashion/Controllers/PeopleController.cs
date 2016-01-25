@@ -1,4 +1,5 @@
 ﻿using Fashion.Code.BLL;
+using Fashion.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Fashion.Controllers
 
         public ActionResult Index()
         {
+        //return JavaScript(@"alert(""dddd"")");            
             return View();
         }
 
@@ -25,7 +27,7 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult Login()
         {
-            //throw new Exception("more than 1 row was found");
+            //throw new Exception("可以抛出一个异常");
             string finshRegister1 = Request["finshRegister"]; //获取一个值，1代表用户是通过注册跳转到该函数的，0则相反
             if (Convert.ToInt32(finshRegister1) == 1)
             {
@@ -39,18 +41,27 @@ namespace Fashion.Controllers
             }
         }
         /// <summary>
-        /// 判断登录是否成功，登录成功返回1，登录失败返回0
+        /// 判断登录是否成功，登录成功返回1，登录失败返回0，数据库异常返回2
         /// login
         /// </summary>
         /// <returns></returns>
         public ActionResult ajaxMakeLogin()
         {
-
             People_bll people = new People_bll();
-
             string username = Request["username"];
             string password = Request["password"];
-            bool login = people.LoginYes(username, password);
+            bool login = false;  //true代表账号密码都正确
+            try
+            {
+               login = people.LoginYes(username, password);
+            }
+            catch (Exception e)
+            {
+                //数据库异常处理，数据库里存在大于两条用户名一样的数据
+                ErrorMessage_bll errorMessage_bll = new ErrorMessage_bll();
+                errorMessage_bll.InsertErrorMessage("数据库出错", "数据库里tb_User表存在大于2条用户名一样的数据，用户名为：" + username);
+                return Content("2");
+            }
             if (login)
             {
                 //登录成功之后，保存用户的用户名，权限等资料到session
@@ -68,13 +79,21 @@ namespace Fashion.Controllers
 
         /// <summary>
         /// 根据用户名判断账号名是否存在，存在返回1，不存在返回0，数据库出错返回2
-        /// 用于Login页面
+        /// 用于Login页面、Register页面
         /// </summary>
         /// <returns></returns>      
         public ActionResult ajaxUserName()
         {
             string userName = Request["userName"].ToString();
             People_bll people = new People_bll();
+            //数据库出错处理，数据库里存在大于两条用户名一样的数据
+            if (people.HavingUserName(userName) >= 2)
+            {
+                ErrorMessage_bll errorMessage_bll = new ErrorMessage_bll();
+                errorMessage_bll.InsertErrorMessage("数据库出错","数据库存在2条用户名一样的数据，用户名为："+userName);
+                //return View("PeopleHomePage");
+                //throw new Exception("数据库出错，存在两条用户名一样的数据。");
+            }
             return Content(people.HavingUserName(userName).ToString());
         }
 
@@ -86,12 +105,9 @@ namespace Fashion.Controllers
         
         public ActionResult ajax()
         {
-            
-//            return JavaScript("window.location.href = '../Topic/Answer'");
-            
+         //return JavaScript("window.location.href = '../Topic/Answer'");
             return View();
-            //return RedirectToAction("Answer","Home");
-            
+            //return RedirectToAction("Answer","Home");  
         }
 
         /// <summary>
@@ -111,8 +127,8 @@ namespace Fashion.Controllers
             People_bll people = new People_bll();
             string username = Request["username"];
             string password = Request["password"];
-            
-            if (people.Register(username, password, "普通用户") == 0)
+            string phoneNumberOrEmail = Request["phoneNumberOrEmail"];
+            if (people.Register(username, password, "普通用户", phoneNumberOrEmail) == 0)
             {
                 return RedirectToAction("Login", new { finshRegister = 1 });
             }
@@ -128,6 +144,7 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult PeopleHomePage()
         {
+            //return Content(DateTime.Now.ToShortDateString());
             return View();
         }
 

@@ -1,4 +1,5 @@
-﻿ using Fashion.Models;
+﻿using Fashion.Code.BLL;
+using Fashion.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -76,6 +77,7 @@ namespace Fashion.Code.DAL
             DataTable dt=SqlHelper.ExecuteDataTable(sqlStr,parameters);
             if (dt.Rows.Count > 1)
             {
+                //数据库出错处理，数据库里存在大于两条用户名一样的数据,抛出异常
                 throw new Exception("more than 1 row was found");
             }
             if (dt.Rows.Count <= 0)
@@ -161,7 +163,52 @@ namespace Fashion.Code.DAL
             };
             return SqlHelper.ExecuteNonquery(sqlStr,parameters);
         }
-        
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 用户使用手机号注册，注册成功返回1
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="salt">盐值</param>
+        /// <param name="password">密码</param>
+        /// <param name="rankId">等级编号</param>
+        /// <returns></returns>
+        public int InsertPhoneNumberRegister(string userName, string salt, string password, string rankId, string phoneNumber)
+        {
+
+            string sqlStr = "insert into [tb_User] (User_Name,User_Salt,[User_Password],User_RankId,User_PhoneNumber) values (@userName,@salt,@password,@rankId,@phoneNumber)";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("userName",userName),
+                new SqlParameter("@salt",salt),
+                new SqlParameter("password",password),
+                new SqlParameter("rankId",rankId),
+                new SqlParameter("phoneNumber",phoneNumber)
+            };
+            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        //1.函数要首字母大写
+        /// <summary>
+        /// 用户使用邮箱注册，注册成功返回1
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="salt"></param>
+        /// <param name="password"></param>
+        /// <param name="rankId"></param>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        public int InsertEmailRegister(string userName, string salt, string password, string rankId, string email)
+        {
+            string sqlStr = "insert into [tb_User] (User_Name,User_Salt,[User_Password],User_RankId,User_Email) values (@userName,@salt,@password,@rankId,@email)";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("userName",userName),
+                new SqlParameter("@salt",salt),
+                new SqlParameter("password",password),
+                new SqlParameter("rankId",rankId),
+                new SqlParameter("email",email)
+                 };
+            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
 
       
         //public DataTable Get(string[] columnNames,)

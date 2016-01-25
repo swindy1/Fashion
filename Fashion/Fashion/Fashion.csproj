@@ -40,6 +40,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RouteDebug">
+      <HintPath>..\packages\RouteDebug.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -128,7 +131,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\BLL\ErrorMessage_bll.cs" />
     <Compile Include="Code\BLL\People_bll.cs" />
+    <Compile Include="Code\DAL\ErrorMessage_dal.cs" />
     <Compile Include="Code\DAL\Post_dal.cs" />
     <Compile Include="Code\DAL\Rank_dal.cs" />
     <Compile Include="Code\DAL\SqlHelper.cs" />
@@ -139,9 +144,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Attention_model.cs" />
+    <Compile Include="Models\Collect_model.cs" />
+    <Compile Include="Models\Comment_model.cs" />
+    <Compile Include="Models\ErrorMessage_model.cs" />
+    <Compile Include="Models\Message_model.cs" />
+    <Compile Include="Models\Module_model.cs" />
     <Compile Include="Models\Post_model.cs" />
     <Compile Include="Models\Rank_model.cs" />
+    <Compile Include="Models\ReplyPost_model.cs" />
+    <Compile Include="Models\StreetSnapType_model.cs" />
+    <Compile Include="Models\StreetSnap_model.cs" />
+    <Compile Include="Models\Theme_model.cs" />
     <Compile Include="Models\User_model.cs" />
+    <Compile Include="Models\VideoShow_model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\People\test.ashx.cs">
       <DependentUpon>test.ashx</DependentUpon>
@@ -276,6 +292,7 @@
     <Content Include="Views\People\test.ashx" />
     <Content Include="Views\StreetSnap\streetHome.cshtml" />
     <Content Include="Views\People\PeopleHomePage.cshtml" />
+    <Content Include="Views\People\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
