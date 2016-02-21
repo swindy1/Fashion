@@ -4,7 +4,138 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+
     <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+    <script>
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///begin////begin////begin/////begin//这个页面我改了快捷栏的代码,CSS,js全改了，这个比较好/begin//begin///begin//
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //本函数实现鼠标移上快捷栏时，快捷栏的图标变成字
+        function kuaijie_over(x) {
+            document.getElementById(x).style.backgroundColor = "#808080";
+
+            if (x == "sousuo") {
+                document.getElementById(x).innerHTML = "点击搜索";
+                sousuok.style.display = "block";
+            }
+            else {
+                sousuo.innerHTML = "";
+                sousuo.style.backgroundColor = "#c4bfbf";
+                var img_tb = document.createElement('img');//创建图片图标
+                sousuok.style.display = "none";
+                img_tb.setAttribute('src', '../Images/Topic-Home-sousuo.png');
+
+                img_tb.className = "width_full";
+                sousuo.appendChild(img_tb);
+
+                if (x == "backtop") {
+                    document.getElementById(x).innerHTML = "返回顶部";
+                }
+                else if (x == "tiwen") {
+                    document.getElementById(x).innerHTML = "点击提问";
+                }
+                else if (x == "zixun") {
+                    document.getElementById(x).innerHTML = "专家咨询";
+                }
+                else if (x == "xinxi") {
+                    document.getElementById(x).innerHTML = "查看信息";
+                }
+            }
+        }
+        //实现当鼠标移开时，快捷栏还原
+        function kuaijie_out(x) {
+            document.getElementById(x).innerHTML = "";
+            document.getElementById(x).style.backgroundColor = "#c4bfbf";
+            var img_tb = document.createElement('img');//创建图片图标
+            sousuok.style.display = "none";
+            if (x == "tiwen") {
+                img_tb.setAttribute('src', '../Images/Topic-Home-woyaotiwen.png');
+            }
+            else if (x == "zixun") {
+                img_tb.setAttribute('src', '../Images/Topic-Home-zixun.png');
+            }
+            else if (x == "xinxi") {
+                img_tb.setAttribute('src', '../Images/Topic-Home-xinxi.png');
+            }
+            else if (x == "backtop") {
+                img_tb.setAttribute('src', '../Images/Topic-Home-backtop.png');
+            }
+            img_tb.className = "width_full";
+            document.getElementById(x).appendChild(img_tb);
+        }
+    </script>
+    <style>
+        .ssk {
+            height: 20px;
+            border-radius: 4px;
+            width: 150px;
+        }
+
+        .kjl_div {
+            position: fixed;
+            top: 45%;
+            right: 13%;
+            width: 30px;
+        }
+
+        .ssk_div {
+            position: fixed;
+            top: 45.6%;
+            background-color: #808080;
+            right: 14.8%;
+            border-radius: 4px;
+            width: 150px;
+            padding: 13px;
+            display: none;
+        }
+
+        .kuaijie_btn {
+            border-radius: 4px;
+            background-color: #c4bfbf;
+            margin-top: 10%;
+            width: 100%;
+            padding: 30%;
+            color: white;
+            font-size: 1em;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .width_full {
+            width: 100%;
+        }
+    </style>
+    <!-- //end/////////end/////end//end/////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            isLoginDisplay();//判断是否已经登录
+        });
+
+        //本函数实现判断用户是否已经登录，如果为登录就。。。。。。如果登录就。。。。。
+        function isLoginDisplay() {
+            var isLogin = 1;//1代表已经登录，0代表未登录
+            if (isLogin == 1) {
+                document.getElementById("login_xs").style.display = "block";
+                document.getElementById("un_login_xs").style.display = "none";
+            }
+            else {
+                document.getElementById("un_login_xs").style.display = "block";
+                document.getElementById("login_xs").style.display = "none";
+            }
+        }
+
+
+
+
+
+    </script>
+
+
     <style>
         html {
             height: 100%;
@@ -14,73 +145,43 @@
             height: 100%;
             padding: 0px;
             margin: 0px;
+            font-size: 25%;
         }
-       
+
         /*导航栏*/
         .nav {
-            height: 10%;
-            width: 80%;
+            width: 100%;
             /*position: fixed;
             top: 9%;
             left: 9%;*/
-            
-            margin-top:4%;
-            margin-left:9%;
+            margin-top: 55px;
             z-index: 2;
-            
+            height: 100px;
         }
         /*导航栏里的链接*/
         .nav-tag {
-            
             font-family: Arial;
-            width: 100px;
-            font-size: 25px;
-            margin-right: 20px;
+            font-size: 2em;
+            margin-right: 2.5%;
             margin-top: 20px;
             float: left;
         }
+
         a.nav-tag-a:link {
-            text-decoration:none;
+            text-decoration: none;
         }
+
         a.nav-tag-a:hover {
-            background-color:#5cbbd3;
+            background-color: #5cbbd3;
         }
+
         a.nav-tag-a:visited {
             color: #a2b6b0;
         }
+
         .bb {
             border: 1px solid green;
         }
-        
-        .theRightHiddenPage {
-            height: 2000px;
-            width: 10px;
-            position: fixed;
-            right: 0px;
-            top: 0px;
-            display: none;
-            border-left: 2px solid blue;
-            background-color: aliceblue;
-        }
-        .theRightHiddenPage-tag {
-            width: 80px;
-            height: 25px;
-            font-size: 18px;
-            font-weight: 100;
-            
-            margin-left: 25px;
-            margin-top:1px;
-        }
-
-        .theContainer {
-            width: 78%;
-            margin-top: 8px;   
-            left: 14%;
-            position: relative;
-            
-            
-        }
-      
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -93,7 +194,7 @@
                 $("#theRightHiddenPage").animate({ width: "250px" }, "slow");
 
                 $("#iconOut").css("display", "none");
-              
+                $("#theRightBar").css("display", "none");
             });
             $("#consult").click(function () {
                 window.location.href = "Post";
@@ -104,7 +205,7 @@
                 $("#theRightHiddenPage").animate({ width: "10px" }, "slow");
                 $("#theRightHiddenPage").css("display", "none");
                 $("#iconOut").css("display", "");
-             
+                $("#theRightBar").css("display", "");
             });
             $("#ask").click(function () {
                 window.location.href = "Post";
@@ -116,51 +217,189 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 
-<body style="background-color: #f6f6f6; ">
-    
-    
-      
-        <div class="nav " id="nav"  >
-           
-            <div style="font-family:MingLiU; font-size:33px;font-weight:bold; width:140px;margin-left:80px;margin-top:10px;float:left;margin-right:80px;">
-                时尚达人
-            </div>
-            <div id="tag1" style="width: 55px;" class="nav-tag">
-                <a href="~/Topic/Home" class="nav-tag-a">
-                    首页
-                </a>
-            </div>
-            <div id="tag2" style="width: 55px;" class="nav-tag">
-                <a href="~/StreetSnap/streetHome" class="nav-tag-a">
-                    街拍
-                </a>
+<body>
 
-            </div>
-            <div id="tag3" style="width:80px;" class="nav-tag">
-                <a href="~/Test/gerenxiu" class="nav-tag-a">个人秀</a>
 
-            </div>
-            <div id="tag4" class="nav-tag">
-                <a href="~/Test/chaoliuzixun" class="nav-tag-a">
-                    潮流资讯
-                </a>
+    <style>
+        #top {
+            height: 35px;
+            width: 100%;
+            background-color: black;
+        }
+    </style>
 
-            </div>
-            <div id="search" class="nav-tag" style="width: 200px; margin-left: 28px; margin-top: 18px; margin-right: 0px;">
-                <input  type="text" style="height:30px;border-radius:15px;padding-left:10px;"  placeholder="Search"/>
-            </div>
-           
+
+
+    <div id="top">
+        <div style="float:left;color:white;margin-left:90px;margin-top:8px;" onclick="xs_ssk()">
+            时尚达人&nbsp;|&nbsp;FASHION
+
         </div>
-    
-    <div style="width:100%;height:2px;margin-top:10px;">
-        <hr style="border:none;border-top:1px solid #c4bfbf;" />
+        <style>
+            .li_css {
+                height: 35px;
+                line-height: 35px;
+                color: white;
+                padding-left: 30px;
+                width: 140px;
+                margin-left: -40px;
+            }
+
+            .username {
+                cursor: pointer;
+                margin-top: 0;
+                float: right;
+                margin-right: -10px;
+                list-style: none;
+                height: 35px;
+                width: 140px;
+                line-height: 35px;
+                color: white;
+            }
+
+                .username li:hover {
+                    background-color: #281f1f;
+                }
+
+            .userset li:hover {
+                background-color: #808080;
+            }
+
+            .userset {
+                list-style: none;
+                width: 130px;
+                background-color: #281f1f;
+                margin-left: -30px;
+                display: none;
+                border-radius: 0 0 5px 5px;
+            }
+
+            .username li:hover .userset {
+                display: block;
+            }
+
+            .img_jiange {
+                margin-right: 15px;
+                float: left;
+                margin-top: 5px;
+            }
+
+            .fengefu {
+                margin: 0 15px 0 15px;
+                float: right;
+            }
+
+            .top_right {
+                float: right;
+            }
+
+                .top_right a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                    .top_right a:hover {
+                        color: #fa6214;
+                    }
+
+            #share_tubiao img {
+                float: right;
+                margin: 10px 6px 0 6px;
+            }
+        </style>
+        <div id="share_tubiao" style="margin-right:80px;">
+            <a href="" title="分享到QQ"><img src="~/Images/Layout-qq.png" /></a>
+            <a href="" title="分享到微信"><img src="~/Images/Layout-weixin.png" /></a>
+            <a href="" title="分享到微博"><img src="~/Images/Layout-weibo.png" /></a>
+        </div>
+        <div id="un_login_xs" style="float:right;color:white;margin:10px 0 0 0;display:none;">
+
+            <div class="fengefu">|</div>
+            <div class="top_right">
+                <a href="../../People/Login">登录</a>
+            </div>
+            <div class="fengefu">|</div>
+            <div class="top_right">
+                <a href="../../People/Register">注册</a>
+            </div>
+            <div class="fengefu">|</div>
+
+        </div>
+        <ul class="username" id="login_xs" style="display:block;">
+            <li class="li_css" onclick="window.location.href = '../../People/Index';">
+                <img src="~/Images/Layout-usertouxiang.png" style="width:20px;margin-top:8px;" class="img_jiange" />
+                linjiejie
+                <ul class="userset">
+                    <li class="li_css" onclick="window.location.href = '../../People/Index';">
+                        <img src="~/Images/Layout-myzhuye.png" class="img_jiange" />我的主页
+                    </li>
+                    <li class="li_css" onclick="">
+                        <img src="~/Images/Layout-set.png" class="img_jiange" />设置
+                    </li>
+                    <li class="li_css" onclick="">
+
+                        <img src="~/Images/Layout-out.png" class="img_jiange" />退出
+                    </li>
+                </ul>
+            </li>
+
+
+        </ul>
+
+
+
+
     </div>
-   
-   
-  
-    
-   
-    
+
+    <div class="nav " id="nav">
+
+        <div style="font-weight: bold; width: 14%;  margin: 4px 5% 0 15%; float: left; ">
+
+
+            <img src="~/Images/Layout-logo.png" style="width:100%;height:50px;" />
+        </div>
+
+
+
+
+
+        <div id="tag1" class="nav-tag">
+            <a href="~/Topic/Home" class="nav-tag-a">
+                首页
+            </a>
+        </div>
+        <div id="tag2" class="nav-tag">
+            <a href="~/StreetSnap/streetHome" class="nav-tag-a">
+                街拍
+            </a>
+
+        </div>
+        <div id="tag3" class="nav-tag">
+            <a href="~/Test/gerenxiu" class="nav-tag-a">个人秀</a>
+
+        </div>
+        <div id="tag4" class="nav-tag">
+            <a href="~/Test/chaoliuzixun" class="nav-tag-a">
+                潮流资讯
+            </a>
+
+        </div>
+        <div id="search" class="nav-tag" style="width: 15%;margin:1.7% 0 0 2.8%; ">
+            <input type="text" style="height:30px;border-radius:15px;padding-left:10px;width:100%;" placeholder="Search" />
+        </div>
+
+    </div>
+
+    <div style="width:100%;height:2px;">
+        <hr style="border:none;border-top:1px solid #c4bfbf;" />
+
+    </div>
+
+
+
+
+
+
     <input type="hidden" value="@ViewData["LoginYes"]" id="loginYes" />
     <div id="userName" style="width: 100px; position: absolute; top: 8px; left: 10px; color: #8cc152;">
         用户名：<span style="">@ViewData["userName"]</span>
@@ -170,12 +409,12 @@
 
             if ($("#loginYes").val() == 1) {
                 $("#userName").css("display", "");
-                
+
             }
 
             else {
                 $("#userName").css("display", "none");
-                
+
             }
 
 
@@ -185,16 +424,39 @@
 
 
 
-
     <div id="theContainer" class="theContainer">
         @RenderBody()
     </div>
-    
 
 
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
 
-    
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+
+    <!-- ///begin////begin////begin/////begin////begin////begin////begin/////begin///begin///begin//begin///begin//begin/////-->
+
+    <div id="sousuok" class="ssk_div">
+        <input type="text" class="ssk" />
+    </div>
+    <div class="kjl_div">
+        <div id="sousuo" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)">
+            <img src="~/Images/Topic-Home-sousuo.png" class="width_full" />
+        </div>
+        <div id="tiwen" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)" onmouseout="kuaijie_out(this.id)">
+            <img src="~/Images/Topic-Home-woyaotiwen.png" id="tiwen1" class="width_full" />
+        </div>
+        <div id="zixun" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)" onmouseout="kuaijie_out(this.id)">
+            <img src="~/Images/Topic-Home-zixun.png" id="zixun1" class="width_full" />
+        </div>
+        <div id="xinxi" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)" onmouseout="kuaijie_out(this.id)">
+            <img src="~/Images/Topic-Home-xinxi.png" id="xinxi1" class="width_full" />
+        </div>
+        <div id="backtop" class="kuaijie_btn" onclick="scroll(0, 0)" onmouseover="kuaijie_over(this.id)" onmouseout="kuaijie_out(this.id)">
+            <img src="~/Images/Topic-Home-backtop.png" id="backtop1" class="width_full" />
+        </div>
+    </div>
+    <!-- ///end///end///end///end///end///end///end///end///end///end///end///end///end///end////-->
+
 </body>
 </html>

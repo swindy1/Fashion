@@ -4,10 +4,383 @@
 }
 
 <script src="~/Scripts/jquery-2.0.0.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {        
+<link href="~/Content/Topic_Home.css" rel="stylesheet" />
+
+<script>
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////begin///begin///这个页面就加了备注而已//begin//////begin///////begin//////begin//////begin///////begin/
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    var qjbl = 0;//为qjbl++做准备
+    //本函数实现当用户点击评论中的回复评论框中的评论按钮时，提交回复评论框中的内容
+    function cj_huifupl(x) {
+        var y = x.substring(x.length - 4, x.length);
+        var z = "huifu-pl" + y;//放回复评论的地方的id
+        var k = "plk-text" + y;//回复评论框的id
+        var text_val = document.getElementById(k).value;
+        if (text_val.length <= 0) {
+            alert("评论不能为空！");
+        }
+        else {
+            var pl_data = document.createElement('div');//pl_data：评论的内容
+            pl_data.className = "fl_left width_full";
+            pl_data.innerHTML = "linjiejie" + "&nbsp;" + "回复" + "&nbsp;" + "苹果茄子：" + text_val;
+            document.getElementById(z).appendChild(pl_data);
+
+            var sjop_div = document.createElement('div');//sjop_div：放提交时间和评论操作的div
+            sjop_div.className = "bottom_jg";
+            sjop_div.id = "sjop-div-" + y + "-" + qjbl;
+            document.getElementById(z).appendChild(sjop_div);
+            var tjsj_span = document.createElement('span');//tjsj_span：提交时间的span
+            tjsj_span.className = "comment_op hf_pl_sj";
+            var myDate = new Date();   //获取当前时间
+            tjsj_span.innerHTML = myDate.toLocaleTimeString();//获取时间
+            document.getElementById(sjop_div.id).appendChild(tjsj_span);
+
+
+
+            document.getElementById(k).value = "";
+
+            qjbl++;
+        }
+
+
+    }
+    //本函数实现当用户点击提交评论的评论按钮时，提交评论内容，创建一个新的评论到评论尾部
+    function cj_pl(x) {              //点击提交评论内容
+        var y = x.substring(x.length - 1, x.length);
+        var z = "tjpl_" + y;//放整个评论的地方的id
+        var k = "pl_text_" + y;//评论text的ID
+        var pl_val = document.getElementById(k).value;
+        if (pl_val.length <= 0) {
+            alert("评论内容不能为空！");
+        }
+        else {
+
+            var hr = document.createElement('hr');// hr：分割线
+            hr.className = "pl_fgx";
+            document.getElementById(z).appendChild(hr);
+
+            var plk_div = document.createElement('div');// 创建放评论的大框
+            plk_div.className = "pl_margin";
+            plk_div.id = "pinglunkuang-" + y + "-" + qjbl;
+            plk_div.setAttribute('onmouseover', 'xs_pinglun_op(this.id)');
+            plk_div.setAttribute('onmouseout', 'yc_pinglun_op(this.id)');
+
+            document.getElementById(z).appendChild(plk_div);
+
+            var plz_tx_div = document.createElement('div');//plz_tx_div：放评论者头像的div
+            document.getElementById(plk_div.id).appendChild(plz_tx_div);
+            plz_tx_div.id = "plz-tx-div-" + y + "-" + qjbl;
+            document.getElementById(plz_tx_div.id).className = "bottom_jg pl_er_tx";
+            var plz_tx = document.createElement('img');//plz_tx：评论者头像图片
+            plz_tx.setAttribute('src', '../Images/Layout-usertouxiang.png');
+            document.getElementById(plz_tx_div.id).appendChild(plz_tx);
+            var pl_main = document.createElement('div');//pl_main：评论内容的框
+            pl_main.className = "pl_main";
+            pl_main.id = "pl-main-" + y + "-" + qjbl;
+            document.getElementById(plk_div.id).appendChild(pl_main);
+            var pl_er_div = document.createElement('div');//pl_er_div：评论者名字的div
+            pl_er_div.id = "pl-er-div-" + y + "-" + qjbl;
+            pl_er_div.className = "comments_er bottom_jg";
+            document.getElementById(pl_main.id).appendChild(pl_er_div);
+            var pl_er = document.createElement('a');//pl_er：评论者名字的a
+            pl_er.innerHTML = "linjiejie";
+            document.getElementById(pl_er_div.id).appendChild(pl_er);
+            var pl_data = document.createElement('div');//pl_data：评论的内容
+            pl_data.className = "bottom_jg";
+            pl_data.innerHTML = pl_val;
+            document.getElementById(pl_main.id).appendChild(pl_data);
+            var sjop_div = document.createElement('div');//sjop_div：放提交时间和评论操作的div
+            sjop_div.className = "bottom_jg";
+            sjop_div.id = "sjop-div-" + y + "-" + qjbl;
+            document.getElementById(pl_main.id).appendChild(sjop_div);
+            var tjsj_span = document.createElement('span');//tjsj_span：提交时间的span
+            tjsj_span.className = "comment_op";
+            var myDate = new Date();   //获取当前时间
+            tjsj_span.innerHTML = myDate.toLocaleTimeString();//获取时间
+            document.getElementById(sjop_div.id).appendChild(tjsj_span);
+            var pl_op_span = document.createElement('span');//pl_op_span：评论操作span
+            pl_op_span.id = "pinglun-op-" + y + "-" + qjbl;
+            pl_op_span.className = "yc comment_op";
+            document.getElementById(sjop_div.id).appendChild(pl_op_span);
+            var huifu_span = document.createElement('span');//huifu_span:回复操作的span
+            huifu_span.id = "huifu-" + y + "-" + qjbl;
+            huifu_span.setAttribute('onclick', 'huifukuang(this.id)');
+
+            document.getElementById(pl_op_span.id).appendChild(huifu_span);
+            var huifu_img = document.createElement('img');//huifu_img:回复图片
+            huifu_img.setAttribute("src", "../Images/Topic-Home-huifu.png");
+            document.getElementById(huifu_span.id).appendChild(huifu_img);
+            var huifu_word = document.createElement('span');//huifu_word:回复
+            huifu_word.innerHTML = "回复"
+            document.getElementById(huifu_span.id).appendChild(huifu_word);
+
+            var dianzan_span = document.createElement('span');//dianzan_span:点赞操作的span
+            dianzan_span.id = "pl-dianzan-" + y + "-" + qjbl;
+            dianzan_span.setAttribute('onclick', 'pl_dianzan(this.id)');
+            document.getElementById(pl_op_span.id).appendChild(dianzan_span);
+            var dianzan_img = document.createElement('img');//dianzan_img:点赞图片
+            dianzan_img.setAttribute("src", "../Images/Topic-Home-dianzan.png");
+            document.getElementById(dianzan_span.id).appendChild(dianzan_img);
+            var dianzan_word = document.createElement('span');//dianzan_word:点赞
+            dianzan_word.innerHTML = "点赞"
+            dianzan_word.id = "pl-dianzan-btn-" + y + "-" + qjbl;
+            document.getElementById(dianzan_span.id).appendChild(dianzan_word);
+
+            var jubao_span = document.createElement('span');//jubao_span:举报操作的span
+            jubao_span.id = "jubao-" + y + "-" + qjbl;
+            document.getElementById(pl_op_span.id).appendChild(jubao_span);
+            var jubao_img = document.createElement('img');//jubao_img:举报图片
+            jubao_img.setAttribute("src", "../Images/Topic-Home-jubao.png");
+            document.getElementById(jubao_span.id).appendChild(jubao_img);
+            var jubao_word = document.createElement('span');//jubao_word:举报
+            jubao_word.innerHTML = "举报"
+            document.getElementById(jubao_span.id).appendChild(jubao_word);
+            var dianzanshu = document.createElement('span');//dianzanshu：点赞数
+            dianzanshu.className = "comment_op fl_right";
+            dianzanshu.id = "dianzanshu-" + y + "-" + qjbl;
+            document.getElementById(sjop_div.id).appendChild(dianzanshu);
+            var dianzanshu_val = document.createElement('span');//jdianzanshu_val：点赞数的值
+            dianzanshu_val.id = "pl-dianzanshu-" + y + "-" + qjbl;
+            dianzanshu_val.innerHTML = "0";
+            document.getElementById(dianzanshu.id).appendChild(dianzanshu_val);
+            var zan = document.createElement('span');//zan：赞字
+            zan.innerHTML = "赞";
+            document.getElementById(dianzanshu.id).appendChild(zan);
+
+
+            var huifu_pl = document.createElement('div');//huifu_pl：回复评论产生的地方
+            huifu_pl.id = "huifu-pl-" + y + "-" + qjbl;
+            huifu_pl.className = "width_full";
+            document.getElementById(pl_main.id).appendChild(huifu_pl);
+            var hfplk = document.createElement('div');//hfplk：产生回复评论框的地方
+            hfplk.id = "plk-" + y + "-" + qjbl;
+            document.getElementById(pl_main.id).appendChild(hfplk);
+
+            document.getElementById(k).value = "";
+
+            qjbl++;
+        }
+    }
+</script>
+
+
+<script>
+    //本函数实现当点击一次话题下面点赞数，点赞数增加1，再点击一次减1
+    function ht_dianzan(x) {
+        var y = document.getElementById(x).className;
+        var z = document.getElementById(x).innerHTML;
+        if (y == "dianzanshu") {
+            z++;
+            document.getElementById(x).innerHTML = z;
+            document.getElementById(x).className = "dianzanshu_";
+        }
+        else {
+            z--;
+            document.getElementById(x).innerHTML = z;
+            document.getElementById(x).className = "dianzanshu";
+        }
+
+    }
+    //本函数实现当点击一次评论内容中的点赞按钮，评论框右边的点赞数增加1，再点击一次减1
+    function pl_dianzan(x) {        //评论点赞
+        var y = x.substring(x.length - 4, x.length);
+        var z = "pl-dianzanshu" + y;      //点赞数的值所在的span的id
+        var k = "pl-dianzan-btn" + y;     //点赞按钮的值所在的span的id
+        var z_val = document.getElementById(z).innerHTML  //点赞数的值
+        var k_val = document.getElementById(k).innerHTML;     //点赞键的值
+
+        if (k_val == "点赞") {
+            z_val++;
+            document.getElementById(z).innerHTML = z_val;
+            document.getElementById(k).innerHTML = "取消点赞";
+        }
+        else {
+            z_val--;
+            document.getElementById(z).innerHTML = z_val;
+            document.getElementById(k).innerHTML = "点赞";
+        }
+    }
+    ////点击取消按钮，回复评论框消失
+    function qxhuifu(x) {
+        var y = x.substring(x.length - 4, x.length);
+        var z = "plk" + y;   //产生回复评论框的地方的id
+        document.getElementById(z).innerHTML = "";
+    }
+    //本函数实现当点击评论框中某条评论中的回复按钮时，在该评论下方创建一个评论框和评论按钮。再次点击时评论框消失
+    function huifukuang(x) {
+        var y = x.substring(x.length - 4, x.length);
+        var z = "plk" + y;   //产生回复评论框的地方的id
+        var plk_nr = document.getElementById(z).innerHTML;
+        if (plk_nr.length <= 0) {
+
+
+            var plk = document.createElement('input');// 创建评论框
+            plk.type = "text";
+            plk.id = "plk-text" + y;
+            plk.className = "pinglun_text";
+            document.getElementById(z).appendChild(plk);
+
+            var pl_btn_div = document.createElement('div');// 创建评论按钮的div
+            pl_btn_div.className = "pl_op";
+            pl_btn_div.id = "pl-btn-div" + y;
+            document.getElementById(z).appendChild(pl_btn_div);
+
+            var qx_span = document.createElement('span');// 创建取消按钮的span
+            qx_span.className = "qx_comment";
+            qx_span.id = "qx-span" + y;
+            document.getElementById(pl_btn_div.id).appendChild(qx_span);
+
+            var qx_a = document.createElement('a');// 创建取消的a
+            qx_a.id = "qx-a" + y;
+            qx_a.innerHTML = "取消";
+            qx_a.setAttribute('onclick', 'qxhuifu(this.id)');
+            document.getElementById(qx_span.id).appendChild(qx_a);
+
+            var pl_span = document.createElement('span');// 创建评论按钮的span
+            pl_span.id = "pl-span" + y;
+            document.getElementById(pl_btn_div.id).appendChild(pl_span);
+
+            var pl_button = document.createElement('input');// 创建评论的按钮
+            pl_button.type = "button";
+            pl_button.id = "pl-button" + y;
+            pl_button.value = "评论";
+            pl_button.setAttribute('onclick', 'cj_huifupl(this.id)')
+            pl_button.className = "pl_btn";
+            document.getElementById(pl_span.id).appendChild(pl_button);
+        }
+        else {
+            document.getElementById(z).innerHTML = "";
+        }
+    }
+    //点击评论下方的评论框时显示评论按钮
+    function xs_pl_btn(x) {
+
+        var y = x.substring(x.length - 1, x.length);
+        var z = "pl_op_" + y;
+        document.getElementById(z).style.display = "block";
+
+
+    }
+    //点击评论下方的取消按钮时隐藏评论按钮
+    function yc_pl_btn(x) {            //点击隐藏评论按钮
+        var y = x.substring(x.length - 1, x.length);
+        var z = "pl_op_" + y;
+        document.getElementById(z).style.display = "none";
+
+    }
+    //鼠标划过问题内容时显示被隐藏评论操作的div
+    function xs_pinglun_op(x) {
+
+        var y = x.substring(x.length - 4, x.length);
+        var z = "pinglun-op" + y;
+        document.getElementById(z).style.display = "block";
+    }
+    //鼠标移开问题内容时隐藏评论操作的div
+    function yc_pinglun_op(x) {      //鼠标out隐藏评论操作的div
+        var y = x.substring(x.length - 4, x.length);
+        var z = "pinglun-op" + y;
+        document.getElementById(z).style.display = "none";
+    }
+    //本函数实现当点击评论按钮时，显示评论内容，再次点击时隐藏
+    function xs_pl(x) {       //点击显示隐藏评论
+
+        var y = x.substring(x.length - 1, x.length);
+        var z = "comments_kuang_" + y;
+        var k = "pl_" + y;
+        var g = document.getElementById(k).innerHTML;
+        if (g == "4条评论") {
+            document.getElementById(z).style.display = "block";
+            document.getElementById(k).innerHTML = "收起评论";
+        }
+        else {
+            document.getElementById(z).style.display = "none";
+            document.getElementById(k).innerHTML = "4条评论";
+        }
+    }
+    ////本函数实现点击关注按钮时按钮显示为取消关注，再次点击时，取消关注显示又变回关注按钮
+    function guanzhu(x) {
+        var y = x.substring(x.length - 1, x.length);
+        var z = "gz_" + y;
+        var g = "gz_img_" + y;
+        var k = document.getElementById(z).innerHTML;
+        if (k == "关注") {
+            document.getElementById(z).innerHTML = "已关注";
+            document.getElementById(g).src = "../Images/Topic-Home-yiguanzhu.png"
+        }
+        else {
+            document.getElementById(z).innerHTML = "关注";
+            g.src = "../Images/Topic-Home-plus.png"
+        }
+    }
+    ////本函数实现点击感谢按钮时按钮显示为取消感谢，再次点击时，取消感谢显示又变回感谢按钮
+    function thx(x) {
+        var y = x.substring(x.length - 1, x.length);
+        var z = "ganxie_" + y;
+        var k = document.getElementById(z).innerHTML;
+        if (k == "感谢") {
+            document.getElementById(z).innerHTML = "取消感谢";
+        }
+        else {
+            document.getElementById(z).innerHTML = "感谢";
+
+        }
+    }
+    ////本函数实现点击收藏按钮时按钮显示为取消收藏，再次点击时，取消收藏显示又变回收藏按钮
+    function save(x) {
+        var y = x.substring(x.length - 1, x.length);
+        var z = "save_val_" + y;
+        var k = document.getElementById(z).innerHTML;
+        if (k == "收藏") {
+            document.getElementById(z).innerHTML = "已收藏";
+        }
+        else {
+            document.getElementById(z).innerHTML = "收藏";
+
+        }
+    }
+    ///本函数实现点击收起按钮时收起详细内容，切换回省略内容
+    function shouqi(x) {
+        var y = x.substring(x.length - 1, x.length);
+        var a = "data_detail_data_" + y;
+        var z = "data_short_data_" + y
+        document.getElementById(a).style.display = "none";
+        document.getElementById(z).style.display = "block";
+        var k = "xs_shouqi_" + y;
+        document.getElementById(k).style.display = "none";
+
+    }
+    //鼠标划过时显示正文下方被隐藏的操作按钮的div
+    function xianshi_op(x) {
+        var y = x.substring(x.length - 1, x.length);
+        var a = "yincang_op_" + y;
+        document.getElementById(a).style.display = "block";
+
+
+
+    }
+    //鼠标移开时隐藏正文下方可被隐藏的操作按钮的div
+    function yincang_op(x) {
+        var y = x.substring(x.length - 1, x.length);
+        var a = "yincang_op_" + y
+        document.getElementById(a).style.display = "none";
+    }
+    //本函数实现点击省略的文章时，展开全文
+    function zhangkai(x) {
+        document.getElementById(x).style.display = "none";
+        var y = x.substring(x.length - 1, x.length);
+        var z = "data_detail_data_" + y;
+        document.getElementById(z).style.display = "block";
+        var k = "xs_shouqi_" + y;
+        document.getElementById(k).style.display = "block";
+
+    }
+    ///end/////end////end////end//////end/////end////end//////end///end///end///end///end///end///end/////////
+
+    $(document).ready(function () {
         if ($("#loginYes").val() == "1") {
-            $("#MySetting").css("display","");
+            $("#MySetting").css("display", "");
         }
         else {
             $("#MySetting").css("display", "none");
@@ -25,145 +398,209 @@
                 //var jsonData2 = new Function("return" + data)();
                 //alert(jsonData2.name);
 
-                
-                
-                
+
+
+
 
                 //var value1 = { "name":1};
                 //var obj1 = eval(value1);
                 //alert(obj1.name);
-                
-                
-                
 
-                
+
+
+
+
             }
         });
     });
 </script>
 
 
-  <div id="TheContent">
-      <div id="TheContentLeft" style="display:inline-block; width: 60%;  margin-left: 8%;">
-          <div id="TheContentLeft-head" style="height:30px;width:100%;margin-top:20px;">
-              <div style="margin-left:8px;">
-                  <div style="float:left;">
-                      <img style="width:20px" src="~/Images/Topic-Home-theNewState.png" />
-                  </div>
-                  <div style="width:100px;float:left;">
-                      最新动态
-                  </div>
-                  
-                  <div style="float:right;margin-right:10px;font-size:18px;">
-                      设置
-                  </div>
-                  <div style="float:right;">
-                      <img style="width:22px" src="~/Images/Topic-Home-setting.png" />
-                  </div>
-              </div>
-          </div>
-          <div>
-              <hr style="border:none;border-top:1px solid #d4cbcb" />
-          </div>
-          @for (int i = 0; i < 50; i++)
-          { 
-           <div style="margin-left:8px;height:170px;padding-top:10px;" >
-               <div style="height:100%;width:40px;display:inline-block;" >
-                   <div>
-                       <img style="width:40px;height:40px;" src="~/Images/Topic-Home-1.jpg" />
-                   </div>
-                   <div style="background-color:#93cbf3;width:38px;text-align:center;margin:auto; margin-top:5px;">
-                       500
-                   </div>
-               </div>
-               <div style="width:570px;height:100%;display:inline-block;vertical-align:top;" >
-                   <div style="color:#808080;margin-left:1px;font-size:13px;display:inline-block;">
-                       来自
-                   </div>
-                   <div style=" color: #808080; margin-left: 3px; font-size: 13px;display:inline-block;">
-                       饰品
-                   </div>
-                   
-                  
-                   <div style="color:#0d1aa4;margin-left:1px;font-size:15px;font-weight:bold">
-                       <a href="answer" target="_blank" style="text-decoration: none; color: #0d1aa4;" onmousemove="this.style.textDecoration = 'underline';" onmouseout="    this.style.textDecoration = 'none';">应该如何佩戴首饰？</a>
-                       
-                   </div>
-                   <div style="color:#5410b6;font-size:14px;font-weight:bold;font-family:Calibri;">
-                       simple，在旅程中，谁都可以蜕变
-                   </div>
-                   <div style="margin-top:5px;">
-                       <div style="float:left;">
-                           <img style="width:150px;" src="~/Images/Topic-Home-2.jpg" />
-                       </div>
-                       <div style="float:left;width:70%;margin-left:8px;">
-                           <div style="font-size: 14px; color: #aa9e9e; float: left; ">
-                               应该说，戴什么样的首饰是消费者个人的事情，并无什么框框可言，只要自己喜欢就行，即所谓“萝卜白菜，各有所爱”。但作为社会中的一员，一些大多数人普遍接受的原则还是应该了解。一般说来，首饰佩戴的基本原则，就是要达...
-                           </div>
-                       </div>
-                   </div>
-                   <div style="color: #808080;height:30px;float:left;font-size:14px;margin-top:5px;">
-                       <div style="float:left;">
-                           +关注问题
-                       </div>
-                       <div style="float:left;margin-left:10px; ">
-                           <img style="width:15px;" src="~/Images/Topic-Home-comment.png" />
-                       </div>
-                       <div style="float:left;">
-                           20条评论
-                       </div>
 
-                   </div>
-               </div>
-            </div>
-          <hr style="border:none;border-top:1px solid #dee1e0" />        
-          }
-      
-      
-       
+
+<div id="TheContent" class="TheContent">
 
 
 
-      </div>
-    <div style="display:inline-block;vertical-align:top; width: 20%;  margin-left:50px;" id="TheContentRight">
-
-        <div style="height:100px;margin-top:70px;color:#808080;">
-            <div id="ask" class="" style="margin-bottom:20px;margin-left:10px;">
-                <input type="button" style="height:33px;border-radius:5px;padding-left:10px;font-size:20px;text-align:center;color:#1586a3;" value="提问" />
-            </div>
-            <div title="可点击进行时尚资讯" style="height:33px;width:140px;margin-left:10px;margin-top:0px;box-shadow:1px 1px 3px #aa9e9e;border-radius:5px 5px;text-align:center;padding-top:6px;background-color:#d4cbcb;margin-bottom:25px;">
-                <a href="" style="text-decoration:none;font-size:16px;" >特点咨询</a>
-                
-            </div>
-            <div id="MySetting">
-                <hr style="border: none; border-top: 1px solid #f8cfcf; height: 0px;" />
-                <div style="height:20px;margin-bottom:5px;">
-                    <div style="float:left;">
-                        <img style="width:18px;" src="~/Images/Topic-Home-caoGao.png" />
-                    </div>
-                    <div style="float:left;margin-left:3px;">
-                        我的草稿
-                    </div>
+    <div id="TheContentLeft" style="display:inline-block; width: 50%;">
+        <div id="TheContentLeft-head" style="height:30px;width:100%;margin-top:20px;">
+            <div style="margin-left:8px;">
+                <div style="float:left;">
+                    <img style="width:20px" src="~/Images/Topic-Home-theNewState.png" />
                 </div>
-                <div style="height: 20px; margin-bottom: 5px;">
-                    <div style="float:left;">
-                        <img style="width:18px;" src="~/Images/Topic-Home-souCang.png" />
-                    </div>
-                    <div style="float: left; margin-left: 3px;">
-                        我的收藏
-                    </div>
+                <div style="width:100px;float:left;">
+                    最新动态
                 </div>
-                <div style="height: 20px; margin-bottom: 5px;">
-                    <div style="float:left;">
-                        <img style="width:18px;" src="~/Images/Topic-Home-guanZhu.png" />
-                    </div>
-                    <div style="float: left; margin-left: 3px;">
-                        我关注的问题
-                    </div>
+
+                <div style="float:right;margin-right:10px;font-size:18px;">
+                    设置
                 </div>
-                <hr style="border: none; border-top: 1px solid #f8cfcf;">
+                <div style="float:right;">
+                    <img style="width:22px" src="~/Images/Topic-Home-setting.png" />
+                </div>
             </div>
         </div>
+        <div>
+            <hr style="border:none;border-top:1px solid #d4cbcb" />
+        </div>
+        @for (int i = 0; i < 10; i++)
+        {
+            <div id="data_all_@i" class="data" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
+                <div class="data_left">
+
+
+                    <div>
+                        <a href="" title="话题详情"><img src="~/Images/Topic-Home-dapeitouxiang.png.jpg" /></a>
+                    </div>
+
+                    <div id="ht-dianzanshu-@i" class="dianzanshu" onclick="ht_dianzan(this.id)">
+                        178
+                    </div>
+
+
+                </div>
+
+                <div class="data_main">
+                    <div class="laizi">
+                        来自&nbsp;<a href="">穿衣搭配</a>、<a href="">技巧</a>
+                    </div>
+                    <div class="data_wenti">
+                        <a href="">皮草应该怎么搭不显臃肿？</a>
+                    </div>
+                    <div class="data_fawenzi">
+                        <a href="" title="发问者资料">linjiejie</a><span>,lalala~我是卖报的小行家~</span>
+                    </div>
+                    <div id="data_short_data_@i" class="data_short_data" onclick="zhangkai(this.id)">
+
+                        <div class="data_img"><img src="~/Images/Topic-Home-wentitupian.png.jpg" /></div>
+                        <div id="title_@i" class="data_words"></div>
+                        <script>
+                            var titleStr = "天气冷了，最近好多人问皮草怎么搭才好看、才不臃肿。长春皮草哪家好，皮草是一种本身就带膨胀感、体积感、沉重感的单品，虽然雍容华贵，但是穿起来总容易把人显胖。那该怎么办呢？既然皮草大衣带来的上半身体天气冷了，最近好多人问皮草怎么搭才好看、才不臃肿。长春皮草哪家好，皮草是一种本身就带膨胀感、体积感、沉重感的单品，。那该怎么办呢？既然皮草大衣带来的上半身体天气冷了，最近好多人问皮草怎么搭才好看、才不臃肿。长春皮草哪家好，皮草是一种本身就带膨胀感、体积感、沉重感的单品";//你从数据库里读到的字符串内容
+                            var maxLen = 145;//你想显示的长度
+
+                            if (titleStr.length > maxLen)
+                                document.getElementById("title_@i").innerHTML = titleStr.substring(0, maxLen) + "...&nbsp;&nbsp;<span class='xianshiquanbu'>显示全部</span>";
+                            else
+                                document.getElementById("title_@i").innerHTML = titleStr;
+                        </script>
+
+
+                    </div>
+                    <div id="data_detail_data_@i" class="data_detail_data">
+
+                        <p>天气冷了，最近好多人问皮草怎么搭才好看、才不臃肿。长春皮草哪家好，皮草是一种本身就带膨胀感、体积感、沉重感的单品，虽然雍容华贵，但是穿起来总容易把人显胖。那该怎么办呢？既然皮草大衣带来的上半身体积感是无法避免的，那么我们只能在内搭和下半身多加注意了。</p>
+                        <img src="~/Images/Topic-Home-wentitupian.png.jpg" style="width:100%;" />
+                        <p>
+
+                            皮草本身就很厚重、够保暖，所以，内搭只需要薄薄的T恤就可以，T恤的领口最好开阔一些，可以露出你的锁骨。长春皮草哪家好，锁骨给人纤瘦的感觉，上半身敞露锁骨，直接让锁骨处的肌肤成为搭配的视觉重心，那么，皮草大衣的沉重感就会被弱化。
+                        </p>
+                        <p>好像就这几天，有位同学问我，皮草大衣里面该配怎样的毛衣？能配毛领毛衣吗？</p>
+                        <p>大家要知道，高领毛衣本身就比较容易显上半身胖，如果还和皮草搭在一起，那么你人从正面看，就会显得很大只。长春皮草哪家好，所以，建议大家穿皮草时，内搭大领口的衣服，最好是T恤、衬衫类的轻薄面料，穿衬衫的话，衬衫领口最好敞开。脖子冷，宁可另外戴围巾，也不要穿高领毛衣。穿皮草大衣时，下半身搭配的裤子最好是紧身的小脚裤，除非你身材又高又瘦，不然就不要配松松宽宽的裤子。</p>
+                        <p>因为越是大体积的上衣，就越要遵循“上宽下紧”的法则、凸显腿部线条的流畅利落，才不会显胖。长春皮草哪家好，试想：如果你上半身已经很臃肿了，下半身再穿个宽松的裤子，那岂不是上面大，下面也大，整个人就大一圈。</p>
+                        <p>关于鞋子：如果你不怕冷，可以配浅口高跟鞋，如果你怕冷，则可以搭配踝靴或深口鞋，最好是高跟的、并且和裤子颜色保持一致，这些都可以令你的腿部线条看起来流畅修长。</p>
+                        <p>穿皮草千万别搭配大头马丁靴和雪地靴。除非你是T台的模特比例和身材。</p>
+                        <p>还记得之前羽绒服的搭配中，我建议大家可以试试在羽绒服外面系腰带吗？长春皮草哪家好，其实皮草也可以搭配腰带！长春皮草哪家好，在膨胀的皮草外套外系上腰带，制造腰线、打造X廓型，不仅显高显瘦，还有女人味。大家注意一些皮草穿搭的欧美街拍，都是上半身雍容华贵，下半身紧紧包腿的。这便是皮草穿搭的关键。</p>
+                        <p>另外，欧美人的头部小、五官立体，穿上巨大的皮草外套也不会觉得胖，但亚洲人，如果是没有模特身材比例的普通人，那么头都会比较大，这是硬伤，所以，大家在穿皮草时，除了穿高跟鞋、系腰带来调整身材比例外，还可以把头发弄起来而不是披头散发，这样可以让头部显小点。</p>
+                        <p>皮草外套搭配裙装的话，裙装的材质最好以轻盈材质的为佳。长春皮草哪家好，一些春夏季穿着的面料，例如雪纺、网纱、蕾丝、真丝、木代尔等面料，它们轻盈垂感，可以弱化皮草的沉重感。</p>
+                        <p>看了那么多皮草的街拍搭配，不知道大家还有没有发现一个细节：范儿们都似乎很爱穿皮草时，配个小礼帽！你也可以试试。</p>
+
+                    </div>
+
+
+
+
+
+
+                    <div class="op_img" id="op_cz">
+                        <div id="guanzhu_@i" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@i" /><div class="data_op_n" id="gz_@i">关注</div></div>
+
+                        <div class="data_op_xx" onclick="xs_pl(this.id)" id="zkpl_@i">
+                            <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@i">4条评论</div>
+                        </div>
+                        <div id="yincang_op_@i" style="display:none;">
+                            <div id="thx_@i" class="data_op_xx" onclick="thx(this.id)">
+                                <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_@i">感谢</div>
+                            </div>
+
+                            <div class="data_op_xx" onclick="save(this.id)" id="save_@i">
+                                <img src="~/Images/Topic-Home-save.png" /><div class="data_op_n" id="save_val_@i">收藏</div>
+                            </div>
+                            <div class="data_op_xx">
+                                <img src="~/Images/Topic-Home-fenxiang.png" /><div class="data_op_n">分享</div>
+                            </div>
+                            <div class="data_op_xx">
+                                <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">举报</div>
+                            </div>
+                        </div>
+
+                        <div class="data_op_xx">
+                            <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">保留权利</div>
+                        </div>
+                        <div id="xs_shouqi_@i" class="data_op_xx data_op_shouqi">
+                            <img src="~/Images/Topic-Home-retract.png" />
+                            <div id="shouqi_@i" class="data_op_n" onclick="shouqi(this.id)">收起</div>
+                        </div>
+
+                    </div>
+
+                    <div id="comments_kuang_@i" class="yc plk">
+
+
+
+
+                        @for (int j = 6; j < 10; j++)
+                        {
+                            <div class="pl_margin" id="pinglunkuang-@i-@j" onmouseover="xs_pinglun_op(this.id)" onmouseout="yc_pinglun_op(this.id)">
+                                <div class="bottom_jg pl_er_tx">
+                                    <img src="~/Images/Layout-usertouxiang.png" />
+                                </div>
+                                <div class="pl_main">
+                                    <div class="comments_er bottom_jg"><a href="">苹果茄子</a></div>
+                                    <div class="bottom_jg">pi皮草真心很难搭。。。</div>
+                                    <div class="bottom_jg">
+                                        <span class="comment_op">2015-12-9</span>
+                                        <span class="yc comment_op" id="pinglun-op-@i-@j">
+                                            <span id="huifu-@i-@j" onclick="huifukuang(this.id)"><img src="~/Images/Topic-Home-huifu.png" />回复</span>
+                                            <span id="pl-dianzan-@i-@j" onclick="pl_dianzan(this.id)"><img src="~/Images/Topic-Home-dianzan.png" /><span id="pl-dianzan-btn-@i-@j">点赞</span></span>
+                                            <span><img src="~/Images/Topic-Home-jubao.png" />举报</span>
+                                        </span>
+                                        <span class="comment_op fl_right"><span id="pl-dianzanshu-@i-@j">38</span><span>赞</span></span>
+                                    </div>
+                                    <div id="huifu-pl-@i-@j"></div><!--回复评论产生的地方-->
+                                    <div id="plk-@i-@j"></div>     <!--产生回复评论框的地方-->
+
+
+                                </div>
+
+                            </div>
+                            if (j < 9)
+                            {
+                                <hr class="pl_fgx" />
+                            }
+
+                        }
+
+                        <div id="tjpl_@i"></div>  <!--创建评论产生的地方-->
+
+                        <hr style="border:none;border-top:1px solid #ebe4e4;width:100%;" />
+                        <div class="page" id="fenye_div"></div>
+
+                        <div class="plk_z">
+                            <input id="pl_text_@i" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
+                            <div id="pl_op_@i" class="pl_op yc">
+                                <span class="qx_comment"><a onclick="yc_pl_btn(this.id)" id="qx_btn_@i">取消</a></span>
+                                <span><input id="pl_btn_@i" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id)" /></span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="hr_fgx" />
+
+                </div>
+          </div>
+        }
     </div>
 </div>
+
+
+
 

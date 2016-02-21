@@ -140,6 +140,7 @@
     <Compile Include="Code\DAL\User_dal.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\StreetSnapController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TopicController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -231,6 +232,34 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="Images\Layout-logo.png" />
+    <Content Include="Images\Layout-myzhuye.png" />
+    <Content Include="Images\Layout-out.png" />
+    <Content Include="Images\Layout-qq.png" />
+    <Content Include="Images\Layout-set.png" />
+    <Content Include="Images\Layout-usertouxiang.png" />
+    <Content Include="Images\Layout-weibo.png" />
+    <Content Include="Images\Layout-weixin.png" />
+    <Content Include="Images\test.png" />
+    <Content Include="Images\test2.png" />
+    <Content Include="Images\Topic-Home-backtop.png" />
+    <Content Include="Images\Topic-Home-dapeitouxiang.png.jpg" />
+    <Content Include="Images\Topic-Home-dian.png" />
+    <Content Include="Images\Topic-Home-dianzan.png" />
+    <Content Include="Images\Topic-Home-fenxiang.png" />
+    <Content Include="Images\Topic-Home-ganxie.png" />
+    <Content Include="Images\Topic-Home-huifu.png" />
+    <Content Include="Images\Topic-Home-jubao.png" />
+    <Content Include="Images\Topic-Home-pinglun.png" />
+    <Content Include="Images\Topic-Home-plus.png" />
+    <Content Include="Images\Topic-Home-retract.png" />
+    <Content Include="Images\Topic-Home-save.png" />
+    <Content Include="Images\Topic-Home-sousuo.png" />
+    <Content Include="Images\Topic-Home-wentitupian.png.jpg" />
+    <Content Include="Images\Topic-Home-woyaotiwen.png" />
+    <Content Include="Images\Topic-Home-xinxi.png" />
+    <Content Include="Images\Topic-Home-yiguanzhu.png" />
+    <Content Include="Images\Topic-Home-zixun.png" />
     <Content Include="test.html" />
     <Content Include="Images\people-error.png" />
     <Content Include="Images\people-login-back_1.png" />
@@ -293,6 +322,8 @@
     <Content Include="Views\StreetSnap\streetHome.cshtml" />
     <Content Include="Views\People\PeopleHomePage.cshtml" />
     <Content Include="Views\People\Index.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
