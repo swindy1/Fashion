@@ -14,6 +14,7 @@ namespace Fashion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             //string sqlConnectionString=ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
             //SqlConnection conn = new SqlConnection(sqlConnectionString);
             //conn.Open();

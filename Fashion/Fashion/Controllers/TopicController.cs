@@ -4,15 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-
+using Fashion.Models;
 namespace Fashion.Controllers
 {
     public class TopicController : Controller
     {
-        //
-        // GET: /Topic/
-
         
+        //
+        // GET: /Topic/  
         public ActionResult Index2()
         {
             return Index2();
@@ -21,17 +20,17 @@ namespace Fashion.Controllers
         public ActionResult Home()
         {
 
+            
             if (Session["userName"] == null)
-            {
+            {//未登录
                 ViewData["LoginYes"] = 0;
-            }
                 
+            }
             else
-            {
+            {//已登录
                 ViewData["LoginYes"] = 1;
                 ViewData["userName"] = Session["userName"].ToString();
             }
-            
             return View();
             
         }

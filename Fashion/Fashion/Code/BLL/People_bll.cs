@@ -101,6 +101,38 @@ namespace Fashion.Code.BLL
             }      
         }
 
+        /// <summary>
+        /// 通过用户名获取该用户的头像的url，返回结果为string型
+        /// 查询成功返回url的string格式
+        /// null代表：查询到的数据为null，数据库中的User表里不存在该userName用户对应的数据
+        ///           或查询到的该字段为null,即数据库存在该数据但数据库中的User表里用户名为userName的数据对应的User_TouXiangUrl为null
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <returns></returns>
+        public string GetImgUrlTouXiang(string userName)
+        {
+            User_dal user = new User_dal();
+            object UrlTouXiangObj = user.GetImgUrlTouXiang(userName);
+            if (UrlTouXiangObj == null || UrlTouXiangObj == System.DBNull.Value)
+            {
+                return null;
+            }
+            return UrlTouXiangObj.ToString();
+        }
+
+
+
+        //未编辑
+        /// <summary>
+        /// 实现将用户的头像的url插入到数据库的功能，url为相对路径如：/Images/TouXiang/userName.png
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="urlTouXiang"></param>
+        /// <returns></returns>
+        public bool InsertUrlTouXiang(string userName, string urlTouXiang)
+        {
+            return true;
+        }
 
 
 
@@ -113,7 +145,7 @@ namespace Fashion.Code.BLL
         /// 0代表注册成功；
         /// 1代表：数据插入出错，注册失败
         /// 2代表：查询到的数据为null，数据库中的等级表里不存在该rankName对应的数据
-        /// 3代表：查询到的该字段为null,数据库中的等级表里的rankName字段对应的rankId为null
+        /// 3代表：查询到的该字段为null,数据库中的等级表里等级名为rankName的数据对应的rankId为null
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <param name="password">密码</param>

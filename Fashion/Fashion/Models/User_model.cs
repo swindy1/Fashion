@@ -7,10 +7,12 @@ namespace Fashion.Models
 {
     public class User_model
     {
+    
         //用户信息
         public int userId;//编号
         public string realName;//真是姓名
         public string userName;//用户名
+        public string touXiangUrl;//用户头像url
         public string password;//密码
         public string salt;//盐值
         public char sex;//性别    

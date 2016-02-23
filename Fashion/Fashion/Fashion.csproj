@@ -260,6 +260,7 @@
     <Content Include="Images\Topic-Home-xinxi.png" />
     <Content Include="Images\Topic-Home-yiguanzhu.png" />
     <Content Include="Images\Topic-Home-zixun.png" />
+    <Content Include="Images\TouXiang\Layout-usertouxiang.png" />
     <Content Include="test.html" />
     <Content Include="Images\people-error.png" />
     <Content Include="Images\people-login-back_1.png" />

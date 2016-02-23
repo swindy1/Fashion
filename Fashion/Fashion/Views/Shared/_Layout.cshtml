@@ -114,14 +114,16 @@
     <script>
         $(document).ready(function () {
             isLoginDisplay();//判断是否已经登录
+            
         });
 
         //本函数实现判断用户是否已经登录，如果为登录就。。。。。。如果登录就。。。。。
-        function isLoginDisplay() {
-            var isLogin = 1;//1代表已经登录，0代表未登录
+        function isLoginDisplay() { 
+            var isLogin = @ViewData["LoginYes"]; //1代表已经登录，0代表未登录}
             if (isLogin == 1) {
                 document.getElementById("login_xs").style.display = "block";
                 document.getElementById("un_login_xs").style.display = "none";
+                
             }
             else {
                 document.getElementById("un_login_xs").style.display = "block";
@@ -185,7 +187,7 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
-
+            
             $("#iconOut").click(function () {
 
                 $("#theContainer").animate({ left: "0px" }, "slow");
@@ -220,6 +222,8 @@
 <body>
 
 
+
+
     <style>
         #top {
             height: 35px;
@@ -244,26 +248,24 @@
                 width: 140px;
                 margin-left: -40px;
             }
-
-            .username {
-                cursor: pointer;
-                margin-top: 0;
-                float: right;
-                margin-right: -10px;
-                list-style: none;
-                height: 35px;
-                width: 140px;
-                line-height: 35px;
-                color: white;
-            }
+             
+                 .username {
+                    cursor: pointer;
+                    margin-top: 0;
+                    float: right;
+                    margin-right: -10px;
+                    list-style: none;
+                    height: 35px;
+                    width: 140px;
+                    line-height: 35px;
+                    color: white;
+                }
 
                 .username li:hover {
                     background-color: #281f1f;
                 }
 
-            .userset li:hover {
-                background-color: #808080;
-            }
+         
 
             .userset {
                 list-style: none;
@@ -273,8 +275,11 @@
                 display: none;
                 border-radius: 0 0 5px 5px;
             }
-
+                .userset li:hover {
+                    background-color: #808080;
+                }
             .username li:hover .userset {
+                
                 display: block;
             }
 
@@ -312,24 +317,34 @@
             <a href="" title="分享到微信"><img src="~/Images/Layout-weixin.png" /></a>
             <a href="" title="分享到微博"><img src="~/Images/Layout-weibo.png" /></a>
         </div>
-        <div id="un_login_xs" style="float:right;color:white;margin:10px 0 0 0;display:none;">
+        <div id="un_login_xs" style="float:right;color:white;margin:10px 0 0 0;display:none;z-index:1;">
 
             <div class="fengefu">|</div>
             <div class="top_right">
-                <a href="../../People/Login">登录</a>
+                <a href="./People/Login">登录</a>
             </div>
             <div class="fengefu">|</div>
             <div class="top_right">
-                <a href="../../People/Register">注册</a>
+                <a href="./People/Register">注册</a>
             </div>
             <div class="fengefu">|</div>
 
         </div>
         <ul class="username" id="login_xs" style="display:block;">
-            <li class="li_css" onclick="window.location.href = '../../People/Index';">
-                <img src="~/Images/Layout-usertouxiang.png" style="width:20px;margin-top:8px;" class="img_jiange" />
+            <li class="li_css" onclick="window.location.href = './People/Index';">
+             
+                
+                   
+                @*<img src="~/Images/Layout-usertouxiang.png" id="a" style="width:20px;margin-top:8px;height:20px;" class="img_jiange" />
+                <script type="text/javascript">
+                    alert($("#a").attr('src'));
+                    $("#a").attr('src','../Images/TouXiang/Layout-usertouxiang.png');
+                    
+
+                </script>*@
+               <img src="~/Images/Layout-usertouxiang.png" style="width:20px;margin-top:8px;height:20px;" class="img_jiange" />
                 linjiejie
-                <ul class="userset">
+                <ul class="userset" >
                     <li class="li_css" onclick="window.location.href = '../../People/Index';">
                         <img src="~/Images/Layout-myzhuye.png" class="img_jiange" />我的主页
                     </li>
@@ -351,7 +366,7 @@
 
     </div>
 
-    <div class="nav " id="nav">
+    <div class="nav " id="nav" style="z-index:3;">
 
         <div style="font-weight: bold; width: 14%;  margin: 4px 5% 0 15%; float: left; ">
 
@@ -385,7 +400,7 @@
 
         </div>
         <div id="search" class="nav-tag" style="width: 15%;margin:1.7% 0 0 2.8%; ">
-            <input type="text" style="height:30px;border-radius:15px;padding-left:10px;width:100%;" placeholder="Search" />
+            <input type="text" style="height: 30px; border-radius: 15px; padding-left: 10px; width: 100%; " placeholder="Search" />
         </div>
 
     </div>
@@ -394,35 +409,6 @@
         <hr style="border:none;border-top:1px solid #c4bfbf;" />
 
     </div>
-
-
-
-
-
-
-    <input type="hidden" value="@ViewData["LoginYes"]" id="loginYes" />
-    <div id="userName" style="width: 100px; position: absolute; top: 8px; left: 10px; color: #8cc152;">
-        用户名：<span style="">@ViewData["userName"]</span>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            if ($("#loginYes").val() == 1) {
-                $("#userName").css("display", "");
-
-            }
-
-            else {
-                $("#userName").css("display", "none");
-
-            }
-
-
-        });
-    </script>
-
-
-
 
     <div id="theContainer" class="theContainer">
         @RenderBody()
