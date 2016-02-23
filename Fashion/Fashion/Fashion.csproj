@@ -138,6 +138,7 @@
     <Compile Include="Code\DAL\Rank_dal.cs" />
     <Compile Include="Code\DAL\SqlHelper.cs" />
     <Compile Include="Code\DAL\User_dal.cs" />
+    <Compile Include="Code\Public\PublicBianLiang.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\StreetSnapController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -260,7 +261,7 @@
     <Content Include="Images\Topic-Home-xinxi.png" />
     <Content Include="Images\Topic-Home-yiguanzhu.png" />
     <Content Include="Images\Topic-Home-zixun.png" />
-    <Content Include="Images\TouXiang\Layout-usertouxiang.png" />
+    <Content Include="Images\TouXiang\111.png" />
     <Content Include="test.html" />
     <Content Include="Images\people-error.png" />
     <Content Include="Images\people-login-back_1.png" />

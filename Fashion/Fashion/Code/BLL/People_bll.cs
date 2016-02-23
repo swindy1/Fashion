@@ -122,16 +122,26 @@ namespace Fashion.Code.BLL
 
 
 
-        //未编辑
+        
         /// <summary>
         /// 实现将用户的头像的url插入到数据库的功能，url为相对路径如：/Images/TouXiang/userName.png
+        /// 成功返回true 失败返回false
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="urlTouXiang"></param>
+        /// <param name="userName">用户名</param>
+        /// <param name="ImgExtension">图片扩展名</param>
         /// <returns></returns>
-        public bool InsertUrlTouXiang(string userName, string urlTouXiang)
+        public bool InsertUrlTouXiang(string userName, string ImgExtension)
         {
-            return true;
+            string TouXiangUrl = "/Images/TouXiang/" + userName + ImgExtension;
+            User_dal user_dal = new User_dal();
+            int NonqCount = user_dal.InsertUrlTouXiang(userName, TouXiangUrl); //受影响的函数
+            if (NonqCount == 1)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
 

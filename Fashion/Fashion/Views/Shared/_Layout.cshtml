@@ -119,11 +119,11 @@
 
         //本函数实现判断用户是否已经登录，如果为登录就。。。。。。如果登录就。。。。。
         function isLoginDisplay() { 
-            var isLogin = @ViewData["LoginYes"]; //1代表已经登录，0代表未登录}
+            var isLogin = @ViewData["LoginYes"].ToString();//1代表已经登录，0代表未登录}
             if (isLogin == 1) {
                 document.getElementById("login_xs").style.display = "block";
                 document.getElementById("un_login_xs").style.display = "none";
-                
+                $("#img_touXiang").attr('src','@ViewData["TouXiangUrl"]');//显示个人头像
             }
             else {
                 document.getElementById("un_login_xs").style.display = "block";
@@ -321,28 +321,19 @@
 
             <div class="fengefu">|</div>
             <div class="top_right">
-                <a href="./People/Login">登录</a>
+                <a href="../People/Login">登录</a>
             </div>
             <div class="fengefu">|</div>
             <div class="top_right">
-                <a href="./People/Register">注册</a>
+                <a href="../People/Register">注册</a>
             </div>
             <div class="fengefu">|</div>
 
         </div>
+        
         <ul class="username" id="login_xs" style="display:block;">
             <li class="li_css" onclick="window.location.href = './People/Index';">
-             
-                
-                   
-                @*<img src="~/Images/Layout-usertouxiang.png" id="a" style="width:20px;margin-top:8px;height:20px;" class="img_jiange" />
-                <script type="text/javascript">
-                    alert($("#a").attr('src'));
-                    $("#a").attr('src','../Images/TouXiang/Layout-usertouxiang.png');
-                    
-
-                </script>*@
-               <img src="~/Images/Layout-usertouxiang.png" style="width:20px;margin-top:8px;height:20px;" class="img_jiange" />
+               <img id="img_touXiang" style="width:20px;margin-top:8px;height:20px;" class="img_jiange" />
                 linjiejie
                 <ul class="userset" >
                     <li class="li_css" onclick="window.location.href = '../../People/Index';">
@@ -377,7 +368,7 @@
 
 
 
-
+        <div>@ViewData["TouXiangUrl"]</div>
         <div id="tag1" class="nav-tag">
             <a href="~/Topic/Home" class="nav-tag-a">
                 首页

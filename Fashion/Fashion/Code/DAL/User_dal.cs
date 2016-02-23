@@ -93,7 +93,7 @@ namespace Fashion.Code.DAL
             return model;
         }
 
-        //未测试
+       
         /// <summary>
         /// 通过用户名获取该用户的头像的url，返回结果为string型
         /// </summary>
@@ -108,7 +108,7 @@ namespace Fashion.Code.DAL
             return SqlHelper.ExecuteScalar(sqlStr,parameters);
         }
 
-        //未测试
+       
         /// <summary>
         /// 实现将用户的头像的url插入到数据库的功能，url为相对路径如：/Images/TouXiang/userName.png
         /// 函数返回受影响的函数
@@ -125,6 +125,20 @@ namespace Fashion.Code.DAL
             };
             return SqlHelper.ExecuteNonquery(sqlStr, parameters);
         }
+
+
+        //未编辑
+        /// <summary>
+        /// 封装sqlparameters的功能
+        /// </summary>
+        /// <param name="?"></param>
+        /// <returns></returns>
+        //public SqlParameter[] pp(params Dictionary<string,string>)
+        //{ 
+        //    SqlParameter[] ppp=new SqlParameter[]{
+        //    };
+        //    return ppp;
+        //}
       
         /// <summary>
         /// 查询tb_User表，获取指定的一行数据

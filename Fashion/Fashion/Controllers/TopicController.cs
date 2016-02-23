@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Fashion.Models;
+using Fashion.Code.BLL;
 namespace Fashion.Controllers
 {
     public class TopicController : Controller
@@ -19,8 +20,6 @@ namespace Fashion.Controllers
         
         public ActionResult Home()
         {
-
-            
             if (Session["userName"] == null)
             {//未登录
                 ViewData["LoginYes"] = 0;
@@ -30,6 +29,8 @@ namespace Fashion.Controllers
             {//已登录
                 ViewData["LoginYes"] = 1;
                 ViewData["userName"] = Session["userName"].ToString();
+                People_bll peopleBll = new People_bll();
+                ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
             }
             return View();
             
