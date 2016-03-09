@@ -1,0 +1,14 @@
+﻿@model Fashion.Models.PostFull_model
+@using Fashion.Models
+@{
+    Layout = null;
+}
+
+<h2>Index</h2>
+@Model.postSender
+
+@{
+    PostFull_model pp = new PostFull_model();
+    pp = ViewData["aa"] as PostFull_model;
+}
+@pp.postSender;

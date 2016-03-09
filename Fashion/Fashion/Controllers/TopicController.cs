@@ -8,15 +8,19 @@ using Fashion.Models;
 using Fashion.Code.BLL;
 namespace Fashion.Controllers
 {
+   
+  
     public class TopicController : Controller
     {
-        
         //
         // GET: /Topic/  
-        public ActionResult Index2()
+        public ActionResult Index()
         {
-            return Index2();
+            
+            return View();
         }
+      
+
         
         public ActionResult Home()
         {

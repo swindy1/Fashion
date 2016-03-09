@@ -19,6 +19,7 @@ namespace Fashion.Models
         public int age;//年龄
         public string phoneNumber;//手机号码
         public string email;//邮箱
+        public string signature;//个性签名
         public char rank;//用户等级或类型编号
         public string rankName;//用户等级或类型名
         public int starCount;//星星数

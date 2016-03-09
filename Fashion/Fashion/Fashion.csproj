@@ -152,6 +152,7 @@
     <Compile Include="Models\ErrorMessage_model.cs" />
     <Compile Include="Models\Message_model.cs" />
     <Compile Include="Models\Module_model.cs" />
+    <Compile Include="Models\PostFull_model.cs" />
     <Compile Include="Models\Post_model.cs" />
     <Compile Include="Models\Rank_model.cs" />
     <Compile Include="Models\ReplyPost_model.cs" />
@@ -262,6 +263,7 @@
     <Content Include="Images\Topic-Home-yiguanzhu.png" />
     <Content Include="Images\Topic-Home-zixun.png" />
     <Content Include="Images\TouXiang\111.png" />
+    <Content Include="Images\UserPicture\111.png" />
     <Content Include="test.html" />
     <Content Include="Images\people-error.png" />
     <Content Include="Images\people-login-back_1.png" />
@@ -326,6 +328,7 @@
     <Content Include="Views\People\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Index2.cshtml" />
+    <Content Include="Views\Topic\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

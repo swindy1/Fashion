@@ -118,9 +118,9 @@
         });
 
         //本函数实现判断用户是否已经登录，如果为登录就。。。。。。如果登录就。。。。。
-        function isLoginDisplay() { 
-            var isLogin = @ViewData["LoginYes"].ToString();//1代表已经登录，0代表未登录}
-            if (isLogin == 1) {
+        function isLoginDisplay() {
+            var isLogin = "@ViewData["LoginYes"].ToString()";//1代表已经登录，0代表未登录}
+            if (isLogin == "1") {
                 document.getElementById("login_xs").style.display = "block";
                 document.getElementById("un_login_xs").style.display = "none";
                 $("#img_touXiang").attr('src','@ViewData["TouXiangUrl"]');//显示个人头像
@@ -368,7 +368,7 @@
 
 
 
-        <div>@ViewData["TouXiangUrl"]</div>
+        
         <div id="tag1" class="nav-tag">
             <a href="~/Topic/Home" class="nav-tag-a">
                 首页

@@ -5,17 +5,18 @@ using System.Web;
 
 namespace Fashion.Models
 {
-    public class Post_model
+    public class PostFull_model
     {
-        //帖子信息
+        //帖子完整信息
         public int postId;//帖子编码
         public string postCaption;//帖子标题
         public string postContent;//帖子内容
-        public string postSenderId;//发布者编号
-        public int postModuleId;//模块编码
-        public int postThemeId;//板块编码
+        public string postSender;//发布者
+        public string touXiangUrl;//发布者头像url
+        public string signature;//个性签名
+        public int postModule;//模块
+        public int postTheme;//话题
         public int postSupportCount;//点赞数
         public DateTime postDate;//发帖日期
     }
-   
 }
