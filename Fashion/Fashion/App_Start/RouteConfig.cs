@@ -18,15 +18,15 @@ namespace Fashion
             //3.路由可以调试，可以通过引用一个路由调试库（RouteDebug.dll)进行调试
             //注册一条路由规则
 
-            routes.MapRoute(
-                name: "Test",
-                url: "{controller}/{action}/{id}",
-                defaults: new
-                {
-                    controller = "Test",   //默认值，可以有多条
-                    action = "Index",
-                    id = UrlParameter.Optional}
-                );
+            //routes.MapRoute(
+            //    name: "Test",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new
+            //    {
+            //        controller = "Test",   //默认值，可以有多条
+            //        action = "Index",
+            //        id = UrlParameter.Optional}
+            //    );
             routes.MapRoute(
                 name: "Default",  //作为路由规则的key，不能重复
                 url: "{controller}/{action}/{id}", //请求后台url规则

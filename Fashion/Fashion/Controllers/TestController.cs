@@ -17,12 +17,13 @@ namespace Fashion.Controllers
         }
         public ActionResult Index2()
         {
-            foreach(string file in Request.Files)
-            {
-                HttpPostedFileBase postFile = Request.Files[file];
-                ViewData["aa"] = postFile.FileName;
+            ViewData["aa"] = Request.Files[0].FileName;
+            //foreach(string file in Request.Files)
+            //{
+            //    HttpPostedFileBase postFile = Request.Files[file];
+            //    ViewData["aa"] = postFile.FileName;
                 
-            }
+            //}
             
             //string filename = Request["aa"].ToString();
             //ViewData["aa"] = filename;
