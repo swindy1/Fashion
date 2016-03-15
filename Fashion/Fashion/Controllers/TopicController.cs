@@ -19,11 +19,25 @@ namespace Fashion.Controllers
             
             return View();
         }
-      
+        public ActionResult Test()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public  ActionResult Test2( )
+        {
+            //上传头像
+            var path = System.IO.Path.Combine(Server.MapPath("~/test"), Request.Files[0].FileName);
+            Request.Files[0].SaveAs(path);
+            return Content("成功");
+        }
+        
+        
         
         public ActionResult Home()
         {
+            
             if (Session["userName"] == null)
             {//未登录
                 ViewData["LoginYes"] = 0;

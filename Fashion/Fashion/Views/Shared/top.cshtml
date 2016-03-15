@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            isLoginDisplay();//判断是否已经登录
+        });
+
+        //本函数实现判断用户是否已经登录，如果为登录就。。。。。。如果登录就。。。。。
+        function isLoginDisplay() {
+            var isLogin = 1;//1代表已经登录，0代表未登录
+            if (isLogin == 1) {
+                document.getElementById("login_xs").style.display = "block";
+                document.getElementById("un_login_xs").style.display = "none";
+            }
+            else {
+                document.getElementById("un_login_xs").style.display = "block";
+                document.getElementById("login_xs").style.display = "none";
+            }
+        }
+    </script>
+    <style>
+        #top {
+            background-color: black;
+            position: fixed;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <style>
+        .full {
+        }
+
+        .Left_div {
+            position: fixed;
+            font-style: italic;
+            margin-top: 35px;
+            width: 25%;
+            height: 1000px;
+            float: left;
+            -webkit-box-shadow: 1px 3px 6px 1px gray;
+            -moz-box-shadow: 1px 3px 6px 1px gray;
+            box-shadow: 1px 3px 6px 1px gray;
+            font-family: 'Adobe Song Std';
+        }
+
+        .touxiangkuang {
+            width: 50%;
+            margin: 25% 0 0 25%;
+            border-radius: 1200px;
+            cursor: pointer;
+        }
+
+            .touxiangkuang img {
+                width: 100%;
+                border-radius: 1200px;
+                height: 100%;
+            }
+
+        .Left_div_user_name {
+            font-size: 2em;
+            text-align: center;
+            margin-top: 2%;
+        }
+
+            .Left_div_user_name a {
+                text-decoration: none;
+                color: black;
+            }
+
+        .meau {
+            font-size: 0.5em;
+        }
+
+        .Peaple_meau {
+            float: left;
+            border-right: 1px solid gray;
+            padding: 0 3% 0 3%;
+            margin: 1%;
+            cursor: pointer;
+            color: #808080;
+        }
+
+            .Peaple_meau:hover {
+                color: black;
+            }
+
+        .meau_fgx {
+            width: 1px;
+            height: 60px;
+            float: left;
+            border-right: 1px solid gray;
+            margin: 3px 3% 0 3%;
+        }
+
+        .People_meau_number {
+            font-size: 3em;
+        }
+    </style>
+    <style>
+        .Right_div {
+            width: 50%;
+            height: auto;
+            padding: 0 0 100px 7%;
+            float: left;
+            font-style: normal;
+            margin: 35px 0 0 25%;
+            font-size: 1em;
+            color: gray;
+        }
+    </style>
+    <style>
+        /*快捷栏样式*/
+        .ssk {
+            height: 20px;
+            border-radius: 4px;
+            width: 150px;
+        }
+
+        .kjl_div {
+            position: fixed;
+            top: 45%;
+            right: 13%;
+            width: 30px;
+        }
+
+        .ssk_div {
+            position: fixed;
+            top: 45.5%;
+            background-color: #808080;
+            right: 14.8%;
+            border-radius: 4px;
+            width: 150px;
+            padding: 14px;
+            display: none;
+        }
+
+        .kuaijie_btn {
+            border-radius: 4px;
+            background-color: #c4bfbf;
+            margin-top: 10%;
+            width: 100%;
+            padding: 30%;
+            color: white;
+            font-size: 1em;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .width_full {
+            width: 100%;
+        }
+    </style>
+    <style>
+        #top {
+            height: 35px;
+            width: 100%;
+            background-color: black;
+        }
+
+        .li_css {
+            height: 35px;
+            line-height: 35px;
+            color: white;
+            padding-left: 30px;
+            width: 140px;
+            margin-left: -40px;
+        }
+
+        .username {
+            cursor: pointer;
+            margin-top: 0;
+            float: right;
+            margin-right: -10px;
+            list-style: none;
+            height: 35px;
+            width: 140px;
+            line-height: 35px;
+            color: white;
+        }
+
+            .username li:hover {
+                background-color: #281f1f;
+            }
+
+        .userset li:hover {
+            background-color: #808080;
+        }
+
+        .userset {
+            list-style: none;
+            width: 130px;
+            background-color: #281f1f;
+            margin-left: -30px;
+            display: none;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .username li:hover .userset {
+            display: block;
+        }
+
+        .img_jiange {
+            margin-right: 15px;
+            float: left;
+            margin-top: 5px;
+        }
+
+        .fengefu {
+            margin: 0 15px 0 15px;
+            float: right;
+        }
+
+        .top_right {
+            float: right;
+        }
+
+            .top_right a {
+                color: white;
+                text-decoration: none;
+            }
+
+                .top_right a:hover {
+                    color: #fa6214;
+                }
+
+        #share_tubiao img {
+            float: right;
+            margin: 10px 6px 0 6px;
+        }
+    </style>
+
+
+    <style>
+        /*标签栏的样式*/
+        h2 {
+            font-weight: lighter;
+            padding: 20px 3% 20px 3%;
+            margin-bottom: 0;
+            cursor: pointer;
+            float: left;
+        }
+
+            h2:hover {
+                border-bottom: 2px solid black;
+            }
+
+        .tab_bar {
+            width: 100%;
+            border-bottom: 1px solid gray;
+            float: left;
+            margin-bottom: 30px;
+        }
+
+        .tab_ing {
+            font-weight: bold;
+            border-bottom: 2px solid black;
+        }
+    </style>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+
+    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////下面两条代码要要放在<div id="Right_div" class="Right_div">前面////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <!--/////////////////////////////end/////////////////////////////////////////////////////////////////////-->
+</head>
+<body>
+    <div id="top">
+        <div style="float:left;color:white;margin-left:90px;margin-top:8px;cursor:pointer;" onclick="window.location.href = '../Topic/Home'">
+            时尚达人&nbsp;|&nbsp;FASHION
+        </div>
+        <div id="share_tubiao" style="margin-right:80px;">
+            <a href="" title="分享到QQ"><img src="~/Images/Layout-qq.png" /></a>
+            <a href="" title="分享到微信"><img src="~/Images/Layout-weixin.png" /></a>
+            <a href="" title="分享到微博"><img src="~/Images/Layout-weibo.png" /></a>
+        </div>
+        <div id="un_login_xs" style="float:right;color:white;margin:10px 0 0 0;display:none;">
+
+            <div class="fengefu">|</div>
+            <div class="top_right">
+                <a href="../../People/Login">登录</a>
+            </div>
+            <div class="fengefu">|</div>
+            <div class="top_right">
+                <a href="../../People/Register">注册</a>
+            </div>
+            <div class="fengefu">|</div>
+        </div>
+        <ul class="username" id="login_xs" style="display:block;">
+            <li class="li_css" onclick="window.location.href = '../../People/Index';">
+                <img src="~/Images/UserImages/TouXiang/111.png" style="width:20px;margin-top:8px;" class="img_jiange" />
+                linjiejie
+                <ul class="userset">
+                    <li class="li_css" onclick="window.location.href = '../../People/Index';">
+                        <img src="~/Images/Layout-myzhuye.png" class="img_jiange" />我的主页
+                    </li>
+                    <li class="li_css" onclick="">
+                        <img src="~/Images/Layout-set.png" class="img_jiange" />设置
+                    </li>
+                    <li class="li_css" onclick="">
+
+                        <img src="~/Images/Layout-out.png" class="img_jiange" />退出
+                    </li>
+                </ul>
+            </li>
+
+
+        </ul>
+    </div>
+    <div id="Left_div" class="Left_div">
+        <div id="touxiangkuang" class="touxiangkuang" onclick="window.location.href = '../People/Index'">
+            <img src="~/Images/UserImages/TouXiang/111.png" />
+        </div>
+        <div class="Left_div_user_name">
+            <a href="../People/Index">linjiejie</a>
+        </div>
+        <div class="meau">
+            <div class="Peaple_meau" style="margin-left:28%;" onclick="window.location.href = '../People/Focus'"><em class="People_meau_number">0</em><div>关注</div></div>
+            <div class="Peaple_meau" onclick="window.location.href = '../People/Fans'"><em class="People_meau_number">0</em><div>粉丝</div></div>
+            <div class="Peaple_meau" onclick="window.location.href = '../People/Topic'"><em class="People_meau_number">0</em><div>话题</div></div>
+
+            <div class="Peaple_meau" style="margin-left:20%;" onclick="window.location.href = '../People/Asks'"><em class="People_meau_number">0</em><div>提问</div></div>
+            <div class="Peaple_meau" onclick="window.location.href = '../People/Answers'"><em class="People_meau_number">0</em><div>回答</div></div>
+            <div class="Peaple_meau" onclick="window.location.href = '../People/Collection'"><em class="People_meau_number">0</em><div>收藏</div></div>
+            <div class="Peaple_meau" onclick="window.location.href = '../People/Get_Approval'"><em class="People_meau_number">0</em><div>获赞</div></div>
+        </div>
+    </div>
+
+    <div id="Right_div" class="Right_div">
+        @RenderBody()
+    </div>
+</body>
+
+</html>

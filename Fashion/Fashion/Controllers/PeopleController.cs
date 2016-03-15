@@ -18,6 +18,7 @@ namespace Fashion.Controllers
         //return JavaScript(@"alert(""dddd"")");            
             return View();
         }
+       
 
 
        
@@ -145,6 +146,11 @@ namespace Fashion.Controllers
         public ActionResult PeopleHomePage()
         {
             //return Content(DateTime.Now.ToShortDateString());
+            return View();
+        }
+
+        public ActionResult Change_Data()
+        {
             return View();
         }
 

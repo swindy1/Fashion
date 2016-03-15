@@ -7,9 +7,7 @@
 
     <script src="~/Scripts/jquery-2.0.0.min.js"></script>
     <script>
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///begin////begin////begin/////begin//这个页面我改了快捷栏的代码,CSS,js全改了，这个比较好/begin//begin///begin//
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         //本函数实现鼠标移上快捷栏时，快捷栏的图标变成字
         function kuaijie_over(x) {
             document.getElementById(x).style.backgroundColor = "#808080";
@@ -105,7 +103,7 @@
             width: 100%;
         }
     </style>
-    <!-- //end/////////end/////end//end/////////////////////////////////////////////////////////////////////////////////-->
+    
 
 
 
@@ -123,7 +121,7 @@
             if (isLogin == "1") {
                 document.getElementById("login_xs").style.display = "block";
                 document.getElementById("un_login_xs").style.display = "none";
-                $("#img_touXiang").attr('src','@ViewData["TouXiangUrl"]');//显示个人头像
+                $("#img_touXiang").attr('src', '@ViewData["TouXiangUrl"]');//显示个人头像
             }
             else {
                 document.getElementById("un_login_xs").style.display = "block";
