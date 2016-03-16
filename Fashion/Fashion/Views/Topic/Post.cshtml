@@ -22,8 +22,8 @@
         #left {
             float: left;
             padding-top: 30px;
-            width:57%;
-            height:450px;
+            width: 57%;
+            height: 450px;
             /*width: 570px;*/
             border-radius: 8px;
             background-color: rgba(255, 255, 255, 0.8);
@@ -97,7 +97,7 @@
 
         #tijiao {
             float: right;
-            margin-right:25px;
+            margin-right: 25px;
         }
 
         .submit {
@@ -123,7 +123,7 @@
         .Answer {
             display: none;
             width: 350px;
-           // width:90%;
+            // width:90%;
             height: 450px;
             float: left;
             padding-top: 30px;
@@ -149,8 +149,8 @@
             color: #808080;
         }
     </style>
-    <script type="text/javascript" >
-                                                         //提交和清除键颜色的切换
+    <script type="text/javascript">
+        //提交和清除键颜色的切换
         $(document).ready(function () {
             $("input#qingchu").mouseover(function () {
                 $("input#qingchu").css("background-color", "#0094ff");
@@ -161,12 +161,12 @@
                 $("input#submit").css("background-color", "#0094ff");
             })
         })
-        </script>
+    </script>
 
 
-        <script type="text/javascript">
+    <script type="text/javascript">
 
-            function answer(x) {//右边切换模块
+        function answer(x) {//右边切换模块
             var y = document.getElementById(x).value;
             if (y.length == 0) {
                 document.getElementById("hair").style.display = "none";
@@ -185,7 +185,7 @@
             }
         }
 
-        
+
 
 
         function del() {                        //提交按钮
@@ -211,35 +211,35 @@
 
     </script>
 
-    
+
 </head>
 <body>
-    
-        <div id="left">
-            <div id="title">
-                <div id="title_word">
-                    我想咨询
-                </div>
+
+    <div id="left">
+        <div id="title">
+            <div id="title_word">
+                我想咨询
             </div>
-            <form action="Answer">
-                <div id="form">
-                    <div id="form_one">
-                        <input type="text" placeholder="写下你的问题" id="user_search" class="question" onchange="answer(this.id)" oninput="answer(this.id)" />
-                    </div>
-                    <div>
-                        <div style=" display:inline-block;"><p>问题说明（可选）：</p></div>
-                    </div>
-                    <div>
-                        <textarea name="content" style="width:480px;height:100px;"  id="content" placeholder="问题背景、条件等详细信息"></textarea>
-                    </div>
-                    
-                    <div>
-                        <p class="p1">选择话题：</p>
-                        <p class="p2">话题越精准，越容易让相关领域专业人士看到你的问题</p>
-                    </div>
-                <!--  
+        </div>
+        <form action="Answer">
+            <div id="form">
+                <div id="form_one">
+                    <input type="text" placeholder="写下你的问题" id="user_search" class="question" onchange="answer(this.id)" oninput="answer(this.id)" />
+                </div>
+                <div>
+                    <div style=" display:inline-block;"><p>问题说明（可选）：</p></div>
+                </div>
+                <div>
+                    <textarea name="content" style="width:480px;height:100px;" id="content" placeholder="问题背景、条件等详细信息"></textarea>
+                </div>
+
+                <div>
+                    <p class="p1">选择话题：</p>
+                    <p class="p2">话题越精准，越容易让相关领域专业人士看到你的问题</p>
+                </div>
+                <!--
                     复选框风格
-                     
+
                      <div style="float:left; width:100%; padding:0px 0px 5px 80px;">
                         <div style="float:left ;width:60px;">
                             <input type="checkbox"/>流行
@@ -269,79 +269,77 @@
                         </div>
                     </div>
                     -->
+                <!-- 下拉列表风格-->
+                <div style="float:left; width:100%; padding:0px 0px 15px 0px;">
+                    <select name="cars" style="width: 480px; height: 30px; border-radius: 4px;">
+                        <option value="流行">流行</option>
+                        <option value="女生">女生</option>
+                        <option value="男生">男生</option>
+                        <option value="风格">风格</option>
+                        <option value="首饰">首饰</option>
+                        <option value="时装">时装</option>
+                        <option value="街拍">街拍</option>
+                        <option value="技巧">技巧</option>
+                    </select>
+                </div>
+                <br />
+                <div id="niming" style="float:left;">
+                    <input type="checkbox" />匿名
+                </div>
+                <div id="tijiao">
+                    <input id="qingchu" class="submit" type="reset" value="清除" style="border: 1px solid #7dcaf6; background-color: #7dcaf6; " />
 
-                    <!-- 下拉列表风格-->
-                    <div style="float:left; width:100%; padding:0px 0px 15px 0px;">
-                        <select name="cars" style="width: 480px; height: 30px; border-radius: 4px;">  
-                            <option value="流行">流行</option>
-                            <option value="女生">女生</option>
-                            <option value="男生">男生</option>
-                            <option value="风格">风格</option>
-                            <option value="首饰">首饰</option>
-                            <option value="时装">时装</option>
-                            <option value="街拍">街拍</option>
-                            <option value="技巧">技巧</option>
-                        </select>
-                        </div>
-                        <br />
-                        <div id="niming" style="float:left;">
-                            <input type="checkbox" />匿名
-                        </div>
-                        <div id="tijiao">
-                            <input id="qingchu" class="submit" type="reset" value="清除" style="border: 1px solid #7dcaf6; background-color: #7dcaf6; " />
-                            
-                            <input type="submit" id="submit" value="提交" style="border: 1px solid #0094ff;
+                    <input type="submit" id="submit" value="提交" style="border: 1px solid #0094ff;
             background-color: #0094ff;" class="submit" />
-                            
-                        </div>
-                    </div>
-            </form>
-        </div>
-        <div style=" float:left ;">
-            <div id="fenge">
-                <div id="fengexian"></div>
-            </div>
 
-            <div id="hair" class="Answer">
-                <div class="xiangguan">
-                    您的问题可能已经有答案
                 </div>
-                <hr class="xian" />
-                <a href="http://www.yoka.com/dna/195/997/index.html" class="question">发型很重要么？</a>
-                <hr class="xian" />
-                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跪求发型。？</a>
-                <hr class="xian" />
-                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">关于发型？</a>
-                <hr class="xian" />
-                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">男士发型？</a>
-                <hr class="xian" />
-                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跛co发型？</a>
-                <hr class="xian" />
-                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跪求发型？</a>
-                <hr class="xian" />
-                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">求发型简单好打理的发型推荐？</a>
-                <hr class="xian" />
-                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">最近发型被各种人吐槽，求换发型？</a>
-                <hr class="xian" />
-                <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">脸大适合什么发型？</a>
-                <hr class="xian" />
             </div>
-
-            <div id="wu" class="Answer">
-                <div class="xiangguan">
-                    目前还没有相似的问题
-                </div>
-                <hr class="xian" />
-            </div>
-
-         <div id="zhu" class="Answer" style="display:block;">
-                    <p class="question">时尚达人网欢迎您的提问。</p>
-                    <p class="question">若您的问题已曾被提出，</p>
-                    <p class="question">请不要发布，以免造成信息重复。</p>
-                    <p class="question">您的支持是我们最大的动力！</p>
-                    <p class="question">时尚达人将尽快为您解答。</p>
-            </div>
-
+        </form>
+    </div>
+    <div style=" float:left ;">
+        <div id="fenge">
+            <div id="fengexian"></div>
         </div>
-    
+
+        <div id="hair" class="Answer">
+            <div class="xiangguan">
+                您的问题可能已经有答案
+            </div>
+            <hr class="xian" />
+            <a href="http://www.yoka.com/dna/195/997/index.html" class="question">发型很重要么？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跪求发型。？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">关于发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">男士发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跛co发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跪求发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">求发型简单好打理的发型推荐？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">最近发型被各种人吐槽，求换发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">脸大适合什么发型？</a>
+            <hr class="xian" />
+        </div>
+
+        <div id="wu" class="Answer">
+            <div class="xiangguan">
+                目前还没有相似的问题
+            </div>
+            <hr class="xian" />
+        </div>
+
+        <div id="zhu" class="Answer" style="display:block;">
+            <p class="question">时尚达人网欢迎您的提问。</p>
+            <p class="question">若您的问题已曾被提出，</p>
+            <p class="question">请不要发布，以免造成信息重复。</p>
+            <p class="question">您的支持是我们最大的动力！</p>
+            <p class="question">时尚达人将尽快为您解答。</p>
+        </div>
+
+    </div>
 </body>
