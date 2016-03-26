@@ -348,7 +348,34 @@
 
     });
 </script>
+<script type="text/javascript">
 
+    function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var dataURL = canvas.toDataURL("image/png");
+        return dataURL.substr(dataURL.indexOf(",") + 1)//去掉base64的格式头，因为格式头不属于图片的数据，否则后台将图片的base64保存为图片时会出错
+    }
+
+    
+    function Save_Change_TouXiang()
+    {
+        var imgTouXiang = document.getElementById("imgBig");
+        var imgBase64 = getBase64Image(imgTouXiang);
+        $.ajax({
+            url: "UploadTouXiang",
+            data: { data1: imgBase64 },
+            type:"post",
+            success: function (data) {
+                alert(data);
+            }
+        });
+        
+    }
+</script>
 <div id="change_data_tab" class="tab_bar">
     <h2 class="tab_ing">修改资料</h2>
 </div>
