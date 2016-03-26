@@ -78,6 +78,7 @@
 </style>
 <link href="~/Content/Peaple_upload_tx.css" rel="stylesheet" />
 <script>
+    
     function Save_Change() {      //点击保存弹出保存成功窗口
         alert('保存成功！')
     }
@@ -110,9 +111,9 @@
         $('#btnCrop').on('click', function () {
             var img = cropper.getDataURL();
             $('.cropped').html('');
-            $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:20px;margin-top:15px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>20px*20px</p>');
-            $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:40px;margin-top:12px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>40px*40px</p>');
-            $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:120px;margin-top:12px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>120px*120px</p>');
+            $('.cropped').append('<img src="' + img + '" id="imgSmall" align="absmiddle" style="width:20px;margin-top:15px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>20px*20px</p>');
+            $('.cropped').append('<img src="' + img + '" id="imgMiddle"  align="absmiddle" style="width:40px;margin-top:12px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>40px*40px</p>');
+            $('.cropped').append('<img src="' + img + '" id="imgBig"  align="absmiddle" style="width:120px;margin-top:12px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>120px*120px</p>');
         })
         $('#btnZoomIn').on('click', function () {
             cropper.zoomIn();
@@ -381,7 +382,7 @@
         </tr>
 
     </table>
-    <div class="baocun" onclick="Save_Change()">保存</div>
+    <div class="baocun" id="baoCunTouXiang" onclick="Save_Change_TouXiang()">保存</div>
 </div>
 <div style="width: 100%; margin-bottom: 80px; float: left;">
     <table cellspacing="10" style="float:left;">
