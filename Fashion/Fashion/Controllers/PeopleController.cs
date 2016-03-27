@@ -151,6 +151,7 @@ namespace Fashion.Controllers
 
         public ActionResult Change_Data()
         {
+            CheckLogin();//验证登录
             return View();
         }
         /// <summary>
@@ -205,11 +206,30 @@ namespace Fashion.Controllers
         }
 
 
-       
 
 
 
 
+        /// <summary>
+        /// 验证登录是否成功；
+        /// 若登录失败，设置ViewData["LoginYes"] = 0；
+        /// 若登录成功，设置ViewData["LoginYes"] = 1；并且从数据库里取出用户头像的链接：ViewData["TouXiangUrl"] =...；
+        /// </summary>
+        public void CheckLogin()
+        {
+            if (Session["userName"] == null)
+            {//未登录
+                ViewData["LoginYes"] = 0;
+
+            }
+            else
+            {//已登录
+                ViewData["LoginYes"] = 1;
+                ViewData["userName"] = Session["userName"].ToString();
+                People_bll peopleBll = new People_bll();
+                ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
+            }
+        }
      
     }
 }

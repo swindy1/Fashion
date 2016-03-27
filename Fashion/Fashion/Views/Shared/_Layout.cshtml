@@ -186,15 +186,20 @@
 
     <script>
         $(document).ready(function () {
-            //本函数位于：~/Scripts/MyScripts/Login.js
-            //实现根据用户是否登录成功来设置导航栏的用户登录或未登录状态
-            var LoginYes="@ViewData["LoginYes"].ToString()"; 
-            var TouXiangUrl = "@ViewData["TouXiangUrl"].ToString()";//这里是从后端传回来的值，是字符串，所以要加引号
-            isLoginDisplay(LoginYes, "login_xs", "un_login_xs", "#img_touXiang", TouXiangUrl);
+            makeLoginDisplay();//用户登录状态
         });
         
-
-      
+        //实现根据用户是否登录成功来设置导航栏的用户登录或未登录状态
+        function makeLoginDisplay() {
+            var isLogin = "@ViewData["LoginYes"]";
+            if (isLogin == "1") {
+                var TouXiangUrl = "@ViewData["TouXiangUrl"]";//这里是从后端传回来的值，是字符串，所以要加引号,不能加tostring
+                LoginYesDisplay("login_xs", "un_login_xs", "#img_touXiang", TouXiangUrl);//本函数位于：~/Scripts/MyScripts/Login.js
+            }
+            else {
+                UnLoginDisplay("login_xs", "un_login_xs");//本函数位于：~/Scripts/MyScripts/Login.js
+            }
+        }
         @*function isLoginDisplay() {
             var isLogin = "@ViewData["LoginYes"].ToString()";//1代表已经登录，0代表未登录}
             if (isLogin == "1") {
