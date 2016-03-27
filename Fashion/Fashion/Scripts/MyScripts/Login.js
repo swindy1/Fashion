@@ -9,10 +9,10 @@
 //             img_touXiangIdUrl用户头像的url地址
 //用于页面：_Layout.cshtml  top.cshtml
 
-function LoginYesDisplay(loginBlock, unLoginBlock, img_touXiangId, img_touXiangIdUrl) {   
+function LoginYesDisplay(loginBlock, unLoginBlock) {   
         document.getElementById(loginBlock).style.display = "block";
         document.getElementById(unLoginBlock).style.display = "none";
-        $(img_touXiang).attr('src', img_touXiangIdUrl);//显示个人头像
+        //$(img_touXiang).attr('src', img_touXiangIdUrl);//显示个人头像
 }
 
 
@@ -25,3 +25,17 @@ function UnLoginDisplay( loginBlock, unLoginBlock) {
     document.getElementById(unLoginBlock).style.display = "block";
     document.getElementById(loginBlock).style.display = "none";
 }
+
+///结合以上LoginYesDisplay和UnLoginDisplay的函数
+function IsLoginDisplay(isLogin, loginBlock, unLoginBlock) {
+    if (isLogin == "1") {
+        document.getElementById(loginBlock).style.display = "block";
+        document.getElementById(unLoginBlock).style.display = "none";
+    }
+    else {
+        document.getElementById(unLoginBlock).style.display = "block";
+        document.getElementById(loginBlock).style.display = "none";
+    }
+    
+}
+
