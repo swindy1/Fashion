@@ -154,7 +154,7 @@ namespace Fashion.Controllers
             return View();
         }
         /// <summary>
-        /// 获取前端传过来的图片的base64数据，保存到本地，并且在数据库里添加纪录，成功返回1
+        /// 获取前端传过来的头像的图片的base64数据，保存到本地/Images/UserImages/TouXiang/文件夹下，并且在数据库里添加纪录，成功返回1
         /// 用于Change_Data页面
         /// </summary>
         /// <returns></returns>
@@ -175,6 +175,32 @@ namespace Fashion.Controllers
             People_bll people = new People_bll();
             //将图片的路径保存到数据库
             people.InsertUrlTouXiang(userName,".png");
+            return Content("1");
+        }
+
+
+        /// <summary>
+        /// 获取前端传过来的全身照的图片的base64数据，保存到本地/Images/UserImages/QuanShenZhao/文件夹下，并且在数据库里添加纪录，成功返回1
+        /// 用于Change_Data页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult UploadQuanShenZhao()
+        {
+            //判断是否登录，未登录返回0
+            if (Session["userName"] == null)
+            {
+                return Content("0");
+            }
+            string userName = Session["userName"].ToString();
+            byte[] imgBase64Byte = Convert.FromBase64String(Request["data1"]);//将图片数据转化为base64的格式
+            System.IO.MemoryStream ms = new System.IO.MemoryStream(imgBase64Byte);
+            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(ms);
+            //接下来将图片保存在本地
+            bitmap.Save(Server.MapPath("~/Images/UserImages/QuanShenZhao/" + userName + ".png"), System.Drawing.Imaging.ImageFormat.Png);
+            People_bll people = new People_bll();
+            //将图片的路径保存到数据库
+            people.InsertUrlQuanShenZhao(userName, ".png");
             return Content("1");
         }
 

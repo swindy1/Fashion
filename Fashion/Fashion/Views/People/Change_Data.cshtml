@@ -132,7 +132,7 @@
         var MAXHEIGHT = 350;
         var div = document.getElementById('preview');
         if (file.files && file.files[0]) {
-            div.innerHTML = '<img id=imghead>';
+            div.innerHTML = '<img id="imghead" style="height:350px;width:250px;border-radius:20px;border:1px solid black;" >';
             var img = document.getElementById('imghead');
             img.style.borderRadius = "20px";
             img.onload = function () {
@@ -144,6 +144,8 @@
             var reader = new FileReader();
             reader.onload = function (evt) { img.src = evt.target.result; }
             reader.readAsDataURL(file.files[0]);
+          
+            
         }
         else //兼容IE
         {
@@ -357,16 +359,33 @@
     function Save_Change_TouXiang()
     {
         var imgTouXiang = document.getElementById("imgBig");
-        var imgBase64 = getBase64Image(imgTouXiang);
+        var imgTouXiangBase64 = getBase64Image(imgTouXiang);
         $.ajax({
             url: "UploadTouXiang",
-            data: { data1: imgBase64 },
+            data: { data1: imgTouXiangBase64 },
             type:"post",
             success: function (data) {
                 alert(data);
             }
-        });
+        });   
+    }
+
+    function Save_Change_QuanShenZhao()
+    {
         
+        var imgQuanShen = document.getElementById("imghead");
+        
+        var imgQuanShenBase64 = getBase64Image(imgQuanShen);
+        alert();
+        $.ajax({
+            url: "UploadQuanShenZhao",
+            data: { data1: imgQuanShenBase64 },
+            type: "post",
+            success: function (data) {
+                alert(data);
+            }
+        });
+
     }
 </script>
 <div id="change_data_tab" class="tab_bar">
@@ -612,7 +631,7 @@
             </td>
         </tr>
     </table>
-    <div class="baocun" onclick="Save_Change()">保存</div>
+    <div class="baocun" id="baoCunQuanShenZhao" onclick="Save_Change_QuanShenZhao()">保存</div>
 
 </div>
 <hr />
