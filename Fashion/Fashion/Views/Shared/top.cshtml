@@ -5,24 +5,17 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <script src="~/Scripts/jquery-2.0.0.min.js"></script>
-
+    <script src="~/Scripts/MyScripts/Login.js"></script>
     <script>
         $(document).ready(function () {
-            isLoginDisplay();//判断是否已经登录
+            //本函数位于：~/Scripts/MyScripts/Login.js
+            //实现根据用户是否登录成功来设置导航栏的用户登录或未登录状态
+            var LoginYes="@ViewData["LoginYes"].ToString()"; 
+            var TouXiangUrl = "@ViewData["TouXiangUrl"].ToString()";//这里是从后端传回来的值，是字符串，所以要加引号
+            isLoginDisplay(LoginYes, "login_xs", "un_login_xs", "#img_touXiang", TouXiangUrl);
         });
 
-        //本函数实现判断用户是否已经登录，如果为登录就。。。。。。如果登录就。。。。。
-        function isLoginDisplay() {
-            var isLogin = 1;//1代表已经登录，0代表未登录
-            if (isLogin == 1) {
-                document.getElementById("login_xs").style.display = "block";
-                document.getElementById("un_login_xs").style.display = "none";
-            }
-            else {
-                document.getElementById("un_login_xs").style.display = "block";
-                document.getElementById("login_xs").style.display = "none";
-            }
-        }
+      
     </script>
     <style>
         #top {
@@ -305,8 +298,8 @@
         </div>
         <ul class="username" id="login_xs" style="display:block;">
             <li class="li_css" onclick="window.location.href = '../../People/Index';">
-                <img src="~/Images/UserImages/TouXiang/111.png" style="width:20px;margin-top:8px;" class="img_jiange" />
-                linjiejie
+                <img id="img_touXiang" style="width:20px;margin-top:8px;" class="img_jiange" />
+                @ViewData["userName"]
                 <ul class="userset">
                     <li class="li_css" onclick="window.location.href = '../../People/Index';">
                         <img src="~/Images/Layout-myzhuye.png" class="img_jiange" />我的主页

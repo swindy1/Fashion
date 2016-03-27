@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
 
     <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+    <script src="~/Scripts/MyScripts/Login.js"></script>
     <script>
 
         //本函数实现鼠标移上快捷栏时，快捷栏的图标变成字
@@ -185,11 +186,16 @@
 
     <script>
         $(document).ready(function () {
-            isLoginDisplay();//判断是否已经登录
+            //本函数位于：~/Scripts/MyScripts/Login.js
+            //实现根据用户是否登录成功来设置导航栏的用户登录或未登录状态
+            var LoginYes="@ViewData["LoginYes"].ToString()"; 
+            var TouXiangUrl = "@ViewData["TouXiangUrl"].ToString()";//这里是从后端传回来的值，是字符串，所以要加引号
+            isLoginDisplay(LoginYes, "login_xs", "un_login_xs", "#img_touXiang", TouXiangUrl);
         });
+        
 
-        //本函数实现判断用户是否已经登录，如果为登录就。。。。。。如果登录就。。。。。
-        function isLoginDisplay() {
+      
+        @*function isLoginDisplay() {
             var isLogin = "@ViewData["LoginYes"].ToString()";//1代表已经登录，0代表未登录}
             if (isLogin == "1") {
                 document.getElementById("login_xs").style.display = "block";
@@ -200,7 +206,7 @@
                 document.getElementById("un_login_xs").style.display = "block";
                 document.getElementById("login_xs").style.display = "none";
             }
-        }
+        }*@
     </script>   
     <style>
         html {
