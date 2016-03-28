@@ -133,10 +133,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Code\BLL\ErrorMessage_bll.cs" />
     <Compile Include="Code\BLL\People_bll.cs" />
+    <Compile Include="Code\BLL\Post_bll.cs" />
+    <Compile Include="Code\BLL\Theme_bll.cs" />
     <Compile Include="Code\DAL\ErrorMessage_dal.cs" />
     <Compile Include="Code\DAL\Post_dal.cs" />
     <Compile Include="Code\DAL\Rank_dal.cs" />
     <Compile Include="Code\DAL\SqlHelper.cs" />
+    <Compile Include="Code\DAL\Theme_dal.cs" />
     <Compile Include="Code\DAL\User_dal.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\StreetSnapController.cs" />
@@ -267,7 +270,9 @@
     <Content Include="Images\Topic-Home-zixun.png" />
     <Content Include="Images\UserImages\TouXiang\111.png" />
     <Content Include="Scripts\date_rl_js\laydate.js" />
+    <Content Include="Scripts\MyScripts\ImageFun.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\MyScripts\Login.js" />
     <Content Include="Scripts\upload_tx_js\cropbox.js" />
     <Content Include="Scripts\upload_tx_js\jquery-1.11.1.min.js" />
     <Content Include="Images\people-error.png" />
