@@ -227,7 +227,124 @@ namespace Fashion.Code.BLL
             
         }
 
+        /// <summary>
+        /// 检查数据库得到的真实姓名
+        /// </summary>
+        /// <param name="useName"></param>
+        /// <returns></returns>
+        public string CheckRealName(string userName)
+        {
+            User_dal user = new User_dal();
+            object realName = user.GetRealName(userName);
+            if (realName == null || realName == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return realName.ToString();
+            }
+        }
+       /// <summary>
+        /// 检查数据库得到的出生日期
+       /// </summary>
+       /// <param name="userName"></param>
+       /// <returns></returns>
+        public string CheckBirthDate(string userName)
+        {
+            User_dal user = new User_dal();
+            object BirthDate = user.GetBirthDate(userName);
+            if (BirthDate == null || BirthDate == System.DBNull.Value)
+            {
+                return null;
+            }
+            else 
+            {
+                return String.Format("{0:yyyy\\/MM\\/dd}", BirthDate);
+            }
+           
+        }
+        /// <summary>
+        /// 检查数据库得到的职业
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string CheckProfession(string userName)
+        {
+            User_dal user = new User_dal();
+            object Profession = user.GetProfession(userName);
+            if (Profession == null || Profession == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return Profession.ToString(); 
+            }
 
+        }
+        /// <summary>
+        ///  检查数据库得到的手机号
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string CheckPhoneNumber(string userName)
+        {
+            User_dal user = new User_dal();
+            object PhoneNumber = user.GetPhoneNumber(userName);
+            if (PhoneNumber == null || PhoneNumber == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return PhoneNumber.ToString();
+            }
+
+        }
+        /// <summary>
+        /// 检查数据库得到的学历
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string CheckEducationalBackground(string userName)
+        {
+            User_dal user = new User_dal();
+            object EducationalBackground = user.GetEducationalBackground(userName);
+            if (EducationalBackground == null || EducationalBackground == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return EducationalBackground.ToString();
+            }
+
+        }
+
+        /// <summary>
+        /// 检查数据库得到的兴趣
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string CheckInterest(string userName)
+        {
+            User_dal user = new User_dal();
+            object Interest = user.GetInterest(userName);
+            if (Interest == null || Interest == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return Interest.ToString();
+            }
+
+        }
+
+
+
+        
 
     }
 }
