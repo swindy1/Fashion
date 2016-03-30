@@ -175,6 +175,11 @@ namespace Fashion.Controllers
         {
             return View();
         }
+
+
+
+
+
         /// <summary>
         /// 实现注册功能，把数据保存到数据库
         /// </summary>
