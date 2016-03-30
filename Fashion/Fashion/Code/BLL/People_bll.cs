@@ -227,6 +227,14 @@ namespace Fashion.Code.BLL
             
         }
 
+
+
+      
+
+
+
+
+
         /// <summary>
         /// 检查数据库得到的真实姓名
         /// </summary>
@@ -235,14 +243,16 @@ namespace Fashion.Code.BLL
         public string CheckRealName(string userName)
         {
             User_dal user = new User_dal();
-            object realName = user.GetRealName(userName);
-            if (realName == null || realName == System.DBNull.Value)
+            DataTable dt = user.GetPersonalInformation(userName);
+            object RealName = dt.Rows[0][0];
+            
+            if (RealName == null || RealName == System.DBNull.Value)
             {
                 return null;
             }
             else
             {
-                return realName.ToString();
+                return RealName.ToString();
             }
         }
        /// <summary>
@@ -253,7 +263,8 @@ namespace Fashion.Code.BLL
         public string CheckBirthDate(string userName)
         {
             User_dal user = new User_dal();
-            object BirthDate = user.GetBirthDate(userName);
+            DataTable dt = user.GetPersonalInformation(userName);
+            object BirthDate = dt.Rows[0][1];
             if (BirthDate == null || BirthDate == System.DBNull.Value)
             {
                 return null;
@@ -272,7 +283,8 @@ namespace Fashion.Code.BLL
         public string CheckProfession(string userName)
         {
             User_dal user = new User_dal();
-            object Profession = user.GetProfession(userName);
+            DataTable dt = user.GetPersonalInformation(userName);
+            object Profession = dt.Rows[0][2];
             if (Profession == null || Profession == System.DBNull.Value)
             {
                 return null;
@@ -291,7 +303,8 @@ namespace Fashion.Code.BLL
         public string CheckPhoneNumber(string userName)
         {
             User_dal user = new User_dal();
-            object PhoneNumber = user.GetPhoneNumber(userName);
+            DataTable dt = user.GetPersonalInformation(userName);
+            object PhoneNumber = dt.Rows[0][3];
             if (PhoneNumber == null || PhoneNumber == System.DBNull.Value)
             {
                 return null;
@@ -310,7 +323,8 @@ namespace Fashion.Code.BLL
         public string CheckEducationalBackground(string userName)
         {
             User_dal user = new User_dal();
-            object EducationalBackground = user.GetEducationalBackground(userName);
+            DataTable dt = user.GetPersonalInformation(userName);
+            object EducationalBackground = dt.Rows[0][4];
             if (EducationalBackground == null || EducationalBackground == System.DBNull.Value)
             {
                 return null;
@@ -330,7 +344,8 @@ namespace Fashion.Code.BLL
         public string CheckInterest(string userName)
         {
             User_dal user = new User_dal();
-            object Interest = user.GetInterest(userName);
+            DataTable dt = user.GetPersonalInformation(userName);
+            object Interest = dt.Rows[0][5];
             if (Interest == null || Interest == System.DBNull.Value)
             {
                 return null;

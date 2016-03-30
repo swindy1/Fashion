@@ -129,6 +129,21 @@ namespace Fashion.Code.DAL
             return SqlHelper.ExecuteScalar(sqlStr, parameters);
         }
 
+        /// <summary>
+        /// 获取用户的个人基本信息（真实姓名，生日，职业，手机，学历，爱好）
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public DataTable GetPersonalInformation(string userName)
+        {
+            string sqlStr = "select User_RealName,User_BirthDate, User_Profession,User_PhoneNumber,User_EducationalBackground,User_Interest from [tb_User] where User_Name =  @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+           return SqlHelper.ExecuteDataTable(sqlStr, parameters);
+        
+        }
+
 
         /// <summary>
         /// 通过用户名查询该用户的盐值，返回类型为object
