@@ -15,8 +15,68 @@ namespace Fashion.Controllers
 
         public ActionResult Index()
         {
-        //return JavaScript(@"alert(""dddd"")");            
-            LoginStatusConfig();
+                
+            LoginStatusConfig();//配置登录状态
+            if (Session["userName"] == null)
+            {
+                return Content("请先登录");
+            }
+            People_bll user = new People_bll();
+            string userName = Session["userName"].ToString();
+            //检测姓名是否为空
+            if (user.CheckRealName(userName) == null)
+            {
+                ViewData["realName"] = "请输入您的真实姓名";
+            }
+            else
+            {
+                ViewData["realName"] = user.CheckRealName(userName);
+            }
+            // 检测出生年月是否为空
+            if (user.CheckBirthDate(userName) == null)
+            {
+                ViewData["BirthDate"] = "请输入您的出生年月";
+            }
+            else
+            {
+                ViewData["BirthDate"] = user.CheckBirthDate(userName);
+            }
+            //检测职业是否为空
+            if (user.CheckProfession(userName) == null)
+            {
+                ViewData["Profession"] = "请输入您的职业";
+            }
+            else
+            {
+                ViewData["Profession"] = user.CheckProfession(userName);
+            }
+            // 检测手机号是否为空
+            if (user.CheckPhoneNumber(userName) == null)
+            {
+                ViewData["PhoneNumber"] = "请输入您的手机号";
+            }
+            else
+            {
+                ViewData["PhoneNumber"] = user.CheckPhoneNumber(userName);
+            }
+            //检测学历是否为空
+            if (user.CheckEducationalBackground(userName) == null)
+            {
+                ViewData["CheckEducationalBackground"] = "请输入您的手机号";
+            }
+            else
+            {
+                ViewData["CheckEducationalBackground"] = user.CheckEducationalBackground(userName);
+            }
+            //检测爱好是否为空
+            if (user.CheckInterest(userName) == null)
+            {
+                ViewData["Interest"] = "请输入您的手机号";
+            }
+            else
+            {
+                ViewData["Interest"] = user.CheckInterest(userName);
+            }
             return View();
         }
        
@@ -120,6 +180,11 @@ namespace Fashion.Controllers
         {
             return View();
         }
+
+
+
+
+
         /// <summary>
         /// 实现注册功能，把数据保存到数据库
         /// </summary>
@@ -208,9 +273,6 @@ namespace Fashion.Controllers
 
 
 
-
-
-
         ///// <summary>
         ///// 验证登录是否成功；
         ///// 若登录失败，设置ViewData["LoginYes"] = 0；
@@ -221,7 +283,6 @@ namespace Fashion.Controllers
         //    if (Session["userName"] == null)
         //    {//未登录
         //        ViewData["LoginYes"] = 0;
-
         //    }
         //    else
         //    {//已登录
