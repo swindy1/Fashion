@@ -19,6 +19,10 @@ namespace Fashion.Controllers
             
             return View();
         }
+        public ActionResult Consult()
+        {
+            return View();
+        }
         public ActionResult Test()
         {
             return View();

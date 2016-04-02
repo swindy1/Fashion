@@ -238,6 +238,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="Images\Layout-guanbi.png" />
     <Content Include="Images\Layout-logo.png" />
     <Content Include="Images\Layout-myzhuye.png" />
     <Content Include="Images\Layout-out.png" />
@@ -250,6 +251,10 @@
     <Content Include="Images\People-Index-xiugaiziliao.png" />
     <Content Include="Images\test.png" />
     <Content Include="Images\test2.png" />
+    <Content Include="Images\Topic-Consult-huanyipi.png" />
+    <Content Include="Images\Topic-Consult-wancheng.png" />
+    <Content Include="Images\Topic-Consult-wanchengzhang.png" />
+    <Content Include="Images\Topic-Consult-xuanzeyixuanze.png" />
     <Content Include="Images\Topic-Home-backtop.png" />
     <Content Include="Images\Topic-Home-dapeitouxiang.png.jpg" />
     <Content Include="Images\Topic-Home-dian.png" />
@@ -269,6 +274,9 @@
     <Content Include="Images\Topic-Home-yiguanzhu.png" />
     <Content Include="Images\Topic-Home-zixun.png" />
     <Content Include="Images\UserImages\TouXiang\111.png" />
+    <Content Include="Images\UserImages\TouXiang\daren_1.jpg" />
+    <Content Include="Images\UserImages\TouXiang\daren_2.jpg" />
+    <Content Include="Images\UserImages\TouXiang\daren_3.jpg" />
     <Content Include="Scripts\date_rl_js\laydate.js" />
     <Content Include="Scripts\MyScripts\ImageFun.js" />
     <Content Include="Scripts\jquery.min.js" />
@@ -343,6 +351,7 @@
     <Content Include="Views\People\Change_Data.cshtml" />
     <Content Include="Views\Topic\Test.cshtml" />
     <Content Include="Views\Topic\Test2.cshtml" />
+    <Content Include="Views\Topic\Consult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
