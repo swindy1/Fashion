@@ -274,6 +274,9 @@
     <Content Include="Images\Topic-Home-yiguanzhu.png" />
     <Content Include="Images\Topic-Home-zixun.png" />
     <Content Include="Images\UserImages\TouXiang\111.png" />
+    <Content Include="Images\UserImages\TouXiang\daren_1.jpg" />
+    <Content Include="Images\UserImages\TouXiang\daren_2.jpg" />
+    <Content Include="Images\UserImages\TouXiang\daren_3.jpg" />
     <Content Include="Scripts\date_rl_js\laydate.js" />
     <Content Include="Scripts\MyScripts\ImageFun.js" />
     <Content Include="Scripts\jquery.min.js" />
