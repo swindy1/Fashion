@@ -21,6 +21,11 @@ namespace Fashion.Controllers
         }
         public ActionResult Consult()
         {
+            LoginStatusConfig();//配置登录状态
+            if (Session["userName"] == null)
+            {
+                return Content("请先登录");
+            }
             return View();
         }
         public ActionResult Test()
@@ -41,8 +46,11 @@ namespace Fashion.Controllers
         
         public ActionResult Home()
         {
-
-            LoginStatusConfig();//验证登录
+            LoginStatusConfig();//配置登录状态
+            if (Session["userName"] == null)
+            {
+                return Content("请先登录");
+            }
             return View();
             
         }

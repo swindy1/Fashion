@@ -217,7 +217,11 @@ namespace Fashion.Controllers
 
         public ActionResult Change_Data()
         {
-            LoginStatusConfig();
+            LoginStatusConfig();//配置登录状态
+            if (Session["userName"] == null)
+            {
+                return Content("请先登录");
+            }
             return View();
         }
         /// <summary>
