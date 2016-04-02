@@ -19,6 +19,10 @@ namespace Fashion.Controllers
             
             return View();
         }
+        public ActionResult Consult()
+        {
+            return View();
+        }
         public ActionResult Test()
         {
             return View();
@@ -38,7 +42,7 @@ namespace Fashion.Controllers
         public ActionResult Home()
         {
 
-            CheckLogin();//验证登录
+            LoginStatusConfig();//验证登录
             return View();
             
         }
@@ -80,32 +84,86 @@ namespace Fashion.Controllers
         }
         public ActionResult Post()
         {
-            CheckLogin();//验证登录
+            LoginStatusConfig();//验证登录
             return View();
         }
         public ActionResult fabu()
         {
             return View();
         }
+
         /// <summary>
-        /// 验证登录是否成功；
-        /// 若登录失败，设置ViewData["LoginYes"] = 0；
-        /// 若登录成功，设置ViewData["LoginYes"] = 1；并且从数据库里取出用户头像的链接：ViewData["TouXiangUrl"] =...；
+        /// 提交数据
         /// </summary>
-        public void CheckLogin()
+        /// <returns></returns>
+        public ActionResult postData()
+        {
+
+            Post_bll Post = new Post_bll();
+            Theme_bll themeName = new Theme_bll();
+            People_bll User = new People_bll();
+            string caption = Request["question"].ToString();
+            string content = Request["content"].ToString();
+            string userName = Session["userName"].ToString();
+            int userId = User.GainUserId(userName);
+            string theme = Request["theme"].ToString();
+            int themeId = themeName.CollocateThemeId(theme);
+
+
+            //判断用户提问是否成功，成功返回主页面，失败返回提问页面
+            if (Post.finshInsert(caption, content, userId, themeId) == 1)
+            {
+                return RedirectToAction("Home");
+            }
+            else
+            {
+                return RedirectToAction("Post");
+            }
+        }
+        ///// <summary>
+        ///// 验证登录是否成功；
+        ///// 若登录失败，设置ViewData["LoginYes"] = 0；
+        ///// 若登录成功，设置ViewData["LoginYes"] = 1；并且从数据库里取出用户头像的链接：ViewData["TouXiangUrl"] =...；
+        ///// </summary>
+        //public void CheckLogin()
+        //{
+        //    if (Session["userName"] == null)
+        //    {//未登录
+        //        ViewData["LoginYes"] = 0;
+
+        //    }
+        //    else
+        //    {//已登录
+        //        ViewData["LoginYes"] = 1;
+        //        ViewData["userName"] = Session["userName"].ToString();
+        //        People_bll peopleBll = new People_bll();
+        //        ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
+        //    }
+        //}
+
+
+
+
+
+
+        /// <summary>
+        /// 配置用户登录状态
+        /// 如果已登录，返回true，并且设置登录状态：设置ViewData["LoginYes"] = 1；并且从数据库里取出用户头像的链接：ViewData["TouXiangUrl"] =...；
+        /// 未登录返回false,并且设置ViewData["LoginYes"] = 0
+        /// </summary>
+        public bool LoginStatusConfig()
         {
             if (Session["userName"] == null)
             {//未登录
                 ViewData["LoginYes"] = 0;
-
+                return false;
             }
-            else
-            {//已登录
-                ViewData["LoginYes"] = 1;
-                ViewData["userName"] = Session["userName"].ToString();
-                People_bll peopleBll = new People_bll();
-                ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
-            }
+            //已登录
+            ViewData["LoginYes"] = 1;
+            ViewData["userName"] = Session["userName"].ToString();
+            People_bll peopleBll = new People_bll();
+            ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
+            return true;
         }
 
     }

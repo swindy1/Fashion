@@ -52,6 +52,8 @@ namespace Fashion.Code.BLL
         /// <returns></returns>
         public bool LoginYes(string userName,string password)
         {
+            
+            
             User_dal user_dal = new User_dal();
             /*object AccountCount = user_dal.GetAccountCount(userName);//用户的数量
             //null代表数据库不存在该数据，System.DBNull.Value代表数据库里存在数据，但是该字段的值为null
@@ -120,7 +122,17 @@ namespace Fashion.Code.BLL
             return UrlTouXiangObj.ToString();
         }
 
-
+        /// <summary>
+        /// 通过用户名得到用户Id，返回用户Id
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public int GainUserId(string userName)
+        {
+            User_dal user = new User_dal();
+            int userId = (int)user.GetUserId(userName);
+            return userId;
+        }
 
         
         /// <summary>
@@ -142,6 +154,30 @@ namespace Fashion.Code.BLL
             else {
                 return false;
             }
+        }
+
+
+        /// <summary>
+        /// 实现将用户的全身照的url插入到数据库的功能，url为相对路径如：/Images/UserImages/QuanShenZhao/userName.png
+        /// 成功返回true 失败返回false
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="ImgExtension">图片扩展名</param>
+        /// <returns></returns>
+        public bool InsertUrlQuanShenZhao(string userName, string ImgExtension)
+        {
+            string QuanShenZhaoUrl = "/Images/UserImages/TouXiang/" + userName + ImgExtension;
+            User_dal user_dal = new User_dal();
+            int NonqCount = user_dal.InsertUrlQuanShenZhao(userName, QuanShenZhaoUrl);//受影响的函数
+            if (NonqCount == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
 
@@ -218,6 +254,138 @@ namespace Fashion.Code.BLL
         }
 
 
+
+      
+
+
+
+
+
+        /// <summary>
+        /// 检查数据库得到的真实姓名
+        /// </summary>
+        /// <param name="useName"></param>
+        /// <returns></returns>
+        public string CheckRealName(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetPersonalInformation(userName);
+            object RealName = dt.Rows[0][0];
+            
+            if (RealName == null || RealName == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return RealName.ToString();
+            }
+        }
+       /// <summary>
+        /// 检查数据库得到的出生日期
+       /// </summary>
+       /// <param name="userName"></param>
+       /// <returns></returns>
+        public string CheckBirthDate(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetPersonalInformation(userName);
+            object BirthDate = dt.Rows[0][1];
+            if (BirthDate == null || BirthDate == System.DBNull.Value)
+            {
+                return null;
+            }
+            else 
+            {
+                return String.Format("{0:yyyy\\/MM\\/dd}", BirthDate);
+            }
+           
+        }
+        /// <summary>
+        /// 检查数据库得到的职业
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string CheckProfession(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetPersonalInformation(userName);
+            object Profession = dt.Rows[0][2];
+            if (Profession == null || Profession == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return Profession.ToString(); 
+            }
+
+        }
+        /// <summary>
+        ///  检查数据库得到的手机号
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string CheckPhoneNumber(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetPersonalInformation(userName);
+            object PhoneNumber = dt.Rows[0][3];
+            if (PhoneNumber == null || PhoneNumber == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return PhoneNumber.ToString();
+            }
+
+        }
+        /// <summary>
+        /// 检查数据库得到的学历
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string CheckEducationalBackground(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetPersonalInformation(userName);
+            object EducationalBackground = dt.Rows[0][4];
+            if (EducationalBackground == null || EducationalBackground == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return EducationalBackground.ToString();
+            }
+
+        }
+
+        /// <summary>
+        /// 检查数据库得到的兴趣
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string CheckInterest(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetPersonalInformation(userName);
+            object Interest = dt.Rows[0][5];
+            if (Interest == null || Interest == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return Interest.ToString();
+            }
+
+        }
+
+
+
+        
 
     }
 }

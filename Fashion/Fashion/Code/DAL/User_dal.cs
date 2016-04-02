@@ -42,6 +42,109 @@ namespace Fashion.Code.DAL
             return SqlHelper.ExecuteScalar(sqlStr, parameters);
         }
 
+
+
+        /// <summary>
+        /// 通过用户名查找用户的真实名字
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object GetRealName (string userName)
+        {
+            string sqlStr = "select User_RealName from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
+
+       /// <summary>
+        /// 通过通过用户名查找用户的出生年月日
+       /// </summary>
+       /// <param name="userName"></param>
+       /// <returns></returns>
+        public object GetBirthDate(string userName)
+        {
+            string sqlStr = "select User_BirthDate from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
+
+
+
+        /// <summary>
+        /// 通过用户名查找用户的职业
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object GetProfession(string userName)
+        {
+            string sqlStr = "select User_Profession from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
+        /// <summary>
+        /// 通过用户名查找用户的手机
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object GetPhoneNumber(string userName)
+        {
+            string sqlStr = "select  User_PhoneNumber from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
+
+        /// <summary>
+        /// 通过用户名查找用户的学历
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object GetEducationalBackground(string userName)
+        {
+            string sqlStr = "select  User_EducationalBackground from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
+
+        /// <summary>
+        /// 通过用户名查找用户的兴趣
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object GetInterest(string userName)
+        {
+            string sqlStr = "select User_Interest from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
+
+        /// <summary>
+        /// 获取用户的个人基本信息（真实姓名，生日，职业，手机，学历，爱好）
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public DataTable GetPersonalInformation(string userName)
+        {
+            string sqlStr = "select User_RealName,User_BirthDate, User_Profession,User_PhoneNumber,User_EducationalBackground,User_Interest from [tb_User] where User_Name =  @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+           return SqlHelper.ExecuteDataTable(sqlStr, parameters);
+        
+        }
+
+
         /// <summary>
         /// 通过用户名查询该用户的盐值，返回类型为object
         /// </summary>
@@ -124,6 +227,24 @@ namespace Fashion.Code.DAL
                 new SqlParameter("@userName",userName)
             };
             return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+        }
+
+
+        /// <summary>
+        /// 实现将用户的全身照的url插入到数据库的功能，url为相对路径如：/Images/QuanShenZhao/userName.png
+        /// 函数返回受影响的函数
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="urlQuanShenZhao">图片相对路径</param>
+        /// <returns></returns>
+        public int InsertUrlQuanShenZhao(string userName, string urlQuanShenZhao)
+        {
+            string sqlStr = "update tb_User set User_QuanShenZhaoUrl=@urlQuanShenZhao where User_Name=@userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName),
+                new SqlParameter("@urlQuanShenZhao",urlQuanShenZhao)
+            };
+            return SqlHelper.ExecuteNonquery(sqlStr,parameters);
         }
 
 
@@ -277,7 +398,19 @@ namespace Fashion.Code.DAL
                 
             
         //}
-    
+        /// <summary>
+        /// 通过用户名查询该用户的ID，返回类型为object
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object GetUserId(string userName)
+        {
+            string sqlStr = "select USER_ID from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
 
     }
 }
