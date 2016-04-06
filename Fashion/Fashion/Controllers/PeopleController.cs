@@ -15,7 +15,7 @@ namespace Fashion.Controllers
 
         public ActionResult Index()
         {
-                
+
             LoginStatusConfig();//配置登录状态
             if (Session["userName"] == null)
             {
