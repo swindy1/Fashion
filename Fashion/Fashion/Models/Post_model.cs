@@ -16,6 +16,7 @@ namespace Fashion.Models
         public int postThemeId;//板块编码
         public int postSupportCount;//点赞数
         public DateTime postDate;//发帖日期
+        public string postHtmlUrl;//帖子静态页面地址
     }
    
 }

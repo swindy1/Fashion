@@ -152,6 +152,7 @@ namespace Fashion.Controllers
             {
                 len = 200;
             }
+            
             content200 = content200.Substring(0, len);  
             if (Post.finshInsert(caption, content200, userId, themeId, staticHtmlPath,datetime) != 1)
             {
@@ -159,7 +160,7 @@ namespace Fashion.Controllers
             }//将帖子数据保存到数据库---------成功
             //////获取所有图片里的图片路径,并且将图片路径保存到数据库里
             System.Text.RegularExpressions.Regex regImg2 = new System.Text.RegularExpressions.Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);// 定义正则表达式用来匹配 img 标签
-            System.Text.RegularExpressions.MatchCollection matches = regImg2.Matches(contentData);
+            System.Text.RegularExpressions.MatchCollection matches = regImg2.Matches(contentData);            
             int i = 0;
             string[] strUrlList = new string[matches.Count];
             foreach (System.Text.RegularExpressions.Match match in matches)
