@@ -24,6 +24,7 @@ namespace Fashion.Code.BLL
         /// <param name="userName"></param>
         public int HavingUserName(string userName)
         {
+            
             User_dal user = new User_dal();
             int accountCount = (int)user.GetAccountCount(userName);
             if (accountCount<=0)
