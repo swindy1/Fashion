@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Fashion.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -60,6 +62,59 @@ namespace Fashion.Code.DAL
             };
             return SqlHelper.ExecuteNonquery(sqlStr, parameters);
         }
+
+        /// <summary>
+        /// 获取帖子的10条数据
+        /// </summary>
+        /// <returns></returns>        
+      /// <param name="page">页数</param>
+      /// <param name="min">第一条数据id</param>
+      /// <param name="max">最后一条数据id</param>
+      /// <returns></returns>
+        public List<Post_model> GetPost(int page,int min=1, int max=10)
+        {
+            string sqlStr = @"select * from(
+                                                          select ROW_NUMBER()over(order by id) orderNumber,* from PostView
+                                                               ) as postTable 
+                                                      where postTable.orderNumber between @min and @max";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@min",min*page),
+                new SqlParameter("@max",max*page)
+            };
+            DataTable dataTable = SqlHelper.ExecuteDataTable(sqlStr, parameters);
+            List<Post_model> post_modelList = new List<Post_model>();
+            foreach(DataRow row in dataTable.Rows)
+            {
+                post_modelList.Add(ToModel(row));
+            }
+            return post_modelList;
+        }
+
+        /// <summary>
+        /// 将一条数据转化为Post_model数据
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        public Post_model ToModel(DataRow row)
+        {
+            Post_model post_model = new Post_model();
+            post_model.User.userId = (int)row["userId"];
+            post_model.User.userName = row["userName"].ToString();
+            post_model.User.signature = (row["signature"] != DBNull.Value ? row["signature"].ToString() : null);
+            post_model.User.touXiangUrl = row["touXiangUrl"].ToString();
+            post_model.postId = (int)row["id"];
+            post_model.postCaption = row["caption"].ToString();
+            post_model.postContent = row["content"].ToString();
+            post_model.postDate = (DateTime)row["datetime"];
+            post_model.postHtmlUrl = row["htmlUrl"].ToString();
+            post_model.postSupportCount = (int)row["supportCount"];
+            post_model.Theme.themeName = row["themeName"].ToString();
+            post_model.Theme.themeId = (int)row["themeId"];
+            post_model.commentCount = (row["commentCount"] != DBNull.Value ? (int)row["commentCount"] : 0);
+            return post_model;
+        }
+
+
     }
     
 }

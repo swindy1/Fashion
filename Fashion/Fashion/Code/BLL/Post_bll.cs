@@ -1,4 +1,5 @@
 ﻿using Fashion.Code.DAL;
+using Fashion.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,5 +74,19 @@ namespace Fashion.Code.BLL
             }
 
         }
+
+        /// <summary>
+        /// 获取帖子的10条数据
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public List<Post_model> GetPost(int page,int min=1, int max=10)
+        {
+            List<Post_model> post_bllList = new List<Post_model>();
+            Post_dal post_dal = new Post_dal();
+            return post_dal.GetPost(page,min,max);
+        }
+
     }
 }

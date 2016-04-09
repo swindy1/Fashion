@@ -155,11 +155,11 @@
     </Compile>
     <Compile Include="Models\Attention_model.cs" />
     <Compile Include="Models\Collect_model.cs" />
-    <Compile Include="Models\Comment_model.cs" />
+    <Compile Include="Models\PostComment_model.cs" />
     <Compile Include="Models\ErrorMessage_model.cs" />
     <Compile Include="Models\Message_model.cs" />
     <Compile Include="Models\Module_model.cs" />
-    <Compile Include="Models\PostFull_model.cs" />
+    <Compile Include="Models\PostPhoto_model.cs" />
     <Compile Include="Models\Post_model.cs" />
     <Compile Include="Models\Rank_model.cs" />
     <Compile Include="Models\ReplyPost_model.cs" />
