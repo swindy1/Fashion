@@ -278,19 +278,22 @@
             document.getElementById(z).style.display = "none";
         }
         //本函数实现当点击评论按钮时，显示评论内容，再次点击时隐藏
-        function xs_pl(x) {       //点击显示隐藏评论
-
+        function xs_pl(x,commentCount) {       //点击显示隐藏评论
             var y = x.substring(x.length - 1, x.length);
             var z = "comments_kuang_" + y;
             var k = "pl_" + y;
             var g = document.getElementById(k).innerHTML;
-            if (g == "4条评论") {
+            flag = $("#pinglunHidden").val(); //获取隐藏的值，1代表为已经打开，需要关闭
+            if (flag == 0)//flag为0，已经关闭，需要打开评论详情
+            {
+                $("#pinglunHidden").val("1");
                 document.getElementById(z).style.display = "block";
                 document.getElementById(k).innerHTML = "收起评论";
             }
             else {
+                $("#pinglunHidden").val("0");
                 document.getElementById(z).style.display = "none";
-                document.getElementById(k).innerHTML = "4条评论";
+                document.getElementById(k).innerHTML = commentCount+" 条评论";
             }
         }
         ////本函数实现点击关注按钮时按钮显示为取消关注，再次点击时，取消关注显示又变回关注按钮
@@ -505,8 +508,8 @@
                         <div class="op_img" id="op_cz" >
                             <div id="guanzhu_@i" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@i" /><div class="data_op_n" id="gz_@i">关注</div></div>
 
-                            <div class="data_op_xx" onclick="xs_pl(this.id)" id="zkpl_@i">
-                                <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@i">4条评论</div>
+                            <div class="data_op_xx" onclick="xs_pl(this.id,@post_model.commentCount)" id="zkpl_@i">
+                                <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@i">@post_model.commentCount 条评论</div>
                             </div>
                             <div id="yincang_op_@i" style="display:none;">
                                 <div id="thx_@i" class="data_op_xx" onclick="thx(this.id)">
@@ -745,6 +748,7 @@
             }*@
         </div>
         <div style="height:200px;"></div>
+        <input type="hidden" id="pinglunHidden" value="0"/>
     </div>
 
 
