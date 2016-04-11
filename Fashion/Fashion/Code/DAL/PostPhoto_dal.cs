@@ -12,13 +12,14 @@ namespace Fashion.Code.DAL
         /// </summary>
         /// <param name="postId"></param>
         /// <param name="imgUrl"></param>
+        /// <param name="postType"></param>
         /// <returns></returns>
-        public int InsertPhotoUrl(int postId,string[]imgUrl)
+        public int InsertPhotoUrl(int postId, string[] imgUrl, int postType)
         {
             string sqlStr = "";
             for (int i = 0; i < imgUrl.Length; i++)
             {
-                sqlStr = sqlStr+@"insert tb_PostPhoto(PostPhoto_PostId,PostPhoto_PhotoUrl) values("+postId+",'"+imgUrl[i]+"')   ";
+                sqlStr = sqlStr + @"insert tb_PostPhoto(PostPhoto_PostId,PostPhoto_PhotoUrl,PostPhoto_PostType) values(" + postId + ",'" + imgUrl[i] + "'" + "," + postType + ")   ";
             }
             return SqlHelper.ExecuteNonquery(sqlStr);
         }

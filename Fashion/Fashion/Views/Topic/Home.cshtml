@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model System.Collections.Generic.List<Fashion.Models.Post_model>
+    @model System.Collections.Generic.List<Fashion.Models.Post_model>    
     }
 
     <script src="~/Scripts/jquery-2.0.0.js"></script>
@@ -334,17 +334,35 @@
 
             }
         }
+
+        //本函数实现点击省略的文章时，展开全文
+        function zhangkai(x) {
+            document.getElementById(x).style.display = "none";
+            var y = x.substring(x.length - 1, x.length); //y为编号
+            var htmlUrl = document.getElementById("hiddenHtmlUrl_" + y).value; //获取静态html路径，该静态html存放的是帖子的完整内容
+            var z = "data_detail_data_" + y;  //z为展示帖子内容的div编号，等一下要把静态html里的内容填充到本div里
+            $.ajax({//通过ajax请求静态html的内容
+                async: false,
+                url: htmlUrl,
+                success: function (result) {
+                    $("#" + z).html(result);
+                }
+            });
+            document.getElementById(z).style.display = "block";
+            var k = "xs_shouqi_" + y;
+            document.getElementById(k).style.display = "block";
+        }
         ///本函数实现点击收起按钮时收起详细内容，切换回省略内容
         function shouqi(x) {
             var y = x.substring(x.length - 1, x.length);
             var a = "data_detail_data_" + y;
             var z = "data_short_data_" + y
-            document.getElementById(a).style.display = "none";
+            document.getElementById(a).style.display = "none";            
             document.getElementById(z).style.display = "block";
             var k = "xs_shouqi_" + y;
             document.getElementById(k).style.display = "none";
-
         }
+
         //鼠标划过时显示正文下方被隐藏的操作按钮的div
         function xianshi_op(x) {
             var y = x.substring(x.length - 1, x.length);
@@ -360,16 +378,7 @@
             var a = "yincang_op_" + y
             document.getElementById(a).style.display = "none";
         }
-        //本函数实现点击省略的文章时，展开全文
-        function zhangkai(x) {
-            document.getElementById(x).style.display = "none";
-            var y = x.substring(x.length - 1, x.length);
-            var z = "data_detail_data_" + y;
-            document.getElementById(z).style.display = "block";
-            var k = "xs_shouqi_" + y;
-            document.getElementById(k).style.display = "block";
-
-        }
+    
 
 
         $(document).ready(function () {
@@ -437,7 +446,149 @@
             <div>
                 <hr style="border:none;border-top:1px solid #d4cbcb" />
             </div>
-            @for (int i = 0; i < 10; i++)
+          
+            @{
+                int i = 0;
+            }
+            @foreach(var post_model in Model)
+            {
+                i++;
+                <div id="data_all_@i" class="data" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
+                    <div class="data_left">
+
+
+                        <div>
+                            <a href="" title="话题详情"><img src="~/Images/Topic-Home-dapeitouxiang.png.jpg" /></a>
+                        </div>
+
+                        <div id="ht-dianzanshu-@i" class="dianzanshu" onclick="ht_dianzan(this.id)">
+                            178
+                        </div>
+
+
+                    </div>
+
+                    <div class="data_main">
+                        <div class="laizi">
+                            来自&nbsp;<a href="">@post_model.Theme.themeName</a>
+                        </div>
+                        <div class="data_wenti">
+                            <a href="">@post_model.postCaption</a>
+                        </div>
+                        <div class="data_fawenzi">
+                            <a href="" title="发问者资料">@post_model.User.userName</a><span>,@post_model.User.signature</span>
+                        </div>
+                        <div id="data_short_data_@i" class="data_short_data" onclick="zhangkai(this.id)">
+
+                            <div class="data_img"><img src="~/Images/Topic-Home-wentitupian.png.jpg" /></div>
+                            <div id="title_@i" class="data_words"></div>
+                            <script>
+                                var titleStr = "@post_model.postContent";//你从数据库里读到的字符串内容
+                                var maxLen = 145;//你想显示的长度
+
+                                if (titleStr.length > maxLen)//当显示的文字长度大于给定值时，显示一部分
+                                    document.getElementById("title_@i").innerHTML = titleStr.substring(0, maxLen) + "...&nbsp;&nbsp;<span class='xianshiquanbu'>显示全部</span>";
+                                else
+                                    document.getElementById("title_@i").innerHTML = titleStr + "...&nbsp;&nbsp;<span class='xianshiquanbu'>显示全部</span>";
+                            </script>
+
+
+                        </div>
+                        <input type="hidden" id="hiddenHtmlUrl_@i" value="@post_model.postHtmlUrl" />
+                        <div id="data_detail_data_@i" class="data_detail_data" style="" >
+                        </div>
+
+
+                        
+
+
+                        <div class="op_img" id="op_cz" >
+                            <div id="guanzhu_@i" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@i" /><div class="data_op_n" id="gz_@i">关注</div></div>
+
+                            <div class="data_op_xx" onclick="xs_pl(this.id)" id="zkpl_@i">
+                                <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@i">4条评论</div>
+                            </div>
+                            <div id="yincang_op_@i" style="display:none;">
+                                <div id="thx_@i" class="data_op_xx" onclick="thx(this.id)">
+                                    <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_@i">感谢</div>
+                                </div>
+
+                                <div class="data_op_xx" onclick="save(this.id)" id="save_@i">
+                                    <img src="~/Images/Topic-Home-save.png" /><div class="data_op_n" id="save_val_@i">收藏</div>
+                                </div>
+                                <div class="data_op_xx">
+                                    <img src="~/Images/Topic-Home-fenxiang.png" /><div class="data_op_n">分享</div>
+                                </div>
+                                <div class="data_op_xx">
+                                    <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">举报</div>
+                                </div>
+                            </div>
+
+                            <div class="data_op_xx">
+                                <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">保留权利</div>
+                            </div>
+                            <div id="xs_shouqi_@i" class="data_op_xx data_op_shouqi">
+                                <img src="~/Images/Topic-Home-retract.png" />
+                                <div id="shouqi_@i" class="data_op_n" onclick="shouqi(this.id)">收起</div>
+                            </div>
+
+                        </div>
+
+                        <div id="comments_kuang_@i" class="yc plk">
+                            @for (int j = 6; j < 10; j++)
+                            {
+                                <div class="pl_margin" id="pinglunkuang-@i-@j" onmouseover="xs_pinglun_op(this.id)" onmouseout="yc_pinglun_op(this.id)">
+                                    <div class="bottom_jg pl_er_tx">
+                                        <img src="~/Images/Layout-usertouxiang.png" />
+                                    </div>
+                                    <div class="pl_main">
+                                        <div class="comments_er bottom_jg"><a href="">苹果茄子</a></div>
+                                        <div class="bottom_jg">pi皮草真心很难搭。。。</div>
+                                        <div class="bottom_jg">
+                                            <span class="comment_op">2015-12-9</span>
+                                            <span class="yc comment_op" id="pinglun-op-@i-@j">
+                                                <span id="huifu-@i-@j" onclick="huifukuang(this.id)"><img src="~/Images/Topic-Home-huifu.png" />回复</span>
+                                                <span id="pl-dianzan-@i-@j" onclick="pl_dianzan(this.id)"><img src="~/Images/Topic-Home-dianzan.png" /><span id="pl-dianzan-btn-@i-@j">点赞</span></span>
+                                                <span><img src="~/Images/Topic-Home-jubao.png" />举报</span>
+                                            </span>
+                                            <span class="comment_op fl_right"><span id="pl-dianzanshu-@i-@j">38</span><span>赞</span></span>
+                                        </div>
+                                        <div id="huifu-pl-@i-@j"></div><!--回复评论产生的地方-->
+                                        <div id="plk-@i-@j"></div>     <!--产生回复评论框的地方-->
+
+
+                                    </div>
+
+                                </div>
+                                if (j < 9)
+                                {
+                                    <hr class="pl_fgx" />
+                                }
+
+                            }
+
+                            <div id="tjpl_@i"></div>  <!--创建评论产生的地方-->
+
+                            <hr style="border:none;border-top:1px solid #ebe4e4;width:100%;" />
+                            <div class="page" id="fenye_div"></div>
+
+                            <div class="plk_z">
+                                <input id="pl_text_@i" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
+                                <div id="pl_op_@i" class="pl_op yc">
+                                    <span class="qx_comment"><a onclick="yc_pl_btn(this.id)" id="qx_btn_@i">取消</a></span>
+                                    <span><input id="pl_btn_@i" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id)" /></span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="hr_fgx"  />
+
+                    </div>
+                </div>
+            }
+            
+            
+            
+               @*@for (int i = 0; i < 10; i++)
             {
                 <div id="data_all_@i" class="data" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
                     <div class="data_left">
@@ -591,8 +742,9 @@
 
                     </div>
                 </div>
-            }
+            }*@
         </div>
+        <div style="height:200px;"></div>
     </div>
 
 

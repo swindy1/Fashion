@@ -50,7 +50,7 @@ namespace Fashion.Controllers
             List<Post_model>post_modelList=post_bll.GetPost(1);
             LoginStatusConfig();          //配置登录状态
             
-            return View();
+            return View(post_modelList);
             
         }
         /// <summary>
@@ -114,10 +114,12 @@ namespace Fashion.Controllers
         [HttpPost]
         public ActionResult postData()
         {
+            
             ////先把前端传回来的content内容保存为静态页面
             byte[] byteData = new byte[Request.InputStream.Length]; //定义一个字节数组保存前端传回来的Post数据
             Request.InputStream.Read(byteData, 0, byteData.Length);//将流读取到byteData，InputStream读取到的是http头里的主体数据
-            string postData = System.Text.Encoding.Default.GetString(byteData);
+            //string postData = System.Text.Encoding.Default.GetString(byteData);//系统的默认编码为gb2312,不适用这种
+            string postData = System.Text.Encoding.UTF8.GetString(byteData);
             postData = Server.UrlDecode(postData);
             string[] datas = postData.Split('&');//对postData数据进行分割
             string contentData = datas[1].ToString(); //data[1]为变量名为content的内容
@@ -132,7 +134,8 @@ namespace Fashion.Controllers
                 fileNamePath = Server.MapPath("~/StaticHtml/TieZiHtml/") + fileName;
             }
             System.IO.FileStream fs = new System.IO.FileStream(fileNamePath,System.IO.FileMode.Create);
-            byte[] contentBytes = System.Text.Encoding.Default.GetBytes(contentData);
+            byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(contentData);
+            //byte[] contentBytes = System.Text.Encoding.Default.GetBytes(contentData);
             fs.Write(contentBytes,0,contentBytes.Length);
             fs.Close();//保存静态html成功
             ///////将帖子数据保存到数据库
@@ -144,7 +147,7 @@ namespace Fashion.Controllers
             int userId = User.GainUserId(userName);
             string theme = Request["theme"].ToString();
             int themeId = themeName.CollocateThemeId(theme);
-            string staticHtmlPath = "~/StaticHtml/TieZiHtml/" + fileName;//相对路径
+            string staticHtmlPath = "/StaticHtml/TieZiHtml/" + fileName;//相对路径
             string content200 = datas[3].ToString();//data[3]的为前端传回来的发帖内容的纯文本
             content200 = content200.Substring(content200.IndexOf('=') + 1);
             System.Text.RegularExpressions.Regex regexImg = new System.Text.RegularExpressions.Regex(@"<img[^>]+>");
@@ -173,7 +176,7 @@ namespace Fashion.Controllers
             {
                 int postId = Post.GetPostId(caption); //根据帖子的标题查询数据库，得到该贴子的postId
                 PostPhoto_bll postPhoto_bll = new PostPhoto_bll();
-                if (postPhoto_bll.InsertPhotoUrl(postId, strUrlList) < 0)
+                if (postPhoto_bll.InsertPhotoUrl(postId, strUrlList,1) < 0)
                 {
                     return Content("保存图片路径时数据库出错");
                 }

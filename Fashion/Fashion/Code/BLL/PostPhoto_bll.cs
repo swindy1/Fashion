@@ -15,10 +15,10 @@ namespace Fashion.Code.BLL
         /// <param name="postId"></param>
         /// <param name="imgUrl"></param>
         /// <returns></returns>
-        public int InsertPhotoUrl(int postId, string[] imgUrl)
+        public int InsertPhotoUrl(int postId, string[] imgUrl,int postType)
         {
             PostPhoto_dal postPhoto = new PostPhoto_dal();
-            return postPhoto.InsertPhotoUrl(postId, imgUrl);
+            return postPhoto.InsertPhotoUrl(postId, imgUrl,postType);
         }
     }
 }

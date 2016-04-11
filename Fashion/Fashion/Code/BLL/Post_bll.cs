@@ -78,9 +78,9 @@ namespace Fashion.Code.BLL
         /// <summary>
         /// 获取帖子的10条数据
         /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
+        /// <param name="page">页数</param>
+        /// <param name="min">第一条数据id</param>
+        /// <param name="max">最后一条数据id</param>
         public List<Post_model> GetPost(int page,int min=1, int max=10)
         {
             List<Post_model> post_bllList = new List<Post_model>();
