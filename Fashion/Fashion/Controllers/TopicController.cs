@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Fashion.Models;
 using Fashion.Code.BLL;
+using Fashion.Code.DAL;
 namespace Fashion.Controllers
 {
    
@@ -46,9 +47,11 @@ namespace Fashion.Controllers
         
         public ActionResult Home()
         {
-            LoginStatusConfig();//配置登录状态
+            Post_bll post_bll = new Post_bll();
+            List<Post_model>post_modelList=post_bll.GetPost(1);
+            LoginStatusConfig();          //配置登录状态
             
-            return View();
+            return View(post_modelList);
             
         }
         /// <summary>
@@ -73,6 +76,27 @@ namespace Fashion.Controllers
             string json = serializer1.Serialize(list);
             return Content(json);
             //return Content(theme);
+        }
+
+        /// <summary>
+        /// 获取评论的数据
+        /// 页面：Home
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AjaxGetCommentData()
+        {           
+            int postId = Convert.ToInt32(Request["postId"]);
+            int postType = Convert.ToInt32(Request["postType"]);
+            PostComment_bll postComment_bll = new PostComment_bll();
+            List<PostComment_model> postComment_modelList = postComment_bll.GetPostComment(postId,postType);
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string jsonData = serializer.Serialize(postComment_modelList);
+            return Content(jsonData);
+            
+
+           
+            
         }
 
         
@@ -112,10 +136,12 @@ namespace Fashion.Controllers
         [HttpPost]
         public ActionResult postData()
         {
+            
             ////先把前端传回来的content内容保存为静态页面
             byte[] byteData = new byte[Request.InputStream.Length]; //定义一个字节数组保存前端传回来的Post数据
             Request.InputStream.Read(byteData, 0, byteData.Length);//将流读取到byteData，InputStream读取到的是http头里的主体数据
-            string postData = System.Text.Encoding.Default.GetString(byteData);
+            //string postData = System.Text.Encoding.Default.GetString(byteData);//系统的默认编码为gb2312,不适用这种
+            string postData = System.Text.Encoding.UTF8.GetString(byteData);
             postData = Server.UrlDecode(postData);
             string[] datas = postData.Split('&');//对postData数据进行分割
             string contentData = datas[1].ToString(); //data[1]为变量名为content的内容
@@ -130,7 +156,8 @@ namespace Fashion.Controllers
                 fileNamePath = Server.MapPath("~/StaticHtml/TieZiHtml/") + fileName;
             }
             System.IO.FileStream fs = new System.IO.FileStream(fileNamePath,System.IO.FileMode.Create);
-            byte[] contentBytes = System.Text.Encoding.Default.GetBytes(contentData);
+            byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(contentData);
+            //byte[] contentBytes = System.Text.Encoding.Default.GetBytes(contentData);
             fs.Write(contentBytes,0,contentBytes.Length);
             fs.Close();//保存静态html成功
             ///////将帖子数据保存到数据库
@@ -142,7 +169,7 @@ namespace Fashion.Controllers
             int userId = User.GainUserId(userName);
             string theme = Request["theme"].ToString();
             int themeId = themeName.CollocateThemeId(theme);
-            string staticHtmlPath = "~/StaticHtml/TieZiHtml/" + fileName;//相对路径
+            string staticHtmlPath = "/StaticHtml/TieZiHtml/" + fileName;//相对路径
             string content200 = datas[3].ToString();//data[3]的为前端传回来的发帖内容的纯文本
             content200 = content200.Substring(content200.IndexOf('=') + 1);
             System.Text.RegularExpressions.Regex regexImg = new System.Text.RegularExpressions.Regex(@"<img[^>]+>");
@@ -152,6 +179,7 @@ namespace Fashion.Controllers
             {
                 len = 200;
             }
+            
             content200 = content200.Substring(0, len);  
             if (Post.finshInsert(caption, content200, userId, themeId, staticHtmlPath,datetime) != 1)
             {
@@ -159,7 +187,7 @@ namespace Fashion.Controllers
             }//将帖子数据保存到数据库---------成功
             //////获取所有图片里的图片路径,并且将图片路径保存到数据库里
             System.Text.RegularExpressions.Regex regImg2 = new System.Text.RegularExpressions.Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);// 定义正则表达式用来匹配 img 标签
-            System.Text.RegularExpressions.MatchCollection matches = regImg2.Matches(contentData);
+            System.Text.RegularExpressions.MatchCollection matches = regImg2.Matches(contentData);            
             int i = 0;
             string[] strUrlList = new string[matches.Count];
             foreach (System.Text.RegularExpressions.Match match in matches)
@@ -170,7 +198,7 @@ namespace Fashion.Controllers
             {
                 int postId = Post.GetPostId(caption); //根据帖子的标题查询数据库，得到该贴子的postId
                 PostPhoto_bll postPhoto_bll = new PostPhoto_bll();
-                if (postPhoto_bll.InsertPhotoUrl(postId, strUrlList) < 0)
+                if (postPhoto_bll.InsertPhotoUrl(postId, strUrlList,1) < 0)
                 {
                     return Content("保存图片路径时数据库出错");
                 }
