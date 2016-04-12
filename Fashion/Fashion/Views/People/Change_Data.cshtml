@@ -2,7 +2,7 @@
     ViewBag.Title = "Change_Data";
     Layout = "~/Views/Shared/top.cshtml";
 }
-<script src="~/Scripts/date_rl_js/laydate.js"></script>
+<script src="~/Scripts/laydate.js"></script>
 <script src="~/Scripts/MyScripts/ImageFun.js"></script>
 <style type="text/css">
     /*************所有选择下拉框的样式CSS*************************/
@@ -419,10 +419,16 @@
         <caption style="float:left;font-size:1.5em;">个人信息</caption>
         <tr><td>真实姓名：</td><td><input type="text" id="Real_name" onblur="test_name(this.id)" /></td></tr>
         <tr>
-            <td>出身年月：</td>
+            <td>出生年月：</td>
             <td>
-                <script src="laydate/laydate.js"></script>
-                <input class="laydate-icon" onclick="laydate()">
+                <input class="laydate-icon" id="demo">
+                <script type="text/javascript">
+                        !function () {
+                            laydate.skin('default');//切换皮肤，请查看skins下面皮肤库
+                            laydate({ elem: '#demo' });//绑定元素
+                        }();
+                </script>
+
             </td>
         </tr>
         <tr>

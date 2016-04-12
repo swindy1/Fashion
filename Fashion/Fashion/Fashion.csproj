@@ -186,11 +186,11 @@
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\expert-register.css" />
-    <Content Include="Content\need\laydate.css" />
+    <Content Include="Content\laydate-need.css" />
     <Content Include="Content\Peaple_upload_tx.css" />
     <Content Include="Content\People_Login.css" />
     <Content Include="Content\share.css" />
-    <Content Include="Content\skins\default\laydate.css" />
+    <Content Include="Content\laydate-skins.css" />
     <Content Include="Content\test.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
