@@ -16,5 +16,11 @@ namespace Fashion.Models
         public DateTime postCommentDate; //评论时间
         public int postCommentSupportCount;//点赞数
         public int postType;//帖子的类型，1代表原贴，2代表回帖
+        public User_model Commenter;//User_model类，评论者
+        public User_model BeCommenter;//User_model类，被评论者
+        public PostComment_model() {
+            Commenter = new User_model();
+            BeCommenter = new User_model();
+        }
     }
 }

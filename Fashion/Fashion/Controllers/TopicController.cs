@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Fashion.Models;
 using Fashion.Code.BLL;
+using Fashion.Code.DAL;
 namespace Fashion.Controllers
 {
    
@@ -75,6 +76,27 @@ namespace Fashion.Controllers
             string json = serializer1.Serialize(list);
             return Content(json);
             //return Content(theme);
+        }
+
+        /// <summary>
+        /// 获取评论的数据
+        /// 页面：Home
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AjaxGetCommentData()
+        {           
+            int postId = Convert.ToInt32(Request["postId"]);
+            int postType = Convert.ToInt32(Request["postType"]);
+            PostComment_bll postComment_bll = new PostComment_bll();
+            List<PostComment_model> postComment_modelList = postComment_bll.GetPostComment(postId,postType);
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string jsonData = serializer.Serialize(postComment_modelList);
+            return Content(jsonData);
+            
+
+           
+            
         }
 
         

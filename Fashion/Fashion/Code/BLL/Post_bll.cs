@@ -83,7 +83,6 @@ namespace Fashion.Code.BLL
         /// <param name="max">最后一条数据id</param>
         public List<Post_model> GetPost(int page,int min=1, int max=10)
         {
-            List<Post_model> post_bllList = new List<Post_model>();
             Post_dal post_dal = new Post_dal();
             return post_dal.GetPost(page,min,max);
         }

@@ -133,10 +133,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Code\BLL\ErrorMessage_bll.cs" />
     <Compile Include="Code\BLL\People_bll.cs" />
+    <Compile Include="Code\BLL\PostComment_bll.cs" />
     <Compile Include="Code\BLL\PostPhoto_bll.cs" />
     <Compile Include="Code\BLL\Post_bll.cs" />
     <Compile Include="Code\BLL\Theme_bll.cs" />
     <Compile Include="Code\DAL\ErrorMessage_dal.cs" />
+    <Compile Include="Code\DAL\PostComment_dal.cs" />
     <Compile Include="Code\DAL\PostPhoto_dal.cs" />
     <Compile Include="Code\DAL\Post_dal.cs" />
     <Compile Include="Code\DAL\Rank_dal.cs" />
