@@ -21,6 +21,20 @@ namespace Fashion.Code.DAL
             };
             return SqlHelper.ExecuteScalar(sqlStr, parameters);
         }
+        /// <summary>
+        /// 通过标题查询数据库获得postId
+        /// </summary>
+        /// <param name="caption"></param>
+        /// <returns></returns>
+        public object GetPostId(string caption)
+        {
+            string sqlStr = "select Post_Id from tb_Post where Post_Caption=@caption";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@caption",caption)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+            
+        }
 
         /// <summary>
         /// 插入数据 标题   内容  提问题的人的编号    主题Id  
@@ -32,15 +46,17 @@ namespace Fashion.Code.DAL
         /// <param name="postsender"></param>
         /// <param name="themeId"></param>
         /// <returns></returns>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-        public int insertCaption(string caption, string content, int postsenderId, int themeId)
+        public int insertCaption(string caption, string content, int postsenderId, int themeId, string staticHtmlPath, DateTime datetime)
         {
 
-            string sqlStr = "insert into [tb_Post] ( Post_Caption,Post_Content,Post_SenderId,Post_ThemeId) values (@caption,@content,@postsenderId,@themeId)";
+            string sqlStr = "insert into [tb_Post] ( Post_Caption,Post_Content,Post_SenderId,Post_ThemeId,Post_HtmlUrl,Post_Date) values (@caption,@content,@postsenderId,@themeId,@staticHtmlPath,@datetime)";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@caption",caption),
                 new SqlParameter("@content",content),
                 new SqlParameter("@postsenderId",postsenderId),
-                new SqlParameter("@themeId",themeId)
+                new SqlParameter("@themeId",themeId),
+                new SqlParameter("@staticHtmlPath",staticHtmlPath),
+                new SqlParameter("@datetime",datetime)
             };
             return SqlHelper.ExecuteNonquery(sqlStr, parameters);
         }
