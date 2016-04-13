@@ -89,13 +89,26 @@ namespace Fashion.Controllers
             int postType = Convert.ToInt32(Request["postType"]);
             PostComment_bll postComment_bll = new PostComment_bll();
             List<PostComment_model> postComment_modelList = postComment_bll.GetPostComment(postId,postType);
-
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string jsonData = serializer.Serialize(postComment_modelList);
             return Content(jsonData);
-            
+        }
 
-           
+        public ActionResult AjaxTieZiComment()
+        {
+            
+            int postId = Convert.ToInt32(Request["postId"]);
+            string commentUserName = Request["commenterUserName"].ToString();
+            User_bll user_bll=new User_bll();
+            int commenterId = user_bll.GetUserId(commentUserName);
+            int beCommenterId = Convert.ToInt32(Request["beCommenterId"]);
+            string content = Request["content"].ToString();
+            return Content(content);
+            int postType = Convert.ToInt32(Request["postType"]);
+            DateTime datetime = DateTime.Now;
+            PostComment_bll postComment_bll = new PostComment_bll();
+            int InsertCount = postComment_bll.InsertComment(postId, commenterId, beCommenterId, content, datetime, postType);//插入评论数据的成功条数
+            return Content(InsertCount.ToString());
             
         }
 
