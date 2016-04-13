@@ -137,6 +137,7 @@
     <Compile Include="Code\BLL\PostPhoto_bll.cs" />
     <Compile Include="Code\BLL\Post_bll.cs" />
     <Compile Include="Code\BLL\Theme_bll.cs" />
+    <Compile Include="Code\BLL\User_bll.cs" />
     <Compile Include="Code\DAL\ErrorMessage_dal.cs" />
     <Compile Include="Code\DAL\PostComment_dal.cs" />
     <Compile Include="Code\DAL\PostPhoto_dal.cs" />
