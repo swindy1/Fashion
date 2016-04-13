@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Test";
-    @using Fashion.Models.PostComment_model
     Layout = null;
 }
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
@@ -11,8 +10,7 @@
                 url: "AjaxGetCommentData",
                 data:{postId:"173",postType:"1"},
                 success: function (data) {
-                    var jsonData = JSON.parse(data)
-                    
+                    var jsonData = JSON.parse(data);
                     alert(jsonData[0].postCommentContent);
                 }
             });
@@ -21,9 +19,14 @@
 </script>
 <h2>Test</h2>
 
+
 <input type="button"  id="btn1" value="请求json"/>
 @{
     Fashion.Models.PostComment_model p = new Fashion.Models.PostComment_model();
-    
 }
+
+
+<div style="color:red;">
+    @p.Commenter.age
+</div>
 

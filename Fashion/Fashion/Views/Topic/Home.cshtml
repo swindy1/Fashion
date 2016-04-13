@@ -538,214 +538,15 @@
                         </div>
 
                         <div id="comments_kuang_@i" class="yc plk">
-                            @for (int j = 6; j < 10; j++)
-                            {
-                                <div class="pl_margin" id="pinglunkuang-@i-@j" onmouseover="xs_pinglun_op(this.id)" onmouseout="yc_pinglun_op(this.id)">
-                                    <div class="bottom_jg pl_er_tx">
-                                        <img src="~/Images/Layout-usertouxiang.png" />
-                                    </div>
-                                    <div class="pl_main">
-                                        <div class="comments_er bottom_jg"><a href="">苹果茄子</a></div>
-                                        <div class="bottom_jg">pi皮草真心很难搭。。。</div>
-                                        <div class="bottom_jg">
-                                            <span class="comment_op">2015-12-9</span>
-                                            <span class="yc comment_op" id="pinglun-op-@i-@j">
-                                                <span id="huifu-@i-@j" onclick="huifukuang(this.id)"><img src="~/Images/Topic-Home-huifu.png" />回复</span>
-                                                <span id="pl-dianzan-@i-@j" onclick="pl_dianzan(this.id)"><img src="~/Images/Topic-Home-dianzan.png" /><span id="pl-dianzan-btn-@i-@j">点赞</span></span>
-                                                <span><img src="~/Images/Topic-Home-jubao.png" />举报</span>
-                                            </span>
-                                            <span class="comment_op fl_right"><span id="pl-dianzanshu-@i-@j">38</span><span>赞</span></span>
-                                        </div>
-                                        <div id="huifu-pl-@i-@j"></div><!--回复评论产生的地方-->
-                                        <div id="plk-@i-@j"></div>     <!--产生回复评论框的地方-->
 
-
-                                    </div>
-
-                                </div>
-                                if (j < 9)
-                                {
-                                    <hr class="pl_fgx" />
-                                }
-
-                            }
-
-                            <div id="tjpl_@i"></div>  <!--创建评论产生的地方-->
-
-                            <hr style="border:none;border-top:1px solid #ebe4e4;width:100%;" />
-                            <div class="page" id="fenye_div"></div>
-
-                            <div class="plk_z">
-                                <input id="pl_text_@i" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
-                                <div id="pl_op_@i" class="pl_op yc">
-                                    <span class="qx_comment"><a onclick="yc_pl_btn(this.id)" id="qx_btn_@i">取消</a></span>
-                                    <span><input id="pl_btn_@i" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id)" /></span>
-                                </div>
-                            </div>
                         </div>
+
+
                         <hr class="hr_fgx"  />
 
                     </div>
                 </div>
             }
-            
-            
-            
-               @*@for (int i = 0; i < 10; i++)
-            {
-                <div id="data_all_@i" class="data" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
-                    <div class="data_left">
-
-
-                        <div>
-                            <a href="" title="话题详情"><img src="~/Images/Topic-Home-dapeitouxiang.png.jpg" /></a>
-                        </div>
-
-                        <div id="ht-dianzanshu-@i" class="dianzanshu" onclick="ht_dianzan(this.id)">
-                            178
-                        </div>
-
-
-                    </div>
-
-                    <div class="data_main">
-                        <div class="laizi">
-                            来自&nbsp;<a href="">穿衣搭配</a>、<a href="">技巧</a>
-                        </div>
-                        <div class="data_wenti">
-                            <a href="">皮草应该怎么搭不显臃肿？</a>
-                        </div>
-                        <div class="data_fawenzi">
-                            <a href="" title="发问者资料">linjiejie</a><span>,lalala~我是卖报的小行家~</span>
-                        </div>
-                        <div id="data_short_data_@i" class="data_short_data" onclick="zhangkai(this.id)">
-
-                            <div class="data_img"><img src="~/Images/Topic-Home-wentitupian.png.jpg" /></div>
-                            <div id="title_@i" class="data_words"></div>
-                            <script>
-                                var titleStr = "天气冷了，最近好多人问皮草怎么搭才好看、才不臃肿。长春皮草哪家好，皮草是一种本身就带膨胀感、体积感、沉重感的单品，虽然雍容华贵，但是穿起来总容易把人显胖。那该怎么办呢？既然皮草大衣带来的上半身体天气冷了，最近好多人问皮草怎么搭才好看、才不臃肿。长春皮草哪家好，皮草是一种本身就带膨胀感、体积感、沉重感的单品，。那该怎么办呢？既然皮草大衣带来的上半身体天气冷了，最近好多人问皮草怎么搭才好看、才不臃肿。长春皮草哪家好，皮草是一种本身就带膨胀感、体积感、沉重感的单品";//你从数据库里读到的字符串内容
-                                var maxLen = 145;//你想显示的长度
-
-                                if (titleStr.length > maxLen)
-                                    document.getElementById("title_@i").innerHTML = titleStr.substring(0, maxLen) + "...&nbsp;&nbsp;<span class='xianshiquanbu'>显示全部</span>";
-                                else
-                                    document.getElementById("title_@i").innerHTML = titleStr;
-                            </script>
-
-
-                        </div>
-                        <div id="data_detail_data_@i" class="data_detail_data">
-
-                            <p>天气冷了，最近好多人问皮草怎么搭才好看、才不臃肿。长春皮草哪家好，皮草是一种本身就带膨胀感、体积感、沉重感的单品，虽然雍容华贵，但是穿起来总容易把人显胖。那该怎么办呢？既然皮草大衣带来的上半身体积感是无法避免的，那么我们只能在内搭和下半身多加注意了。</p>
-                            <img src="~/Images/Topic-Home-wentitupian.png.jpg" style="width:100%;" />
-                            <p>
-
-                                皮草本身就很厚重、够保暖，所以，内搭只需要薄薄的T恤就可以，T恤的领口最好开阔一些，可以露出你的锁骨。长春皮草哪家好，锁骨给人纤瘦的感觉，上半身敞露锁骨，直接让锁骨处的肌肤成为搭配的视觉重心，那么，皮草大衣的沉重感就会被弱化。
-                            </p>
-                            <p>好像就这几天，有位同学问我，皮草大衣里面该配怎样的毛衣？能配毛领毛衣吗？</p>
-                            <p>大家要知道，高领毛衣本身就比较容易显上半身胖，如果还和皮草搭在一起，那么你人从正面看，就会显得很大只。长春皮草哪家好，所以，建议大家穿皮草时，内搭大领口的衣服，最好是T恤、衬衫类的轻薄面料，穿衬衫的话，衬衫领口最好敞开。脖子冷，宁可另外戴围巾，也不要穿高领毛衣。穿皮草大衣时，下半身搭配的裤子最好是紧身的小脚裤，除非你身材又高又瘦，不然就不要配松松宽宽的裤子。</p>
-                            <p>因为越是大体积的上衣，就越要遵循“上宽下紧”的法则、凸显腿部线条的流畅利落，才不会显胖。长春皮草哪家好，试想：如果你上半身已经很臃肿了，下半身再穿个宽松的裤子，那岂不是上面大，下面也大，整个人就大一圈。</p>
-                            <p>关于鞋子：如果你不怕冷，可以配浅口高跟鞋，如果你怕冷，则可以搭配踝靴或深口鞋，最好是高跟的、并且和裤子颜色保持一致，这些都可以令你的腿部线条看起来流畅修长。</p>
-                            <p>穿皮草千万别搭配大头马丁靴和雪地靴。除非你是T台的模特比例和身材。</p>
-                            <p>还记得之前羽绒服的搭配中，我建议大家可以试试在羽绒服外面系腰带吗？长春皮草哪家好，其实皮草也可以搭配腰带！长春皮草哪家好，在膨胀的皮草外套外系上腰带，制造腰线、打造X廓型，不仅显高显瘦，还有女人味。大家注意一些皮草穿搭的欧美街拍，都是上半身雍容华贵，下半身紧紧包腿的。这便是皮草穿搭的关键。</p>
-                            <p>另外，欧美人的头部小、五官立体，穿上巨大的皮草外套也不会觉得胖，但亚洲人，如果是没有模特身材比例的普通人，那么头都会比较大，这是硬伤，所以，大家在穿皮草时，除了穿高跟鞋、系腰带来调整身材比例外，还可以把头发弄起来而不是披头散发，这样可以让头部显小点。</p>
-                            <p>皮草外套搭配裙装的话，裙装的材质最好以轻盈材质的为佳。长春皮草哪家好，一些春夏季穿着的面料，例如雪纺、网纱、蕾丝、真丝、木代尔等面料，它们轻盈垂感，可以弱化皮草的沉重感。</p>
-                            <p>看了那么多皮草的街拍搭配，不知道大家还有没有发现一个细节：范儿们都似乎很爱穿皮草时，配个小礼帽！你也可以试试。</p>
-
-                        </div>
-
-
-
-
-
-
-                        <div class="op_img" id="op_cz">
-                            <div id="guanzhu_@i" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@i" /><div class="data_op_n" id="gz_@i">关注</div></div>
-
-                            <div class="data_op_xx" onclick="xs_pl(this.id)" id="zkpl_@i">
-                                <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@i">4条评论</div>
-                            </div>
-                            <div id="yincang_op_@i" style="display:none;">
-                                <div id="thx_@i" class="data_op_xx" onclick="thx(this.id)">
-                                    <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_@i">感谢</div>
-                                </div>
-
-                                <div class="data_op_xx" onclick="save(this.id)" id="save_@i">
-                                    <img src="~/Images/Topic-Home-save.png" /><div class="data_op_n" id="save_val_@i">收藏</div>
-                                </div>
-                                <div class="data_op_xx">
-                                    <img src="~/Images/Topic-Home-fenxiang.png" /><div class="data_op_n">分享</div>
-                                </div>
-                                <div class="data_op_xx">
-                                    <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">举报</div>
-                                </div>
-                            </div>
-
-                            <div class="data_op_xx">
-                                <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">保留权利</div>
-                            </div>
-                            <div id="xs_shouqi_@i" class="data_op_xx data_op_shouqi">
-                                <img src="~/Images/Topic-Home-retract.png" />
-                                <div id="shouqi_@i" class="data_op_n" onclick="shouqi(this.id)">收起</div>
-                            </div>
-
-                        </div>
-
-                        <div id="comments_kuang_@i" class="yc plk">
-
-
-
-
-                            @for (int j = 6; j < 10; j++)
-                            {
-                                <div class="pl_margin" id="pinglunkuang-@i-@j" onmouseover="xs_pinglun_op(this.id)" onmouseout="yc_pinglun_op(this.id)">
-                                    <div class="bottom_jg pl_er_tx">
-                                        <img src="~/Images/Layout-usertouxiang.png" />
-                                    </div>
-                                    <div class="pl_main">
-                                        <div class="comments_er bottom_jg"><a href="">苹果茄子</a></div>
-                                        <div class="bottom_jg">pi皮草真心很难搭。。。</div>
-                                        <div class="bottom_jg">
-                                            <span class="comment_op">2015-12-9</span>
-                                            <span class="yc comment_op" id="pinglun-op-@i-@j">
-                                                <span id="huifu-@i-@j" onclick="huifukuang(this.id)"><img src="~/Images/Topic-Home-huifu.png" />回复</span>
-                                                <span id="pl-dianzan-@i-@j" onclick="pl_dianzan(this.id)"><img src="~/Images/Topic-Home-dianzan.png" /><span id="pl-dianzan-btn-@i-@j">点赞</span></span>
-                                                <span><img src="~/Images/Topic-Home-jubao.png" />举报</span>
-                                            </span>
-                                            <span class="comment_op fl_right"><span id="pl-dianzanshu-@i-@j">38</span><span>赞</span></span>
-                                        </div>
-                                        <div id="huifu-pl-@i-@j"></div><!--回复评论产生的地方-->
-                                        <div id="plk-@i-@j"></div>     <!--产生回复评论框的地方-->
-
-
-                                    </div>
-
-                                </div>
-                                if (j < 9)
-                                {
-                                    <hr class="pl_fgx" />
-                                }
-
-                            }
-
-                            <div id="tjpl_@i"></div>  <!--创建评论产生的地方-->
-
-                            <hr style="border:none;border-top:1px solid #ebe4e4;width:100%;" />
-                            <div class="page" id="fenye_div"></div>
-
-                            <div class="plk_z">
-                                <input id="pl_text_@i" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
-                                <div id="pl_op_@i" class="pl_op yc">
-                                    <span class="qx_comment"><a onclick="yc_pl_btn(this.id)" id="qx_btn_@i">取消</a></span>
-                                    <span><input id="pl_btn_@i" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id)" /></span>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="hr_fgx" />
-
-                    </div>
-                </div>
-            }*@
         </div>
         <div style="height:200px;"></div>
         <input type="hidden" id="pinglunHidden" value="0"/>
@@ -754,3 +555,56 @@
 
 
 
+
+
+
+
+
+
+
+
+
+@for (int j = 6; j < 10; j++)
+{
+    <div class="pl_margin" id="pinglunkuang-@i-@j" onmouseover="xs_pinglun_op(this.id)" onmouseout="yc_pinglun_op(this.id)">
+        <div class="bottom_jg pl_er_tx">
+            <img src="~/Images/Layout-usertouxiang.png" />
+        </div>
+        <div class="pl_main">
+            <div class="comments_er bottom_jg"><a href="">苹果茄子</a></div>
+            <div class="bottom_jg">pi皮草真心很难搭。。。</div>
+            <div class="bottom_jg">
+                <span class="comment_op">2015-12-9</span>
+                <span class="yc comment_op" id="pinglun-op-@i-@j">
+                    <span id="huifu-@i-@j" onclick="huifukuang(this.id)"><img src="~/Images/Topic-Home-huifu.png" />回复</span>
+                    <span id="pl-dianzan-@i-@j" onclick="pl_dianzan(this.id)"><img src="~/Images/Topic-Home-dianzan.png" /><span id="pl-dianzan-btn-@i-@j">点赞</span></span>
+                    <span><img src="~/Images/Topic-Home-jubao.png" />举报</span>
+                </span>
+                <span class="comment_op fl_right"><span id="pl-dianzanshu-@i-@j">38</span><span>赞</span></span>
+            </div>
+            <div id="huifu-pl-@i-@j"></div><!--回复评论产生的地方-->
+            <div id="plk-@i-@j"></div>     <!--产生回复评论框的地方-->
+
+
+        </div>
+
+    </div>
+    if (j < 9)
+    {
+        <hr class="pl_fgx" />
+    }
+
+}
+
+<div id="tjpl_@i"></div>  <!--创建评论产生的地方-->
+
+<hr style="border:none;border-top:1px solid #ebe4e4;width:100%;" />
+<div class="page" id="fenye_div"></div>
+
+<div class="plk_z">
+    <input id="pl_text_@i" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
+    <div id="pl_op_@i" class="pl_op yc">
+        <span class="qx_comment"><a onclick="yc_pl_btn(this.id)" id="qx_btn_@i">取消</a></span>
+        <span><input id="pl_btn_@i" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id)" /></span>
+    </div>
+</div>
