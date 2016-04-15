@@ -263,6 +263,7 @@
     <Content Include="Images\Layout-usertouxiang.png" />
     <Content Include="Images\Layout-weibo.png" />
     <Content Include="Images\Layout-weixin.png" />
+    <Content Include="Images\People-Expert_Register-add.png" />
     <Content Include="Images\People-Expert_Register-addImg.png" />
     <Content Include="Images\People-Expert_Register-WaitForAudit.png" />
     <Content Include="Images\UserImages\QuanShenZhao\quanshenzhao1.jpg" />
