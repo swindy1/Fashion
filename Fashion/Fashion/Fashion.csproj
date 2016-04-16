@@ -297,7 +297,6 @@
     <Content Include="Images\UserImages\QuanShenZhao\quanshenzhao4.jpg" />
     <Content Include="Images\UserImages\TouXiang\111.png" />
     <Content Include="Images\UserImages\TouXiang\daren_1.jpg" />
-    <Content Include="Images\UserImages\TouXiang\daren_2.jpg" />
     <Content Include="Images\UserImages\TouXiang\daren_3.jpg" />
     <Content Include="kindeditor\asp.net\bin\LitJSON.dll" />
     <Content Include="kindeditor\asp.net\demo.aspx" />
@@ -590,6 +589,7 @@
     <Content Include="Views\Test\Index3.cshtml" />
     <Content Include="Views\Shared\Top_nu_menu.cshtml" />
     <Content Include="Views\People\Expert_Register.cshtml" />
+    <Content Include="Views\Topic\LoginRemind.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

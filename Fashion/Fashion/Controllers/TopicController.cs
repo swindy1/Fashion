@@ -22,11 +22,12 @@ namespace Fashion.Controllers
         }
         public ActionResult Consult()
         {
-            LoginStatusConfig();//配置登录状态
             if (Session["userName"] == null)
             {
-                return Content("请先登录");
+                return View("LoginRemind");
             }
+            LoginStatusConfig();//配置登录状态
+           
             return View();
         }
         public ActionResult Test()
@@ -47,6 +48,10 @@ namespace Fashion.Controllers
         
         public ActionResult Home()
         {
+            if (Session["userName"] == null)
+            {
+                return View("LoginRemind");
+            }
             Post_bll post_bll = new Post_bll();
             List<Post_model>post_modelList=post_bll.GetPost(1);
             LoginStatusConfig();          //配置登录状态
