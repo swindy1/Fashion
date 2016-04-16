@@ -103,7 +103,6 @@ namespace Fashion.Controllers
             int commenterId = user_bll.GetUserId(commentUserName);
             int beCommenterId = Convert.ToInt32(Request["beCommenterId"]);
             string content = Request["content"].ToString();
-            return Content(content);
             int postType = Convert.ToInt32(Request["postType"]);
             DateTime datetime = DateTime.Now;
             PostComment_bll postComment_bll = new PostComment_bll();
