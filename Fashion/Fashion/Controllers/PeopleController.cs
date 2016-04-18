@@ -19,6 +19,21 @@ namespace Fashion.Controllers
 
             return View();
         }
+        public ActionResult myAsks()
+        {
+
+            return View();
+        }
+        public ActionResult myAnsweres()
+        {
+
+            return View();
+        }
+        public ActionResult myCollections()
+        {
+
+            return View();
+        }
         public ActionResult Index()
         {
 
