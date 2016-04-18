@@ -5,3 +5,12 @@
 /Fashion/Fashion/StaticHtml/TieZiHtml
 /Fashion/Fashion/Images/TieZiImages
 /Fashion/Fashion/Code/DAL/SqlConnectionString.cs
+ Fashion/Fashion/Views/People/Expert_Register.cshtml
+ Fashion/Fashion/Views/Topic/Consult.cshtml
+ Fashion/Fashion/Views/Topic/Home.cshtml
+People/myAskes.cshtml
+People/Index.cshtml
+People/myAnsweres.cshtml
+People/myCollections.cshtml
+Top_menu.cshtml
+Top_nu_menu.cshtml
