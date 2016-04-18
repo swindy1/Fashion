@@ -15,6 +15,16 @@ namespace Fashion.Controllers
     {
         //
         // GET: /Topic/  
+        public ActionResult PostDetails()
+        {
+
+            return View();
+        }
+        public ActionResult ExpertReply()
+        {
+
+            return View();
+        }
         public ActionResult Index()
         {
             
