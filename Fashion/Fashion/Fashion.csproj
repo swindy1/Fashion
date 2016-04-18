@@ -602,6 +602,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Code\Ajax\" />
+    <Folder Include="Images\ConsultImages\GeRenZhao\" />
     <Folder Include="Images\TieZiImages\" />
     <Folder Include="StaticHtml\TieZiHtml\" />
     <Folder Include="test\" />

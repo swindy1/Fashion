@@ -3,8 +3,64 @@
     Layout = "~/Views/Shared/top.cshtml";
     @model Fashion.Models.User_model
 }
-
+<img src="~/Images/people-error.png" id="hiddenLikeStyleImage" />
+<input type="text" value="dddd" id="tt" />
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/MyScripts/ImageFun.js"></script>
 <script type="text/javascript">
+    //咨询填写成功后，调用ajax保存数据
+    function ajaxSaveData()
+    {
+        var imgGeRenZhao= document.getElementById("imghead");//获取个人照片
+        var imgGeRenZhaoBase64 = getBase64Image(imgGeRenZhao);//将个人照片转化为base64数据
+        var theOccasion = $("#Sel_Occasion p").html();//场合
+        var theDetails = $("#detailed_textarea").val();
+        var imgLikeStyleImage = $("#hiddenLikeStyleImage");
+        var imgLikeStyleImageBase64 = getBase64Image(imgLikeStyleImage);//将喜欢的风格的个人照片转化为base64数据
+        $.ajax({//通过ajax请求静态html的内容
+            async: false,
+            url: "MakeConsult",
+            data: { geRenZhao: imgGeRenZhaoBase64, occasion: theOccasion, details: theDetails, likeStyleImage: imgLikeStyleImageBase64 },
+            type: "post",
+            success: function (result) {
+                alert(result);
+                //alert(result);//将帖子内容渲染到div里
+            }
+        });
+    }
+
+    //喜欢的风格图片上传预览
+    function previewLikeStyleImage(file)
+    {
+        var MAXWIDTH = 150;
+        var MAXHEIGHT = 200;
+        var img = $("#hiddenLikeStyleImage");
+        if (file.files && file.files[0]) {
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, 150, 200);
+            img.attr("width", rect.width);
+            img.attr("height", rect.height);
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                img.attr("src", evt.target.result);
+            }
+            reader.readAsDataURL(file.files[0]);
+            
+        }
+        else //兼容IE
+        {
+            //var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            //file.select();
+            //var src = document.selection.createRange().text;
+            //div.innerHTML = '<img id="imghead"  >';
+            //var img = document.getElementById('imghead');
+            //img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            //var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            //status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
+            //div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px;" + sFilter + src + "\"'></div>";
+        }
+    }
+    
+    //dislikeStyleImage
     //******************上传全身照的js代码********************
     //图片上传预览    IE是用了滤镜。
     function previewImage(file) {
@@ -16,7 +72,7 @@
         var MAXHEIGHT = 200;
         var div = document.getElementById('preview');
         if (file.files && file.files[0]) {
-            div.innerHTML = '<img id=imghead>';
+            div.innerHTML = '<img id="imghead" >';
             var img = document.getElementById('imghead');
             img.onload = function () {
                 var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, 150, 200);
@@ -33,7 +89,7 @@
             var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
             file.select();
             var src = document.selection.createRange().text;
-            div.innerHTML = '<img id=imghead>';
+            div.innerHTML = '<img id="imghead"  >';
             var img = document.getElementById('imghead');
             img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
             var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
@@ -932,8 +988,8 @@
                     </div>
                 </td>
             </tr>
-            <tr><td>喜欢的风格：</td><td><input type="file" /> </td></tr>
-            <tr><td>讨厌的风格：</td><td><input type="file" /></td></tr>
+            <tr><td>喜欢的风格：</td><td><input type="file" id="likeStyleImage" onchange="previewLikeStyleImage(this)" /> <img id="hiddenLikeStyleImage" src="~/Images/Layout-guanbi.png" /> </td></tr>
+            <tr><td>讨厌的风格：</td><td><input type="file" id="dislikeStyleImage" onchange="previewImage(this)" /><img id="hiddenDislikeStyleImage" style="display:none;" /> </td></tr>
             <tr><td >具体描述：</td><td style="text-align:left;"><textarea id="detailed_textarea" style="color:gray;width:300px;height:100px;border-radius:5px;margin-left:0px;"></textarea></td></tr>
         </table>
     </form>
@@ -1005,9 +1061,10 @@
     </div>
 
     <div style="width:100%;">
-        <input id="btn_4" type="button" value="确定" onclick=" xs_data_div_Comfirmdaren(this.id); step_click(this.id); " style="margin-right:80px;" />
+        <input id="btn_4" type="button" value="确定" onclick=" xs_data_div_Comfirmdaren(this.id); ajaxSaveData(); step_click(this.id);" style="margin-right:80px;" />
 
         <input type="button" value="取消" onclick="close_comfirm_daren();" />
     </div>
 
 </div>
+

@@ -30,6 +30,10 @@ namespace Fashion.Controllers
             
             return View();
         }
+        /// <summary>
+        /// 返回特定咨询页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Consult()
         {
             if (Session["username"] == null)
@@ -39,9 +43,31 @@ namespace Fashion.Controllers
             string userName = Session["username"].ToString();
             User_bll user_bll = new User_bll();
             User_model user_model = new User_model();
-            user_model = user_bll.GetUserDataConsult(userName);
+            user_model = user_bll.GetUserDataConsult(userName);//用户的个人数据
             LoginStatusConfig();//配置登录状态
             return View(user_model);
+        }
+
+        /// <summary>
+        /// 保存特定咨询的数据
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MakeConsult()
+        {
+            //保存个人照片
+            //byte[] imgGeRenZhao64Byte = Convert.FromBase64String(Request["geRenZhao"]);//将图片数据转化为base64的格式
+            //System.IO.MemoryStream ms = new System.IO.MemoryStream(imgGeRenZhao64Byte);
+            //System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(ms);
+            //bitmap.Save(Server.MapPath("~/Images/ConsultImages/GeRenZhao/"), System.Drawing.Imaging.ImageFormat.Png);
+            string occasion = Request["occasion"].ToString();
+            string details = Request["details"].ToString();
+            byte[] imgLikeStyleImageBase64 = Convert.FromBase64String(Request["likeStyleImage"]);//将图片数据转化为base64的格式
+            //System.IO.MemoryStream ms = new System.IO.MemoryStream(imgLikeStyleImageBase64);
+            //System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(ms);
+            //bitmap.Save(Server.MapPath("~/Images/ConsultImages/GeRenZhao/"), System.Drawing.Imaging.ImageFormat.Png);
+
+
+            return Content(Convert.ToBase64String(imgLikeStyleImageBase64));
         }
         public ActionResult Test()
         {

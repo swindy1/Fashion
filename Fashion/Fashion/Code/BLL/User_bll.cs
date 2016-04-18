@@ -43,7 +43,6 @@ namespace Fashion.Code.BLL
             int age = today.Year - birthDate.Year;//年龄
             if (birthDate > today.AddYears(-age))//还未生日，年龄减去1
                 age--;
-
             user_model.age = age;
             return user_model;
         }
