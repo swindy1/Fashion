@@ -20,10 +20,12 @@
             height: 30px;
             font-size: 1em;
         }
+
         .fengefu {
             margin: 0 15px;
             float: right;
         }
+
         .top-right {
             float: right;
         }
@@ -36,10 +38,12 @@
                 .top-right a:hover {
                     color: #fa6214;
                 }
+
         #ShareTubiao img {
             float: right;
             margin: 0px 6px;
         }
+
         .li_css {
             height: 30px;
             line-height: 30px;
@@ -88,9 +92,37 @@
             float: left;
             margin-top: 3px;
         }
-    </style>
+        /*导航栏*/
+        .nav {
+            width: 100%;
+            /*position: fixed;
+            top: 9%;
+            left: 9%;*/
+            margin-top: 30px;
+            margin-bottom: 0px;
+            z-index: 2;
+            height: 80px;
+        }
+        /*导航栏里的链接*/
+        .nav-tag {
+            font-family: Arial;
+            font-size: 3.5em;
+            margin-left: 6%;
+            float: left;
+        }
 
-       
+        a.nav-tag-a:link {
+            text-decoration: none;
+        }
+
+        a.nav-tag-a:hover {
+            background-color: #5cbbd3;
+        }
+
+        a.nav-tag-a:visited {
+            color: #a2b6b0;
+        }
+    </style>
     <div id="top">
         <div class="row">
             <div class="col-md-10 col-md-offset-1 col-xs-12">
@@ -133,6 +165,39 @@
                 </ul>
             </div>
         </div>
+    </div>
+    <div id="nav">
+        <div class="row"style="margin-top:40px;margin-bottom:25px;">
+            <div class="col-md-offset-1 col-md-3" style="text-align:center;">
+                <img src="/Images/Layout-logo.png"style="width:200px;" />
+            </div>
+            <div class="col-md-4 col-md-offset-0 col-sm-offset-1 col-xs-offset-1" style="margin-top:15px;text-align:center;">
+                <div id="tag1" class="nav-tag" style="margin-left:0;">
+                    <a href="/Topic/Home" class="nav-tag-a">
+                        首页
+                    </a>
+                </div>
+                <div id="tag2" class="nav-tag">
+                    <a href="/StreetSnap/streetHome" class="nav-tag-a">
+                        街拍
+                    </a>
+
+                </div>
+                <div id="tag3" class="nav-tag">
+                    <a href="/Test/gerenxiu" class="nav-tag-a">个人秀</a>
+
+                </div>
+                <div id="tag4" class="nav-tag">
+                    <a href="/Test/chaoliuzixun" class="nav-tag-a">
+                        潮流资讯
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-1"style="text-align: center; margin-top: 15px;">
+                <input type="text" style="height:35px;border-radius:15px;padding-left:10px;width:200px;" placeholder="Search" />
+            </div>
+        </div>
+        <hr style="border-top:1px solid #c4bfbf;" />
     </div>
     <div id="theContainer">
         @RenderBody()

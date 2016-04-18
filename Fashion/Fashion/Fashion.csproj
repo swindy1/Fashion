@@ -266,6 +266,7 @@
     <Content Include="Images\People-Expert_Register-add.png" />
     <Content Include="Images\People-Expert_Register-addImg.png" />
     <Content Include="Images\People-Expert_Register-WaitForAudit.png" />
+    <Content Include="Images\People-myAsks_huangguan.png" />
     <Content Include="Images\UserImages\QuanShenZhao\quanshenzhao1.jpg" />
     <Content Include="Images\People-Index-xiugaiziliao.png" />
     <Content Include="Images\test.png" />
@@ -590,6 +591,10 @@
     <Content Include="Views\Shared\Top_nu_menu.cshtml" />
     <Content Include="Views\People\Expert_Register.cshtml" />
     <Content Include="Views\Topic\LoginRemind.cshtml" />
+    <Content Include="Views\Shared\Top_menu.cshtml" />
+    <Content Include="Views\People\myAsks.cshtml" />
+    <Content Include="Views\People\myAnsweres.cshtml" />
+    <Content Include="Views\People\myCollections.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
