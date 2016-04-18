@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+    <script src="~/Scripts/MyScripts/Login.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap.js"></script>
+    <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <style>
+        #top {
+            color: white;
+            background-color: black;
+            height: 30px;
+            font-size: 1em;
+        }
+        .fengefu {
+            margin: 0 15px;
+            float: right;
+        }
+        .top-right {
+            float: right;
+        }
+
+            .top-right a {
+                color: white;
+                text-decoration: none;
+            }
+
+                .top-right a:hover {
+                    color: #fa6214;
+                }
+        #ShareTubiao img {
+            float: right;
+            margin: 0px 6px;
+        }
+        .li_css {
+            height: 30px;
+            line-height: 30px;
+            color: white;
+            padding-left: 30px;
+            width: 150px;
+            margin-left: -40px;
+        }
+
+        .username {
+            cursor: pointer;
+            position: relative;
+            list-style: none;
+            height: 30px;
+            margin-top: -5px;
+            width: 150px;
+            line-height: 30px;
+            z-index: 9;
+            color: white;
+            float: right;
+        }
+
+            .username li:hover {
+                background-color: #281f1f;
+            }
+
+        .userset li:hover {
+            background-color: #808080;
+        }
+
+        .userset {
+            list-style: none;
+            width: 150px;
+            background-color: #281f1f;
+            display: none;
+            border-radius: 0 0 5px 5px;
+            margin-left: -30px;
+        }
+
+        .username li:hover .userset {
+            display: block;
+        }
+
+        .img_jiange {
+            margin-right: 15px;
+            float: left;
+            margin-top: 3px;
+        }
+    </style>
+
+       
+    <div id="top">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-xs-12">
+                <div style="float:left;cursor:pointer;padding-left:15px;margin:5px 0;" onclick="window.location.href = '../Topic/Home'">
+                    时尚达人&nbsp;|&nbsp;FASHION
+                </div>
+                <div id="ShareTubiao" style="margin:5px 0;">
+                    <a href="" title="分享到QQ"><img src="/Images/Layout-qq.png" /></a>
+                    <a href="" title="分享到微信"><img src="/Images/Layout-weixin.png" /></a>
+                    <a href="" title="分享到微博"><img src="/Images/Layout-weibo.png" /></a>
+                </div>
+                <div id="un_login_xs" style="width: 150px; float: right; display: none; margin: 5px 0;">
+
+                    <div class="fengefu">|</div>
+                    <div class="top-right">
+                        <a href="../../People/Login">登录</a>
+                    </div>
+                    <div class="fengefu">|</div>
+                    <div class="top-right">
+                        <a href="../../People/Register">注册</a>
+                    </div>
+                    <div class="fengefu">|</div>
+                </div>
+                <ul id="login_xs" class="username" style="display:block;">
+                    <li class="li_css" onclick="window.location.href = '../../People/Index';">
+                        <img id="img_touXiang" src="~/Images/UserImages/TouXiang/daren_1.jpg" style="width:20px;margin-top:6px;height:20px;" class="img_jiange" />
+                        <font id="theUserNameFont">fdsfaf</font>
+                        <ul class="userset">
+                            <li class="li_css" onclick="window.location.href = '../../People/Index';">
+                                <img src="/Images/Layout-myzhuye.png" class="img_jiange" />我的主页
+                            </li>
+                            <li class="li_css" onclick="">
+                                <img src="/Images/Layout-set.png" class="img_jiange" />设置
+                            </li>
+                            <li class="li_css" onclick="">
+                                <img src="/Images/Layout-out.png" class="img_jiange" />退出
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="theContainer">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
