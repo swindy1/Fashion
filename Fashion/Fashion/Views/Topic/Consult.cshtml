@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Consult";
     Layout = "~/Views/Shared/top.cshtml";
+    @model Fashion.Models.User_model
 }
 
 <script type="text/javascript">
@@ -695,7 +696,6 @@
 
     }
     function test_Chose_daren(x) {
-        
         if (xz_daren_shu <= 0) {
             alert("请至少选择一个达人为您搭配！");
         }
@@ -727,22 +727,23 @@
 </style>
 <script>
     function test_finish_1(x) {     //检验基本资料模块是否填写完善
-        var qsz = document.getElementById("preview").innerHTML;
-        var if_age = document.getElementById("age_Choose_p").innerHTML;
-        var if_sg = document.getElementById("height_Choose_p").innerHTML;
-        var if_tz = document.getElementById("weight_Choose_p").innerHTML;
-        var if_fs = document.getElementById("txtColor").innerHTML;
-        var if_xw = document.getElementById("chest_Choose_p").innerHTML;
-        var if_yw = document.getElementById("Waist_Choose_p").innerHTML;
-        var if_tw = document.getElementById("hipline_Choose_p").innerHTML;
-        if (qsz.indexOf("点击上传图片") >= 0 || if_age.length <= 0 || if_sg.length <= 0 || if_tz.length <= 0 || if_fs.length <= 0 || if_xw.length <= 0 || if_yw.length <= 0 || if_tw.length <= 0) {
-            alert("请完善所有信息!");
-        }
-        else {
-            document.getElementById(x).onclick = function () { xs_data_div(this.id); step_click(this.id); };
+        //var qsz = document.getElementById("preview").innerHTML;
+        //var if_age = document.getElementById("age_Choose_p").innerHTML;
+        //var if_sg = document.getElementById("height_Choose_p").innerHTML;
+        //var if_tz = document.getElementById("weight_Choose_p").innerHTML;
+        //var if_fs = document.getElementById("txtColor").innerHTML;
+        //var if_xw = document.getElementById("chest_Choose_p").innerHTML;
+        //var if_yw = document.getElementById("Waist_Choose_p").innerHTML;
+        //var if_tw = document.getElementById("hipline_Choose_p").innerHTML;
+        //if (qsz.indexOf("点击上传图片") >= 0 || if_age.length <= 0 || if_sg.length <= 0 || if_tz.length <= 0 || if_fs.length <= 0 || if_xw.length <= 0 || if_yw.length <= 0 || if_tw.length <= 0) {
+        //    alert("请完善所有信息!");
+        //}
+        //else {
+        //    document.getElementById(x).onclick = function () { xs_data_div(this.id); step_click(this.id); };
 
-        }
-
+        //}
+        document.getElementById(x).onclick = function () { xs_data_div(this.id); step_click(this.id); };
+        document.getElementById(x).click();
     }
     function test_finish_2(x) {   //检查是否填写了具体描述
         var textarea_value = document.getElementById("detailed_textarea").value;
@@ -751,6 +752,7 @@
         }
         else {
             document.getElementById(x).onclick = function () { xs_data_div(this.id); step_click(this.id); };
+            document.getElementById(x).click();
         }
     }
     function close_comfirm_daren() {
@@ -771,13 +773,14 @@
             <td>年龄：</td>
             <td>
                 <div id="age_Choose">
-                    <p id="age_Choose_p"></p>
+                    <input type="text" id="age_Choose_p" readonly="readonly" value="@Model.age"  style="width:50px;"/>
+                    @*<p id="age_Choose_p"></p>
                     <ul>
                         @for (int i = 1; i < 120; i++)
                         {
                             <li>@i</li>
                         }
-                    </ul>
+                    </ul>*@
                 </div>
             </td>
             <td>周岁</td>
@@ -787,13 +790,14 @@
             <td>身高：</td>
             <td>
                 <div id="height_Choose">
-                    <p id="height_Choose_p"></p>
+                    <input type="text" id="height_Choose_p" readonly="readonly" value="@Model.height" style="width:50px;" />
+                    @*<p id="height_Choose_p"></p>
                     <ul>
                         @for (int i = 50; i < 240; i++)
                         {
                             <li>@i</li>
                         }
-                    </ul>
+                    </ul>*@
                 </div>
 
             </td>
@@ -804,13 +808,14 @@
             <td>体重：</td>
             <td>
                 <div id="weight_Choose">
-                    <p id="weight_Choose_p"></p>
+                    <input type="text" id="weight_Choose_p" readonly="readonly" value="@Model.weight" style="width:50px;" />
+                    @*<p id="weight_Choose_p"></p>
                     <ul>
                         @for (int i = 20; i < 200; i++)
                         {
                             <li>@i</li>
                         }
-                    </ul>
+                    </ul>*@
                 </div>
             </td>
             <td>kg</td>
@@ -819,7 +824,8 @@
         <tr>
             <td>肤色：</td>
             <td>
-                <div id="txtColor" class="txtColor" onmouseover="selectColor(this);" onclick="document.getElementById('divColor').style.display = 'block';"></div>
+                <input type="text" id="txtColor" readonly="readonly" value="@Model.skinColor" style="width:50px;"  />
+                @*<div id="txtColor" class="txtColor" onmouseover="selectColor(this);" onclick="document.getElementById('divColor').style.display = 'block';"></div>
                 <div id="divColor" class="divColor" onclick="document.getElementById('divColor').style.display = 'none';">
                     <script type="text/javascript">
                         // <![CDATA[
@@ -838,7 +844,7 @@
                         }
 
                         // ]]></script>
-                </div>
+                </div>*@
 
 
 
@@ -850,13 +856,14 @@
             <td>胸围：</td>
             <td>
                 <div id="chest_Choose">
-                    <p id="chest_Choose_p"></p>
+                    <input type="text" id="chest_Choose_p" readonly="readonly" value="@Model.xiongWei" style="width:50px;" />
+                    @*<p id="chest_Choose_p"></p>
                     <ul>
                         @for (int i = 50; i < 120; i++)
                         {
                             <li>@i</li>
                         }
-                    </ul>
+                    </ul>*@
                 </div>
             </td>
             <td>cm</td>
@@ -866,13 +873,14 @@
             <td>腰围：</td>
             <td>
                 <div id="Waist_Choose">
-                    <p id="Waist_Choose_p"></p>
+                    <input type="text" id="Waist_Choose_p" readonly="readonly" value="@Model.yaoWei" style="width:50px;" />
+                    @*<p id="Waist_Choose_p"></p>
                     <ul>
                         @for (int i = 50; i < 120; i++)
                         {
                             <li>@i</li>
                         }
-                    </ul>
+                    </ul>*@
                 </div>
             </td>
             <td>cm</td>
@@ -882,17 +890,20 @@
             <td>臀围：</td>
             <td>
                 <div id="hipline_Choose">
-                    <p id="hipline_Choose_p"></p>
+                    <input type="text" id="hipline_Choose_p" readonly="readonly" value="@Model.tunWei" style="width:50px;" />
+
+                    @*<p id="hipline_Choose_p"></p>
                     <ul>
                         @for (int i = 50; i < 120; i++)
                         {
                             <li>@i</li>
                         }
-                    </ul>
+                    </ul>*@
                 </div>
             </td>
             <td>cm</td>
             <td>*</td>
+            <td><input type="button" id="changePersonalData" value="修改个人资料" style="margin-left:20px;color:#369;" onclick="window.location = '../People/Login';"/> </td>
         </tr>
     </table>
 
@@ -903,12 +914,12 @@
 <div id="tdzx_data_div_2" class="tdzx_data_div" style="padding-top: 10px; text-align: center;">
     <p style="color:#fb9b26;">*填写详细要求可让达人更好地帮您搭配，所以尽可能地写详细哦~亲!</p>
     <form>
-        <table id="zixun_table" style="float:left;margin-left:100px;text-align:right;" cellspacing="5">
+        <table id="zixun_table" style="float:left;margin-left:100px;text-align:left;" cellspacing="5">
             <tr>
                 <td>适用场合：</td>
                 <td>
                     <div id="Sel_Occasion" style="text-align:left;">
-                        <p></p>
+                        <p>点击选择</p>
                         <ul>
                             <li>年会</li>
                             <li>春游</li>
@@ -921,9 +932,9 @@
                     </div>
                 </td>
             </tr>
-            <tr><td>喜欢的风格：</td><td><input type="text" style="color:gray;float:left;" /></td></tr>
-            <tr><td>讨厌的风格：</td><td><input type="text" style="color:gray;float:left;" /></td></tr>
-            <tr><td>具体描述：</td><td><textarea id="detailed_textarea" style="color:gray;width:200px;height:100px;border-radius:5px;"></textarea></td></tr>
+            <tr><td>喜欢的风格：</td><td><input type="file" /> </td></tr>
+            <tr><td>讨厌的风格：</td><td><input type="file" /></td></tr>
+            <tr><td >具体描述：</td><td style="text-align:left;"><textarea id="detailed_textarea" style="color:gray;width:300px;height:100px;border-radius:5px;margin-left:0px;"></textarea></td></tr>
         </table>
     </form>
     <div style="width:100%;text-align:center;float:left;margin-top:30px;">

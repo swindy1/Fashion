@@ -22,13 +22,16 @@ namespace Fashion.Controllers
         }
         public ActionResult Consult()
         {
-            if (Session["userName"] == null)
+            if (Session["username"] == null)
             {
-                return View("LoginRemind");
+                return View("loginremind");
             }
+            string userName = Session["username"].ToString();
+            User_bll user_bll = new User_bll();
+            User_model user_model = new User_model();
+            user_model = user_bll.GetUserDataConsult(userName);
             LoginStatusConfig();//配置登录状态
-           
-            return View();
+            return View(user_model);
         }
         public ActionResult Test()
         {
