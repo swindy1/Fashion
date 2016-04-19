@@ -1,4 +1,5 @@
 ﻿using Fashion.Code.DAL;
+using Fashion.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,25 @@ namespace Fashion.Code.BLL
             }
             return (int)userId;
             
+        }
+
+
+        /// <summary>
+        /// 通过用户名获取用的个人资料《特定咨询》
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public User_model GetUserDataConsult(string userName)
+        {
+            User_dal user_dal = new User_dal();
+            User_model user_model=user_dal.GetUserDataConsult(userName);
+            DateTime today = new DateTime(2016, 4, 18);//今天日期
+            DateTime birthDate = user_model.birthDate;//出生年月日
+            int age = today.Year - birthDate.Year;//年龄
+            if (birthDate > today.AddYears(-age))//还未生日，年龄减去1
+                age--;
+            user_model.age = age;
+            return user_model;
         }
     }
 }
