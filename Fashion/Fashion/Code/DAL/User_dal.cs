@@ -143,6 +143,29 @@ namespace Fashion.Code.DAL
            return SqlHelper.ExecuteDataTable(sqlStr, parameters);
         
         }
+        
+        /// <summary>
+        /// 通过用户名获取用的个人资料《特定咨询》
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public User_model GetUserDataConsult(string userName)
+        {
+            User_model user_model = new User_model();
+            string sqlStr = "select User_BirthDate,User_Height,User_SkinColor,User_Weight,User_XiongWei,User_YaoWei,User_TunWei  from tb_User  where User_Name=@userName";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@userName",userName)
+            };
+            DataTable userData = SqlHelper.ExecuteDataTable(sqlStr,parameters);
+            user_model.birthDate = (DateTime)userData.Rows[0]["User_BirthDate"];
+            user_model.height = Convert.ToSingle(userData.Rows[0]["User_Height"]);
+            user_model.tunWei = Convert.ToSingle(userData.Rows[0]["User_TunWei"]);
+            user_model.yaoWei = Convert.ToSingle(userData.Rows[0]["User_YaoWei"]);
+            user_model.xiongWei = Convert.ToSingle(userData.Rows[0]["User_XiongWei"]);
+            user_model.weight = Convert.ToSingle(userData.Rows[0]["User_Weight"]);
+            user_model.skinColor = userData.Rows[0]["User_SkinColor"].ToString();
+            return user_model;
+        }
 
 
 

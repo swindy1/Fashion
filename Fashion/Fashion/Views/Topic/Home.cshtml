@@ -6,7 +6,6 @@
 
     <script src="~/Scripts/jquery-2.0.0.js"></script>
     <link href="~/Content/Topic_Home.css" rel="stylesheet" />
-
     <script>
         var qjbl = 0;//为qjbl++做准备
         //本函数实现当用户点击评论中的回复评论框中的评论按钮时，提交回复评论框中的内容
@@ -34,7 +33,6 @@
                 tjsj_span.innerHTML = myDate.toLocaleTimeString();//获取时间
                 document.getElementById(sjop_div.id).appendChild(tjsj_span);
                 document.getElementById(k).value = "";
-
                 qjbl++;
             }
 
@@ -392,6 +390,36 @@
                     $("#" + z).html(result);
                 }
             });
+
+
+            var htmlUrl = "20160406200726_0329.html";//htmlUrl，获取静态html的路径，该htmlUrl存放帖子的内容
+            $.ajax({//通过ajax请求静态html的内容
+                async: false,
+                url: htmlUrl,
+                success: function (result) {
+                    $("#div" ).html(result);//将帖子内容渲染到div里
+                }
+            });
+
+
+
+
+
+            $.ajax({//通过ajax请求静态html的内容
+                async: false,
+                url: "20160406200726_0329.html",
+                success: function (result) {
+                    $("#div").html(result);
+                }
+            });
+
+
+
+
+
+
+
+
             document.getElementById(z).style.display = "block";
             var k = "xs_shouqi_" + postId;
             document.getElementById(k).style.display = "block";

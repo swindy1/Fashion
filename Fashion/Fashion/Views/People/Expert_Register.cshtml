@@ -117,12 +117,16 @@
         var phonenum = document.getElementById("phonenum").value;
         var occupation = document.getElementById("occupation").value;
         var Introduction = document.getElementById("SelfIntroduction").value;
-        if (nickName.length > 0 && realName.length > 0 && email.length > 0 && phonenum.length > 0 && occupation.length > 0 && Introduction.length <= 0) {
+        if (nickName.length > 0 && realName.length > 0 && email.length > 0 && phonenum.length > 0 && occupation.length > 0 ) {
+            if(Introduction.trim().length <= 0){
             var ifComfirm = confirm("你确定不写自我介绍吗？好的自我介绍能增大申请通过的几率哦~");
             if (ifComfirm) {
                 document.getElementById("li_3").style.pointerEvents = "all";
                 TurnNext("nextBtn2").click;
             }
+            }
+            document.getElementById("li_3").style.pointerEvents = "all";
+            TurnNext("nextBtn2").click;
         }
         else {
             alert("请完善信息！");

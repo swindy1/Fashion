@@ -350,7 +350,7 @@
     function Save_Change_TouXiang()
     {
         var imgTouXiang = document.getElementById("imgBig");
-        var imgTouXiangBase64 = getBase64Image(imgTouXiang);
+        var imgTouXiangBase64 = getBase64Image(imgTouXiang);//将头像转化为base64数据
         $.ajax({
             url: "UploadTouXiang",
             data: { data1: imgTouXiangBase64 },

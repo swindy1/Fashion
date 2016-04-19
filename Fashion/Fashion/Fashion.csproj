@@ -595,10 +595,14 @@
     <Content Include="Views\People\myAsks.cshtml" />
     <Content Include="Views\People\myAnsweres.cshtml" />
     <Content Include="Views\People\myCollections.cshtml" />
+    <Content Include="Views\People\ExpertAnswer.cshtml" />
+    <Content Include="Views\Topic\ExpertReply.cshtml" />
+    <Content Include="Views\Topic\PostDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Code\Ajax\" />
+    <Folder Include="Images\ConsultImages\GeRenZhao\" />
     <Folder Include="Images\TieZiImages\" />
     <Folder Include="StaticHtml\TieZiHtml\" />
     <Folder Include="test\" />
