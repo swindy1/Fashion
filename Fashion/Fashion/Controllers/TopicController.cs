@@ -54,20 +54,41 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult MakeConsult()
         {
-            //保存个人照片
-            //byte[] imgGeRenZhao64Byte = Convert.FromBase64String(Request["geRenZhao"]);//将图片数据转化为base64的格式
-            //System.IO.MemoryStream ms = new System.IO.MemoryStream(imgGeRenZhao64Byte);
-            //System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(ms);
-            //bitmap.Save(Server.MapPath("~/Images/ConsultImages/GeRenZhao/"), System.Drawing.Imaging.ImageFormat.Png);
-            string occasion = Request["occasion"].ToString();
-            string details = Request["details"].ToString();
-            byte[] imgLikeStyleImageBase64 = Convert.FromBase64String(Request["likeStyleImage"]);//将图片数据转化为base64的格式
-            //System.IO.MemoryStream ms = new System.IO.MemoryStream(imgLikeStyleImageBase64);
-            //System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(ms);
-            //bitmap.Save(Server.MapPath("~/Images/ConsultImages/GeRenZhao/"), System.Drawing.Imaging.ImageFormat.Png);
+            if (Session["username"] == null)
+            {
+                return View("loginremind");
+            }
+            string userName = Session["username"].ToString();
+            User_bll user_bll = new User_bll();
+            int userId = user_bll.GetUserId(userName);
+            //string expertName=Request[].ToString();
+            //int expertId = user_bll.GetUserId(expertName);
+            int expertId = 22;
+            string occasion = Request["occasion"].ToString();//场合
+            string details = Request["details"].ToString();//特定咨询详情
+            
+            //保存个人照片到文件夹：GeRenZhao
+            byte[] imgGeRenZhao64Byte = Convert.FromBase64String(Request["geRenZhao"]);//将图片数据转化为base64的格式
+            System.IO.MemoryStream ms = new System.IO.MemoryStream(imgGeRenZhao64Byte);
+            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(ms);
+            string geRenZhaoFileName = Guid.NewGuid().ToString() + ".png";//唯一的文件名
+            bitmap.Save(Server.MapPath("~/Images/ConsultImages/GeRenZhao/" + geRenZhaoFileName), System.Drawing.Imaging.ImageFormat.Png);
+            //保存喜欢风格的照片到文件夹：LikeStyleImage
+            byte[] likeStyleImageBase64 = Convert.FromBase64String(Request["likeStyleImage"]);//将图片数据转化为base64的格式
+            System.IO.MemoryStream ms2 = new System.IO.MemoryStream(likeStyleImageBase64);
+            System.Drawing.Bitmap bitmap2 = new System.Drawing.Bitmap(ms2);
+            string likeStyleImageFileName = Guid.NewGuid().ToString() + ".png";//唯一的文件名
+            bitmap2.Save(Server.MapPath("~/Images/ConsultImages/LikeStyleImage/" + likeStyleImageFileName), System.Drawing.Imaging.ImageFormat.Png);
+            //保存不喜欢风格的照片到文件夹：DislikeStyleImage
+            byte[] dislikeStyleImageBase64 = Convert.FromBase64String(Request["dislikeStyleImage"]);//将图片数据转化为base64的格式
+            System.IO.MemoryStream ms3 = new System.IO.MemoryStream(dislikeStyleImageBase64);
+            System.Drawing.Bitmap bitmap3 = new System.Drawing.Bitmap(ms3);
+            string dislikeStyleImageFileName = Guid.NewGuid().ToString() + ".png";//唯一的文件名
+            bitmap3.Save(Server.MapPath("~/Images/ConsultImages/DislikeStyleImage/" + dislikeStyleImageFileName), System.Drawing.Imaging.ImageFormat.Png);
 
-
-            return Content(Convert.ToBase64String(imgLikeStyleImageBase64));
+            SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
+            specialConsult_bll.InsertConsultData(userId, expertId, occasion, details, geRenZhaoFileName, likeStyleImageFileName, dislikeStyleImageFileName);
+            return Content("特定咨询成功");
         }
         public ActionResult Test()
         {

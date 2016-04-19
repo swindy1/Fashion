@@ -136,6 +136,7 @@
     <Compile Include="Code\BLL\PostComment_bll.cs" />
     <Compile Include="Code\BLL\PostPhoto_bll.cs" />
     <Compile Include="Code\BLL\Post_bll.cs" />
+    <Compile Include="Code\BLL\SpecialConsult_bll.cs" />
     <Compile Include="Code\BLL\Theme_bll.cs" />
     <Compile Include="Code\BLL\User_bll.cs" />
     <Compile Include="Code\DAL\ErrorMessage_dal.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Code\DAL\PostPhoto_dal.cs" />
     <Compile Include="Code\DAL\Post_dal.cs" />
     <Compile Include="Code\DAL\Rank_dal.cs" />
+    <Compile Include="Code\DAL\SpecialConsult_dal.cs" />
     <Compile Include="Code\DAL\SqlHelper.cs" />
     <Compile Include="Code\DAL\SqlConnectionString.cs" />
     <Compile Include="Code\DAL\Theme_dal.cs" />
@@ -602,7 +604,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Code\Ajax\" />
+    <Folder Include="Images\ConsultImages\DislikeStyleImage\" />
     <Folder Include="Images\ConsultImages\GeRenZhao\" />
+    <Folder Include="Images\ConsultImages\LikeStyleImage\" />
     <Folder Include="Images\TieZiImages\" />
     <Folder Include="StaticHtml\TieZiHtml\" />
     <Folder Include="test\" />
