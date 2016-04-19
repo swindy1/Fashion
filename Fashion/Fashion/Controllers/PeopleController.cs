@@ -120,27 +120,27 @@ namespace Fashion.Controllers
             string EducationalBackground = Request["EducationalBackground"];
             string Interest = Request["Interest"];
 
-            if (realName == "")
+            if (realName == null)
             {
                 realName = null;
             }
-            if (BirthDate == "")
+            if (BirthDate == null)
             {
                 BirthDate = null;
             }
-            if (Profession == "")
+            if (Profession == null)
             {
                 Profession = null;
             }
-            if (PhoneNumber == "")
+            if (PhoneNumber == null)
             {
                 PhoneNumber = null;
             }
-            if (EducationalBackground == "")
+            if (EducationalBackground == null)
             {
                 EducationalBackground = null;
             }
-            if (Interest == "")
+            if (Interest == null)
             {
                 Interest = null;
             }
