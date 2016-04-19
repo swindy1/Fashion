@@ -14,6 +14,11 @@ namespace Fashion.Controllers
     {
         //
         // GET: /People/
+        public ActionResult ExpertAnswer()
+        {
+
+            return View();
+        }
         public ActionResult Expert_Register()
         {
 
