@@ -4,5 +4,8 @@
 /Fashion/Fashion/Fashion.csproj.user
 /Fashion/Fashion/StaticHtml/TieZiHtml
 /Fashion/Fashion/Images/TieZiImages
+/Fashion/Fashion/Images/ConsultImages/DislikeStyleImage
+/Fashion/Fashion/Images/ConsultImages/GeRenZhao
+/Fashion/Fashion/Images/ConsultImages/LikeStyleImage
 /Fashion/Fashion/Images/UserImages
 /Fashion/Fashion/Code/DAL/SqlConnectionString.cs
