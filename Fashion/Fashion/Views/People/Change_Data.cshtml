@@ -60,8 +60,8 @@
 </script>
 <style type="text/css">
     /*************所有选择下拉框的样式CSS*************************/
-    
-    #Job_Choose ul, #edu_bg_Choose ul, #height_Choose ul, #weight_Choose ul, #chest_Choose ul, #Waist_Choose ul, #hipline_Choose ul, #Leg_Choose ul {
+
+    #skin_Choose ul, #Job_Choose ul, #edu_bg_Choose ul, #height_Choose ul, #weight_Choose ul, #chest_Choose ul, #Waist_Choose ul, #hipline_Choose ul, #Leg_Choose ul {
         margin: 0;
         padding: 0;
         width: 170px;
@@ -73,13 +73,13 @@
         background: white;
     }
 
-        #Job_Choose ul li, #edu_bg_Choose ul li, #height_Choose ul li, #weight_Choose ul li, #chest_Choose ul li, #Waist_Choose ul li, #hipline_Choose ul li, #Leg_Choose ul li {
+        #skin_Choose ul li, #Job_Choose ul li, #edu_bg_Choose ul li, #height_Choose ul li, #weight_Choose ul li, #chest_Choose ul li, #Waist_Choose ul li, #hipline_Choose ul li, #Leg_Choose ul li {
             height: 20px;
             line-height: 20px;
             cursor: pointer;
         }
 
-            #Job_Choose ul li:hover, #edu_bg_Choose ul li:hover, #height_Choose ul li:hover, #weight_Choose ul li:hover, #chest_Choose ul li:hover, #Waist_Choose ul li:hover, #hipline_Choose ul li:hover, #Leg_Choose ul li:hover {
+            #skin_Choose ul li:hover, #Job_Choose ul li:hover, #edu_bg_Choose ul li:hover, #height_Choose ul li:hover, #weight_Choose ul li:hover, #chest_Choose ul li:hover, #Waist_Choose ul li:hover, #hipline_Choose ul li:hover, #Leg_Choose ul li:hover {
                 background: #c6dbfc;
                 color: #369;
             }
@@ -126,7 +126,9 @@
 <script>
     
     function Save_Change() {      //点击保存弹出保存成功窗口
-        alert('保存成功！')
+      
+            alert('保存成功！')
+        
     }
     function tz_zhuye() {
         window.location.href = "Index";   //点击页面下方保存按钮后，跳转到个人主页
@@ -195,6 +197,24 @@
     }
 </script>
 <script type="text/javascript">
+    //**********肤色选择下拉列表的jQuery*********
+    $(function () {
+        $("#skin_Choose input").click(function () {
+            var ul = $("#skin_Choose ul");
+            if (ul.css("display") == "none") {
+                ul.slideDown("fast");
+            } else {
+                ul.slideUp("fast");
+            }
+        });
+        $("#skin_Choose ul li").click(function () {
+            var txt = $(this).text();
+            $("#skin_Choose input").val(txt);
+            var value = $(this).attr("rel");
+            $("#skin_Choose ul").hide();
+        });
+
+    });
     //**********职业选择下拉列表的jQuery*********
     $(function () {
         $("#Job_Choose input").click(function () {
@@ -413,64 +433,66 @@
     <div class="baocun" id="baoCunTouXiang" onclick="Save_Change_TouXiang()">保存</div>
 </div>
 <div style="width: 100%; margin-bottom: 80px; float: left;">
-    <table cellspacing="10" style="float:left;">
-        <caption style="float:left;font-size:1.5em;">个人信息</caption>
-        <tr><td>真实姓名：</td><td><input type="text" id="Real_name" onblur="test_name(this.id)" /></td></tr>
-        <tr>
-            <td>出生年月：</td>
-            <td>
-                <input class="laydate-icon" id="demo">
-                <script type="text/javascript">
+    <form action="UpdateInformation" method="post">
+        <table cellspacing="10" style="float:left;">
+            <caption style="float:left;font-size:1.5em;">个人信息</caption>
+            <tr><td>真实姓名：</td><td><input type="text" id="Real_name" name="realName" onblur="test_name(this.id)" /></td></tr>
+            <tr>
+                <td>出生年月：</td>
+                <td>
+                    <input class="laydate-icon" id="demo" name="BirthDate">
+                    <script type="text/javascript">
                         !function () {
                             laydate.skin('default');//切换皮肤，请查看skins下面皮肤库
                             laydate({ elem: '#demo' });//绑定元素
                         }();
-                </script>
+                    </script>
 
-            </td>
-        </tr>
-        <tr>
-            <td>职业：</td>
-            <td>
-                <div id="Job_Choose">
-                    <input type="text" />
-                    <ul style="display:none;">
-                        <li>教师</li>
-                        <li>学生</li>
-                        <li>白领</li>
-                        <li>家庭主妇</li>
-                        <li>其他</li>
-                    </ul>
-                </div>
-            </td>
+                </td>
+            </tr>
+            <tr>
+                <td>职业：</td>
+                <td>
+                    <div id="Job_Choose">
+                        <input type="text" name="Profession" />
+                        <ul style="display:none;">
+                            <li>教师</li>
+                            <li>学生</li>
+                            <li>白领</li>
+                            <li>家庭主妇</li>
+                            <li>其他</li>
+                        </ul>
+                    </div>
+                </td>
 
-        </tr>
-        <tr><td>手机：</td><td><input type="text" id="phone_num" onblur="phone_num_test(this.id)" /></td></tr>
-        <tr>
-            <td>学历：</td>
-            <td>
-                <div id="edu_bg_Choose">
-                    <input type="text" />
-                    <ul>
-                        <li>小学以下</li>
-                        <li>小学</li>
-                        <li>初中</li>
-                        <li>中专</li>
-                        <li>高中</li>
-                        <li>大专</li>
-                        <li>本科</li>
-                        <li>硕士</li>
-                        <li>博士</li>
-                        <li>博士后</li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr><td>爱好：</td><td><input type="text" /></td></tr>
-    </table>
-    <div class="baocun" onclick="Save_Change()">保存</div>
-    <a name="sttz"></a>
+            </tr>
+            <tr><td>手机：</td><td><input type="text" id="phone_num" onblur="phone_num_test(this.id)" name="PhoneNumber" /></td></tr>
+            <tr>
+                <td>学历：</td>
+                <td>
+                    <div id="edu_bg_Choose">
+                        <input type="text" name="EducationalBackground" />
+                        <ul>
+                            <li>小学以下</li>
+                            <li>小学</li>
+                            <li>初中</li>
+                            <li>中专</li>
+                            <li>高中</li>
+                            <li>大专</li>
+                            <li>本科</li>
+                            <li>硕士</li>
+                            <li>博士</li>
+                            <li>博士后</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>爱好：</td><td><input type="text" name="Interest" /></td></tr>
+        </table>
+        <input type="submit" class="baocun" name="" value=" 保存" onclick="Save_Change()" />
 
+        <a name="sttz"></a>
+    </form>
 </div>
 
 <div style="width: 100%; margin-bottom: 80px; float: left;">
@@ -500,6 +522,21 @@
                         {
                             <li>@i kg</li>
                         }
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>肤色：</td>
+            <td>
+                <div id="skin_Choose">
+                    <input type="text" />
+                    <ul>
+                        <li>白皙</li>
+                        <li>粉嫩</li>
+                        <li>偏黑</li>
+                        <li>偏黄</li>
+                        <li>黝黑</li>
                     </ul>
                 </div>
             </td>
