@@ -61,7 +61,7 @@
 <style type="text/css">
     /*************所有选择下拉框的样式CSS*************************/
 
-    #skin_Choose ul, #Job_Choose ul, #edu_bg_Choose ul, #height_Choose ul, #weight_Choose ul, #chest_Choose ul, #Waist_Choose ul, #hipline_Choose ul, #Leg_Choose ul {
+    #skin_Choose ul, #Job_Choose ul, #edu_bg_Choose ul, #height_Choose ul, #weight_Choose ul, #chest_Choose ul, #Waist_Choose ul, #hipline_Choose ul, #ThighGirth_Choose ul, #CalfGirth_Choose ul, #LegLength_Choose ul, #ArmGirth_Choose ul {
         margin: 0;
         padding: 0;
         width: 170px;
@@ -73,13 +73,13 @@
         background: white;
     }
 
-        #skin_Choose ul li, #Job_Choose ul li, #edu_bg_Choose ul li, #height_Choose ul li, #weight_Choose ul li, #chest_Choose ul li, #Waist_Choose ul li, #hipline_Choose ul li, #Leg_Choose ul li {
+        #skin_Choose ul li, #Job_Choose ul li, #edu_bg_Choose ul li, #height_Choose ul li, #weight_Choose ul li, #chest_Choose ul li, #Waist_Choose ul li, #hipline_Choose ul li, #ThighGirth_Choose ul li, #CalfGirth_Choose ul li, #LegLength_Choose ul li, #ArmGirth_Choose ul li {
             height: 20px;
             line-height: 20px;
             cursor: pointer;
         }
 
-            #skin_Choose ul li:hover, #Job_Choose ul li:hover, #edu_bg_Choose ul li:hover, #height_Choose ul li:hover, #weight_Choose ul li:hover, #chest_Choose ul li:hover, #Waist_Choose ul li:hover, #hipline_Choose ul li:hover, #Leg_Choose ul li:hover {
+            #skin_Choose ul li:hover, #Job_Choose ul li:hover, #edu_bg_Choose ul li:hover, #height_Choose ul li:hover, #weight_Choose ul li:hover, #chest_Choose ul li:hover, #Waist_Choose ul li:hover, #hipline_Choose ul li:hover, #ThighGirth_Choose ul li:hover, #CalfGirth_Choose ul li:hover, #LegLength_Choose ul li:hover, #ArmGirth_Choose ul li:hover {
                 background: #c6dbfc;
                 color: #369;
             }
@@ -341,21 +341,78 @@
         });
 
     });
-    //**********腿围选择下拉列表的jQuery*********
+    //**********大腿围选择下拉列表的jQuery*********
     $(function () {
-        $("#Leg_Choose input").click(function () {
-            var ul = $("#Leg_Choose ul");
+        $("#ThighGirth_Choose input").click(function () {
+            var ul = $("#ThighGirth_Choose ul");
             if (ul.css("display") == "none") {
                 ul.slideDown("fast");
             } else {
                 ul.slideUp("fast");
             }
         });
-        $("#Leg_Choose ul li").click(function () {
+        $("#ThighGirth_Choose ul li").click(function () {
             var txt = $(this).text();
-            $("#Leg_Choose input").val(txt);
+            $("#ThighGirth_Choose input").val(txt);
             var value = $(this).attr("rel");
-            $("#Leg_Choose ul").hide();
+            $("#ThighGirth_Choose ul").hide();
+        });
+
+    });
+    //**********小腿围选择下拉列表的jQuery*********
+    $(function () {
+        $("#CalfGirth_Choose input").click(function () {
+            var ul = $("#CalfGirth_Choose ul");
+            if (ul.css("display") == "none") {
+                ul.slideDown("fast");
+            } else {
+                ul.slideUp("fast");
+            }
+        });
+        $("#CalfGirth_Choose ul li").click(function () {
+            var txt = $(this).text();
+            $("#CalfGirth_Choose input").val(txt);
+            var value = $(this).attr("rel");
+            $("#CalfGirth_Choose ul").hide();
+        });
+
+    });
+
+    //**********腿长选择下拉列表的jQuery*********
+    $(function () {
+        $("#LegLength_Choose input").click(function () {
+            var ul = $("#LegLength_Choose ul");
+            if (ul.css("display") == "none") {
+                ul.slideDown("fast");
+            } else {
+                ul.slideUp("fast");
+            }
+        });
+        $("#LegLength_Choose ul li").click(function () {
+            var txt = $(this).text();
+            $("#LegLength_Choose input").val(txt);
+            var value = $(this).attr("rel");
+            $("#LegLength_Choose ul").hide();
+        });
+
+    });
+
+
+    //**********腿长选择下拉列表的jQuery*********
+    $(function () {
+        $("#ArmGirth_Choose input").click(function () {
+            var ul = $("#ArmGirth_Choose ul");
+            if (ul.css("display") == "none") {
+                ul.slideDown("fast");
+            } else {
+                ul.slideUp("fast");
+            }
+        });
+        $("#ArmGirth_Choose ul li").click(function () {
+            var txt = $(this).text();
+            $("#ArmGirth_Choose input").val(txt);
+            var value = $(this).attr("rel");
+            $("#ArmGirth_Choose ul").hide();
         });
 
     });
@@ -496,109 +553,154 @@
 </div>
 
 <div style="width: 100%; margin-bottom: 80px; float: left;">
-    <table cellspacing="10" style="float:left;">
-        <caption style="float:left;font-size:1.5em;">体型特征</caption>
-        <tr>
-            <td>身高：</td>
-            <td>
-                <div id="height_Choose">
-                    <input type="text" />
-                    <ul>
-                        @for (int i = 50; i < 240; i++)
-                        {
-                            <li>@i cm</li>
-                        }
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>体重：</td>
-            <td>
-                <div id="weight_Choose">
-                    <input type="text" />
-                    <ul>
-                        @for (int i = 20; i < 200; i++)
-                        {
-                            <li>@i kg</li>
-                        }
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>肤色：</td>
-            <td>
-                <div id="skin_Choose">
-                    <input type="text" />
-                    <ul>
-                        <li>白皙</li>
-                        <li>粉嫩</li>
-                        <li>偏黑</li>
-                        <li>偏黄</li>
-                        <li>黝黑</li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>胸围：</td>
-            <td>
-                <div id="chest_Choose">
-                    <input type="text" />
-                    <ul>
-                        @for (int i = 50; i < 120; i++)
-                        {
-                            <li>@i cm</li>
-                        }
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>腰围：</td>
-            <td>
-                <div id="Waist_Choose">
-                    <input type="text" />
-                    <ul>
-                        @for (int i = 50; i < 120; i++)
-                        {
-                            <li>@i cm</li>
-                        }
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>臀围：</td>
-            <td>
-                <div id="hipline_Choose">
-                    <input type="text" />
-                    <ul>
-                        @for (int i = 50; i < 120; i++)
-                        {
-                            <li>@i cm</li>
-                        }
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>腿围：</td>
-            <td>
-                <div id="Leg_Choose">
-                    <input type="text" />
-                    <ul>
-                        @for (int i = 20; i < 80; i++)
-                        {
-                            <li>@i cm</li>
-                        }
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <div class="baocun" onclick="Save_Change()">保存</div>
+    <form action="UpdateBodyData" method="post">
+        <table cellspacing="10" style="float:left;">
+            <caption style="float:left;font-size:1.5em;">体型特征</caption>
+            <tr>
+                <td>身高：</td>
+                <td>
+                    <div id="height_Choose">
+                        <input type="text" name="Height" />
+                        <ul>
+                            @for (int i = 50; i < 240; i++)
+                            {
+                                <li>@i </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>体重：</td>
+                <td>
+                    <div id="weight_Choose">
+                        <input type="text" name="Weight" />
+                        <ul>
+                            @for (int i = 20; i < 200; i++)
+                            {
+                                <li>@i </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>肤色：</td>
+                <td>
+                    <div id="skin_Choose">
+                        <input type="text" name="SkinColor" />
+                        <ul>
+                            <li>白皙</li>
+                            <li>粉嫩</li>
+                            <li>偏黑</li>
+                            <li>偏黄</li>
+                            <li>黝黑</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>胸围：</td>
+                <td>
+                    <div id="chest_Choose">
+                        <input type="text" name="XiongWei" />
+                        <ul>
+                            @for (int i = 50; i < 120; i++)
+                            {
+                                <li>@i </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>腰围：</td>
+                <td>
+                    <div id="Waist_Choose">
+                        <input type="text" name="YaoWei" />
+                        <ul>
+                            @for (int i = 50; i < 120; i++)
+                            {
+                                <li>@i </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>臀围：</td>
+                <td>
+                    <div id="hipline_Choose">
+                        <input type="text" name="TunWei" />
+                        <ul>
+                            @for (int i = 50; i < 120; i++)
+                            {
+                                <li>@i </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>大腿围：</td>
+                <td>
+                    <div id="ThighGirth_Choose">
+                        <input type="text" name="ThighGirth" />
+                        <ul>
+                            @for (int i = 20; i < 80; i++)
+                            {
+                                <li>@i </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>小腿围：</td>
+                <td>
+                    <div id="CalfGirth_Choose">
+                        <input type="text" name="CalfGirth" />
+                        <ul>
+                            @for (int i = 20; i < 80; i++)
+                            {
+                                <li>@i </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>腿长：</td>
+                <td>
+                    <div id="LegLength_Choose">
+                        <input type="text" name="LegLength" />
+                        <ul>
+                            @for (int i = 20; i < 80; i++)
+                            {
+                                <li>@i </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>臂围：</td>
+                <td>
+                    <div id="ArmGirth_Choose">
+                        <input type="text" name="ArmGirth" />
+                        <ul>
+                            @for (int i = 20; i < 80; i++)
+                            {
+                                <li>@i </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" class="baocun" name="" value=" 保存" onclick="Save_Change()" />
+    </form>
+
 </div>
 <div style="width: 100%; margin-bottom: 50px; float: left;">
     <table cellspacing="10" style="float:left;">

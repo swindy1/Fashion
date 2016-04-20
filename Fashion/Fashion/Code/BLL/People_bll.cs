@@ -253,6 +253,34 @@ namespace Fashion.Code.BLL
             /////////////////////////////////////////////////
             
         }
+        /// <summary>
+        /// 更新个人信息的身高 腰围 体重 臀围 胸围 腿长 大腿围 小腿围 臂围 肤色 成功返回1
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <param name="SkinColor"></param>
+        /// <param name="Weight"></param>
+        /// <param name="XiongWei"></param>
+        /// <param name="YaoWei"></param>
+        /// <param name="TunWei"></param>
+        /// <param name="Height"></param>
+        /// <param name="LegLength"></param>
+        /// <param name="ThighGirth"></param>
+        /// <param name="ArmGirth"></param>
+        /// <param name="CalfGirth"></param>
+        /// <returns></returns>
+        public int UpdateBodyData(string UserName, string SkinColor, float Weight, float XiongWei, float YaoWei, float TunWei, float Height, float LegLength, float ThighGirth, float ArmGirth, float CalfGirth)
+        {
+            User_dal user = new User_dal();
+            if (user.UpdateBodyData(UserName, SkinColor, Weight, XiongWei, YaoWei, TunWei, Height, LegLength, ThighGirth, ArmGirth, CalfGirth) == 1)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
 
 
         /// <summary>

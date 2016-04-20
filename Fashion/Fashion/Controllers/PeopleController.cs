@@ -105,6 +105,46 @@ namespace Fashion.Controllers
             }
             return View();
         }
+
+
+
+        public ActionResult UpdateBodyData()
+        {
+            if (Session["userName"] == null)
+            {
+                return Content("请先登录");
+            }
+            string UserName = Session["userName"].ToString();
+            string SkinColor = Request["SkinColor"];
+            float Weight = float.Parse(Request["Weight"]);
+            float XiongWei = float.Parse(Request["XiongWei"]);
+            float YaoWei = float.Parse(Request["YaoWei"]);
+            float TunWei = float.Parse(Request["TunWei"]);
+            float Height = float.Parse(Request["Height"]);
+            float LegLength = float.Parse(Request["LegLength"]);
+            float ThighGirth = float.Parse(Request["ThighGirth"]);
+            float ArmGirth = float.Parse(Request["ArmGirth"]);
+            float CalfGirth = float.Parse(Request["CalfGirth"]);
+            
+
+
+            People_bll user = new People_bll();
+            if (user.UpdateBodyData(UserName, SkinColor, Weight, XiongWei, YaoWei, TunWei, Height, LegLength, ThighGirth, ArmGirth, CalfGirth) == 1)
+            {
+                return RedirectToAction("Change_Data");
+            }
+            else
+            { 
+                return RedirectToAction("Change_Data");
+            }
+
+          
+        }
+
+        /// <summary>
+        ///    保存个人信息
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UpdateInformation()
         {
             if (Session["userName"] == null)
