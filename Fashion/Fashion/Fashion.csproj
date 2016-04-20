@@ -149,6 +149,7 @@
     <Compile Include="Code\DAL\SqlConnectionString.cs" />
     <Compile Include="Code\DAL\Theme_dal.cs" />
     <Compile Include="Code\DAL\User_dal.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\StreetSnapController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -596,6 +597,7 @@
     <Content Include="Views\People\ExpertAnswer.cshtml" />
     <Content Include="Views\Topic\ExpertReply.cshtml" />
     <Content Include="Views\Topic\PostDetails.cshtml" />
+    <Content Include="Views\Error\DbError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

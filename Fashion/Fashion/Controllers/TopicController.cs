@@ -143,6 +143,41 @@ namespace Fashion.Controllers
             //return Content(theme);
         }
 
+
+        /// <summary>
+        /// 实现原贴的点赞
+        /// 成功返回1
+        /// 失败返回0
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AjaxPostSupportCountAdd1()
+        {
+            string postIdStr=Request["postId"].ToString();
+            int postId=Convert.ToInt32(postIdStr);
+            Post_bll post_bll = new Post_bll();
+            if(post_bll.UpdateSupportCountAdd1(postId)<1)
+            {
+                return Content("0");
+            }
+            return Content("1");
+        }
+        /// <summary>
+        /// 实现原贴的点赞
+        /// 成功返回1
+        /// 失败返回0
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AjaxPostSupportCountReduce1()
+        {
+            string postIdStr = Request["postId"].ToString();
+            int postId = Convert.ToInt32(postIdStr);
+            Post_bll post_bll = new Post_bll();
+            if (post_bll.UpdateSupportCountReduce1(postId) < 1)
+            {
+                return Content("0");
+            }
+            return Content("1");
+        }
         /// <summary>
         /// 获取评论的数据
         /// 页面：Home

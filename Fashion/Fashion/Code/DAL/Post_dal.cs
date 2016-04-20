@@ -113,6 +113,49 @@ namespace Fashion.Code.DAL
             post_model.commentCount = (row["commentCount"] != DBNull.Value ? (int)row["commentCount"] : 0);
             return post_model;
         }
+        
+       /// <summary>
+       /// 通过原贴的帖子id获取该贴的点赞数
+       /// </summary>
+       /// <param name="postId"></param>
+        public object GetPostSupportCount(int postId)
+        {
+            string sqlStr="select Post_SupportCount from tb_Post where Post_Id=@postId";
+            SqlParameter[]parameters=new SqlParameter[]{
+                new SqlParameter("@postId",postId)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr,parameters);
+        }
+
+
+        /// <summary>
+        /// 通过postId更新帖子，让点赞数+1
+        /// 返回受影响的行数
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        public int UpdateSupportCountAdd1(int postId)
+        {
+            string sqlStr = "update tb_Post set Post_SupportCount=Post_SupportCount+1 where Post_Id=@postId";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@postId",postId)
+            };
+            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+        }
+        /// <summary>
+        /// 通过postId更新帖子，让点赞数-1
+        /// 返回受影响的行数
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        public int UpdateSupportCountReduce1(int postId)
+        {
+            string sqlStr = "update tb_Post set Post_SupportCount=Post_SupportCount-1 where Post_Id=@postId";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@postId",postId)
+            };
+            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+        }
 
 
     }

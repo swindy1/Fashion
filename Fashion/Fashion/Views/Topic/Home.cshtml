@@ -175,13 +175,27 @@
             var postId = x.substring(14);
             var y = document.getElementById(x).className;
             var z = document.getElementById(x).innerHTML;
-            if (y == "dianzanshu") {
+            if (y == "dianzanshu") {//点赞
+                $.ajax({ //数据库点赞数+1
+                    url: "AjaxPostSupportCountAdd1",
+                    data: {postId:postId},
+                    success: function (data) {
+                        //这里不需要任何操作
+                    }
+                });
                 z++;
                 document.getElementById(x).innerHTML = z;
                 document.getElementById(x).className = "dianzanshu_";
             }
-            else {
+            else {//取消点赞
                 z--;
+                $.ajax({ //数据库点赞数-1
+                    url: "AjaxPostSupportCountReduce1",
+                    data: { postId: postId },
+                    success: function (data) {
+                        //这里不需要任何操作
+                    }
+                });
                 document.getElementById(x).innerHTML = z;
                 document.getElementById(x).className = "dianzanshu";
             }
@@ -526,11 +540,11 @@
 
 
                         <div>
-                            <a href="" title="话题详情"><img src="~/Images/Topic-Home-dapeitouxiang.png.jpg" /></a>
+                            <a href="" title="话题详情"><img src="@post_model.User.touXiangUrl" /></a>
                         </div>
 
                         <div id="ht-dianzanshu-@post_model.postId" class="dianzanshu" onclick="ht_dianzan(this.id)">
-                            178
+                            @post_model.postSupportCount
                         </div>
 
 
