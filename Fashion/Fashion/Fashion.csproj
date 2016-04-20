@@ -298,6 +298,7 @@
     <Content Include="Images\UserImages\TouXiang\111.png" />
     <Content Include="Images\UserImages\TouXiang\daren_1.jpg" />
     <Content Include="Images\UserImages\TouXiang\daren_3.jpg" />
+    <Content Include="Images\UserImages\QuanShenZhao\20140203_112158.jpg" />
     <Content Include="kindeditor\asp.net\bin\LitJSON.dll" />
     <Content Include="kindeditor\asp.net\demo.aspx" />
     <Content Include="kindeditor\asp.net\README.txt" />
@@ -598,6 +599,7 @@
     <Content Include="Views\Topic\ExpertReply.cshtml" />
     <Content Include="Views\Topic\PostDetails.cshtml" />
     <Content Include="Views\Error\DbError.cshtml" />
+    <Content Include="Views\Test\yuanyangtest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -607,6 +609,7 @@
     <Folder Include="Images\ConsultImages\LikeStyleImage\" />
     <Folder Include="Images\TieZiImages\" />
     <Folder Include="Images\UserImages\QuanShenZhao\" />
+    <Folder Include="Images\UserImages\TouXiang\" />
     <Folder Include="StaticHtml\TieZiHtml\" />
     <Folder Include="test\" />
   </ItemGroup>
