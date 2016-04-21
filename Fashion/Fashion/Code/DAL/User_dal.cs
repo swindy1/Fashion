@@ -143,7 +143,21 @@ namespace Fashion.Code.DAL
            return SqlHelper.ExecuteDataTable(sqlStr, parameters);
         
         }
-        
+        /// <summary>
+        /// 获取用户身体信息 身高 腰围 体重 臀围 胸围 腿长 大腿围 小腿围 臂围 肤色 返回整个表
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public DataTable GetBodyData(string userName)
+        {
+            string sqlStr = "select User_SkinColor,User_Weight, User_XiongWei,User_YaoWei,User_TunWei,User_Height,User_LegLength,User_ThighGirth,User_CalfGirth,User_ArmGirth from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteDataTable(sqlStr, parameters);
+        }
+
+
         /// <summary>
         /// 通过用户名获取用的个人资料《特定咨询》
         /// </summary>
@@ -167,8 +181,42 @@ namespace Fashion.Code.DAL
             return user_model;
         }
 
-
-
+        /// <summary>
+        /// 更新个人信息的身高 腰围 体重 臀围 胸围 腿长 大腿围 小腿围 臂围 肤色 成功返回1
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <param name="SkinColor"></param>
+        /// <param name="Weight"></param>
+        /// <param name="XiongWei"></param>
+        /// <param name="YaoWei"></param>
+        /// <param name="TunWei"></param>
+        /// <param name="Height"></param>
+        /// <param name="LegLength"></param>
+        /// <param name="ThighGirth"></param>
+        /// <param name="ArmGirth"></param>
+        /// <param name="CalfGirth"></param>
+        /// <returns></returns>
+        public int UpdateBodyData(string UserName, string SkinColor, float Weight, float XiongWei, float YaoWei, float TunWei, float Height, float LegLength, float ThighGirth, float ArmGirth, float CalfGirth)
+        {
+            string sqlStr = @"update [tb_User]  set  User_Weight =@Weight,User_XiongWei=@XiongWei,User_YaoWei=@YaoWei,User_SkinColor=@SkinColor
+						,User_TunWei=@TunWei,User_Height=@Height,User_LegLength=@LegLength,
+						User_ThighGirth=@ThighGirth,User_ArmGirth=@ArmGirth,User_CalfGirth=@CalfGirth
+                             where User_Name=@UserName";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("UserName",UserName),
+                new SqlParameter("SkinColor",SkinColor),
+                new SqlParameter("Weight",Weight),
+                new SqlParameter("XiongWei",XiongWei),
+                new SqlParameter("YaoWei",YaoWei),
+                new SqlParameter("TunWei",TunWei),
+                new SqlParameter("Height",Height),
+                new SqlParameter("LegLength",LegLength),
+                new SqlParameter("ThighGirth",ThighGirth),
+                new SqlParameter("ArmGirth",ArmGirth), 
+                new SqlParameter("CalfGirth",CalfGirth),
+            };
+            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+        }
 
         /// <summary>
         /// 更新个人信息的数据 真实姓名，生日，职业，手机号，学历，兴趣
