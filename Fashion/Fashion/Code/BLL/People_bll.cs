@@ -307,11 +307,219 @@ namespace Fashion.Code.BLL
                 return -1;
             }
         }
-      
 
 
+        /// <summary>
+        /// 得到用户个人的肤色
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string GetSkinColor(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object skinColor= dt.Rows[0][0];
+                 
+            if (skinColor == null || skinColor == System.DBNull.Value)
+            {
+                return null;
+            }
+            else
+            {
+                return skinColor.ToString();
+            }
+        }
+        /// <summary>
+        /// 得到用户个人信息体重
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public float GetWeight(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object Weight = dt.Rows[0][1];
+
+            if (Weight == null || Weight == System.DBNull.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return float.Parse(Weight.ToString());
+            }
+        }
+        /// <summary>
+        /// 得到用户个人信息胸围
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public float GetXiongWei(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object XiongWei = dt.Rows[0][2];
+
+            if (XiongWei == null || XiongWei == System.DBNull.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return float.Parse(XiongWei.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 得到用户个人信息腰围
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public float GetYaoWei(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object YaoWei = dt.Rows[0][3];
+
+            if (YaoWei == null || YaoWei == System.DBNull.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return float.Parse(YaoWei.ToString());
+            }
+        }
 
 
+        /// <summary>
+        /// 得到用户个人信息臀围
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public float GetTunWei(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object TunWei = dt.Rows[0][4];
+
+            if (TunWei == null || TunWei == System.DBNull.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return float.Parse(TunWei.ToString());
+            }
+        }
+
+
+        /// <summary>
+        /// 得到用户个人信息身高
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public float GetHeight(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object Height = dt.Rows[0][5];
+
+            if (Height == null || Height == System.DBNull.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return float.Parse(Height.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 得到用户个人信息腿长
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public float GetLegLength(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object LegLength = dt.Rows[0][6];
+
+            if (LegLength == null || LegLength == System.DBNull.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return float.Parse(LegLength.ToString());
+            }
+        }
+
+
+        /// <summary>
+        /// 得到用户个人信息大腿围
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public float GetThighGirth(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object ThighGirth = dt.Rows[0][7];
+
+            if (ThighGirth == null || ThighGirth == System.DBNull.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return float.Parse(ThighGirth.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 得到用户个人信息小腿围
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public float GetCalfGirth(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object CalfGirth = dt.Rows[0][8];
+
+            if (CalfGirth == null || CalfGirth == System.DBNull.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return float.Parse(CalfGirth.ToString());
+            }
+        }
+
+
+        /// <summary>
+        /// 得到用户个人信息手臂围
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public float GetArmGirth(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object ArmGirth = dt.Rows[0][9];
+
+            if (ArmGirth == null || ArmGirth == System.DBNull.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return float.Parse(ArmGirth.ToString());
+            }
+        }
 
         /// <summary>
         /// 检查数据库得到的真实姓名

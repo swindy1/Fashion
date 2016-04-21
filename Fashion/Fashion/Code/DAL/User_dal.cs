@@ -143,7 +143,21 @@ namespace Fashion.Code.DAL
            return SqlHelper.ExecuteDataTable(sqlStr, parameters);
         
         }
-        
+        /// <summary>
+        /// 获取用户身体信息 身高 腰围 体重 臀围 胸围 腿长 大腿围 小腿围 臂围 肤色 返回整个表
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public DataTable GetBodyData(string userName)
+        {
+            string sqlStr = "select User_SkinColor,User_Weight, User_XiongWei,User_YaoWei,User_TunWei,User_Height,User_LegLength,User_ThighGirth,User_CalfGirth,User_ArmGirth from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteDataTable(sqlStr, parameters);
+        }
+
+
         /// <summary>
         /// 通过用户名获取用的个人资料《特定咨询》
         /// </summary>
