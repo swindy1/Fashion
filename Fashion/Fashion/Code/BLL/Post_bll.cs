@@ -53,6 +53,64 @@ namespace Fashion.Code.BLL
         }
 
         /// <summary>
+        /// 通过原贴的帖子id获取该贴的点赞数
+        /// 返回-1代表数据库不存在该条数据,即查询到0行
+        /// 返回-2代表数据库查询到了数据，但是此字段为空
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        public int GetSupportCount(int postId)
+        {
+            Post_dal post_dal = new Post_dal();
+            object postSupportCount = post_dal.GetPostSupportCount(postId);
+            if(postSupportCount==null)
+            {
+                return -1;//数据库不存在该条数据,即查询到0行
+            }
+            if (postSupportCount == System.DBNull.Value)
+            {
+                return -2;//数据库查询到了数据，但是此字段为空
+            }
+            return Convert.ToInt32(postSupportCount);   
+        }
+          /// <summary>
+        /// 通过postId更新帖子，让点赞数+1
+        /// /// 返回受影响的行数
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        public int UpdateSupportCountAdd1(int postId)
+        {
+            Post_dal post_dal = new Post_dal();
+            return post_dal.UpdateSupportCountAdd1(postId);
+            
+        }
+        /// <summary>
+        /// 通过postId更新帖子，让点赞数-1
+        /// /// 返回受影响的行数
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        public int UpdateSupportCountReduce1(int postId)
+        {
+            Post_dal post_dal = new Post_dal();
+            return post_dal.UpdateSupportCountReduce1(postId);
+
+        }
+
+        /// <summary>
+        /// 获取帖子的10条数据
+        /// </summary>
+        /// <param name="page">页数</param>
+        /// <param name="min">第一条数据id</param>
+        /// <param name="max">最后一条数据id</param>
+        public List<Post_model> GetPost(int page, int min = 1, int max = 10)
+        {
+            Post_dal post_dal = new Post_dal();
+            return post_dal.GetPost(page, min, max);
+        }
+
+        /// <summary>
         /// 插入问题，问题说明，提问人
         /// 成功返回1
         /// 失败返回0
@@ -75,17 +133,8 @@ namespace Fashion.Code.BLL
 
         }
 
-        /// <summary>
-        /// 获取帖子的10条数据
-        /// </summary>
-        /// <param name="page">页数</param>
-        /// <param name="min">第一条数据id</param>
-        /// <param name="max">最后一条数据id</param>
-        public List<Post_model> GetPost(int page,int min=1, int max=10)
-        {
-            Post_dal post_dal = new Post_dal();
-            return post_dal.GetPost(page,min,max);
-        }
+
+        
 
     }
 }

@@ -33,6 +33,10 @@ namespace Fashion.Controllers
         {
             return View();
         }
+        public ActionResult yuanyangtest()
+        {
+            return View();
+        }
 
 
     }

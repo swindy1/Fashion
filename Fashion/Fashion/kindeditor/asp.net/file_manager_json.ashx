@@ -1,5 +1,9 @@
 ﻿<%@ webhandler Language="C#" class="FileManager" %>
 
+
+/*这里是演示代码
+真正的代码在同文件夹下的upload_json.ashx
+ * /
 /**
  * KindEditor ASP.NET
  *

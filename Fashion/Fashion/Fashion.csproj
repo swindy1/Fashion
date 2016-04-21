@@ -136,6 +136,7 @@
     <Compile Include="Code\BLL\PostComment_bll.cs" />
     <Compile Include="Code\BLL\PostPhoto_bll.cs" />
     <Compile Include="Code\BLL\Post_bll.cs" />
+    <Compile Include="Code\BLL\SpecialConsult_bll.cs" />
     <Compile Include="Code\BLL\Theme_bll.cs" />
     <Compile Include="Code\BLL\User_bll.cs" />
     <Compile Include="Code\DAL\ErrorMessage_dal.cs" />
@@ -143,10 +144,12 @@
     <Compile Include="Code\DAL\PostPhoto_dal.cs" />
     <Compile Include="Code\DAL\Post_dal.cs" />
     <Compile Include="Code\DAL\Rank_dal.cs" />
+    <Compile Include="Code\DAL\SpecialConsult_dal.cs" />
     <Compile Include="Code\DAL\SqlConnectionString.cs" />
     <Compile Include="Code\DAL\SqlHelper.cs" />
     <Compile Include="Code\DAL\Theme_dal.cs" />
     <Compile Include="Code\DAL\User_dal.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\StreetSnapController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -267,7 +270,6 @@
     <Content Include="Images\People-Expert_Register-addImg.png" />
     <Content Include="Images\People-Expert_Register-WaitForAudit.png" />
     <Content Include="Images\People-myAsks_huangguan.png" />
-    <Content Include="Images\UserImages\QuanShenZhao\quanshenzhao1.jpg" />
     <Content Include="Images\People-Index-xiugaiziliao.png" />
     <Content Include="Images\test.png" />
     <Content Include="Images\test2.png" />
@@ -293,12 +295,10 @@
     <Content Include="Images\Topic-Home-xinxi.png" />
     <Content Include="Images\Topic-Home-yiguanzhu.png" />
     <Content Include="Images\Topic-Home-zixun.png" />
-    <Content Include="Images\UserImages\QuanShenZhao\quanshenzhao2.jpg" />
-    <Content Include="Images\UserImages\QuanShenZhao\quanshenzhao3.jpg" />
-    <Content Include="Images\UserImages\QuanShenZhao\quanshenzhao4.jpg" />
     <Content Include="Images\UserImages\TouXiang\111.png" />
     <Content Include="Images\UserImages\TouXiang\daren_1.jpg" />
     <Content Include="Images\UserImages\TouXiang\daren_3.jpg" />
+    <Content Include="Images\UserImages\QuanShenZhao\20140203_112158.jpg" />
     <Content Include="kindeditor\asp.net\bin\LitJSON.dll" />
     <Content Include="kindeditor\asp.net\demo.aspx" />
     <Content Include="kindeditor\asp.net\README.txt" />
@@ -598,12 +598,18 @@
     <Content Include="Views\People\ExpertAnswer.cshtml" />
     <Content Include="Views\Topic\ExpertReply.cshtml" />
     <Content Include="Views\Topic\PostDetails.cshtml" />
+    <Content Include="Views\Error\DbError.cshtml" />
+    <Content Include="Views\Test\yuanyangtest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Code\Ajax\" />
+    <Folder Include="Images\ConsultImages\DislikeStyleImage\" />
     <Folder Include="Images\ConsultImages\GeRenZhao\" />
+    <Folder Include="Images\ConsultImages\LikeStyleImage\" />
     <Folder Include="Images\TieZiImages\" />
+    <Folder Include="Images\UserImages\QuanShenZhao\" />
+    <Folder Include="Images\UserImages\TouXiang\" />
     <Folder Include="StaticHtml\TieZiHtml\" />
     <Folder Include="test\" />
   </ItemGroup>
