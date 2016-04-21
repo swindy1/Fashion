@@ -97,12 +97,106 @@ namespace Fashion.Controllers
             //检测爱好是否为空
             if (user.CheckInterest(userName) == null)
             {
-                ViewData["Interest"] = "请输入您的手机号";
+                ViewData["Interest"] = "请输入您的兴趣";
             }
             else
             {
                 ViewData["Interest"] = user.CheckInterest(userName);
             }
+
+            //检测肤色是否为空
+            if (user.GetSkinColor(userName) == null)
+            {
+                ViewData["SkinColor"] = "请输入您的肤色";
+            }
+            else
+            {
+                ViewData["SkinColor"] = user.GetSkinColor(userName);
+            }
+            //检测体重是否为空
+            if (user.GetWeight(userName) == -1)
+            {
+                ViewData["Weight"] = "请输入您的体重";
+            }
+            else
+            {
+                ViewData["Weight"] = user.GetWeight(userName);
+            }
+
+            //检测臀围是否为空
+            if (user.GetTunWei(userName) == -1)
+            {
+                ViewData["TunWei"] = "请输入您的臀围";
+            }
+            else
+            {
+                ViewData["TunWei"] = user.GetTunWei(userName);
+            }
+            //检测胸围是否为空
+            if (user.GetXiongWei(userName) == -1)
+            {
+                ViewData["XiongWei"] = "请输入您的胸围";
+            }
+            else
+            {
+                ViewData["XiongWei"] = user.GetXiongWei(userName);
+            }
+            //检测腰围是否为空
+            if (user.GetYaoWei(userName) == -1)
+            {
+                ViewData["YaoWei"] = "请输入您的腰围";
+            }
+            else
+            {
+                ViewData["YaoWei"] = user.GetYaoWei(userName);
+            }
+            //检测身高是否为空
+            if (user.GetHeight(userName) == -1)
+            {
+                ViewData["Height"] = "请输入您的身高";
+            }
+            else
+            {
+                ViewData["Height"] = user.GetHeight(userName);
+            }
+            //检测腿长是否为空
+            if (user.GetThighGirth(userName) == -1)
+            {
+                ViewData["LegLength"] = "请输入您的腿长";
+            }
+            else
+            {
+                ViewData["LegLength"] = user.GetLegLength(userName);
+            }
+            //检测大腿围是否为空
+            if (user.GetThighGirth(userName) == -1)
+            {
+                ViewData["ThighGirth"] = "请输入您的大腿围";
+            }
+            else
+            {
+                ViewData["ThighGirth"] = user.GetThighGirth(userName);
+            }
+            //检测小腿围是否为空
+            if (user.GetCalfGirth(userName) == -1)
+            {
+                ViewData["CalfGirth"] = "请输入您的小腿围";
+            }
+            else
+            {
+                ViewData["CalfGirth"] = user.GetCalfGirth(userName);
+            }
+            //检测手臂围是否为空
+            if (user.GetArmGirth(userName) == -1)
+            {
+                ViewData["ArmGirth"] = "请输入您的手臂围";
+            }
+            else
+            {
+                ViewData["ArmGirth"] = user.GetArmGirth(userName);
+            }
+
+
             return View();
         }
 
