@@ -152,6 +152,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\StreetSnapController.cs" />
+    <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TopicController.cs" />
     <Compile Include="Global.asax.cs">
@@ -600,6 +601,7 @@
     <Content Include="Views\Topic\PostDetails.cshtml" />
     <Content Include="Views\Error\DbError.cshtml" />
     <Content Include="Views\Test\yuanyangtest.cshtml" />
+    <Content Include="Views\Template\MyPostTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
