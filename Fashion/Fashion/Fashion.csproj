@@ -608,8 +608,6 @@
     <Folder Include="Images\ConsultImages\GeRenZhao\" />
     <Folder Include="Images\ConsultImages\LikeStyleImage\" />
     <Folder Include="Images\TieZiImages\" />
-    <Folder Include="Images\UserImages\QuanShenZhao\" />
-    <Folder Include="Images\UserImages\TouXiang\" />
     <Folder Include="StaticHtml\TieZiHtml\" />
     <Folder Include="test\" />
   </ItemGroup>
