@@ -184,6 +184,78 @@ namespace Fashion.Code.BLL
 
 
 
+
+
+
+
+
+
+
+        /// <summary>
+        /// 实现专家注册功能，返回结果为int型
+        /// 0代表注册成功；
+        /// 1代表：数据插入出错，注册失败
+        /// 2代表：查询到的数据为null，数据库中的等级表里不存在该rankName对应的数据
+        /// 3代表：查询到的该字段为null,数据库中的等级表里等级名为rankName的数据对应的rankId为null
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="rankName">等级名</param>
+        /// <param name="Email">电子邮箱</param>
+        /// <param name="phoneNumber">手机号码</param>
+        /// <param name="profession">职业</param>
+        /// <param name="introduction">简介</param>
+        /// <param name="password">密码</param>
+        /// <returns></returns>
+        public int ExpertRegister(string userName, string realName, string rankName, string Email, string phoneNumber, string profession, string introduction, string password)
+        {
+            //通过等级名得到等级编号
+            Rank_dal rankDal = new Rank_dal();
+            object rankIdObj = rankDal.GetRankId(rankName);
+            if (rankIdObj == null)
+            {
+                return 2;
+            }
+            if (rankIdObj == System.DBNull.Value)
+            {
+                return 3;
+            }
+            string rankId = rankIdObj.ToString();
+
+            //盐值
+            string salt = Guid.NewGuid().ToString();
+            //将盐值加在密码的后面，并转化为二进制
+            byte[] pwdAndSaltBytes = System.Text.Encoding.UTF8.GetBytes(password + salt);
+            //经过哈希算法加密后得到的二进制值
+            byte[] hashBytes = new System.Security.Cryptography.SHA256Managed().ComputeHash(pwdAndSaltBytes);
+            string hashPassword = Convert.ToBase64String(hashBytes);
+            User_dal userDal = new User_dal();
+
+            if (userDal.InsertExrertRegisterstring(userName, realName, hashPassword, salt, rankId, Email, phoneNumber, profession, introduction) == 1)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /////////////////////////////////////////////
         //user表和Rank表
         ////////////////////////////////////////////
