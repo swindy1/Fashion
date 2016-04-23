@@ -310,29 +310,34 @@
                     </div>
                 </div><!--<div id="ExpertRegisterDiv_1">-!end-->
                 <div id="ExpertRegisterDiv_2" class="tab-pane fade">
-                    <div class="row">
-                        <div class="col-md-offset-2 col-sm-8">
-                            <form class="form" role="form">
+                    <form action="makeExpertRegister" method="post" class="form" role="form">
+                        <div class="row">
+                            <div class="col-md-offset-2 col-sm-8">
+
                                 <input name="utf8" type="hidden" value="✓">
                                 <input type="hidden" name="_method" value="patch">
                                 <div id="data_form_div" class="form-group">
                                     <h3>昵称和电子邮箱</h3>
                                     <label for="nikename">昵称</label>
-                                    <input type="text" class="form-control" id="nikename"
+                                    <input type="text" class="form-control" id="nikename" name="username"
                                            placeholder="2-15字符，中英文、数字和下划线" onblur="testNickName(this.id)">
+                                    <label for="password">密码</label>
+                                    <input type="password" name="password" class="form-control" id="password"
+                                           placeholder="请输入密码(不少于六位)" onblur="testPasword(this.id)">
+
                                     <label for="realname">真实姓名</label>
-                                    <input type="text" class="form-control" id="realname"
+                                    <input type="text" class="form-control" id="realname" name="realname"
                                            placeholder="请输入真实姓名" onblur="testRealName(this.id)">
                                     <label for="Email">电子邮箱</label>
-                                    <input type="text" class="form-control" id="Email"
+                                    <input type="text" class="form-control" id="Email" name="email"
                                            placeholder="请输入电子邮箱" onblur="testEmail(this.id)">
                                     <label for="phonenum">手机号码</label>
-                                    <input type="text" class="form-control" id="phonenum"
+                                    <input type="text" class="form-control" id="phonenum" name="phonenumber"
                                            placeholder="请输入手机号码" onblur="testPhoneNum(this.id)">
                                     <label for="occupation">职业</label>
                                     <div id="Job_Choose">
-                                        <input type="text" class="form-control" id="occupation"
-                                               placeholder="请选择职业"/>
+                                        <input type="text" class="form-control" id="occupation" name="profession"
+                                               placeholder="请选择职业" />
                                         <ul style="display:none;">
                                             <li>教师</li>
                                             <li>学生</li>
@@ -349,22 +354,24 @@
                                     <div id="certificate" style="display: none;">
                                         <label>请上传证书照片</label>
                                         <div>
-                                            <input type="file" id="fileImg_0" class="form-control" style="width: 80%; float: left;margin-bottom:15px;"onchange="checkPhoto(this.id)">
+                                            <input type="file" id="fileImg_0" class="form-control" style="width: 80%; float: left;margin-bottom:15px;" onchange="checkPhoto(this.id)">
                                             <input type="button" class="btn btn-primary" value="add" style="width: 15%; float: left; margin-left: 5%; margin-bottom: 15px;" onclick="addFile();" />
                                         </div>
                                         <div id="addcertificate"></div><!--存放添加证书照片的file的div-->
                                     </div>
                                     <label for="SelfIntroduction">自我介绍</label>
-                                    <textarea id="SelfIntroduction" class="form-control" rows="6" placeholder="关于时尚敏感度，好的自我介绍能让通过几率更高哦~"></textarea>
+                                    <textarea id="SelfIntroduction" class="form-control" name="SelfIntroduction" rows="6" placeholder="关于时尚敏感度，好的自我介绍能让通过几率更高哦~"></textarea>
                                 </div><!--<div id="data_form_div">结束-->
-                            </form>
-                        </div><!--<div class="col-md-offset-2 col-sm-8">结束-->
-                    </div><!--<div class="row">结束-->
-                    <div class="hr-css"></div><!--分割线-->
-                    <div style="text-align:center;margin-top:30px;">
-                        <button id="LastBnt2" type="button" class="btn btn-primary" style="margin-right:20%;" onclick="TurnLast(this.id)">上一步</button>
-                        <button id="nextBtn2" type="button" class="btn btn-primary" onclick="testAll()">下一步</button>
-                    </div>
+
+                            </div><!--<div class="col-md-offset-2 col-sm-8">结束-->
+                        </div><!--<div class="row">结束-->
+                        <div class="hr-css"></div><!--分割线-->
+                        <div style="text-align:center;margin-top:30px;">
+                            <button id="LastBnt2" type="button" class="btn btn-primary" style="margin-right:20%;" onclick="TurnLast(this.id)">上一步</button>
+                            <button id="nextBtn2" type="button" class="btn btn-primary" onclick="testAll()">下一步</button>
+                            <input type="submit" name="name" value="下一步" />
+                        </div>
+                    </form>
                 </div><!--<div id="ExpertRegisterDiv_2">结束-->
                 <div id="ExpertRegisterDiv_3" class="tab-pane fade">
                     <div id="testDivRow" class="tab-pane fade in active row" style="margin-top:20px;">

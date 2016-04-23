@@ -293,6 +293,37 @@ namespace Fashion.Controllers
         }
 
 
+
+
+        /// <summary>
+        /// 本函数实现专家注册功能，把数据保存到数据库
+        /// 实现密码注册功能
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult makeExpertRegister()
+        {
+            People_bll people1 = new People_bll();
+            string userName = Request["username"];
+            string realName = Request["realname"];
+            string Email = Request["email"];
+            string phoneNumber = Request["phonenumber"];
+            string profession = Request["profession"];
+            string introduction = Request["SelfIntroduction"];
+            string password = Request["password"];
+
+            if (people1.ExpertRegister(userName, realName, "专家", Email, phoneNumber, profession, introduction, password) == 0)
+            {
+                return RedirectToAction("Login", new { finshRegister = 1 });
+            }
+            else
+            {
+                return View();
+            }
+
+
+        }
+
+
        
         /// <summary>
         /// 登录页面
