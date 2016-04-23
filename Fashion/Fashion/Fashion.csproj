@@ -196,6 +196,7 @@
     <Content Include="Content\laydate-need.css" />
     <Content Include="Content\Peaple_upload_tx.css" />
     <Content Include="Content\People_Login.css" />
+    <Content Include="Content\Pinglun_css.css" />
     <Content Include="Content\share.css" />
     <Content Include="Content\laydate-skins.css" />
     <Content Include="Content\test.css" />
@@ -295,10 +296,9 @@
     <Content Include="Images\Topic-Home-xinxi.png" />
     <Content Include="Images\Topic-Home-yiguanzhu.png" />
     <Content Include="Images\Topic-Home-zixun.png" />
-    <Content Include="Images\UserImages\TouXiang\111.png" />
-    <Content Include="Images\UserImages\TouXiang\daren_1.jpg" />
-    <Content Include="Images\UserImages\TouXiang\daren_3.jpg" />
+    <Content Include="Images\Topic-PostDetails-rank.png" />
     <Content Include="Images\UserImages\QuanShenZhao\20140203_112158.jpg" />
+    <Content Include="Images\UserImages\TouXiang\touxiang1.png" />
     <Content Include="kindeditor\asp.net\bin\LitJSON.dll" />
     <Content Include="kindeditor\asp.net\demo.aspx" />
     <Content Include="kindeditor\asp.net\README.txt" />
