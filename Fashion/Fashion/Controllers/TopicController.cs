@@ -18,7 +18,15 @@ namespace Fashion.Controllers
         public ActionResult PostDetails()
         {
 
-            return View();
+            int postId = 173;
+            //获取postId的原帖数据
+            Post_bll post_bll = new Post_bll();
+            Post_model post_mode = post_bll.GetOnePost(postId);
+            ViewData["post_mode"] = post_mode;
+            //获取对postId原帖的回帖数据
+            ReplyPost_bll replyPost_bll =new ReplyPost_bll();
+            List<ReplyPost_model> replyPost_modelList = replyPost_bll.GetReplyPost(postId);
+            return View(replyPost_modelList);
         }
         public ActionResult ExpertReply()
         {
@@ -113,7 +121,7 @@ namespace Fashion.Controllers
                 return View("LoginRemind");
             }
             Post_bll post_bll = new Post_bll();
-            List<Post_model>post_modelList=post_bll.GetPost(1);
+            List<Post_model>post_modelList=post_bll.GetPost(1,1,10);
             LoginStatusConfig();          //配置登录状态
             
             return View(post_modelList);

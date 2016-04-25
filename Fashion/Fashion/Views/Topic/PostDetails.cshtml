@@ -1,18 +1,21 @@
 ﻿@{
     ViewBag.Title = "PostDetails";
     Layout = "~/Views/Shared/Top_menu.cshtml";
+    Fashion.Models.Post_model post_mode = (Fashion.Models.Post_model)ViewData["post_mode"];//原帖数据
+    @model System.Collections.Generic.List<Fashion.Models.ReplyPost_model>
 }
 <link href="~/Content/Pinglun_css.css" rel="stylesheet" />
 <script src="~/kindeditor/kindeditor-all-min.js"></script>
 <script src="~/kindeditor/lang/zh-CN.js"></script>
 <link href="~/kindeditor/themes/default/default.css" rel="stylesheet" />
-<script>
+<script>    
     KindEditor.ready(function (K) {
         window.editor = K.create('#editor_id', {
             themeType: 'example1'
         });
     });
 </script>
+
 
 <script>
     $(document).ready(function () {
@@ -375,18 +378,26 @@
         }
     }
     //本函数实现当点击评论按钮时，显示评论内容，再次点击时隐藏
-    function xs_pl(x, commentCount) {       //点击显示隐藏评论
+    function xs_pl(x, postTypeName, commentCount) {       //点击显示隐藏评论
+        //postTypeName 代表帖子的类型名，分别是：原帖 1和回帖 2
+        //commentCount代表评论条数
+        var postType = 2; //2代表回帖，初始化为回帖
+        if (postTypeName == "原帖")
+        {            
+            postType = 1;//原帖
+        }
+        
         var postId = x.substring(5);//获得每个帖子的编号
         var z = "comments_kuang_" + postId;
         var k = "pl_" + postId;
         var g = document.getElementById(k).innerHTML;
         flag = $("#pinglunHidden_" + postId).val(); //获取隐藏的值，1代表为已经打开，需要关闭
         if (flag == 0)//flag为0，已经关闭，需要打开评论详情
-        {
+        {            
             //请求数据库里的帖子评论数据
             $.ajax({
                 url: "AjaxGetCommentData",
-                data: { postId: postId, postType: "1" },
+                data: { postId: postId, postType: postType },
                 success: function (data) {
                     var jsonData = JSON.parse(data);
                     $("#pinglunHidden_" + postId).val("1");  //设置评论详情当前状态为打开，1代表打开，0代表关闭
@@ -401,13 +412,13 @@
                         CommentHtml = CommentHtml.replace("simpleCommenterUser", jsonData[II].Commenter.userName);
                         CommentHtml = CommentHtml.replace("simpleContent", jsonData[II].postCommentContent);
                         CommentHtml = CommentHtml.replace("simpleCommenterTouXiang", jsonData[II].Commenter.touXiangUrl);
-
                         //CommentHtml = CommentHtml.replace("simpleDate", jsonData[0].postCommentDate);
                         CommentHtml = CommentHtml.replace("simpleSupportCount", jsonData[II].postCommentSupportCount);
-
+                        
                     }
+                    
                     CommentHtml = CommentHtml + TheCommentPingLunHtml;
-                    CommentHtml = CommentHtml.replace(/simplei/g, postId);//正则表达式，/g替换全部的意思
+                    CommentHtml = CommentHtml.replace(/simplei/g, postId);//正则表达式，/g替换全部的意思                    
                     $("#comments_kuang_" + postId).html(CommentHtml);
                     document.getElementById(k).innerHTML = "收起评论";
                     document.getElementById(z).style.display = "block";
@@ -505,14 +516,14 @@
         <div id="Left_main" class="col-md-8" style="padding-left:12px;float:left;">
             <div class="LeftBackground">
                 <div id="Question">
-                    <h4 style="margin:auto;font-weight:bold;">冬季搭配该如何穿衣搭配呢？</h4>
+                    <h4 style="margin:auto;font-weight:bold;">@post_mode.postCaption</h4>
                     <div id="question_details" class="question_details"></div><!-- <pre id="question_details">-!end-->
                     <div id="op_cz" class="op_img"style="font-size:0.9em;">
                         <div id="guanzhu_0" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_0" /><div class="data_op_n" id="gz_0">关注</div></div>
 
-                        <div id="zkpl_0" class="data_op_xx" onclick="xs_pl(this.id)">
-                            <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_0">2 条评论</div>
-                            <input type="hidden" id="pinglunHidden_0" value="0" />
+                        <div id="zkpl_@post_mode.postId" class="data_op_xx" onclick="xs_pl(this.id,'原帖',@post_mode.commentCount)">
+                            <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@post_mode.postId">@post_mode.commentCount 条评论</div>
+                            <input type="hidden" id="pinglunHidden_@post_mode.postId" value="0" />
                         </div>
                             <div id="thx_0" class="data_op_xx" onclick="thx(this.id)">
                                 <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_0">感谢</div>
@@ -533,11 +544,11 @@
 
                     </div>
 
-                    <div id="comments_kuang_0" class="yc plk" style="font-size:0.9em;"></div>
+                    <div id="comments_kuang_@post_mode.postId" class="yc plk" style="font-size:0.9em;"></div>
                         <div style="border-top: 1px solid #686868; float: left; width: 100%; "></div><!--分割线-->
                         <div style="width:100%;float:left;">
                             <div class="communication">
-                                <h4 style="margin-bottom:10px;">97个回答</h4>
+                                <h4 style="margin-bottom:10px;">@post_mode.tuiTieCount 个回答</h4>
                             </div>
                             <div class="communication" style="color: #a9b7b7; float: right;margin-top:10px; margin-right:-5px;">
                                 按投票排序
@@ -545,16 +556,21 @@
                             </div>
                         </div>
                         <div style="border-top:1px solid #686868;float:left;width:100%;margin-bottom:10px;"></div><!--分割线-->
-                                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <div id="AnswersDiv_@i" style="float: left; font-size: 0.9em;" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
+
+
+
+
+                                    @foreach(var replyPost_model in Model)
+                                    {
+                                                        
+                        <div id="AnswersDiv_@replyPost_model.replyPostId" style="float: left; font-size: 0.9em;" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
                             <div>
                                 <div>
                                     <div style="float:right;">
                                         <a href=""><img src="~/Images/UserImages/TouXiang/touxiang1.png" style="width:25px;" /></a>
                                     </div>
                                     <div style="float:left;width:90%;">
-                                        <b>GG_girl,</b>做最时尚的自己
+                                        <b>@replyPost_model.Commenter.userName,</b>@replyPost_model.Commenter.signature
                                     </div>
                                 </div>
                                 <div class="zan" style="float:left;">
@@ -563,27 +579,37 @@
                                     <a href="">ll_linna</a>等人觉得很赞
                                 </div>
 
-                                <div id="answersData_@i" class="answersData">
+                                <div id="answersData_@replyPost_model.replyPostId" class="answersData">
                                     <!--存放问题答案的div-->
                                     想显瘦的话效果最好的绝对还是黑色小脚裤，超模女星们都人手N条，杨幂、高圆圆也是它的脑残粉，和其他单品也超级百搭，秋天有了它，穿衣也变得无比省心了。
                                     <img src="~/Images/Topic-Home-wentitupian.png.jpg" />
                                 </div><!--<div id="answersData">-!end-->
-
+                                <script type="text/javascript">
+                                    $.ajax({//通过ajax请求静态html的内容 /StaticHtml/HuiTieHtml/
+                                        async: false,
+                                        url: '@replyPost_model.replyPostHtmlUrl',
+                                        success: function (result) {
+                                            $("#answersData_@replyPost_model.replyPostId").html(result);
+                                            //alert(result);
+                                            //$("#" + z).html(result);
+                                        }
+                                    });
+                                </script>
                             </div>
                             <div class="op_img" id="op_cz">
-                                <div id="guanzhu_@i" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@i" /><div class="data_op_n" id="gz_@i">关注</div></div>
+                                <div id="guanzhu_@replyPost_model.replyPostId" class="data_op_xx" onclick="guanzhu(this.id);"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@replyPost_model.replyPostId" /><div class="data_op_n" id="gz_@replyPost_model.replyPostId">关注</div></div>
 
-                                <div id="zkpl_@i" class="data_op_xx" onclick="xs_pl(this.id)">
-                                    <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@i">2 条评论</div>
-                                <input type="hidden" id="pinglunHidden_@i" value="0" />
+                                <div id="zkpl_@replyPost_model.replyPostId" class="data_op_xx" onclick="xs_pl(this.id,'回帖',@replyPost_model.commentCount)">
+                                    <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@replyPost_model.replyPostId">@replyPost_model.commentCount 条评论</div>
+                                <input type="hidden" id="pinglunHidden_@replyPost_model.replyPostId" value="0" />
                             </div>
-                            <div id="yincang_op_@i" style="display:none;">
-                                <div id="thx_@i" class="data_op_xx" onclick="thx(this.id)">
-                                    <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_@i">感谢</div>
+                            <div id="yincang_op_@replyPost_model.replyPostId" style="display:none;">
+                                <div id="thx_@replyPost_model.replyPostId" class="data_op_xx" onclick="thx(this.id)">
+                                    <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_@replyPost_model.replyPostId">感谢</div>
                                 </div>
 
-                                <div class="data_op_xx" onclick="save(this.id)" id="save_@i">
-                                    <img src="~/Images/Topic-Home-save.png" /><div class="data_op_n" id="save_val_@i">收藏</div>
+                                <div class="data_op_xx" onclick="save(this.id)" id="save_@replyPost_model.replyPostId">
+                                    <img src="~/Images/Topic-Home-save.png" /><div class="data_op_n" id="save_val_@replyPost_model.replyPostId">收藏</div>
                                 </div>
                                 <div class="data_op_xx">
                                     <img src="~/Images/Topic-Home-fenxiang.png" /><div class="data_op_n">分享</div>
@@ -596,18 +622,14 @@
                             <div class="data_op_xx">
                                 <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">保留权利</div>
                             </div>
-                            <div id="xs_shouqi_@i" class="data_op_xx data_op_shouqi">
+                            <div id="xs_shouqi_@replyPost_model.replyPostId" class="data_op_xx data_op_shouqi">
                                 <img src="~/Images/Topic-Home-retract.png" />
-                                <div id="shouqi_@i" class="data_op_n" onclick="shouqi(this.id)">收起</div>
+                                <div id="shouqi_@replyPost_model.replyPostId" class="data_op_n" onclick="shouqi(this.id)">收起</div>
                             </div>
 
                         </div>
 
-                            <div id="comments_kuang_@i" class="yc plk"></div>
-
-                        
-
-
+                            <div id="comments_kuang_@replyPost_model.replyPostId" class="yc plk"></div>
                     </div><!--<div id="AnswersDiv1">-!end-->
                         <div class="hr_fgx"></div><!--分割线-->
                 }
