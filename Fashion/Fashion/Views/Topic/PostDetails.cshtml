@@ -3,6 +3,17 @@
     Layout = "~/Views/Shared/Top_menu.cshtml";
 }
 <link href="~/Content/Pinglun_css.css" rel="stylesheet" />
+<script src="~/kindeditor/kindeditor-all-min.js"></script>
+<script src="~/kindeditor/lang/zh-CN.js"></script>
+<link href="~/kindeditor/themes/default/default.css" rel="stylesheet" />
+<script>
+    KindEditor.ready(function (K) {
+        window.editor = K.create('#editor_id', {
+            themeType: 'example1'
+        });
+    });
+</script>
+
 <script>
     $(document).ready(function () {
         var htmlUrl = "/StaticHtml/TieZiHtml/20160418223848_4917.html";//htmlUrl，获取静态html的路径，该htmlUrl存放帖子的内容
@@ -510,6 +521,9 @@
                             <div class="data_op_xx" onclick="save(this.id)" id="save_0">
                                 <img src="~/Images/Topic-Home-save.png" /><div class="data_op_n" id="save_val_0">收藏</div>
                             </div>
+                        <div class="data_op_xx" onclick="save(this.id)">
+                            <img src="~/Images/Topic-Home-Ianswers.png" /><div class="data_op_n">我要回答</div>
+                        </div>
                             <div class="data_op_xx">
                                 <img src="~/Images/Topic-Home-fenxiang.png" /><div class="data_op_n">分享</div>
                             </div>
@@ -595,20 +609,40 @@
 
 
                     </div><!--<div id="AnswersDiv1">-!end-->
-                    if (i < 5)
-                    {
                         <div class="hr_fgx"></div><!--分割线-->
-                    }
                 }
-                        
-                  
 
+                <input type="button" value="更多" style="width:100%;font-size:0.9em;color:gray;height:30px;margin:30px 0;" />
 
                 </div><!-- <div id="Question">-!end-->
+                <div class="hr_fgx"></div><!--分割线-->
+                <div id="answerDiv">
+                <div>
+                    <span style="float:left;"><span style="color:#225599;font-weight:bold;">linjiejie</span><span>，姐姐是好好学习的孩子~</span></span>
+                    <span style="float:right;width:30px;"><img src="~/Images/Layout-usertouxiang.png" style="width:100%;border-radius:3px;"/></span>
+                </div>
+
+                    <div id="editorDiv" style="width:100%;">
+                        <textarea id="editor_id" name="content">
+                            &lt;strong&gt;HTML内容&lt;/strong&gt;
+                        </textarea>
+                    </div>
+
+
+
+                </div><!--<div id="answerDiv">!end-->
+
+
+
+
             </div><!--<div class="LeftBackground">-!end-->
 
 
         </div><!-- <div id="Left_main">-!end-->
+       
+
+
+
         <div id="Right_main" class="col-md-4 visible-lg visible-md" style="background-color: white; padding: 25px 25px 180px 25px; float: left;">
             <div style="width:100%;">
                 <button class="btn btn-default">关注问题</button>
@@ -661,6 +695,18 @@
 
     </div>
 </div><!--<div class="row">!-end-->
+
+
+
+
+
+
+
+
+
+
+
+
 @*这里是影藏的评论html模板，用于js调用*@
 <div id="TheCommentCode" style="display:none ;">
     <div class="pl_margin" id="pinglunkuang-simplei-simplej" onmouseover="xs_pinglun_op(this.id)" onmouseout="yc_pinglun_op(this.id)">
