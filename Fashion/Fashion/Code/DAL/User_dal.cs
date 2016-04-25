@@ -143,7 +143,21 @@ namespace Fashion.Code.DAL
            return SqlHelper.ExecuteDataTable(sqlStr, parameters);
         
         }
-        
+        /// <summary>
+        /// 获取用户身体信息 身高 腰围 体重 臀围 胸围 腿长 大腿围 小腿围 臂围 肤色 返回整个表
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public DataTable GetBodyData(string userName)
+        {
+            string sqlStr = "select User_SkinColor,User_Weight, User_XiongWei,User_YaoWei,User_TunWei,User_Height,User_LegLength,User_ThighGirth,User_CalfGirth,User_ArmGirth from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteDataTable(sqlStr, parameters);
+        }
+
+
         /// <summary>
         /// 通过用户名获取用的个人资料《特定咨询》
         /// </summary>
@@ -394,15 +408,45 @@ namespace Fashion.Code.DAL
             /////////////////////////////////////////////////////////
             return model;
         }
-     
-        
-       
-      
 
 
-        
 
-       
+
+
+
+
+
+
+        /// <summary>
+        /// 专家注册，注册成功返回1
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="realName"></param>
+        /// <param name="password"></param>
+        /// <param name="salt"></param>
+        /// <param name="rankId"></param>
+        /// <param name="Email"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="profession"></param>
+        /// <param name="introduction"></param>
+        /// <returns></returns>
+        public int InsertExrertRegisterstring(string userName, string realName, string password, string salt, string rankId, string Email, string phoneNumber, string profession, string introduction)
+        {
+            string sqlStr = "insert into [tb_User](User_Name,User_RealName,[User_Password],User_Salt,User_RankId,User_Email,User_PhoneNumber,User_Profession,User_Introduction)values(@userName,@realName,@password,@salt,@rankId,@email,@phoneNumber,@profession,@introduction)";
+            SqlParameter[] parameters = new SqlParameter[]{
+            new SqlParameter("userName", userName),
+            new SqlParameter("realName",realName),
+            new SqlParameter("password",password),
+            new SqlParameter("@salt", salt),
+            new SqlParameter("rankId", rankId),
+            new SqlParameter("Email",Email),
+            new SqlParameter("phoneNumber", phoneNumber),
+            new SqlParameter("profession", profession),
+            new SqlParameter("introduction", introduction),
+          };
+            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+
+        }
 
 
 

@@ -1,8 +1,29 @@
-﻿@{
-    ViewBag.Title = "yuanyangtest";
-}
+﻿<script src="~/kindeditor/lang/zh-CN.js"></script>
+<script src="~/kindeditor/kindeditor_yuanyang.js"></script>
+<link href="~/kindeditor/themes/default/default-yuanyang.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        var editor;
+        KindEditor.ready(function (K) {
+            editor = K.create('#theEditor', {
+                themeType: 'default',
+                width: 700,
+                height: 200,
+                langType: 'zh-CN',
+                //items: [
+                //    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                //    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                //    'insertunorderedlist', '|', 'emoticons', 'image', 'flash', 'media', 'link']
+            });
+        });
+        //submitBtn  postDataForm postDataForm
+        $("#submitBtn").click(function () {
+            editor.sync();
+            var theContent = editor.text();
+            $("#content200").val(theContent);
+            $("#postDataForm").submit();
+        });
 
-<h2>yuanyangtest</h2>
-
-
-<img src="~/Images/UserImages/TouXiang/1.png" />
+    });
+</script>
+<textarea id="theEditor" name="content" placeholder="问题背景、条件等详细信息"></textarea>
