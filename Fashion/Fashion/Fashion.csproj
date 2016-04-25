@@ -289,6 +289,7 @@
     <Content Include="Images\Topic-Home-fenxiang.png" />
     <Content Include="Images\Topic-Home-ganxie.png" />
     <Content Include="Images\Topic-Home-huifu.png" />
+    <Content Include="Images\Topic-Home-Ianswers.png" />
     <Content Include="Images\Topic-Home-jubao.png" />
     <Content Include="Images\Topic-Home-pinglun.png" />
     <Content Include="Images\Topic-Home-plus.png" />
@@ -502,8 +503,10 @@
     <Content Include="kindeditor\themes\common\media.gif" />
     <Content Include="kindeditor\themes\common\rm.gif" />
     <Content Include="kindeditor\themes\default\background.png" />
+    <Content Include="kindeditor\themes\default\default-yuanyang.css" />
     <Content Include="kindeditor\themes\default\default.css" />
     <Content Include="kindeditor\themes\default\default.png" />
+    <Content Include="kindeditor\kindeditor_yuanyang.js" />
     <Content Include="kindeditor\themes\qq\editor.gif" />
     <Content Include="kindeditor\themes\qq\qq.css" />
     <Content Include="kindeditor\themes\simple\simple.css" />
