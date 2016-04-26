@@ -219,7 +219,14 @@ namespace Fashion.Controllers
             
         }
 
-        
+        /// <summary>
+        /// 未登录提醒页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult LoginRemind()
+        {
+            return View();
+        }
         
         public ActionResult Answer()
         {

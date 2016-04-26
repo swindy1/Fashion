@@ -306,7 +306,6 @@
     <Content Include="Images\Topic-Home-yiguanzhu.png" />
     <Content Include="Images\Topic-Home-zixun.png" />
     <Content Include="Images\Topic-PostDetails-rank.png" />
-    <Content Include="Images\UserImages\QuanShenZhao\20140203_112158.jpg" />
     <Content Include="Images\UserImages\TouXiang\touxiang1.png" />
     <Content Include="kindeditor\asp.net\bin\LitJSON.dll" />
     <Content Include="kindeditor\asp.net\demo.aspx" />
@@ -538,6 +537,7 @@
     <Content Include="Content\bootstrap\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap\bootstrap.css.map" />
     <Content Include="Content\bootstrap\bootstrap.min.css.map" />
+    <None Include="Properties\PublishProfiles\11.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Layout-iconIn.png" />
     <Content Include="Images\Layout-iconOut.png" />
@@ -620,6 +620,7 @@
     <Folder Include="Images\ConsultImages\GeRenZhao\" />
     <Folder Include="Images\ConsultImages\LikeStyleImage\" />
     <Folder Include="Images\TieZiImages\" />
+    <Folder Include="Images\UserImages\QuanShenZhao\" />
     <Folder Include="StaticHtml\HuiTieHtml\" />
     <Folder Include="StaticHtml\TieZiHtml\" />
     <Folder Include="test\" />
