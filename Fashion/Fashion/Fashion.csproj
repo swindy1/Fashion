@@ -136,7 +136,9 @@
     <Compile Include="Code\BLL\PostComment_bll.cs" />
     <Compile Include="Code\BLL\PostPhoto_bll.cs" />
     <Compile Include="Code\BLL\Post_bll.cs" />
+    <Compile Include="Code\BLL\Rank_bll.cs" />
     <Compile Include="Code\BLL\ReplyPost_bll.cs" />
+    <Compile Include="Code\BLL\SpecialConsultAnswerClothes_bll.cs" />
     <Compile Include="Code\BLL\SpecialConsult_bll.cs" />
     <Compile Include="Code\BLL\Theme_bll.cs" />
     <Compile Include="Code\BLL\User_bll.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Code\DAL\Post_dal.cs" />
     <Compile Include="Code\DAL\Rank_dal.cs" />
     <Compile Include="Code\DAL\ReplyPost_dal.cs" />
+    <Compile Include="Code\DAL\SpecialConsultAnswerClothes_dal.cs" />
     <Compile Include="Code\DAL\SpecialConsult_dal.cs" />
     <Compile Include="Code\DAL\SqlConnectionString.cs" />
     <Compile Include="Code\DAL\SqlHelper.cs" />
@@ -163,11 +166,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="kindeditor\asp.net\upload_json.ashx.cs">
-      <DependentUpon>upload_json.ashx</DependentUpon>
+    <Compile Include="kindeditor\asp.net\ExpertAnswerUpload_json.ashx.cs">
+      <DependentUpon>ExpertAnswerUpload_json.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="kindeditor\asp.net\PostUpload_json.ashx.cs">
+      <DependentUpon>PostUpload_json.ashx</DependentUpon>
     </Compile>
     <Compile Include="Models\Attention_model.cs" />
     <Compile Include="Models\Collect_model.cs" />
+    <Compile Include="Models\ExpertUserConsult_model.cs" />
     <Compile Include="Models\PostComment_model.cs" />
     <Compile Include="Models\ErrorMessage_model.cs" />
     <Compile Include="Models\Message_model.cs" />
@@ -176,6 +183,7 @@
     <Compile Include="Models\Post_model.cs" />
     <Compile Include="Models\Rank_model.cs" />
     <Compile Include="Models\ReplyPost_model.cs" />
+    <Compile Include="Models\SpecialConsult_model.cs" />
     <Compile Include="Models\StreetSnapType_model.cs" />
     <Compile Include="Models\StreetSnap_model.cs" />
     <Compile Include="Models\Theme_model.cs" />
@@ -264,6 +272,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="Images\ConsultImages\DislikeStyleImage\2222222.JPG" />
+    <Content Include="Images\ConsultImages\GeRenZhao\1111111.jpg" />
+    <Content Include="Images\ConsultImages\LikeStyleImage\2222.JPG" />
     <Content Include="Images\Layout-guanbi.png" />
     <Content Include="Images\Layout-logo.png" />
     <Content Include="Images\Layout-myzhuye.png" />
@@ -535,11 +546,12 @@
     <Content Include="Images\people-wrong.png" />
     <Content Include="WebForm1.aspx" />
     <Content Include="kindeditor\asp.net\file_manager_json.ashx" />
-    <Content Include="kindeditor\asp.net\upload_json.ashx" />
+    <Content Include="kindeditor\asp.net\PostUpload_json.ashx" />
     <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap\bootstrap.css.map" />
     <Content Include="Content\bootstrap\bootstrap.min.css.map" />
+    <Content Include="kindeditor\asp.net\ExpertAnswerUpload_json.ashx" />
     <None Include="Properties\PublishProfiles\11.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Layout-iconIn.png" />
@@ -616,13 +628,13 @@
     <Content Include="Views\Test\yuanyangtest.cshtml" />
     <Content Include="Views\Template\MyPostTemplate.cshtml" />
     <Content Include="Views\Consult\ConsultDetails.cshtml" />
+    <Content Include="Views\Consult\ExpertAnswer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Code\Ajax\" />
-    <Folder Include="Images\ConsultImages\DislikeStyleImage\" />
-    <Folder Include="Images\ConsultImages\GeRenZhao\" />
-    <Folder Include="Images\ConsultImages\LikeStyleImage\" />
+    <Folder Include="Images\ConsultExpertAnswerImages\" />
+    <Folder Include="Images\HuiTieImages\" />
     <Folder Include="Images\TieZiImages\" />
     <Folder Include="Images\UserImages\QuanShenZhao\" />
     <Folder Include="StaticHtml\ConsultAnswerHtml\" />
