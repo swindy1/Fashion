@@ -272,9 +272,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="HtmlPage1.html" />
-    <Content Include="Images\ConsultImages\DislikeStyleImage\2222222.JPG" />
-    <Content Include="Images\ConsultImages\GeRenZhao\1111111.jpg" />
-    <Content Include="Images\ConsultImages\LikeStyleImage\2222.JPG" />
+    <Content Include="Images\Consult-ConsultDetails-unhappy.png" />
     <Content Include="Images\Layout-guanbi.png" />
     <Content Include="Images\Layout-logo.png" />
     <Content Include="Images\Layout-myzhuye.png" />
@@ -634,6 +632,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Code\Ajax\" />
     <Folder Include="Images\ConsultExpertAnswerImages\" />
+    <Folder Include="Images\ConsultImages\DislikeStyleImage\" />
+    <Folder Include="Images\ConsultImages\GeRenZhao\" />
+    <Folder Include="Images\ConsultImages\LikeStyleImage\" />
     <Folder Include="Images\HuiTieImages\" />
     <Folder Include="Images\TieZiImages\" />
     <Folder Include="Images\UserImages\QuanShenZhao\" />
