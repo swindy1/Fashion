@@ -276,6 +276,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="HtmlPage1.html" />
     <Content Include="Images\Consult-ConsultDetails-unhappy.png" />
+    <Content Include="Images\ConsultDetails-tu1.png" />
+    <Content Include="Images\ConsultDetails-tu2.png" />
+    <Content Include="Images\ConsultDetails-tu3.png" />
+    <Content Include="Images\ConsultDetails-tu4.png" />
+    <Content Include="Images\ConsultDetails-tu5.png" />
+    <Content Include="Images\ConsultDetails-tu6.png" />
     <Content Include="Images\Layout-guanbi.png" />
     <Content Include="Images\Layout-logo.png" />
     <Content Include="Images\Layout-myzhuye.png" />
