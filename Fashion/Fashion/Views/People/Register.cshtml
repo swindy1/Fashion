@@ -19,14 +19,14 @@
         }
 
         #content {
-            width: 700px;
+            width: 850px;
             height: 360px;
             margin-top: 100px; /*50改成80*/
             margin-left: auto;
             margin-right: auto;
         }
 
-        #back {
+        #next {
             width: auto;
             height: auto;
             float: right;
@@ -95,6 +95,16 @@
             .ui-button:focus {
                 background: #ff00ff;
             }
+        #back {
+            width: auto;
+            height: auto;
+            float: left;
+            font-family: 'Microsoft YaHei';
+            color: white;
+            font-size: 30px;
+            line-height: 360px;
+            margin-right:90px;
+        }
     </style>
     <script type="text/javascript">
         
@@ -107,6 +117,12 @@
             });
             $("#nextimg").mouseout(function () {
                 $("#nextimg").attr("src", "../Images/people-register-next_1.png");
+            });
+            $("#backimg").mouseenter(function () {
+                $("#backimg").attr("src", "../Images/people-login-back_2.png");
+            });
+            $("#backimg").mouseout(function () {
+                $("#backimg").attr("src", "../Images/people-login-back_1.png");
             });
         })
 
@@ -206,6 +222,13 @@
 
     <div id="content">
         <div id="back">
+            <a href="~/People/Expert_Register" style="text-decoration:none;">
+                <img style=" vertical-align: middle;" src="../Images/people-login-back_1.png" id="backimg" />
+            </a>
+            专家注册
+        </div>
+
+        <div id="next">
             登录
             <a href="~/People/Login" style="text-decoration:none;">
                 <img id="nextimg" style=" vertical-align: middle;" src="../Images/people-register-next_1.png" />

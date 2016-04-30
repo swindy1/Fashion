@@ -1,7 +1,8 @@
 ﻿@{
-    ViewBag.Title = "myCollections";
+    ViewBag.Title = "MySpecialConsult";
     Layout = "~/Views/Shared/top.cshtml";
 }
+
 
 <style>
     .theQuetion {
@@ -71,10 +72,10 @@
 </style>
 <div class="tab_bar">
     <h2 onclick="window.location.href = 'Index'">我的主页</h2>
-    <h2 onclick="window.location.href = 'MySpecialConsult'">特定咨询<span>0</span></h2>
+    <h2 class="tab_ing" onclick="window.location.href = 'MySpecialConsult'">特定咨询<span>0</span></h2>
     <h2 onclick="window.location.href = 'myAsks'">提问<span>0</span></h2>
     <h2 onclick="window.location.href = 'myAnsweres'">回答<span>0</span></h2>
-    <h2 class="tab_ing" onclick="window.location.href = 'myCollections'">收藏<span>0</span></h2>
+    <h2 onclick="window.location.href = 'myCollections'">收藏<span>0</span></h2>
     <h2 onclick="window.location.href = 'Message'">消息<span>0</span></h2>
 </div>
 <div id="theQuetion" class="theQuetion">

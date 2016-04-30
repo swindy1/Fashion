@@ -299,6 +299,54 @@
         var a = "yincang_op_" + postId;
         document.getElementById(a).style.display = "none";
     }
+    //本函数实现当点击评论按钮时，显示评论内容，再次点击时隐藏
+    function xs_pl(x, commentCount) {       //点击显示隐藏评论
+        var postId = x.substring(5);//获得每个帖子的编号
+        var z = "comments_kuang_" + postId;
+        var k = "pl_" + postId;
+        var g = document.getElementById(k).innerHTML;
+        flag = $("#pinglunHidden_" + postId).val(); //获取隐藏的值，1代表为已经打开，需要关闭
+        if (flag == 0)//flag为0，已经关闭，需要打开评论详情
+        {
+            //请求数据库里的帖子评论数据
+            $.ajax({
+                url: "../Topic/AjaxGetCommentData",
+                data: { postId: postId, postType: "1" },
+                success: function (data) {
+                    var jsonData = JSON.parse(data);
+                    $("#pinglunHidden_" + postId).val("1");  //设置评论详情当前状态为打开，1代表打开，0代表关闭
+                    //渲染评论内容
+                    var TheCommentCodeHtml = $("#TheCommentCode").html();//一条评论数据的html模板
+                    var TheCommentPingLunHtml = $("#TheCommentPingLun").html();//用户开始评论的html模板
+                    var CommentHtml = "";//整块评论数据的html，即包含TheCommentCodeHtml和TheCommentPingLunHtml
+                    for (II = 0; II < commentCount; II++)//II为第几条评论
+                    {
+                        CommentHtml = CommentHtml + TheCommentCodeHtml;
+                        CommentHtml = CommentHtml.replace(/simplej/g, II);
+                        CommentHtml = CommentHtml.replace("simpleCommenterUser", jsonData[II].Commenter.userName);
+                        CommentHtml = CommentHtml.replace("simpleContent", jsonData[II].postCommentContent);
+                        CommentHtml = CommentHtml.replace("simpleCommenterTouXiang", jsonData[II].Commenter.touXiangUrl);
+
+                        //CommentHtml = CommentHtml.replace("simpleDate", jsonData[0].postCommentDate);
+                        CommentHtml = CommentHtml.replace("simpleSupportCount", jsonData[II].postCommentSupportCount);
+
+                    }
+                    CommentHtml = CommentHtml + TheCommentPingLunHtml;
+                    CommentHtml = CommentHtml.replace(/simplei/g, postId);//正则表达式，/g替换全部的意思
+                    $("#comments_kuang_" + postId).html(CommentHtml);
+                    document.getElementById(k).innerHTML = "收起评论";
+                    document.getElementById(z).style.display = "block";
+
+
+                }
+            });
+        }
+        else {
+            $("#pinglunHidden_" + postId).val("0");  //设置评论详情状态为打开，1代表打开，0代表关闭
+            document.getElementById(z).style.display = "none";
+            document.getElementById(k).innerHTML = commentCount + " 条评论";
+        }
+    }
     ////本函数实现点击关注按钮时按钮显示为取消关注，再次点击时，取消关注显示又变回关注按钮
     function guanzhu(x) {
         var postId = x.substring(8);
@@ -342,53 +390,6 @@
         }
     }
     //本函数实现当点击评论按钮时，显示评论内容，再次点击时隐藏
-    function xs_pl(x) {       //点击显示隐藏评论
-        var postId = x.substring(5);//获得每个帖子的编号
-        var z = "comments_kuang_" + postId;
-        var k = "pl_" + postId;
-        var g = document.getElementById(k).innerHTML;
-        flag = $("#pinglunHidden_" + postId).val(); //获取隐藏的值，1代表为已经打开，需要关闭
-        if (flag == 0)//flag为0，已经关闭，需要打开评论详情
-        {
-            //请求数据库里的帖子评论数据
-            $.ajax({
-                url: "AjaxGetCommentData",
-                data: { postId: postId, postType: "1" },
-                success: function (data) {
-                    var jsonData = JSON.parse(data);
-                    $("#pinglunHidden_" + postId).val("1");  //设置评论详情当前状态为打开，1代表打开，0代表关闭
-                    //渲染评论内容
-                    var TheCommentCodeHtml = $("#TheCommentCode").html();//一条评论数据的html模板
-                    var TheCommentPingLunHtml = $("#TheCommentPingLun").html();//用户开始评论的html模板
-                    var CommentHtml = "";//整块评论数据的html，即包含TheCommentCodeHtml和TheCommentPingLunHtml
-                    for (II = 0; II < commentCount; II++)//II为第几条评论
-                    {
-                        CommentHtml = CommentHtml + TheCommentCodeHtml;
-                        CommentHtml = CommentHtml.replace(/simplej/g, II);
-                        CommentHtml = CommentHtml.replace("simpleCommenterUser", jsonData[II].Commenter.userName);
-                        CommentHtml = CommentHtml.replace("simpleContent", jsonData[II].postCommentContent);
-                        CommentHtml = CommentHtml.replace("simpleCommenterTouXiang", jsonData[II].Commenter.touXiangUrl);
-
-                        //CommentHtml = CommentHtml.replace("simpleDate", jsonData[0].postCommentDate);
-                        CommentHtml = CommentHtml.replace("simpleSupportCount", jsonData[II].postCommentSupportCount);
-
-                    }
-                    CommentHtml = CommentHtml + TheCommentPingLunHtml;
-                    CommentHtml = CommentHtml.replace(/simplei/g, postId);//正则表达式，/g替换全部的意思
-                    $("#comments_kuang_" + postId).html(CommentHtml);
-                    document.getElementById(k).innerHTML = "收起评论";
-                    document.getElementById(z).style.display = "block";
-
-
-                }
-            });
-        }
-        else {
-            $("#pinglunHidden_" + postId).val("0");  //设置评论详情状态为打开，1代表打开，0代表关闭
-            document.getElementById(z).style.display = "none";
-            document.getElementById(k).innerHTML = commentCount + " 条评论";
-        }
-    }
 </script>
 
 <style>
@@ -526,16 +527,81 @@
                             <img src="~/Images/Consult-ConsultDetails-unhappy.png" />
                             <p>专家尚未回答</p>
                         </div><!--当专家没回答时，默认显示此div，若专家有回答，则先清空<div id="theAnswerhtml">里面的内容，再引入HTML文件===========================================================================================================-->
-                    <div><!--假如这是静态页面-->
-                        专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答专家尚未回答
+                    <div><!--假如这是静态页面================-->
+                        <p>
+                            <span style="font-size:16px;"> &nbsp; &nbsp; &nbsp; 哈</span><span style="font-size:14px;"><span style="font-size:16px;"></span><span style="font-size:16px;"></span></span><span style="font-size:16px;font-family:SimSun;">哈，问题很详细，首先我参加毕业照，我建议您</span><span style="color:#333333;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">穿休闲雅气的衣服。首先我推荐下面比较学院风的裙子，所以黑色很好看(*^__^*) 嘻嘻……</span>
+                        </p>
+                        <br />
+
+                        <p style="text-align:center;width:80%;margin-left:10%;"><img src="~/Images/ConsultDetails-tu1.png"style="width:100%;" /></p>
+                        <br />
+                        <p>
+                            <span style="color:#333333;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;"><span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;">&nbsp; 搭配学院风长裙，</span></span><span style="font-family:SimSun;font-size:16px;color:#3C3C3C;line-height:24px;background-color:#FFFFFF;">韩版厚底松糕休闲鞋网状套脚洞洞运动鞋内增高女鞋是再适合不过了，一整套搭起来是不是各种小学妹的感觉O(∩_∩)O哈哈~</span></span>
+                        </p>
+                        <br />
+                        <p style="text-align:center;width:80%;margin-left:10%;">
+                            <img src="~/Images/ConsultDetails-tu3.png" style="width:100%;" />
+                        </p>
+                        <br />
+                        <p>
+                        <p>
+                            <span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;">&nbsp; &nbsp; &nbsp;或者</span></span><span style="font-family:SimSun;font-size:16px;color:#3C3C3C;line-height:24px;background-color:#FFFFFF;">2016夏新款方领公主裙韩版A字裙显瘦高腰3D印花连衣裙</span><span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;"><span style="font-family:SimSun;font-size:16px;">这种小洋裙也行，显气质，易搭配。名媛首选，保你在人群中仙气十足，脱颖而出~</span></span></span>
+                        </p>
+                        <br />
+                        <p style="text-align:center;width:80%;margin-left:10%;">
+                            <img src="~/Images/ConsultDetails-tu2.png" style="width:100%;" />
+                        </p>
+                        <br />
+                        <p>
+                            <span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;"><span style="font-family:SimSun;font-size:16px;">&nbsp; 名媛款公主裙最好配了，只要找比较淑女款的单鞋就可以穿了，我建议是女孩子穿裙子需要配下下有点跟的鞋子，那样能让你更加自信优雅。</span></span></span>
+                        </p>
+                        <br />
+                        <p style="text-align:center;width:80%;margin-left:10%;">
+                            <img src="~/Images/ConsultDetails-tu4.png" style="width:100%;" />
+                        </p>
+                        <br />
+                        <p>
+                            <br />
+                        </p>
+                        <p>
+                            <span style="font-family:SimSun;font-size:16px;color:#3C3C3C;line-height:1.5;background-color:#FFFFFF;">&nbsp; 名媛夏装新款女装雪纺荷叶袖上衣+阔腿短裤两件套时尚套装是今年亮眼搭配，<span style="color:#3C3C3C;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">雪纺荷叶袖上衣<span style="color:#3C3C3C;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">+阔腿短裤</span>不挑身材穿</span>，不管胖瘦都能穿。穿上气质十足。</span>
+                        </p>
+                        <br />
+                        <p style="text-align:center;width:80%;margin-left:10%;">
+                            <img src="~/Images/ConsultDetails-tu6.png" style="width:100%;" />
+                        </p>
+                        <br />
+                        <p>
+                            <span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;"><span style="font-family:SimSun;font-size:16px;">&nbsp; 不用说，这款衣服肯定是最好搭的，不管是淑女风的单鞋，还是白领气质的PU鞋，还是高跟鞋，都能百搭，简单一点的运动鞋或者板鞋也是可以的，因为是拍毕业照，比较正式还有可能要走比较多路，所以我还是建议有一点点跟的气质单鞋啦啦啦哈哈~</span></span></span>
+                        </p>
+                        <br />
+                        <p style="text-align:center;width:80%;margin-left:10%;">
+                            <img src="~/Images/ConsultDetails-tu5.png" style="width:100%;" />
+                        </p>
+                        <br />
+                        <p>
+                            <span>
+                                <span style="font-size:16px;line-height:24px;background-color:#FFFFFF;">
+                                    <span style="font-family:SimSun;font-size:16px;">
+                                        <br />
+                                    </span>
+                                </span>
+                            </span>
+                        </p>
+                       
                     </div>
                     </div><!--存放专家回答静态页面的地方-->
+
                     <div id="theLinks"><!--存放专家给的衣服的链接=====================================================================================================================如果没有回答，则此div为空，若有回答，则此div里面的内容会随着专家提供链接的多少而创建链接-->
-                    <table>
-                        <tr><td><span>衣服</span></td><td><a href="">http://localhost:55084/Consult/ConsultDetails</a></td></tr>
-                        <tr><td><span>衣服</span></td><td><a href="">http://localhost:55084/Consult/ConsultDetails</a></td></tr>
-                        <tr><td><span>衣服</span></td><td><a href="">http://localhost:55084/Consult/ConsultDetails</a></td></tr>
-                        <tr><td><span>衣服</span></td><td><a href="">http://localhost:55084/Consult/ConsultDetails</a></td></tr>
+                    <table style="padding:20px;">
+                        <tr><td><a href="https://item.taobao.com/item.htm?id=530902615768&ali_refid=a3_430676_1006:1122730230:N:女装:4f3948ded4f8ada3e53eba6977c0d291&ali_trackid=1_4f3948ded4f8ada3e53eba6977c0d291&spm=a231o.7712113.1004.456.QQlJfL">裙子</a></td>
+                            <td><a href="https://item.taobao.com/item.htm?id=527574763219&ali_refid=a3_430676_1006:1103695909:N:%E6%98%A5%E5%A4%8F%E9%9E%8B:2f9bb169eae7ee6868b088eb9f186a2b&ali_trackid=1_2f9bb169eae7ee6868b088eb9f186a2b&spm=a231o.7712113.1004.115.ZkoGyK">鞋子</a></td>
+                            <td><a href="https://item.taobao.com/item.htm?id=529315890750&ali_refid=a3_430676_1006:1106797998:N:%E8%BF%9E%E8%A1%A3%E8%A3%99:37b34299e155904ff56e768c057cc0dd&ali_trackid=1_37b34299e155904ff56e768c057cc0dd&spm=a231o.7712113.1004.1.QQlJfL">裙子</a></td>
+                            <td><a href="https://detail.tmall.com/item.htm?id=526530607040&ali_refid=a3_430676_1006:1109503735:N:低跟%20单鞋:c56271479eb173a134a4cafeb7295b7c&ali_trackid=1_c56271479eb173a134a4cafeb7295b7c&spm=a231o.7712113.1004.177.PYebcV">鞋子</a></td>
+                            <td><a href="https://item.taobao.com/item.htm?id=529629836877&ali_refid=a3_430676_1006:1108306295:N:%E5%A5%B3%E8%A3%85:e26e5c3105dec1996528bed6adf9961d&ali_trackid=1_e26e5c3105dec1996528bed6adf9961d&spm=a231o.7712113.1004.348.QQlJfL">裙子</a></td>
+                            <td><a href="https://item.taobao.com/item.htm?id=527097699261&ali_refid=a3_430676_1006:1120896264:N:%E6%B0%94%E8%B4%A8%E4%BD%8E%E8%B7%9F%E5%8D%95%E9%9E%8B:03eb9d95af684223c933ff1b91a00852&ali_trackid=1_03eb9d95af684223c933ff1b91a00852&spm=a231o.7712113.1004.222.prJI3G">鞋子</a></td>
+                        </tr>
+                        
                     </table>
 
                     
@@ -576,7 +642,6 @@
 
                     <div id="comments_kuang_0" class="yc plk"></div>
                 </div><!--<div id="commentDiv">end-->
-                <div class="fgline"></div><!--分割线-->
                 
 
 
@@ -678,15 +743,9 @@
             </div>
             <div id="huifu-pl-simplei-simplej"></div><!--回复评论产生的地方-->
             <div id="plk-simplei-simplej"></div>     <!--产生回复评论框的地方-->
-
-
         </div>
-
     </div>
     <hr class="pl_fgx" />
-
-
-
 </div>
 <div id="TheCommentPingLun" style="display:none;">
     <div id="tjpl_simplei"></div>  <!--创建评论产生的地方-->

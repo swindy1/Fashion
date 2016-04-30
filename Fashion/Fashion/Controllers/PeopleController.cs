@@ -34,11 +34,18 @@ namespace Fashion.Controllers
 
             return View();
         }
+
+        public ActionResult MySpecialConsult()
+        {
+
+            return View();
+        }
         public ActionResult myCollections()
         {
 
             return View();
         }
+     
         public ActionResult Index()
         {
             if (Session["userName"] == null)
