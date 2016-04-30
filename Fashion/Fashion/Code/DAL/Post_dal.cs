@@ -38,48 +38,24 @@ namespace Fashion.Code.DAL
             
         }
 
-        /// <summary>
-        /// 插入数据 标题   内容  提问题的人的编号    主题Id  
-        /// 编号从tb_User里面拿，有空在写
-        /// 插入成功返回1
-        /// </summary>
-        /// <param name="caption"></param>
-        /// <param name="content"></param>
-        /// <param name="postsender"></param>
-        /// <param name="themeId"></param>
-        /// <returns></returns>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-        public int insertCaption(string caption, string content, int postsenderId, int themeId, string staticHtmlPath, DateTime datetime)
-        {
-
-            string sqlStr = "insert into [tb_Post] ( Post_Caption,Post_Content,Post_SenderId,Post_ThemeId,Post_HtmlUrl,Post_Date) values (@caption,@content,@postsenderId,@themeId,@staticHtmlPath,@datetime)";
-            SqlParameter[] parameters = new SqlParameter[] { 
-                new SqlParameter("@caption",caption),
-                new SqlParameter("@content",content),
-                new SqlParameter("@postsenderId",postsenderId),
-                new SqlParameter("@themeId",themeId),
-                new SqlParameter("@staticHtmlPath",staticHtmlPath),
-                new SqlParameter("@datetime",datetime)
-            };
-            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
-        }
+      
 
         /// <summary>
-        /// 获取帖子的10条数据
+        /// 获取数据库里帖子表的从min到max的数据
+        /// 返回post_modelList;
         /// </summary>
-        /// <returns></returns>        
-      /// <param name="page">页数</param>
-      /// <param name="min">第一条数据id</param>
-      /// <param name="max">最后一条数据id</param>
-      /// <returns></returns>
-        public List<Post_model> GetPost(int page,int min, int max)
+        /// <param name="min">开始</param>
+        /// /// <param name="max">结尾</param>
+        /// <returns></returns>
+        public List<Post_model> GetPost(int min,int max)
         {
             string sqlStr = @"select * from(
                                                           select ROW_NUMBER() over(order by id) orderNumber,* from PostView
                                                                ) as postTable 
                                                       where postTable.orderNumber between @min and @max";
             SqlParameter[] parameters = new SqlParameter[] { 
-                new SqlParameter("@min",min*page),
-                new SqlParameter("@max",max*page)
+                new SqlParameter("@min",min),
+                new SqlParameter("@max",max)
             };
             DataTable dataTable = SqlHelper.ExecuteDataTable(sqlStr, parameters);
             List<Post_model> post_modelList = new List<Post_model>();
@@ -89,6 +65,34 @@ namespace Fashion.Code.DAL
             }
             return post_modelList;
         }
+
+        /// <summary>
+        /// 获取标题包含关键字的帖子数据，从min到max
+        /// 返回post_modelList;
+        /// </summary>
+        /// <param name="min">开始</param>
+        /// /// <param name="max">结尾</param>
+        /// <param name="searchKeywork">要搜索的关键字</param>
+        /// <returns></returns>
+        public List<Post_model> GetSearchPost(int min,int max, string searchKeywork)
+        {
+            string sqlStr = @"select * from(
+                                                          select ROW_NUMBER() over(order by id) orderNumber,* from PostView where caption like '%"+searchKeywork+@"%'
+                                                               ) as postTable 
+                                                      where postTable.orderNumber between @min and @max";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@min",min),
+                new SqlParameter("@max",max)
+            };
+            DataTable dataTable = SqlHelper.ExecuteDataTable(sqlStr, parameters);
+            List<Post_model> post_modelList = new List<Post_model>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                post_modelList.Add(ToModel(row));
+            }
+            return post_modelList;
+        }
+
 
         /// <summary>
         /// 获取全部帖子数据
@@ -188,6 +192,32 @@ namespace Fashion.Code.DAL
             string sqlStr = "update tb_Post set Post_SupportCount=Post_SupportCount-1 where Post_Id=@postId";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@postId",postId)
+            };
+            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+        }
+
+
+        /// <summary>
+        /// 插入数据 标题   内容  提问题的人的编号    主题Id  
+        /// 编号从tb_User里面拿，有空在写
+        /// 插入成功返回1
+        /// </summary>
+        /// <param name="caption"></param>
+        /// <param name="content"></param>
+        /// <param name="postsender"></param>
+        /// <param name="themeId"></param>
+        /// <returns></returns>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+        public int insertCaption(string caption, string content, int postsenderId, int themeId, string staticHtmlPath, DateTime datetime)
+        {
+
+            string sqlStr = "insert into [tb_Post] ( Post_Caption,Post_Content,Post_SenderId,Post_ThemeId,Post_HtmlUrl,Post_Date) values (@caption,@content,@postsenderId,@themeId,@staticHtmlPath,@datetime)";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@caption",caption),
+                new SqlParameter("@content",content),
+                new SqlParameter("@postsenderId",postsenderId),
+                new SqlParameter("@themeId",themeId),
+                new SqlParameter("@staticHtmlPath",staticHtmlPath),
+                new SqlParameter("@datetime",datetime)
             };
             return SqlHelper.ExecuteNonquery(sqlStr, parameters);
         }
