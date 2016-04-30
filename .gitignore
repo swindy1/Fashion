@@ -1,9 +1,13 @@
 /Fashion/Fashion/bin/*
 /Fashion/Fashion/obj/*
 /Fashion/Fashion.v12.suo
-/Fashion/Fashion/Fashion.csproj.user
-/Fashion/Fashion/StaticHtml/TieZiHtml
+/Fashion/Fashion/Fashion.csproj.user  
+/Fashion/Fashion/StaticHtml/HuiTieHtml/
+/Fashion/Fashion/StaticHtml/ConsultAnswerHtml/
+/Fashion/Fashion/StaticHtml/TieZiHtml/
 /Fashion/Fashion/Images/TieZiImages
+/Fashion/Fashion/Images/HuiTieImages
+/Fashion/Fashion/Images/ConsultExpertAnswerImages
 /Fashion/Fashion/Images/ConsultImages/DislikeStyleImage
 /Fashion/Fashion/Images/ConsultImages/GeRenZhao
 /Fashion/Fashion/Images/ConsultImages/LikeStyleImage

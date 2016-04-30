@@ -374,6 +374,8 @@ namespace Fashion.Controllers
                 //登录成功之后，保存用户的用户名，权限等资料到session
                 Session["userName"] = username;
                 Session["rank"] = "rank";
+                User_bll user_bll=new User_bll();
+                Session["signature"] = user_bll.GetSignature(username);
 
                 return Content("1");
             }
@@ -561,6 +563,7 @@ namespace Fashion.Controllers
             //已登录
             ViewData["LoginYes"] = 1;
             ViewData["userName"] = Session["userName"].ToString();
+            ViewData["signature"] = Session["signature"].ToString();
             People_bll peopleBll = new People_bll();
             ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
             return true;

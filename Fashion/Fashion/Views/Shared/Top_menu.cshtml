@@ -3,14 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-
+    <title>@ViewBag.Title</title>    
+    <script src="~/Scripts/MyScripts/Login.js"></script>
     <script src="~/Scripts/jquery-2.0.0.min.js"></script>
     <script src="~/Scripts/MyScripts/Login.js"></script>
     <script src="~/Scripts/bootstrap/bootstrap.js"></script>
     <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script>
+        $(document).ready(function () {
+
+            //配置登录信息的变量,登录状态 登录名 头像url等
+            var isLogin = "@ViewData["LoginYes"]";//已登录：1；   未登录：0；
+            var touXiangUrl=""; //用户头像url
+            var userName="";  //用户名
+            if(isLogin=="1")
+            {
+                touXiangUrl = "@ViewData["TouXiangUrl"]";//这里是从后端传回来的值，是字符串，所以要加引号,不能加tostring
+                userName="@ViewData["userName"]";
+            }
+            /////配置变量完毕
+            //////若登陆成功，设置本页面的用户信息
+            if (isLogin == "1")
+            {
+                $("#theUserNameFont").text(userName);//设置用户名
+                $("#img_touXiang").attr("src",touXiangUrl);//设置头像
+                //$("#theUserNameA").text(userName);
+                //$("#theUserTouXiangImg").attr("src",touXiangUrl);
+            }
+            /////设置用户信息完毕
+            IsLoginDisplay(isLogin, "login_xs", "un_login_xs");//根据用户是否登录显示导航栏的用户信息，此函数定义在 ~/Scripts/MyScripts/Login.js
+        });
+    </script>
 </head>
 <body>
     <style>
@@ -148,7 +173,7 @@
                 </div>
                 <ul id="login_xs" class="username" style="display:block;">
                     <li class="li_css" onclick="window.location.href = '../../People/Index';">
-                        <img id="img_touXiang" src="~/Images/UserImages/TouXiang/daren_1.jpg" style="width:20px;margin-top:6px;height:20px;" class="img_jiange" />
+                        <img id="img_touXiang" src="" style="width:20px;margin-top:6px;height:20px;" class="img_jiange" />
                         <font id="theUserNameFont">fdsfaf</font>
                         <ul class="userset">
                             <li class="li_css" onclick="window.location.href = '../../People/Index';">

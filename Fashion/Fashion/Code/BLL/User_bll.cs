@@ -59,5 +59,21 @@ namespace Fashion.Code.BLL
             expertUserConsult_modelList = user_dal.GetExpertConsult();
             return expertUserConsult_modelList;
         }
+
+        /// <summary>
+        /// 通过用户名查找用户的个性签名
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string GetSignature(string userName)
+        {
+            User_dal user_dal=new User_dal();
+            object objSignature = user_dal.GetSignature(userName);
+            if (objSignature == null || objSignature == System.DBNull.Value)
+            { 
+                ///
+            }
+            return objSignature.ToString();
+        }
     }
 }
