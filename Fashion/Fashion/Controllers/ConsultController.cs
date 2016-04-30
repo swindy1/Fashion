@@ -19,11 +19,12 @@ namespace Fashion.Controllers
             return View();
         }
         /// <summary>
-        /// 专家特定咨询解答页面
+        /// 返回专家特定咨询解答页面
         /// </summary>
         /// <returns></returns>
         public ActionResult ExpertAnswer()
         {
+            //string expertUserName = Request["expertUserName"].ToString();
             string expertUserName = "000";
             int specialConsultId = 3;
             //检查用户是否为专家
