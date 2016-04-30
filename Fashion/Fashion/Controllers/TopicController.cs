@@ -127,7 +127,7 @@ namespace Fashion.Controllers
                 return View("LoginRemind");
             }
             Post_bll post_bll = new Post_bll();
-            List<Post_model>post_modelList=post_bll.GetPost(1,1,20);
+            List<Post_model>post_modelList=post_bll.GetPost(1,20);
             LoginStatusConfig();          //配置登录状态            
             return View(post_modelList);
         }

@@ -532,6 +532,7 @@
     <Content Include="Scripts\MyScripts\ImageFun.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\MyScripts\Login.js" />
+    <Content Include="Scripts\MyScripts\PostFun.js" />
     <Content Include="Scripts\upload_tx_js\cropbox.js" />
     <Content Include="Scripts\upload_tx_js\jquery-1.11.1.min.js" />
     <Content Include="Images\people-error.png" />

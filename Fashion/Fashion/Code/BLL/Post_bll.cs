@@ -99,16 +99,35 @@ namespace Fashion.Code.BLL
         }
 
         /// <summary>
-        /// 获取帖子的10条数据
+        /// 获取帖子的指定条数据
         /// </summary>
         /// <param name="page">页数</param>
-        /// <param name="min">第一条数据id</param>
-        /// <param name="max">最后一条数据id</param>
-        public List<Post_model> GetPost(int page, int min, int max)
+        /// <param name="count">每页数据的条数</param>       
+        public List<Post_model> GetPost(int page, int count)
         {
+            int min = (page - 1) * count + 1;//开始
+            int max = page * count;//结尾
             Post_dal post_dal = new Post_dal();
-            return post_dal.GetPost(page, min, max);
+            return post_dal.GetPost(min, max);
         }
+
+        /// <summary>
+        /// 获取标题包含关键字的帖子数据
+        /// 返回post_modelList;
+        /// </summary>
+        /// <param name="page">页数</param>
+        /// <param name="count">数量</param>
+        /// <param name="searchKeywork">要搜索的关键字</param>
+        /// <returns></returns>
+        public List<Post_model> GetSearchPost(int page, int count, string searchKeywork)
+        {
+            int min = (page - 1) * count + 1;//开始
+            int max = page * count;//结尾
+            Post_dal post_dal = new Post_dal();
+            return post_dal.GetSearchPost(min,max,searchKeywork);
+    
+        }
+
         /// <summary>
         /// 获取帖子编号为postId的数据,一条数据
         /// </summary>
