@@ -10,8 +10,10 @@
 <link href="~/kindeditor/themes/default/default.css" rel="stylesheet" />
 <script>    
     KindEditor.ready(function (K) {
-        window.editor = K.create('#editor_id', {
-            themeType: 'example1'
+            editor = K.create('#editor_id', {
+            themeType: 'example1',
+            langType: 'zh-CN',
+            uploadJson: '../../kindeditor/asp.net/ReplyPostUpload_json.ashx',
         });
     });
 </script>
@@ -19,7 +21,8 @@
 
 <script>
     $(document).ready(function () {
-        var htmlUrl = "/StaticHtml/TieZiHtml/20160418223848_4917.html";//htmlUrl，获取静态html的路径，该htmlUrl存放帖子的内容
+
+        var htmlUrl = "@post_mode.postHtmlUrl";//htmlUrl，获取静态html的路径，该htmlUrl存放帖子的内容
         $.ajax({//通过ajax请求静态html的内容
             async: false,
             url: htmlUrl,
@@ -27,6 +30,14 @@
                 $("#question_details").html(result);//将帖子内容渲染到div里
             }
         });
+
+        $("#submitBtn").click(function () {
+            editor.sync();
+            var theEditorContent = editor.text();//获得编辑框里的所有纯文本，不包含任何样式，因为要将前200个字符保存到数据库里
+            $("#editorContent").val(theEditorContent);
+            $("#postDataForm").submit();
+        });
+
     });
 </script>
 
@@ -237,15 +248,26 @@
                 <div class="hr_fgx"></div><!--分割线-->
                 <div id="answerDiv">
                 <div>
-                    <span style="float:left;"><span style="color:#225599;font-weight:bold;">linjiejie</span><span>，姐姐是好好学习的孩子~</span></span>
+                    <span style="float:left;"><span style="color:#225599;font-weight:bold;">@ViewData["userName"]</span><span>，@ViewData["signature"]</span></span>
                     <span style="float:right;width:30px;"><img src="~/Images/Layout-usertouxiang.png" style="width:100%;border-radius:3px;"/></span>
                 </div>
 
                     <div id="editorDiv" style="width:100%;">
-                        <textarea id="editor_id" name="content">
-                            &lt;strong&gt;HTML内容&lt;/strong&gt;
-                        </textarea>
-                    </div>
+                        <form action="../Posts/MakePostReply" method="post" id="postDataForm">
+                            <textarea id="editor_id" name="content">
+                                &lt;strong&gt;HTML内容&lt;/strong&gt;
+                            </textarea>
+                            <div style="text-align:center;width:100%;float:left;">
+                                <input id="submitBtn" type="button" class="btn btn-primary" value="提交" />
+                            </div>
+                            <div>
+                                @*这里是隐藏数据*@
+                                <input type="hidden"  name="hidPostId"  value="@post_mode.postId"/>
+                                <input type="hidden" name="hidHuiTieUserName" value='@ViewData["userName"]' />
+                                <input type="text" id="editorContent" name="editorContent" style="display:none" />
+                            </div>
+                        </form>
+</div>
 
 
 

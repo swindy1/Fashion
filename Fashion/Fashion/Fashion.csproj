@@ -172,6 +172,9 @@
     <Compile Include="kindeditor\asp.net\PostUpload_json.ashx.cs">
       <DependentUpon>PostUpload_json.ashx</DependentUpon>
     </Compile>
+    <Compile Include="kindeditor\asp.net\ReplyPostUpload_json.ashx.cs">
+      <DependentUpon>ReplyPostUpload_json.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Attention_model.cs" />
     <Compile Include="Models\Collect_model.cs" />
     <Compile Include="Models\ExpertUserConsult_model.cs" />
@@ -551,6 +554,7 @@
     <Content Include="Content\bootstrap\bootstrap.css.map" />
     <Content Include="Content\bootstrap\bootstrap.min.css.map" />
     <Content Include="kindeditor\asp.net\ExpertAnswerUpload_json.ashx" />
+    <Content Include="kindeditor\asp.net\ReplyPostUpload_json.ashx" />
     <None Include="Properties\PublishProfiles\11.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Layout-iconIn.png" />

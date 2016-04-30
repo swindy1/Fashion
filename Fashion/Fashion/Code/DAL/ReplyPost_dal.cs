@@ -55,5 +55,33 @@ namespace Fashion.Code.DAL
             replyPost_model.commentCount = (row["commentCount"] != DBNull.Value ? (int)row["commentCount"] : 0);
             return replyPost_model;
         }
+
+     /// <summary>
+     /// 将回帖数据存储到数据库
+     /// </summary>
+     /// <param name="postId">主贴id</param>
+     /// <param name="replyId">回帖者的id</param>
+     /// <param name="content200">回帖内容的前200字符</param>
+     /// <param name="supportCount">点赞数</param>
+     /// <param name="datetime">日期</param>
+     /// <param name="staticTuiTieHtml">回帖内容的静态html地址</param>
+     /// <returns></returns>
+        public int InsertReplyPost(int postId,int replyId,string content200,int supportCount,DateTime datetime,string staticTuiTieHtml)
+        {
+            string sqlStr = @"insert into tb_ReplyPost (ReplyPost_PostId, ReplyPost_ReplyerId, 
+                                                                                   ReplyPost_Content, ReplyPost_SupportCount, 
+				                                                         		   ReplyPost_Date, ReplyPost_HtmlUrl) 
+                                                                       values (@postId,@replyId,@content200,
+                                                                                    @supportCount,@datetime,@staticTuiTieHtml)";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@postId",postId),
+                new SqlParameter("@replyId",replyId),
+                new SqlParameter("@content200",content200),
+                new SqlParameter("@supportCount",supportCount),
+                new SqlParameter("@datetime",datetime),
+                new SqlParameter("@staticTuiTieHtml",staticTuiTieHtml),
+            };
+            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+        }
     }
 }

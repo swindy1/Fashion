@@ -17,8 +17,12 @@ namespace Fashion.Controllers
         // GET: /Topic/  
         public ActionResult PostDetails()
         {
-
-            int postId = 187;
+            if (Session["userName"] == null)
+            {
+                return View("LoginRemind");
+            }
+            LoginStatusConfig();          //配置登录状态            
+            int postId = Convert.ToInt32(Request["postId"]);
             //获取postId的原帖数据
             Post_bll post_bll = new Post_bll();
             Post_model post_mode = post_bll.GetOnePost(postId);
@@ -301,17 +305,17 @@ namespace Fashion.Controllers
             string theme = Request["theme"].ToString();
             int themeId = themeName.CollocateThemeId(theme);
             string staticHtmlPath = "/StaticHtml/TieZiHtml/" + fileName;//相对路径
-            string content200 = datas[3].ToString();//data[3]的为前端传回来的发帖内容的纯文本
-            content200 = content200.Substring(content200.IndexOf('=') + 1);
+            string editorContent = datas[3].ToString();//data[3]的为前端传回来的发帖内容的纯文本
+            editorContent = editorContent.Substring(editorContent.IndexOf('=') + 1);
             System.Text.RegularExpressions.Regex regexImg = new System.Text.RegularExpressions.Regex(@"<img[^>]+>");
-            content200 = regexImg.Replace(content200, "");//过滤掉content200里图片
-            int len = content200.Length;
-            if (len > 200)//如果content200的长度超过200,取content200里的前两百个字符，将用于保存到数据库
+            editorContent = regexImg.Replace(editorContent, "");//过滤掉editorContent里图片
+            int len = editorContent.Length;
+            if (len > 200)//如果editorContent的长度超过200,取editorContent里的前两百个字符，将用于保存到数据库
             {
                 len = 200;
             }
-            
-            content200 = content200.Substring(0, len);  
+
+            string content200 = editorContent.Substring(0, len);  
             if (Post.finshInsert(caption, content200, userId, themeId, staticHtmlPath,datetime) != 1)
             {
                 return Content("保存帖子信息时数据库出错");
@@ -377,6 +381,7 @@ namespace Fashion.Controllers
             //已登录
             ViewData["LoginYes"] = 1;
             ViewData["userName"] = Session["userName"].ToString();
+            ViewData["signature"] = Session["signature"].ToString();
             People_bll peopleBll = new People_bll();
             ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
             return true;

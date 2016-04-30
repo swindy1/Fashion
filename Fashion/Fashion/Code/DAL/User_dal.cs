@@ -58,6 +58,20 @@ namespace Fashion.Code.DAL
             return SqlHelper.ExecuteScalar(sqlStr, parameters);
         }
 
+        /// <summary>
+        /// 通过用户名查找用户的个性签名
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object GetSignature(string userName)
+        {
+            string sqlStr = "select User_Signature from [tb_User] where User_Name = @userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
+
        /// <summary>
         /// 通过通过用户名查找用户的出生年月日
        /// </summary>
