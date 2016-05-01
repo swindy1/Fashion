@@ -389,6 +389,7 @@ namespace Fashion.Controllers
             ViewData["LoginYes"] = 1;
             ViewData["userName"] = Session["userName"].ToString();
             ViewData["signature"] = Session["signature"].ToString();
+            ViewData["rankName"] = Session["rank"].ToString();
             People_bll peopleBll = new People_bll();
             ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
             return true;
