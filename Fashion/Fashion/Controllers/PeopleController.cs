@@ -37,8 +37,16 @@ namespace Fashion.Controllers
 
         public ActionResult MySpecialConsult()
         {
-
-            return View();
+              if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind","Topic");
+            }
+              string userName = Session["userName"].ToString();
+              User_bll user_bll = new User_bll();
+              int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+              SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
+              List<SpecialConsult_model> specialConsult_modelList = specialConsult_bll.GetMyConsultDate(userId);//通过userId获取该用户的特定咨询数据
+              return View(specialConsult_modelList);
         }
         public ActionResult myCollections()
         {
@@ -355,15 +363,16 @@ namespace Fashion.Controllers
             }
         }
         /// <summary>
-        /// 判断登录是否成功，登录成功返回1，登录失败返回0，数据库异常返回2
+        /// 判断登录是否成功，登录成功返回1，登录失败返回0，数据库异常返回2,用户类型不一致返回3
         /// login
         /// </summary>
         /// <returns></returns>
         public ActionResult ajaxMakeLogin()
         {
             People_bll people = new People_bll();
-            string username = Request["username"];
-            string password = Request["password"];
+            string username = Request["username"].ToString();
+            string password = Request["password"].ToString();
+            string rankName = Request["rankName"].ToString();
             bool login = false;  //true代表账号密码都正确
             try
             {
@@ -378,9 +387,17 @@ namespace Fashion.Controllers
             }
             if (login)
             {
-                //登录成功之后，保存用户的用户名，权限等资料到session
+                ////登录成功后,判断用户类型是否与用户填写的一致
+                Rank_bll rank_bll = new Rank_bll();
+                string rankNameDB = rank_bll.GetRankName(username);//该用户数据库里的等级名
+                rankNameDB = rankNameDB.Trim();//去除空格
+                if (rankName != rankNameDB)
+                {
+                    return Content("3");
+                }
+                //，保存用户的用户名，权限等资料到session
                 Session["userName"] = username;
-                Session["rank"] = "rank";
+                Session["rank"] = rankName;
                 User_bll user_bll=new User_bll();
                 Session["signature"] = user_bll.GetSignature(username);
 

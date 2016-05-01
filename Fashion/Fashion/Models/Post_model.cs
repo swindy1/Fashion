@@ -19,6 +19,7 @@ namespace Fashion.Models
         public string postHtmlUrl;//帖子静态页面地址
         public int commentCount;//评论条数
         public int tuiTieCount;//回帖条数
+        public string firstPostPhotoUrl;//帖子里的一个张图片
         public User_model User;//User_model类，拥有用户的信息
         public Theme_model Theme;//Theme_model类，帖子的话题
         public Post_model()

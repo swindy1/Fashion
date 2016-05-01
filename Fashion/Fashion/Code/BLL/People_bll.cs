@@ -285,12 +285,10 @@ namespace Fashion.Code.BLL
             }
             string rankId = rankIdObj.ToString();
 
-            //盐值
-            string salt = Guid.NewGuid().ToString();
-            //将盐值加在密码的后面，并转化为二进制
-            byte[] pwdAndSaltBytes = System.Text.Encoding.UTF8.GetBytes(password+salt);
-            //经过哈希算法加密后得到的二进制值
-            byte[] hashBytes = new System.Security.Cryptography.SHA256Managed().ComputeHash(pwdAndSaltBytes);
+
+            string salt = Guid.NewGuid().ToString();//盐值
+            byte[] pwdAndSaltBytes = System.Text.Encoding.UTF8.GetBytes(password + salt);//将盐值加在密码的后面，并转化为二进制
+            byte[] hashBytes = new System.Security.Cryptography.SHA256Managed().ComputeHash(pwdAndSaltBytes);//经过哈希算法加密后得到的二进制值
             string hashPassword = Convert.ToBase64String(hashBytes);
             User_dal userDal = new User_dal();
             ////////////////////////////////////////////

@@ -143,6 +143,7 @@ namespace Fashion.Code.DAL
             post_model.postId = (int)row["id"];
             post_model.postCaption = row["caption"].ToString();
             post_model.postContent = row["content"].ToString();
+            post_model.firstPostPhotoUrl = row["PostPhoto_PhotoUrl"].ToString();
             post_model.postDate = (DateTime)row["datetime"];
             post_model.postHtmlUrl = row["htmlUrl"].ToString();
             post_model.postSupportCount = (int)row["supportCount"];

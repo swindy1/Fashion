@@ -53,6 +53,41 @@ namespace Fashion.Code.DAL
             return specialConsult_model;
         }
 
+        /// <summary>
+        /// 通过用户名，查询该用户特定咨询过的帖子，
+        /// 这次不用查询出全部的数据，只需查询一部分数据，因为不是用于详情内容，而是用于遍历
+        /// 特定咨询帖子id  标题 用户个人照 详细描述 日期
+        /// </summary>
+        /// <param name="userName">用户名id</param>
+        /// <returns></returns>
+        public List<SpecialConsult_model>  GetShortConsultDate(int userId)
+        {
+            string sqlStr = @"select SpecialConsult_Id as id,SpecialConsult_Caption as caption,
+                                                   SpecialConsult_UserPhotoUrl as geRenZhao,
+                                                   SpecialConsult_Detail as detail,SpecialConsult_Date  as date
+	                                     from tb_SpecialConsult 
+                                         where SpecialConsult_UserId=@userId";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@userId",userId),
+            };
+            DataTable dataTable = SqlHelper.ExecuteDataTable(sqlStr,parameters);
+            List<SpecialConsult_model> specialConsult_modelList = new List<SpecialConsult_model>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                specialConsult_modelList.Add(ToShortModel(row));
+            }
+            return specialConsult_modelList;
+        }
+        public SpecialConsult_model ToShortModel(DataRow row)
+        {
+            SpecialConsult_model specialConsult_model = new SpecialConsult_model();
+            specialConsult_model.id = (int)row["id"];
+            specialConsult_model.caption = row["caption"].ToString();
+            specialConsult_model.userPhotoUrl = row["geRenZhao"].ToString();
+            specialConsult_model.detail = row["detail"].ToString();
+            specialConsult_model.datetime = (DateTime)row["date"];
+            return specialConsult_model;
+        }
         public SpecialConsult_model ToModel(DataRow row)
         {
             SpecialConsult_model specialConsult_model = new SpecialConsult_model();

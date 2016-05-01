@@ -14,6 +14,7 @@ namespace Fashion.Models
         public string likeStyleUrl;
         public string dislikeStyleUrl;
         public string detail;
+        public DateTime datetime;
         public User_model user;//咨询者，即普通用户
         public User_model expert;//专家
         public SpecialConsult_model(){

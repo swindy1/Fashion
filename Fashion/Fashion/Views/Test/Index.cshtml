@@ -7,10 +7,17 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
     <title>Index</title>
-    
+    <script>
+        $(document).ready(function () {
+            alert($("#ss").html());
+            alert($("#tt").val());
+        });
+    </script>
 </head>
 <body>
-    
+    <span id="ss">11</span>
+    <input type="text"  id="tt" value="dddd"/>
 </body>
 </html>

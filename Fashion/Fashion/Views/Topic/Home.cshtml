@@ -44,18 +44,19 @@
             var z = "tjpl_" + postId;//放整个评论的地方的id
             var k = "pl_text_" + postId;//评论text的ID
             var pl_val = document.getElementById(k).value;//评论的内容
+            var theZhuTieUserName = $("#AzhuTieUserName_" + postId).html();//得到主贴的用户名
             if (pl_val.length <= 0) {
                 alert("评论内容不能为空！");
             }
             else {
                 var theCommentUserName = $("#theUserNameFont").text();//评论者用户名
-                //想后天添加该评论的数据
+                //添加该评论的数据
                 $.ajax({
                     url: "AjaxTieZiComment",
-                    data: { postId: postId, commenterUserName: theCommentUserName, beCommenterId: 2043, content: pl_val, postType: 1 },
+                    data: { postId: postId, commenterUserName: theCommentUserName, beCommenterUserName: theZhuTieUserName, content: pl_val, postType: 1 },
                     success: function (data) {
-                        
-                        alert("1");
+                        var pinglunCount = $("#hidPingLunCount_" + postId).val();
+                        $("#hidPingLunCount_" + postId).val(parseInt(pinglunCount) + 1);
                     }
                 });
 
@@ -299,8 +300,9 @@
 
         }
         //本函数实现当点击评论按钮时，显示评论内容，再次点击时隐藏
-        function xs_pl(x, commentCount) {       //点击显示隐藏评论
+        function xs_pl(x) {       //点击显示隐藏评论           
             var postId = x.substring(5);//获得每个帖子的编号
+            commentCount = $("#hidPingLunCount_" + postId).val();//获取评论的条数
             var z = "comments_kuang_" + postId;
             var k = "pl_" + postId;
             var g = document.getElementById(k).innerHTML;
@@ -486,16 +488,9 @@
                     //alert(jsonData2.name);
 
 
-
-
-
                     //var value1 = { "name":1};
                     //var obj1 = eval(value1);
                     //alert(obj1.name);
-
-
-
-
 
                 }
             });
@@ -549,11 +544,11 @@
                             <a href="PostDetails?postId=@post_model.postId">@post_model.postCaption</a>
                         </div>
                         <div class="data_fawenzi">
-                            <a href="" title="发问者资料">@post_model.User.userName</a><span>,@post_model.User.signature</span>
+                            <a id="AzhuTieUserName_@post_model.postId" href="" title="发问者资料">@post_model.User.userName</a><span>,@post_model.User.signature</span>
                         </div>
                         <div id="data_short_data_@post_model.postId" class="data_short_data" onclick="zhangkai(this.id)">
                             
-                            <div class="data_img"><img src="~/Images/TieZiImages/0d043f63-2226-4e2c-bd4b-36a1edbe7d48.jpg"  style="width:140px;height:120px;"/></div>
+                            <div class="data_img"><img src="@post_model.firstPostPhotoUrl"  style="width:140px;height:120px;"/></div>
                             <div id="title_@post_model.postId" class="data_words"></div>
                             <script>
                                 var titleStr = "@post_model.postContent";//你从数据库里读到的字符串内容
@@ -578,9 +573,12 @@
                         <div class="op_img" id="op_cz" >
                             <div id="guanzhu_@post_model.postId" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@post_model.postId" /><div class="data_op_n" id="gz_@post_model.postId">关注</div></div>
 
-                            <div id="zkpl_@post_model.postId" class="data_op_xx" onclick="xs_pl(this.id,@post_model.commentCount)">
-                                <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@post_model.postId">@post_model.commentCount 条评论</div>
+                            <div id="zkpl_@post_model.postId" class="data_op_xx" onclick="xs_pl(this.id)">
+                                <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@post_model.postId">@post_model.commentCount  条评论</div>
+                                @*评论是否为打开状态，0代表未打开i，1代表打开*@
                                 <input type="hidden" id="pinglunHidden_@post_model.postId" value="0" />
+                                @*状态值：保存评论的条数*@
+                                <input type="hidden"  id="hidPingLunCount_@post_model.postId" value="@post_model.commentCount"/>
                             </div>
                             <div id="yincang_op_@post_model.postId" style="display:none;">
                                 <div id="thx_@post_model.postId" class="data_op_xx" onclick="thx(this.id)">

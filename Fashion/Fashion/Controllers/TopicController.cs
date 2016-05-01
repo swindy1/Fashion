@@ -210,14 +210,21 @@ namespace Fashion.Controllers
             return Content(jsonData);
         }
 
+
+        /// <summary>
+        /// 实现帖子的评论功能,将数据保存到数据库
+        /// 帖子类型为1代表主贴的评论
+        /// 帖子类型为2代表回帖的评论
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AjaxTieZiComment()
         {
-            
             int postId = Convert.ToInt32(Request["postId"]);
             string commentUserName = Request["commenterUserName"].ToString();
             User_bll user_bll=new User_bll();
             int commenterId = user_bll.GetUserId(commentUserName);
-            int beCommenterId = Convert.ToInt32(Request["beCommenterId"]);
+            string beCommenterUserName = Request["beCommenterUserName"];
+            int beCommenterId = user_bll.GetUserId(beCommenterUserName);
             string content = Request["content"].ToString();
             int postType = Convert.ToInt32(Request["postType"]);
             DateTime datetime = DateTime.Now;
@@ -382,6 +389,7 @@ namespace Fashion.Controllers
             ViewData["LoginYes"] = 1;
             ViewData["userName"] = Session["userName"].ToString();
             ViewData["signature"] = Session["signature"].ToString();
+            ViewData["rankName"] = Session["rank"].ToString();
             People_bll peopleBll = new People_bll();
             ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
             return true;
