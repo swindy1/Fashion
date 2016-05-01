@@ -479,6 +479,10 @@
         width: 100%;
         margin: 12px 0;
     }
+    #theLinks div {
+        margin-right: 40px;
+        float: left;
+    }
 </style>
 <div class="row" style="background-color: white;height:auto;font-size:1.7em;padding-bottom:240px;">
     <div class="col-md-10 col-md-offset-1">
@@ -492,7 +496,7 @@
 
         <div id="Left_main" class="col-md-8" float:left;">
             <div class="LeftBackground">
-                <div id="Question" style="margin-bottom:500px;">
+                <div id="Question">
                     <h1 style="text-align:center;font-weight:bold;">@Model.caption</h1>
                     <div class="fgline"></div><!--分割线-->
                     <div>场合：@Model.occasion</div>
@@ -500,7 +504,7 @@
                     <div style="text-indent: 2em; margin: 25px 0 25px 0;line-height:35px; ">@Model.detail</div>
                     <div style="width:80%;margin-left:10%;margin-bottom:15px;">
                         <img src="@Model.userPhotoUrl" style="width:100%;" /></div>
-                    <table class="table table-bordered" style="text-align:center;margin:50px 0;">
+                    <table class="table table-bordered" style="text-align:center;margin:40px 0;">
                         <caption style="text-align:center;font-weight:bold;font-size:1.5em;">体型特征</caption>
                         <tr><td class="word-duiqi">身高：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.height" />cm</td><td class="word-duiqi">肤色：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.skinColor" /></td></tr>
                         <tr><td class="word-duiqi">体重：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.weight" />cm</td><td class="word-duiqi">臀围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.tunWei" />cm</td></tr>
@@ -510,17 +514,20 @@
 
                     </table>
                     <div class="col-md-6" style="text-align:center;">
-                        <h3 style="margin-top:10px;">喜欢的风格：</h3>
-                        <div style="width:80%;margin-left:10%;"><img src="@Model.likeStyleUrl" style="width:100%;" /></div>
+                        <h3>喜欢的风格：</h3>
+                        <div style="width:80%;margin-left:10%;">
+                            <img src="@Model.likeStyleUrl" style="width:100%;" /></div>
                     </div>
-                    <div class="col-md-6" style="text-align:center;">
+                    <div class="col-md-6" style="text-align: center;">
                         <h3>不喜欢的风格：</h3>
-                        <div style="width:80%;margin-left:10%;"><img src="@Model.dislikeStyleUrl" style="width:100%;" /></div>
+                        <div style="width:80%;margin-left:10%;">
+                            <img src="@Model.dislikeStyleUrl" style="width:100%;" /></div>
                     </div>
-                    <div class="fgline" style=" margin-top: 25px; "></div><!--分割线-->
 
                 </div><!-- <div id="Question">-!end-->
-                <div id="theAnswerDiv" >
+                <div class="fgline" style=" margin-top: 25px; "></div><!--分割线-->
+
+                <div id="theAnswerDiv"style="float:left;" >
                     <div><h3 style="margin:0;">专家回答</h3></div>
                     <div class="fgline" style="margin-bottom: 25px;"></div><!--分割线-->
                     <div id="theAnswer">
@@ -580,68 +587,49 @@
                             <img src="~/Images/ConsultDetails-tu5.png" style="width:100%;" />
                         </p>
                         <br />
-                        <p>
-                            <span>
-                                <span style="font-size:16px;line-height:24px;background-color:#FFFFFF;">
-                                    <span style="font-family:SimSun;font-size:16px;">
-                                        <br />
-                                    </span>
-                                </span>
-                            </span>
-                        </p>
+                        
                        
                     </div>
                     </div><!--存放专家回答静态页面的地方-->
-
                     <div id="theLinks"><!--存放专家给的衣服的链接=====================================================================================================================如果没有回答，则此div为空，若有回答，则此div里面的内容会随着专家提供链接的多少而创建链接-->
-                    <table style="padding:20px;">
-                        <tr><td><a href="https://item.taobao.com/item.htm?id=530902615768&ali_refid=a3_430676_1006:1122730230:N:女装:4f3948ded4f8ada3e53eba6977c0d291&ali_trackid=1_4f3948ded4f8ada3e53eba6977c0d291&spm=a231o.7712113.1004.456.QQlJfL">裙子</a></td>
-                            <td><a href="https://item.taobao.com/item.htm?id=527574763219&ali_refid=a3_430676_1006:1103695909:N:%E6%98%A5%E5%A4%8F%E9%9E%8B:2f9bb169eae7ee6868b088eb9f186a2b&ali_trackid=1_2f9bb169eae7ee6868b088eb9f186a2b&spm=a231o.7712113.1004.115.ZkoGyK">鞋子</a></td>
-                            <td><a href="https://item.taobao.com/item.htm?id=529315890750&ali_refid=a3_430676_1006:1106797998:N:%E8%BF%9E%E8%A1%A3%E8%A3%99:37b34299e155904ff56e768c057cc0dd&ali_trackid=1_37b34299e155904ff56e768c057cc0dd&spm=a231o.7712113.1004.1.QQlJfL">裙子</a></td>
-                            <td><a href="https://detail.tmall.com/item.htm?id=526530607040&ali_refid=a3_430676_1006:1109503735:N:低跟%20单鞋:c56271479eb173a134a4cafeb7295b7c&ali_trackid=1_c56271479eb173a134a4cafeb7295b7c&spm=a231o.7712113.1004.177.PYebcV">鞋子</a></td>
-                            <td><a href="https://item.taobao.com/item.htm?id=529629836877&ali_refid=a3_430676_1006:1108306295:N:%E5%A5%B3%E8%A3%85:e26e5c3105dec1996528bed6adf9961d&ali_trackid=1_e26e5c3105dec1996528bed6adf9961d&spm=a231o.7712113.1004.348.QQlJfL">裙子</a></td>
-                            <td><a href="https://item.taobao.com/item.htm?id=527097699261&ali_refid=a3_430676_1006:1120896264:N:%E6%B0%94%E8%B4%A8%E4%BD%8E%E8%B7%9F%E5%8D%95%E9%9E%8B:03eb9d95af684223c933ff1b91a00852&ali_trackid=1_03eb9d95af684223c933ff1b91a00852&spm=a231o.7712113.1004.222.prJI3G">鞋子</a></td>
-                        </tr>
-                        
-                    </table>
+                    <div style="font-weight:bold;color:gray;margin-right:5px;">服饰购买链接：</div>
+                        <div><a href="https://item.taobao.com/item.htm?id=530902615768&ali_refid=a3_430676_1006:1122730230:N:女装:4f3948ded4f8ada3e53eba6977c0d291&ali_trackid=1_4f3948ded4f8ada3e53eba6977c0d291&spm=a231o.7712113.1004.456.QQlJfL" title="点击查看服饰详情" target="_black">学院风长裙</a></div>
+                        <div>
+                            <a href="https://item.taobao.com/item.htm?id=527574763219&ali_refid=a3_430676_1006:1103695909:N:%E6%98%A5%E5%A4%8F%E9%9E%8B:2f9bb169eae7ee6868b088eb9f186a2b&ali_trackid=1_2f9bb169eae7ee6868b088eb9f186a2b&spm=a231o.7712113.1004.115.ZkoGyK" title="点击查看服饰详情" target="_black">韩版厚底松糕休闲鞋</a>
+                        </div>
+                    <div>
+                        <a href="https://item.taobao.com/item.htm?id=529315890750&ali_refid=a3_430676_1006:1106797998:N:%E8%BF%9E%E8%A1%A3%E8%A3%99:37b34299e155904ff56e768c057cc0dd&ali_trackid=1_37b34299e155904ff56e768c057cc0dd&spm=a231o.7712113.1004.1.QQlJfL" title="点击查看服饰详情" target="_black">显瘦高腰3D印花连衣裙</a>
+                    </div>
+                        <div>
+                            <a href="https://detail.tmall.com/item.htm?id=526530607040&ali_refid=a3_430676_1006:1109503735:N:低跟%20单鞋:c56271479eb173a134a4cafeb7295b7c&ali_trackid=1_c56271479eb173a134a4cafeb7295b7c&spm=a231o.7712113.1004.177.PYebcV" title="点击查看服饰详情" target="_black">淑女款的单鞋</a>
+                        </div>
+                        <div>
+                            <a href="https://item.taobao.com/item.htm?id=529629836877&ali_refid=a3_430676_1006:1108306295:N:%E5%A5%B3%E8%A3%85:e26e5c3105dec1996528bed6adf9961d&ali_trackid=1_e26e5c3105dec1996528bed6adf9961d&spm=a231o.7712113.1004.348.QQlJfL" title="点击查看服饰详情" target="_black">雪纺荷叶袖上衣+阔腿短裤两件套</a>
+                        </div>
+                        <div>
+                            <a href="https://item.taobao.com/item.htm?id=527097699261&ali_refid=a3_430676_1006:1120896264:N:%E6%B0%94%E8%B4%A8%E4%BD%8E%E8%B7%9F%E5%8D%95%E9%9E%8B:03eb9d95af684223c933ff1b91a00852&ali_trackid=1_03eb9d95af684223c933ff1b91a00852&spm=a231o.7712113.1004.222.prJI3G" title="点击查看服饰详情" target="_black">气质单鞋</a>
 
-                    
-                    </div><!--<div id="theLinks">end-->
+                        </div>
+</div><!--<div id="theLinks">end-->
 
                 </div><!--<div id="theAnswerDiv">end-->
                 <div id="commentDiv">
-                    <div class="op_img" id="op_cz">
-                        <div id="guanzhu_0" onclick="guanzhu(this.id);"><img src="~/Images/Topic-Home-plus.png" id="gz_img_0" /><div class="data_op_n" id="gz_0">关注</div></div>
 
-                        <div id="zkpl_0" class="data_op_xx" onclick="xs_pl(this.id)">
-                            <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_0">1 条评论</div>
-                            <input type="hidden" id="pinglunHidden_0" value="0" />
+                    <div id="comments_kuang_0" class="plk">
+                        <div id="TheCommentPingLun">
+                            <div id="tjpl_simplei"></div>  <!--创建评论产生的地方-->
+
+                            <hr style="border:none;border-top:1px solid #ebe4e4;width:100%;" />
+
+                            <div class="plk_z">
+                                <input id="pl_text_simplei" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
+                                <div id="pl_op_simplei" class="pl_op yc">
+                                    <span class="qx_comment"><a onclick="yc_pl_btn(this.id)" id="qx_btn_simplei">取消</a></span>
+                                    <span><input id="pl_btn_simplei" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id)" /></span>
+                                </div>
+                            </div>
                         </div>
-                            <div id="thx_0" class="data_op_xx" onclick="thx(this.id)">
-                                <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_0">感谢</div>
-                            </div>
-
-                            <div class="data_op_xx" onclick="save(this.id)" id="save_0">
-                                <img src="~/Images/Topic-Home-save.png" /><div class="data_op_n" id="save_val_0">收藏</div>
-                            </div>
-                            <div class="data_op_xx">
-                                <img src="~/Images/Topic-Home-fenxiang.png" /><div class="data_op_n">分享</div>
-                            </div>
-                            <div class="data_op_xx">
-                                <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">举报</div>
-                            </div>
-
-                        <div class="data_op_xx">
-                            <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">保留权利</div>
-                        </div>
-                        <div id="xs_shouqi_0" class="data_op_xx data_op_shouqi">
-                            <img src="~/Images/Topic-Home-retract.png" />
-                            <div id="shouqi_0" class="data_op_n" onclick="shouqi(this.id)">收起</div>
-                        </div>
-
                     </div>
-
-                    <div id="comments_kuang_0" class="yc plk"></div>
                 </div><!--<div id="commentDiv">end-->
                 
 
@@ -747,18 +735,4 @@
         </div>
     </div>
     <hr class="pl_fgx" />
-</div>
-<div id="TheCommentPingLun" style="display:none;">
-    <div id="tjpl_simplei"></div>  <!--创建评论产生的地方-->
-
-    <hr style="border:none;border-top:1px solid #ebe4e4;width:100%;" />
-    <div class="page" id="fenye_div"></div>
-
-    <div class="plk_z">
-        <input id="pl_text_simplei" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
-        <div id="pl_op_simplei" class="pl_op yc">
-            <span class="qx_comment"><a onclick="yc_pl_btn(this.id)" id="qx_btn_simplei">取消</a></span>
-            <span><input id="pl_btn_simplei" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id)" /></span>
-        </div>
-    </div>
 </div>
