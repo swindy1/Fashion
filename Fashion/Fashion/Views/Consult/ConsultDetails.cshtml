@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "ConsultDetails";
     Layout = "~/Views/Shared/Top_menu.cshtml";
+    @model Fashion.Models.SpecialConsult_model
 }
 
 <link href="~/kindeditor/themes/default/default.css" rel="stylesheet" />
@@ -491,35 +492,35 @@
 
         <div id="Left_main" class="col-md-8" float:left;">
             <div class="LeftBackground">
-                <div id="Question">
-                    <h1 style="text-align:center;font-weight:bold;">求一套参加同学毕业典礼的衣服！</h1>
+                <div id="Question" style="margin-bottom:500px;">
+                    <h1 style="text-align:center;font-weight:bold;">@Model.caption</h1>
                     <div class="fgline"></div><!--分割线-->
-                    <div>场合：毕业典礼</div>
+                    <div>场合：@Model.occasion</div>
                     <div class="fgline"></div><!--分割线-->
-                    <div style="text-indent: 2em; margin: 25px 0 25px 0;line-height:35px; ">过两天要参加同学的毕业典礼，想要搭配一套适合和同学拍毕业照的衣服。想要看起来有气质，但是不要和毕业生混淆的衣服但是也不要太突兀！！不喜欢日韩风，觉得有点大众化。喜欢欧美风霸气。但是还是专家看着配吧，希望鞋子也顺带帮我配好，怕到时候没鞋子穿。我的脚比较挑鞋子，脚有点胖，脚背高，脚长是XXcm,脚宽XXcm,希望能显脚小。</div>
+                    <div style="text-indent: 2em; margin: 25px 0 25px 0;line-height:35px; ">@Model.detail</div>
                     <div style="width:80%;margin-left:10%;margin-bottom:15px;">
-                        <img src="~/Images/Topic-Home-1.jpg" style="width:100%;" /></div>
-                    <table class="table table-bordered" style="text-align:center;">
+                        <img src="@Model.userPhotoUrl" style="width:100%;" /></div>
+                    <table class="table table-bordered" style="text-align:center;margin:50px 0;">
                         <caption style="text-align:center;font-weight:bold;font-size:1.5em;">体型特征</caption>
-                        <tr><td class="word-duiqi">身高：</td><td><input type="text" disabled="disabled" class="table-data" value="11" />cm</td><td class="word-duiqi">肤色：</td><td><input type="text" disabled="disabled" class="table-data" value="白皙" /></td></tr>
-                        <tr><td class="word-duiqi">体重：</td><td><input type="text" disabled="disabled" class="table-data" value="11" />cm</td><td class="word-duiqi">臀围：</td><td><input type="text" disabled="disabled" class="table-data" value="11" />cm</td></tr>
-                        <tr><td class="word-duiqi">腰围：</td><td><input type="text" disabled="disabled" class="table-data" value="11" />cm</td><td class="word-duiqi">臂围：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td></tr>
-                        <tr><td class="word-duiqi">腿长：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td><td class="word-duiqi">胸围：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td></tr>
-                        <tr><td>大腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td><td>小腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td></tr>
+                        <tr><td class="word-duiqi">身高：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.height" />cm</td><td class="word-duiqi">肤色：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.skinColor" /></td></tr>
+                        <tr><td class="word-duiqi">体重：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.weight" />cm</td><td class="word-duiqi">臀围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.tunWei" />cm</td></tr>
+                        <tr><td class="word-duiqi">腰围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.yaoWei" />cm</td><td class="word-duiqi">臂围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.biWei" />cm</td></tr>
+                        <tr><td class="word-duiqi">腿长：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.tuiChang" />cm</td><td class="word-duiqi">胸围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.xiongWei" />cm</td></tr>
+                        <tr><td>大腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.daTuiWei" />cm</td><td>小腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.xiaoTunWei" />cm</td></tr>
 
                     </table>
                     <div class="col-md-6" style="text-align:center;">
                         <h3 style="margin-top:10px;">喜欢的风格：</h3>
-                        <div style="width:80%;margin-left:10%;"><img src="~/Images/UserImages/QuanShenZhao/20140203_112158.jpg" style="width:100%;" /></div>
+                        <div style="width:80%;margin-left:10%;"><img src="@Model.likeStyleUrl" style="width:100%;" /></div>
                     </div>
                     <div class="col-md-6" style="text-align:center;">
-                        <h3 style="margin-top:10px;">讨厌的风格：</h3>
-                        <div style="width: 80%; margin-left: 10%;"><img src="~/Images/UserImages/QuanShenZhao/20140203_112158.jpg" style="width:100%;" /></div>
+                        <h3>不喜欢的风格：</h3>
+                        <div style="width:80%;margin-left:10%;"><img src="@Model.dislikeStyleUrl" style="width:100%;" /></div>
                     </div>
                     <div class="fgline" style=" margin-top: 25px; "></div><!--分割线-->
 
                 </div><!-- <div id="Question">-!end-->
-                <div id="theAnswerDiv">
+                <div id="theAnswerDiv" >
                     <div><h3 style="margin:0;">专家回答</h3></div>
                     <div class="fgline" style="margin-bottom: 25px;"></div><!--分割线-->
                     <div id="theAnswer">

@@ -37,8 +37,16 @@ namespace Fashion.Controllers
 
         public ActionResult MySpecialConsult()
         {
-
-            return View();
+              if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind","Topic");
+            }
+              string userName = Session["userName"].ToString();
+              User_bll user_bll = new User_bll();
+              int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+              SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
+              List<SpecialConsult_model> specialConsult_modelList = specialConsult_bll.GetMyConsultDate(userId);//通过userId获取该用户的特定咨询数据
+              return View(specialConsult_modelList);
         }
         public ActionResult myCollections()
         {
