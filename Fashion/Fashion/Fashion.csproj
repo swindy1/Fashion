@@ -148,6 +148,7 @@
     <Compile Include="Code\DAL\Post_dal.cs" />
     <Compile Include="Code\DAL\Rank_dal.cs" />
     <Compile Include="Code\DAL\ReplyPost_dal.cs" />
+    <Compile Include="Code\DAL\share.cs" />
     <Compile Include="Code\DAL\SpecialConsultAnswerClothes_dal.cs" />
     <Compile Include="Code\DAL\SpecialConsult_dal.cs" />
     <Compile Include="Code\DAL\SqlConnectionString.cs" />
@@ -177,6 +178,7 @@
     </Compile>
     <Compile Include="Models\Attention_model.cs" />
     <Compile Include="Models\Collect_model.cs" />
+    <Compile Include="Models\CountUser_model.cs" />
     <Compile Include="Models\ExpertUserConsult_model.cs" />
     <Compile Include="Models\PostComment_model.cs" />
     <Compile Include="Models\ErrorMessage_model.cs" />

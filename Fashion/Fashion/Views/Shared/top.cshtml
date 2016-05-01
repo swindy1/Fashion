@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    @{
+        Fashion.Models.CountUser_model countUser_model = ViewData["countUser_model"] as Fashion.Models.CountUser_model;
+    }
     <script src="~/Scripts/jquery-2.0.0.min.js"></script>
     <script src="~/Scripts/MyScripts/Login.js"></script>
     <script type="text/javascript">
@@ -450,7 +453,16 @@
 
    
     <div id="Right_div" class="Right_div">
+        <div class="tab_bar">
+            <h2 onclick="window.location.href = 'Index'">我的主页</h2>
+            <h2 onclick="window.location.href = 'MySpecialConsult'">特定咨询<span>@countUser_model.specialConsultCount</span></h2>
+            <h2 class="tab_ing" onclick="window.location.href = 'myAsks'">提问<span>@countUser_model.zhuTieCount</span></h2>
+            <h2 onclick="window.location.href = 'myAnsweres'">回答<span>@countUser_model.replyCount</span></h2>
+            <h2 onclick="window.location.href = 'myCollections'">收藏<span>@countUser_model.collectCount</span></h2>
+            <h2 onclick="window.location.href = 'Message'">消息<span>0</span></h2>
+        </div>
         @RenderBody()
+       
     </div>
     <!--////////////////////////将快捷键按钮移至共享页面，其他的子页面的快捷键按钮删除///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
     <div id="sousuok" class="ssk_div">

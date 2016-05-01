@@ -172,6 +172,61 @@ namespace Fashion.Code.DAL
             return SqlHelper.ExecuteDataTable(sqlStr, parameters);
         }
 
+
+
+        /// <summary>
+        /// 根据用户的userId 获取用户的 特定咨询数 提问数 回答数 收藏 关注数 粉丝数 获赞数
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public CountUser_model GetCountUser(int userId)
+        {
+            string sqlStr = @"select SpecialConsult.specialConsultCount,
+                                           Post.zhuTieCount,
+                                    	   ReplyPost.replyCount,
+                                    	   Collect.collectCount,
+                                    	   Concerns.concernsCount,
+                                    	   Fans.fansCount,
+                                    	   tb_User.User_StarCount as supportCount
+                                           from 
+                                                (select SpecialConsult_UserId userId, count(*) specialConsultCount 
+                                    			         from tb_SpecialConsult
+                                                         group by SpecialConsult_UserId)  as SpecialConsult left join
+                                                 (select Post_SenderId senderId,count(*) zhuTieCount from tb_Post 
+                                                         group by Post_SenderId) as Post 
+                                    					 on SpecialConsult.userId=Post.senderId 
+                                    					 left join
+                                    		     (select ReplyPost_ReplyerId replyId,COUNT(*) replyCount from tb_ReplyPost
+                                                         group by ReplyPost_ReplyerId) as ReplyPost 
+                                    					 on SpecialConsult.userId=ReplyPost.replyId
+                                    					 left join
+                                    					 (select  Collect_CollectorId collectorId,COUNT(*) collectCount from tb_Collect
+                                    					  group by Collect_CollectorId) as Collect
+                                    					  on SpecialConsult.userId=Collect.collectorId
+                                    					  left join 
+                                    		     (select Attention_ConcernsId as concernsId,count(*) concernsCount from tb_Attention
+                                                          group by Attention_ConcernsId)as Concerns
+                                    					  on SpecialConsult.userId=Concerns.concernsId
+                                    					  left join 
+                                    			 (select Attention_BeConcernedId as beConcernedId,count(*) fansCount  from tb_Attention 
+                                                          group by Attention_BeConcernedId)as Fans
+                                    					  on SpecialConsult.userId=Fans.beConcernedId
+                                    					  left join tb_User
+                                    					  on SpecialConsult.userId=tb_User.User_Id
+                                    where SpecialConsult.userId=@userId";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@userId",userId)
+            };
+            CountUser_model countUser_model = new CountUser_model();
+            DataTable dt=SqlHelper.ExecuteDataTable(sqlStr,parameters);
+            if(dt.Rows.Count>1)
+            {
+                throw new Exception("数据库错误，超过一条数据");
+            }
+            return ToModel_CountUser(dt.Rows[0]);
+        }
+
+
         /// <summary>
         /// 获取一定数量的专家的数据：id、用户名、头像url          
         /// </summary>
@@ -427,6 +482,25 @@ namespace Fashion.Code.DAL
             User_model model = ToModel(row);
             /////////////////////////////////////////////////////////
             return model;     
+        }
+
+
+        /// <summary>
+        /// 将一条数据转化为CountUser_model 用户的：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        public CountUser_model ToModel_CountUser(DataRow row)
+        {
+            CountUser_model countUser_model = new CountUser_model();
+            countUser_model.specialConsultCount = row["specialConsultCount"] == System.DBNull.Value ? 0 :(int) row["specialConsultCount"];
+            countUser_model.zhuTieCount = row["zhuTieCount"] == System.DBNull.Value ? 0 : (int)row["zhuTieCount"];
+            countUser_model.replyCount = row["replyCount"] == System.DBNull.Value ? 0 : (int)row["replyCount"];
+            countUser_model.collectCount = row["collectCount"] == System.DBNull.Value ? 0 : (int)row["collectCount"];
+            countUser_model.concernsCount = row["concernsCount"] == System.DBNull.Value ? 0 : (int)row["concernsCount"];
+            countUser_model.fansCount = row["fansCount"] == System.DBNull.Value ? 0 : (int)row["fansCount"];
+            countUser_model.supportCount = row["supportCount"] == System.DBNull.Value ? 0 : (int)row["supportCount"];
+            return countUser_model;
         }
 
         /// <summary>

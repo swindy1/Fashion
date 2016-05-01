@@ -24,6 +24,12 @@ namespace Fashion.Controllers
 
             return View();
         }
+
+
+        /// <summary>
+        ///遍历我的提问过的帖子
+        /// </summary>
+        /// <returns></returns>
         public ActionResult myAsks()
         {
             if (Session["userName"] == null)
@@ -31,8 +37,19 @@ namespace Fashion.Controllers
                 return RedirectToAction("LoginRemind", "Topic");
             }
             LoginStatusConfig();//配置登录状态
-            return View();
+            string userName = Session["userName"].ToString();
+            User_bll user_bll = new User_bll();
+            int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ViewData["countUser_model"] = countUser_model;
+            Post_bll post_bll = new Post_bll();
+            List<Post_model> post_modelList = post_bll.GetShortPostData(userId);//获取用户的提问过的贴子
+            return View(post_modelList);
         }
+        /// <summary>
+        /// 遍历我的回答过的帖子，即回帖
+        /// </summary>
+        /// <returns></returns>
         public ActionResult myAnsweres()
         {
             if (Session["userName"] == null)
@@ -40,12 +57,22 @@ namespace Fashion.Controllers
                 return RedirectToAction("LoginRemind", "Topic");
             }
             LoginStatusConfig();//配置登录状态
-            return View();
+            string userName = Session["userName"].ToString();
+            User_bll user_bll = new User_bll();
+            int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ViewData["countUser_model"] = countUser_model;
+            ReplyPost_bll replyPost_bll = new ReplyPost_bll();
+            List<ReplyPost_model> replyPost_modelList = new List<ReplyPost_model>();
+            replyPost_modelList = replyPost_bll.GetShortReplyPostData(userId);
+            return View(replyPost_modelList);
         }
-
+        /// <summary>
+        /// 遍历我的特定咨询过的帖子
+        /// </summary>
+        /// <returns></returns>
         public ActionResult MySpecialConsult()
         {
-
             if (Session["userName"] == null)
             {
                 return RedirectToAction("LoginRemind", "Topic");
@@ -55,8 +82,10 @@ namespace Fashion.Controllers
               string userName = Session["userName"].ToString();
               User_bll user_bll = new User_bll();
               int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+              CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+              ViewData["countUser_model"] = countUser_model;
               SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
-              List<SpecialConsult_model> specialConsult_modelList = specialConsult_bll.GetMyConsultDate(userId);//通过userId获取该用户的特定咨询数据
+              List<SpecialConsult_model> specialConsult_modelList = specialConsult_bll.GetMyConsultData(userId);//通过userId获取该用户的特定咨询数据
               return View(specialConsult_modelList);
         }
         public ActionResult myCollections()
@@ -66,6 +95,12 @@ namespace Fashion.Controllers
                 return RedirectToAction("LoginRemind", "Topic");
             }
             LoginStatusConfig();//配置登录状态
+
+            string userName = Session["userName"].ToString();
+            User_bll user_bll = new User_bll();
+            int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ViewData["countUser_model"] = countUser_model;
             return View();
         }
      
@@ -234,6 +269,12 @@ namespace Fashion.Controllers
             {
                 ViewData["QuanShenZhao"] = user.GetQuanShenZhao(userName);
             }
+
+            //获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等
+            User_bll user_bll = new User_bll();
+            int userId = user_bll.GetUserId(userName);
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);
+            ViewData["countUser_model"] = countUser_model;
             return View();
         }
 
