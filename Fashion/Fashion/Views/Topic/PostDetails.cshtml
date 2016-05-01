@@ -74,11 +74,28 @@
 
     }
     //本函数实现当用户点击提交评论的评论按钮时，提交评论内容，创建一个新的评论到评论尾部
-    function cj_pl(x) {              //点击提交评论内容
-        var postId = x.substring(7);
+    function cj_pl(x, postTypeName) {              //点击提交评论内容
+        var postTypeId = 1;//1代表主贴
+        if (postTypeName == '回帖')
+        {
+            postTypeId = 2;//2代表回贴
+        }
+        var postId = x.substring(14);
+
+        var beCommenterUserName = "222";//被评论帖子的用户名
+        var k ="";//评论text的ID,有两种，主贴和回帖对应不同的id
+        if (postTypeName == "主贴") {
+            beCommenterUserName = "222";
+            k = "pl_text_ZhuTie_" + postId;//评论text的ID
+        }
+        else{
+            beCommenterUserName = $("#userNameHui_" + postId).text();
+            k = "pl_text_HuiTie_" + postId;//评论text的ID
+        }        
         var z = "tjpl_" + postId;//放整个评论的地方的id
-        var k = "pl_text_" + postId;//评论text的ID
-        var pl_val = document.getElementById(k).value;//评论的内容
+        var pl_val = document.getElementById(k).value;//text评论框的内容
+        
+        var theZhuTieUserName = $("#AzhuTieUserName_" + postId).html();//得到主贴的用户名
         if (pl_val.length <= 0) {
             alert("评论内容不能为空！");
         }
@@ -87,8 +104,9 @@
             //想后天添加该评论的数据
             $.ajax({
                 url: "AjaxTieZiComment",
-                data: { postId: postId, commenterUserName: theCommentUserName, beCommenterId: 2043, content: pl_val, postType: 1 },
+                data: { postId: postId, commenterUserName: theCommentUserName, beCommenterUserName: beCommenterUserName, content: pl_val, postType: postTypeId },
                 success: function (data) {
+                    alert(data);
                     var pinglunCount = $("#hidPingLunCount_" + postId).val();
                     $("#hidPingLunCount_" + postId).val(parseInt(pinglunCount) + 1);
                 }
@@ -306,9 +324,20 @@
         }
     }
     //点击评论下方的评论框时显示评论按钮
-    function xs_pl_btn(x) {
-        var postId = x.substring(8);
+    function xs_pl_btn(x, postTypeName) {
+        var postId = x.substring(15);
         var z = "pl_op_" + postId;
+        var zhuTiePingLunbtn = "pl_btn_ZhuTie_" + postId;//主贴的评论按钮
+        var huiTiePingLunbtn = "pl_btn_HuiTie_" + postId;//回贴的评论按钮
+        //如果是主贴则显示主贴的评论按钮
+        if (postTypeName == '主贴') {
+            document.getElementById(zhuTiePingLunbtn).style.display = "block";
+            document.getElementById(huiTiePingLunbtn).style.display = "none";
+        }
+        else {
+            document.getElementById(zhuTiePingLunbtn).style.display = "none";
+            document.getElementById(huiTiePingLunbtn).style.display = "block";
+        }
         document.getElementById(z).style.display = "block";
 
 
@@ -334,8 +363,14 @@
 
     }
     //本函数实现当点击评论按钮时，显示评论内容，再次点击时隐藏
-    function xs_pl(x) {       //点击显示隐藏评论           
+    function xs_pl(x,postTypeName) {       //点击显示隐藏评论           
         var postId = x.substring(5);//获得每个帖子的编号
+        var postTypeId = 1;//1代表主贴
+        if (postTypeName == "回帖") {
+            postTypeId = 2;//2代表回贴
+        }
+        var zhuTiePingLunKuang = "pl_text_ZhuTie_" + postId;//主贴的评论输入框
+        var HuiTiePingLunKuang = "pl_text_HuiTie_" + postId;//回贴的评论输入框
         commentCount = $("#hidPingLunCount_" + postId).val();//获取评论的条数
         var z = "comments_kuang_" + postId;
         var k = "pl_" + postId;
@@ -346,7 +381,7 @@
             //请求数据库里的帖子评论数据
             $.ajax({
                 url: "AjaxGetCommentData",
-                data: { postId: postId, postType: "1" },
+                data: { postId: postId, postType: postTypeId },
                 success: function (data) {
                     var jsonData = JSON.parse(data);                        
                     $("#pinglunHidden_" + postId).val("1");  //设置评论详情当前状态为打开，1代表打开，0代表关闭
@@ -370,6 +405,15 @@
                     CommentHtml = CommentHtml.replace(/simplei/g, postId);//正则表达式，/g替换全部的意思
                     $("#comments_kuang_" + postId).html(CommentHtml);
                     document.getElementById(k).innerHTML = "收起评论";
+                    if (postTypeName == "主贴") {//如果是主贴则显示主贴的评论输入框
+                        document.getElementById(zhuTiePingLunKuang).style.display = "block";
+                        document.getElementById(HuiTiePingLunKuang).style.display = "none";
+
+                    }
+                    else {//如果是回贴则显示回贴的评论输入框
+                        document.getElementById(zhuTiePingLunKuang).style.display = "none";
+                        document.getElementById(HuiTiePingLunKuang).style.display = "block";
+                    }
                     document.getElementById(z).style.display = "block";
                 }
             });
@@ -589,7 +633,7 @@
                     <div id="op_cz" class="op_img"style="font-size:0.9em;">
                         <div id="guanzhu_0" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_0" /><div class="data_op_n" id="gz_0">关注</div></div>
 
-                        <div id="zkpl_@post_mode.postId" class="data_op_xx" onclick="xs_pl(this.id,'原帖',@post_mode.commentCount)">
+                        <div id="zkpl_@post_mode.postId" class="data_op_xx" onclick="xs_pl(this.id,'主贴')">
                             <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@post_mode.postId">@post_mode.commentCount 条评论</div>
                             @*评论是否为打开状态，0代表未打开i，1代表打开*@
                             <input type="hidden" id="pinglunHidden_@post_mode.postId" value="0" />
@@ -615,7 +659,9 @@
 
                     </div>
 
-                    <div id="comments_kuang_@post_mode.postId" class="yc plk" style="font-size:0.9em;"></div>
+                    <div id="comments_kuang_@post_mode.postId" class="yc plk" style="font-size:0.9em;">
+
+                    </div>
                         <div style="border-top: 1px solid #686868; float: left; width: 100%; "></div><!--分割线-->
                         <div style="width:100%;float:left;">
                             <div class="communication">
@@ -638,10 +684,10 @@
                             <div>
                                 <div>
                                     <div style="float:right;">
-                                        <a href=""><img src="~/Images/UserImages/TouXiang/touxiang1.png" style="width:25px;" /></a>
+                                        <a href=""><img src="@replyPost_model.Commenter.touXiangUrl" style="width:25px;" /></a>
                                     </div>
                                     <div style="float:left;width:90%;">
-                                        <b>@replyPost_model.Commenter.userName,</b>@replyPost_model.Commenter.signature
+                                        <font id="userNameHui_@replyPost_model.replyPostId">@replyPost_model.Commenter.userName</font>,@replyPost_model.Commenter.signature
                                     </div>
                                 </div>
                                 <div class="zan" style="float:left;">
@@ -670,9 +716,12 @@
                             <div class="op_img" id="op_cz">
                                 <div id="guanzhu_@replyPost_model.replyPostId" class="data_op_xx" onclick="guanzhu(this.id);"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@replyPost_model.replyPostId" /><div class="data_op_n" id="gz_@replyPost_model.replyPostId">关注</div></div>
 
-                                <div id="zkpl_@replyPost_model.replyPostId" class="data_op_xx" onclick="xs_pl(this.id,'回帖',@replyPost_model.commentCount)">
+                                <div id="zkpl_@replyPost_model.replyPostId" class="data_op_xx" onclick="xs_pl(this.id,'回帖')">
                                     <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@replyPost_model.replyPostId">@replyPost_model.commentCount 条评论</div>
-                                <input type="hidden" id="pinglunHidden_@replyPost_model.replyPostId" value="0" />
+                                    @*评论是否为打开状态，0代表未打开i，1代表打开*@
+                                    <input type="hidden" id="pinglunHidden_@replyPost_model.replyPostId" value="0" />
+                                    @*状态值：保存评论的条数*@
+                                    <input type="hidden" id="hidPingLunCount_@replyPost_model.replyPostId" value="@replyPost_model.commentCount" />
                             </div>
                             <div id="yincang_op_@replyPost_model.replyPostId" style="display:none;">
                                 <div id="thx_@replyPost_model.replyPostId" class="data_op_xx" onclick="thx(this.id)">
@@ -712,7 +761,7 @@
                 <div id="answerDiv">
                 <div>
                     <span style="float:left;"><span style="color:#225599;font-weight:bold;">@ViewData["userName"]</span><span>，@ViewData["signature"]</span></span>
-                    <span style="float:right;width:30px;"><img src="~/Images/Layout-usertouxiang.png" style="width:100%;border-radius:3px;"/></span>
+                    <span style="float:right;width:30px;"><img src="@ViewData["TouXiangUrl"]" style="width:100%;border-radius:3px;"/></span>
                 </div>
 
                     <div id="editorDiv" style="width:100%;">
@@ -837,10 +886,8 @@
 
     </div>
     <hr class="pl_fgx" />
-
-
-
 </div>
+
 <div id="TheCommentPingLun" style="display:none;">
     <div id="tjpl_simplei"></div>  <!--创建评论产生的地方-->
 
@@ -848,10 +895,15 @@
     <div class="page" id="fenye_div"></div>
 
     <div class="plk_z">
-        <input id="pl_text_simplei" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
+        <input id="pl_text_ZhuTie_simplei" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id,'主贴')" />
+        <input id="pl_text_HuiTie_simplei" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id, '回帖')" />
         <div id="pl_op_simplei" class="pl_op yc">
             <span class="qx_comment"><a onclick="yc_pl_btn(this.id)" id="qx_btn_simplei">取消</a></span>
-            <span><input id="pl_btn_simplei" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id)" /></span>
+            <span><input id="pl_btn_ZhuTie_simplei" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id,'主贴')" /></span>
+            <span><input id="pl_btn_HuiTie_simplei" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id,'回帖')" /></span>
         </div>
     </div>
 </div>
+
+
+

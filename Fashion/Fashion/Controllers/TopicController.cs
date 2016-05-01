@@ -210,14 +210,21 @@ namespace Fashion.Controllers
             return Content(jsonData);
         }
 
+
+        /// <summary>
+        /// 实现帖子的评论功能,将数据保存到数据库
+        /// 帖子类型为1代表主贴的评论
+        /// 帖子类型为2代表回帖的评论
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AjaxTieZiComment()
         {
-            
             int postId = Convert.ToInt32(Request["postId"]);
             string commentUserName = Request["commenterUserName"].ToString();
             User_bll user_bll=new User_bll();
             int commenterId = user_bll.GetUserId(commentUserName);
-            int beCommenterId = Convert.ToInt32(Request["beCommenterId"]);
+            string beCommenterUserName = Request["beCommenterUserName"];
+            int beCommenterId = user_bll.GetUserId(beCommenterUserName);
             string content = Request["content"].ToString();
             int postType = Convert.ToInt32(Request["postType"]);
             DateTime datetime = DateTime.Now;

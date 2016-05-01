@@ -44,15 +44,16 @@
             var z = "tjpl_" + postId;//放整个评论的地方的id
             var k = "pl_text_" + postId;//评论text的ID
             var pl_val = document.getElementById(k).value;//评论的内容
+            var theZhuTieUserName = $("#AzhuTieUserName_" + postId).html();//得到主贴的用户名
             if (pl_val.length <= 0) {
                 alert("评论内容不能为空！");
             }
             else {
                 var theCommentUserName = $("#theUserNameFont").text();//评论者用户名
-                //想后天添加该评论的数据
+                //添加该评论的数据
                 $.ajax({
                     url: "AjaxTieZiComment",
-                    data: { postId: postId, commenterUserName: theCommentUserName, beCommenterId: 2043, content: pl_val, postType: 1 },
+                    data: { postId: postId, commenterUserName: theCommentUserName, beCommenterUserName: theZhuTieUserName, content: pl_val, postType: 1 },
                     success: function (data) {
                         var pinglunCount = $("#hidPingLunCount_" + postId).val();
                         $("#hidPingLunCount_" + postId).val(parseInt(pinglunCount) + 1);
@@ -543,7 +544,7 @@
                             <a href="PostDetails?postId=@post_model.postId">@post_model.postCaption</a>
                         </div>
                         <div class="data_fawenzi">
-                            <a href="" title="发问者资料">@post_model.User.userName</a><span>,@post_model.User.signature</span>
+                            <a id="AzhuTieUserName_@post_model.postId" href="" title="发问者资料">@post_model.User.userName</a><span>,@post_model.User.signature</span>
                         </div>
                         <div id="data_short_data_@post_model.postId" class="data_short_data" onclick="zhangkai(this.id)">
                             
