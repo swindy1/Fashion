@@ -282,6 +282,7 @@
     <Content Include="Images\ConsultDetails-tu4.png" />
     <Content Include="Images\ConsultDetails-tu5.png" />
     <Content Include="Images\ConsultDetails-tu6.png" />
+    <Content Include="Images\default-touxiang.jpg" />
     <Content Include="Images\Layout-guanbi.png" />
     <Content Include="Images\Layout-logo.png" />
     <Content Include="Images\Layout-myzhuye.png" />

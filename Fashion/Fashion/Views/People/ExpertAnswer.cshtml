@@ -11,7 +11,7 @@
     //****************点击添加衣服链接****************************
     function addLink(x) {
         var tr = document.createElement('tr');
-        tr.innerHTML = "<tr><td><select><option>帽子</option><option>上衣</option><option>裙子</option><option>裤子</option><option>鞋子</option></select></td><td><input type='text' /></td></tr>";
+        tr.innerHTML = "<tr><td><input type='text' placeholder='请输入服饰名称' /></td><td><input type='text' placeholder='请输入对应服饰链接' /></td></tr>";
         document.getElementById("theLinks").appendChild(tr);
 
     }
@@ -133,6 +133,7 @@
         width: 100%;
         margin: 20px 0;
     }
+   
 </style>
 
 <div class="row" style="background-color: white;height:auto;font-size:1.7em;padding-bottom:240px;">
@@ -184,26 +185,41 @@
                 </div>
                 <div style="margin-top:25px">
                     <div style="float:left;margin-top:6px;"><h4 style="margin:0;">衣服购买链接：</h4></div>
-
-                    <table id="theLinks" style="float:left;">
+                    <table id="theLinks">
                         <tr>
                             <td>
-                                <select>
-                                    <option>帽子</option>
-                                    <option>上衣</option>
-                                    <option>裙子</option>
-                                    <option>裤子</option>
-                                    <option>鞋子</option>
-                                </select>
+                                <input type="text" placeholder="请输入服饰名称"/>
                             </td>
-                            <td><input type="text" /></td>
+                            <td><input type="text" placeholder="请输入对应服饰链接" /></td>
                             <td>
-                                <img src="~/Images/People-ExpertAnswer-addlink.png" onmouseover="ImageChange(this, 'People-ExpertAnswer-addlinkover.png')" onmouseout="    ImageChange(this, 'People-ExpertAnswer-addlink.png')" onclick="addLink(this,id)" />
+                                <img src="~/Images/People-ExpertAnswer-addlink.png" onmouseover="ImageChange(this, 'People-ExpertAnswer-addlinkover.png')" onmouseout="ImageChange(this, 'People-ExpertAnswer-addlink.png')" onclick="addLink(this,id)" />
                             </td>
                         </tr>
-
                     </table>
+
                 </div>
+                @*<div style="margin-top:25px">
+        <div style="float:left;margin-top:6px;"><h4 style="margin:0;">衣服购买链接：</h4></div>
+
+        <table id="theLinks" style="float:left;">
+            <tr>
+                <td>
+                    <select>
+                        <option>帽子</option>
+                        <option>上衣</option>
+                        <option>裙子</option>
+                        <option>裤子</option>
+                        <option>鞋子</option>
+                    </select>
+                </td>
+                <td><input type="text" /></td>
+                <td>
+                    <img src="~/Images/People-ExpertAnswer-addlink.png" onmouseover="ImageChange(this, 'People-ExpertAnswer-addlinkover.png')" onmouseout="    ImageChange(this, 'People-ExpertAnswer-addlink.png')" onclick="addLink(this,id)" />
+                </td>
+            </tr>
+
+        </table>
+    </div>*@
                 <div class="fgline" style="margin: 25px 0 50px 0; "></div><!--分割线-->
                 <div style="text-align:center;width:100%;float:left;">
                     <input type="button" class="btn btn-primary" value="提交" />
