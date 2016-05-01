@@ -165,7 +165,7 @@ namespace Fashion.Code.DAL
         /// <returns></returns>
         public DataTable GetBodyData(string userName)
         {
-            string sqlStr = "select User_SkinColor,User_Weight, User_XiongWei,User_YaoWei,User_TunWei,User_Height,User_LegLength,User_ThighGirth,User_CalfGirth,User_ArmGirth from [tb_User] where User_Name = @userName";
+            string sqlStr = "select User_SkinColor,User_Weight, User_XiongWei,User_YaoWei,User_TunWei,User_Height,User_LegLength,User_ThighGirth,User_CalfGirth,User_ArmGirth,User_QuanShenZhaoUrl from [tb_User] where User_Name = @userName";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userName",userName)
             };
@@ -479,19 +479,21 @@ namespace Fashion.Code.DAL
         /// <param name="profession"></param>
         /// <param name="introduction"></param>
         /// <returns></returns>
-        public int InsertExrertRegisterstring(string userName, string realName, string password, string salt, string rankId, string Email, string phoneNumber, string profession, string introduction)
+        public int InsertExrertRegisterstring(string userName, string realName, string password, string salt, string rankId, string Email, string phoneNumber, string profession, string introduction,string quanShenZhaoUrl,string touXiangUrl)
         {
-            string sqlStr = "insert into [tb_User](User_Name,User_RealName,[User_Password],User_Salt,User_RankId,User_Email,User_PhoneNumber,User_Profession,User_Introduction)values(@userName,@realName,@password,@salt,@rankId,@email,@phoneNumber,@profession,@introduction)";
+            string sqlStr = "insert into [tb_User](User_Name,User_RealName,User_QuanShenZhaoUrl,User_TouXiangUrl,[User_Password],User_Salt,User_RankId,User_Email,User_PhoneNumber,User_Profession,User_Introduction)values(@userName,@realName,@quanShenZhaoUrl,@touXiangUrl,@password,@salt,@rankId,@email,@phoneNumber,@profession,@introduction)";
             SqlParameter[] parameters = new SqlParameter[]{
-            new SqlParameter("userName", userName),
-            new SqlParameter("realName",realName),
-            new SqlParameter("password",password),
+            new SqlParameter("@userName", userName),
+            new SqlParameter("@realName",realName),
+            new SqlParameter("@quanShenZhaoUrl",quanShenZhaoUrl),
+            new SqlParameter("@touXiangUrl",touXiangUrl),
+            new SqlParameter("@password",password),
             new SqlParameter("@salt", salt),
-            new SqlParameter("rankId", rankId),
-            new SqlParameter("Email",Email),
-            new SqlParameter("phoneNumber", phoneNumber),
-            new SqlParameter("profession", profession),
-            new SqlParameter("introduction", introduction),
+            new SqlParameter("@rankId", rankId),
+            new SqlParameter("@Email",Email),
+            new SqlParameter("@phoneNumber", phoneNumber),
+            new SqlParameter("@profession", profession),
+            new SqlParameter("@introduction", introduction),
           };
             return SqlHelper.ExecuteNonquery(sqlStr, parameters);
 
@@ -528,13 +530,15 @@ namespace Fashion.Code.DAL
         /// <param name="password">密码</param>
         /// <param name="rankId">等级编号</param>
         /// <returns></returns>
-        public int InsertPhoneNumberRegister(string userName, string salt, string password, string rankId, string phoneNumber)
+        public int InsertPhoneNumberRegister(string userName, string salt, string password, string rankId, string phoneNumber, string quanShenZhaoUrl, string touXiangUrl)
         {
 
-            string sqlStr = "insert into [tb_User] (User_Name,User_Salt,[User_Password],User_RankId,User_PhoneNumber) values (@userName,@salt,@password,@rankId,@phoneNumber)";
+            string sqlStr = "insert into [tb_User] (User_Name,User_Salt,User_QuanShenZhaoUrl,User_TouXiangUrl,[User_Password],User_RankId,User_PhoneNumber) values (@userName,@salt,@quanShenZhaoUrl,@touXiangUrl,@password,@rankId,@phoneNumber)";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("userName",userName),
                 new SqlParameter("@salt",salt),
+                new SqlParameter("@quanShenZhaoUrl",quanShenZhaoUrl),
+                new SqlParameter("touXiangUrl",touXiangUrl),
                 new SqlParameter("password",password),
                 new SqlParameter("rankId",rankId),
                 new SqlParameter("phoneNumber",phoneNumber)
@@ -552,12 +556,14 @@ namespace Fashion.Code.DAL
         /// <param name="rankId"></param>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public int InsertEmailRegister(string userName, string salt, string password, string rankId, string email)
+        public int InsertEmailRegister(string userName, string salt, string password, string rankId, string email, string quanShenZhaoUrl, string touXiangUrl)
         {
-            string sqlStr = "insert into [tb_User] (User_Name,User_Salt,[User_Password],User_RankId,User_Email) values (@userName,@salt,@password,@rankId,@email)";
+            string sqlStr = "insert into [tb_User] (User_Name,User_Salt,User_QuanShenZhaoUrl,User_TouXiangUrl,[User_Password],User_RankId,User_Email) values (@userName,@salt,@quanShenZhaoUrl,@touXiangUrl,@password,@rankId,@email)";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("userName",userName),
                 new SqlParameter("@salt",salt),
+                 new SqlParameter("@quanShenZhaoUrl",quanShenZhaoUrl),
+                new SqlParameter("touXiangUrl",touXiangUrl),
                 new SqlParameter("password",password),
                 new SqlParameter("rankId",rankId),
                 new SqlParameter("email",email)

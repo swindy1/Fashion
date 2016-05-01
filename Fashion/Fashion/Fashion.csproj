@@ -296,6 +296,8 @@
     <Content Include="Images\People-Expert_Register-add.png" />
     <Content Include="Images\People-Expert_Register-addImg.png" />
     <Content Include="Images\People-Expert_Register-WaitForAudit.png" />
+    <Content Include="Images\people-geRenTouXiang.png" />
+    <Content Include="Images\people-index-defaultQuanShenZhao.png" />
     <Content Include="Images\People-myAsks_huangguan.png" />
     <Content Include="Images\People-Index-xiugaiziliao.png" />
     <Content Include="Images\test.png" />

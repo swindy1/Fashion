@@ -26,21 +26,32 @@ namespace Fashion.Controllers
         }
         public ActionResult myAsks()
         {
-
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
             return View();
         }
         public ActionResult myAnsweres()
         {
-
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
             return View();
         }
 
         public ActionResult MySpecialConsult()
         {
-              if (Session["userName"] == null)
+
+            if (Session["userName"] == null)
             {
-                return RedirectToAction("LoginRemind","Topic");
+                return RedirectToAction("LoginRemind", "Topic");
             }
+            LoginStatusConfig();//配置登录状态
+           
               string userName = Session["userName"].ToString();
               User_bll user_bll = new User_bll();
               int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
@@ -50,7 +61,11 @@ namespace Fashion.Controllers
         }
         public ActionResult myCollections()
         {
-
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
             return View();
         }
      
@@ -61,10 +76,7 @@ namespace Fashion.Controllers
                 return RedirectToAction("LoginRemind","Topic");
             }
             LoginStatusConfig();//配置登录状态
-            if (Session["userName"] == null)
-            {
-                return Content("请先登录");
-            }
+        
             People_bll user = new People_bll();
             string userName = Session["userName"].ToString();
             //检测姓名是否为空
@@ -213,8 +225,15 @@ namespace Fashion.Controllers
             {
                 ViewData["ArmGirth"] = user.GetArmGirth(userName);
             }
-
-
+            //检测手臂围是否为空
+            if (user.GetQuanShenZhao(userName) == "1")
+            {
+                ViewData["QuanShenZhao"] = "请输入您的手臂围";
+            }
+            else
+            {
+                ViewData["QuanShenZhao"] = user.GetQuanShenZhao(userName);
+            }
             return View();
         }
 
@@ -328,8 +347,9 @@ namespace Fashion.Controllers
             string profession = Request["profession"];
             string introduction = Request["SelfIntroduction"];
             string password = Request["password"];
-
-            if (people1.ExpertRegister(userName, realName, "专家", Email, phoneNumber, profession, introduction, password) == 0)
+            string quanShenZhaoUrl = "/Images/people-index-defaultQuanShenZhao.png";
+            string touXiangUrl = "/Images/people-geRenTouXiang.png";
+            if (people1.ExpertRegister(userName, realName, "专家", Email, phoneNumber, profession, introduction, password, quanShenZhaoUrl, touXiangUrl) == 0)
             {
                 return RedirectToAction("Login", new { finshRegister = 1 });
             }
@@ -466,7 +486,9 @@ namespace Fashion.Controllers
             string username = Request["username"];
             string password = Request["password"];
             string phoneNumberOrEmail = Request["phoneNumberOrEmail"];
-            if (people.Register(username, password, "普通用户", phoneNumberOrEmail) == 0)
+            string quanShenZhaoUrl = "/Images/people-index-defaultQuanShenZhao.png";
+            string touXiangUrl = "/Images/people-geRenTouXiang.png";
+            if (people.Register(username, password, "普通用户", phoneNumberOrEmail,quanShenZhaoUrl ,touXiangUrl) == 0)
             {
                 return RedirectToAction("Login", new { finshRegister = 1 });
             }
@@ -576,7 +598,6 @@ namespace Fashion.Controllers
         /// 未登录返回false,并且设置ViewData["LoginYes"] = 0
         /// </summary>
         /// 
-
         public bool LoginStatusConfig()
         {
             if (Session["userName"] == null)
