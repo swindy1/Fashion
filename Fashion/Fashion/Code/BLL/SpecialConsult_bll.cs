@@ -21,13 +21,13 @@ namespace Fashion.Code.BLL
         /// <param name="dislikeStyleImageFileName">不喜欢风格的照片名</param>
         /// <returns></returns>
 
-        public int InsertConsultData(int userId, int expertId, string occasion, string details, string geRenZhaoFileName, string likeStyleImageFileName, string dislikeStyleImageFileName)
+        public int InsertConsultData(int userId, int expertId, string occasion, string details, string geRenZhaoFileName, string likeStyleImageFileName, string dislikeStyleImageFileName, DateTime datetime)
         {
             SpecialConsult_dal specialConsul_dal = new SpecialConsult_dal();
             string geRenZhaoUrl="/Images/ConsultImages/GeRenZhao/"+ geRenZhaoFileName;
             string likeStyleImageUrl="/Images/ConsultImages/LikeStyleImage/"+ likeStyleImageFileName;
             string dislikeStyleImageUrl = "/Images/ConsultImages/DisLikeStyleImage/" + dislikeStyleImageFileName;
-            return specialConsul_dal.InsertConsultData(userId, expertId, occasion, details, geRenZhaoUrl, likeStyleImageUrl, dislikeStyleImageUrl);
+            return specialConsul_dal.InsertConsultData(userId, expertId, occasion, details, geRenZhaoUrl, likeStyleImageUrl, dislikeStyleImageUrl,datetime);
         }
 
 

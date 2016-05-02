@@ -89,7 +89,7 @@ namespace Fashion.Controllers
             int expertId = Convert.ToInt32(Request["expertId"]);
             string occasion = Request["occasion"].ToString();//场合
             string details = Request["details"].ToString();//特定咨询详情
-            
+            DateTime datetime = DateTime.Now;
             //保存个人照片到文件夹：GeRenZhao
             byte[] imgGeRenZhao64Byte = Convert.FromBase64String(Request["geRenZhao"]);//将图片数据转化为base64的格式
             System.IO.MemoryStream ms = new System.IO.MemoryStream(imgGeRenZhao64Byte);
@@ -109,8 +109,8 @@ namespace Fashion.Controllers
             string dislikeStyleImageFileName = Guid.NewGuid().ToString() + ".png";//唯一的文件名
             bitmap3.Save(Server.MapPath("~/Images/ConsultImages/DislikeStyleImage/" + dislikeStyleImageFileName), System.Drawing.Imaging.ImageFormat.Png);
 
-            SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
-            specialConsult_bll.InsertConsultData(userId, expertId, occasion, details, geRenZhaoFileName, likeStyleImageFileName, dislikeStyleImageFileName);
+            SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();//保存特定咨询数据
+            specialConsult_bll.InsertConsultData(userId, expertId, occasion, details, geRenZhaoFileName, likeStyleImageFileName, dislikeStyleImageFileName,datetime);
             return Content("特定咨询成功");
         }
         public ActionResult Test()
