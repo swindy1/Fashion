@@ -176,6 +176,9 @@ namespace Fashion.Code.DAL
 
         /// <summary>
         /// 根据用户的userId 获取用户的 特定咨询数 提问数 回答数 收藏 关注数 粉丝数 获赞数
+        /// 成功返回CountUser_model对象的实例
+        /// 失败： 查询到数据库里有多条数据，抛出异常1
+        ///              查询不到数据，抛出异常2
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
@@ -221,7 +224,11 @@ namespace Fashion.Code.DAL
             DataTable dt=SqlHelper.ExecuteDataTable(sqlStr,parameters);
             if(dt.Rows.Count>1)
             {
-                throw new Exception("数据库错误，超过一条数据");
+                throw new Exception("1");//数据库存在多条数据
+            }
+            if (dt.Rows.Count == 0)
+            {
+                throw new Exception("2");//查询到的数据条数为0
             }
             return ToModel_CountUser(dt.Rows[0]);
         }

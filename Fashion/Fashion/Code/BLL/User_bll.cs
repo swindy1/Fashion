@@ -86,7 +86,25 @@ namespace Fashion.Code.BLL
         public CountUser_model GetCountUser(int userId)
         {
             User_dal user_dal = new User_dal();
-            return user_dal.GetCountUser(userId);
+            CountUser_model countUser_model = new CountUser_model();
+            try {
+                countUser_model=user_dal.GetCountUser(userId);
+            }
+            catch (Exception e)
+            {
+                if(e.ToString()=="1")
+                {
+                    throw new Exception("数据库出错，查询到的数据条数超过1条");
+                }
+                else
+                    if(e.ToString()=="2")
+                    {
+                        //抛出异常2，说明查询到CountUser_model数据为0，在这里如果需要可以在这里
+                        //对CountUser_model进行初始化，由于CountUser_model对象生成时已经初始化过了，所以这里就不再初始化了，可以到CountUser_model里查看
+                        return countUser_model;
+                    }
+            }
+            return countUser_model;
         }
 
     }
