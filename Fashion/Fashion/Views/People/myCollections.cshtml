@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "myCollections";
     Layout = "~/Views/Shared/top.cshtml";
+    @model System.Collections.Generic.List<Fashion.Models.Collect_model>
 }
 
 <style>
@@ -71,15 +72,14 @@
 </style>
 
 <div id="theQuetion" class="theQuetion">
-    <div class="myQuetions" onclick="window.location.href = 'myAnsweres'">
+    @foreach (var collect_model in Model)
+    { 
+    <div class="myQuetions" onclick="window.location.href = '../Topic/PostDetails?postId=@collect_model.collectPostId'">
         <div class="theQuetionword">
-
             <div class="theQuetionHead">
-                <span>如何搭配衣服？</span><span><img src="~/Images/People-myAsks_huangguan.png" /></span>
-                <font style="font-size:smaller;">（如果是专家咨询的问题的话标题旁边会有皇冠）</font><!--这行代码起备注作用，可删-->
+                <span>@collect_model.Post_model.postCaption</span><span><img src="~/Images/People-myAsks_huangguan.png" /></span>
             </div>
-            <div class="theUserData"><b>linjiejie</b>,我潮我做主~</div>
-            <p id="questionOmit1" class="theQuetionData">明天要去参加同学毕业典礼，想要一套适合的衣服，要求是显气质，还有不要日韩风，太普遍了，不喜欢。希望鞋子也能帮我配好，搭鞋子也是个问题。鞋子的码数是8码，但是偏胖，脚背高，辛苦啦~</p><!--这一段用了省略段落显示的JS-->
+            <p id="questionOmit1" class="theQuetionData">@collect_model.Post_model.postContent</p><!--这一段用了省略段落显示的JS-->
             <div class="dataColor">2016-06-07</div><!--提问的时间-->
             <script>
                 //省略段落显示
@@ -92,49 +92,9 @@
             </script>
         </div><!-- <div class="theQuetionword">-!end-->
         <div class="imgBorder">
-            <img src="~/Images/UserImages/QuanShenZhao/quanshenzhao3.jpg" class="theQuetionImg" />
+            <img src="@collect_model.Post_model.firstPostPhotoUrl" class="theQuetionImg" />
         </div>
     </div><!--<div class="myQuetions">-!end-->
-    <div class="dashedLine"></div><!--水平分割线-->
-    <div class="myQuetions" onclick="window.location.href = 'myAnsweres'">
-        <div class="theQuetionword">
-            <div class="theQuetionHead"><span>如何搭配衣服？</span></div>
-            <div class="theUserData"><b>linjiejie</b>,我潮我做主~</div>
-            <p id="questionOmit2" class="theQuetionData">明天要去参加同学毕业典礼，想要一套适合的衣服，要求是显气质，还有不要日韩风，太普遍了，不喜欢。希望鞋子也能帮我配好，搭鞋子也是个问题。鞋子的码数是8码，但是偏胖，脚背高，辛苦啦~</p><!--这一段用了省略段落显示的JS-->
-            <div class="dataColor">2016-06-07</div><!--提问的时间-->
-            <script>
-                //省略段落显示
-                var titleStr = document.getElementById("questionOmit2").innerHTML;
-                var maxLen = 65;//你想显示的长度
-                if (titleStr.length > maxLen)//当显示的文字长度大于给定值时，显示一部分
-                    document.getElementById("questionOmit2").innerHTML = titleStr.substring(0, maxLen) + "...&nbsp;&nbsp;";
-                else
-                    document.getElementById("questionOmit2").innerHTML = titleStr + "...&nbsp;&nbsp;";
-            </script>
-        </div><!-- <div class="theQuetionword">-!end-->
-        <div class="imgBorder">
-            <img src="~/Images/UserImages/QuanShenZhao/quanshenzhao3.jpg" class="theQuetionImg" />
-        </div>
-    </div><!--<div class="myQuetions">-!end-->
-    <div class="dashedLine"></div><!--水平分割线-->
-    <div class="myQuetions" onclick="window.location.href = 'myAnsweres'">
-        <div class="theQuetionword">
-            <div class="theQuetionHead"><span>如何搭配衣服？</span><span><img src="~/Images/People-myAsks_huangguan.png" /></span></div>
-            <div class="theUserData"><b>linjiejie</b>,我潮我做主~</div>
-            <p id="questionOmit3" class="theQuetionData">明天要去参加同学毕业典礼，想要一套适合的衣服，要求是显气质，还有不要日韩风，太普遍了，不喜欢。希望鞋子也能帮我配好，搭鞋子也是个问题。鞋子的码数是8码，但是偏胖，辛苦啦~</p><!--这一段用了省略段落显示的JS-->
-            <div class="dataColor">2016-06-07</div><!--提问的时间-->
-            <script>
-                //省略段落显示
-                var titleStr = document.getElementById("questionOmit3").innerHTML;
-                var maxLen = 65;//你想显示的长度
-                if (titleStr.length > maxLen)//当显示的文字长度大于给定值时，显示一部分
-                    document.getElementById("questionOmit3").innerHTML = titleStr.substring(0, maxLen) + "...&nbsp;&nbsp;";
-                else
-                    document.getElementById("questionOmit3").innerHTML = titleStr + "...&nbsp;&nbsp;";
-            </script>
-        </div><!-- <div class="theQuetionword">-!end-->
-        <div class="imgBorder">
-            <img src="~/Images/UserImages/QuanShenZhao/quanshenzhao3.jpg" class="theQuetionImg" />
-        </div>
-    </div><!--<div class="myQuetions">-!end-->
+    <div class="dashedLine"></div><!--水平分割线-->    
+    }
 </div><!--<div id="theQuetiones">-!end-->

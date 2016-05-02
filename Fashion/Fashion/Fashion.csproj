@@ -131,6 +131,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\BLL\Collect_bll.cs" />
     <Compile Include="Code\BLL\ErrorMessage_bll.cs" />
     <Compile Include="Code\BLL\People_bll.cs" />
     <Compile Include="Code\BLL\PostComment_bll.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Code\BLL\SpecialConsult_bll.cs" />
     <Compile Include="Code\BLL\Theme_bll.cs" />
     <Compile Include="Code\BLL\User_bll.cs" />
+    <Compile Include="Code\DAL\Collect_dal.cs" />
     <Compile Include="Code\DAL\ErrorMessage_dal.cs" />
     <Compile Include="Code\DAL\PostComment_dal.cs" />
     <Compile Include="Code\DAL\PostPhoto_dal.cs" />

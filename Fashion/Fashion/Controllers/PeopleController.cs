@@ -64,7 +64,7 @@ namespace Fashion.Controllers
             ViewData["countUser_model"] = countUser_model;
             ReplyPost_bll replyPost_bll = new ReplyPost_bll();
             List<ReplyPost_model> replyPost_modelList = new List<ReplyPost_model>();
-            replyPost_modelList = replyPost_bll.GetShortReplyPostData(userId);
+            replyPost_modelList = replyPost_bll.GetShortReplyPostData(userId);//获取用户的回帖数据
             return View(replyPost_modelList);
         }
         /// <summary>
@@ -101,7 +101,10 @@ namespace Fashion.Controllers
             int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
             CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
             ViewData["countUser_model"] = countUser_model;
-            return View();
+            Collect_bll collect_bll = new Collect_bll();
+            List<Collect_model> collect_modelList = new List<Collect_model>();
+            collect_modelList = collect_bll.GetShortCollectPostData(userId);//通过userId获取用户的收藏过的帖子
+            return View(collect_modelList);
         }
      
         public ActionResult Index()
