@@ -109,6 +109,8 @@ namespace Fashion.Controllers
             string jsonData = serializer.Serialize(expertUserConsult_modelList);
             return Content(jsonData);
         }
+
+
         //特定咨询详情页面（用户和专家共用）
         public ActionResult ConsultDetails()
         {
@@ -119,13 +121,31 @@ namespace Fashion.Controllers
             LoginStatusConfig();//配置登录状态
             //string expertUserName = Request["expertUserName"].ToString();
             int specialConsultId = Convert.ToInt32(Request["specialConsultId"]);  
-            //获取用户特定咨询的用户数据
+            
             SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
-            SpecialConsult_model specialConsult_model = specialConsult_bll.GetOneSpecialConsult(specialConsultId);//获取specialConsultId的特定咨询的数据
+            SpecialConsult_model specialConsult_model = specialConsult_bll.GetOneSpecialConsult(specialConsultId);//通过specialConsultId获取用户特定咨询时填写的特定咨询数据
+            ViewData["specialConsult_model"] = specialConsult_model;
             //获取特定咨询的专家解答数据
-            return View(specialConsult_model);            
+            SpecialConsultAnswer_bll specialConsultAnswer_bll = new SpecialConsultAnswer_bll();
+            SpecialConsultAnswer_model specialConsultAnswer_model = specialConsultAnswer_bll.GetOneSpecialAnswerData(specialConsultId);
+            return View(specialConsultAnswer_model);            
         }
 
+        /// <summary>
+        /// 通过解答的数据id specialAnswerId获取该数据的搭配的衣服
+        /// 返回json格式的数据
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetSpecialAnswerClothes()
+        {
+            int specialAnswerId=Convert.ToInt32(Request["specialAnswerId"]);            
+            SpecialConsultAnswerClothes_bll specialConsultAnswerClothes_bll = new SpecialConsultAnswerClothes_bll();
+            List<SpecialConsultAnswerClothes_model>  specialConsultAnswerClothes_modelList=specialConsultAnswerClothes_bll.GetSpecialAnswerClothes(specialAnswerId);
+            //接下来专家为json数据
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string jsonData = serializer.Serialize(specialConsultAnswerClothes_modelList);
+            return Content(jsonData);
+        }
         /// <summary>
         /// 配置用户登录状态
         /// 如果已登录，返回true，并且设置登录状态：设置ViewData["LoginYes"] = 1；并且从数据库里取出用户头像的链接：ViewData["TouXiangUrl"] =...；

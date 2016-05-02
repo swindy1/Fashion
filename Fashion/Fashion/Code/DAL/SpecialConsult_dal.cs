@@ -25,9 +25,10 @@ namespace Fashion.Code.DAL
             return SqlHelper.ExecuteScalar(sqlStr, parameters);
             
         }
+
         /// <summary>
-        /// 通过特定咨询的帖子编号specialConsultId查询数据库的tb_SpecialConsult，获取特定咨询的
-        /// 用户咨询数据
+        /// 通过特定咨询的帖子编号specialConsultId查询数据库的tb_SpecialConsult，
+        /// 获取用户特定咨询时填写的特定咨询数据
         /// </summary>
         /// <param name="specialConsultId">特定咨询的帖子编号</param>
         /// <returns></returns>
@@ -52,6 +53,9 @@ namespace Fashion.Code.DAL
             SpecialConsult_model specialConsult_model = ToModel(dataTable.Rows[0]);
             return specialConsult_model;
         }
+
+
+
 
         /// <summary>
         /// 通过用户名，查询该用户特定咨询过的帖子，
