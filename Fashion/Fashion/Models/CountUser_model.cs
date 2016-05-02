@@ -16,10 +16,11 @@ namespace Fashion.Models
         public int supportCount;//获赞数，有多少人点赞我，或感谢我
         /// <summary>
         /// 构造函数
+        /// Creator：simple
         /// </summary>
         public CountUser_model()
         {
-            //对本对象的属性进行初始化
+            //对本对象的属性进行初始化，当查询数据库的数据为0时，就起作用啦
             specialConsultCount = 0;
             zhuTieCount = 0;
             replyCount = 0;

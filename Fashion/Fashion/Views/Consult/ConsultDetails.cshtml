@@ -11,26 +11,27 @@
 <link href="~/Content/Pinglun_css.css" rel="stylesheet" />
 <script>
     $(document).ready(function () {
-        var htmlUrl = "@Model.answerHtmlUrl";//获取专家解答的内容的静态html页面
-        var expertAnswerHtmlContent = "expertAnswerHtmlContent";  //expertAnswerHtmlContent为展示帖子内容的div编号，等一下要把静态html里的内容填充到本div里
-        $.ajax({//通过ajax请求静态html的内容
-            async: false,
-            url: htmlUrl,
-            success: function (result) {
-                $("#" + expertAnswerHtmlContent).html(result);
-            }
-        });
-
+        if ("@Model.answerHtmlUrl" != "")
+        {
+            var htmlUrl = "@Model.answerHtmlUrl";//获取专家解答的内容的静态html页面
+            var expertAnswerHtmlContent = "expertAnswerHtmlContent";  //expertAnswerHtmlContent为展示帖子内容的div编号，等一下要把静态html里的内容填充到本div里
+            $.ajax({//通过ajax请求静态html的内容
+                async: false,
+                url: htmlUrl,
+                success: function (result) {
+                    $("#" + expertAnswerHtmlContent).html(result);
+                }
+            });
+        }
         //////获取专家搭配的衣服
         $.ajax({
             url: "GetSpecialAnswerClothes",
-            data: { specialAnswerId:52},
+            data: { specialAnswerId: 52 },
             success: function (data) {
                 var jsonData = JSON.parse(data);
                 var answerClothTemplateHtml = '  <div><a href="simpleClothUrl" title="点击查看服饰详情" target="_black"> simpleColthType</a></div>   ';//模板
                 var answerClothHtml = "";//购买衣服的html内容
-                for (I = 0; I < jsonData.length; I++)
-                {
+                for (I = 0; I < jsonData.length; I++) {
                     answerClothHtml = answerClothHtml + answerClothTemplateHtml;
                     answerClothHtml = answerClothHtml.replace("simpleClothUrl", jsonData[I].clothUrl);
                     answerClothHtml = answerClothHtml.replace("simpleColthType", jsonData[I].clothType);
@@ -38,6 +39,8 @@
                 $("#answerClothHtml").html(answerClothHtml);
             }
         });
+
+
 
     });
 </script>

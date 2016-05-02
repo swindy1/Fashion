@@ -16,6 +16,7 @@ namespace Fashion.Models
         /// </summary>
         public SpecialConsultAnswer_model()
         {
+            answerHtmlUrl = "";            
             specialConsult_model = new SpecialConsult_model();
         }
     }
