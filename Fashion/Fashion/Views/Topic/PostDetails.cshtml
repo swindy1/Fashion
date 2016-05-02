@@ -1,22 +1,28 @@
 ﻿@{
     ViewBag.Title = "PostDetails";
     Layout = "~/Views/Shared/Top_menu.cshtml";
+    Fashion.Models.Post_model post_mode = (Fashion.Models.Post_model)ViewData["post_mode"];//原帖数据
+    @model System.Collections.Generic.List<Fashion.Models.ReplyPost_model>
 }
 <link href="~/Content/Pinglun_css.css" rel="stylesheet" />
 <script src="~/kindeditor/kindeditor-all-min.js"></script>
 <script src="~/kindeditor/lang/zh-CN.js"></script>
 <link href="~/kindeditor/themes/default/default.css" rel="stylesheet" />
-<script>
+<script>    
     KindEditor.ready(function (K) {
-        window.editor = K.create('#editor_id', {
-            themeType: 'example1'
+            editor = K.create('#editor_id', {
+            themeType: 'example1',
+            langType: 'zh-CN',
+            uploadJson: '../../kindeditor/asp.net/ReplyPostUpload_json.ashx',
         });
     });
 </script>
 
+
 <script>
     $(document).ready(function () {
-        var htmlUrl = "/StaticHtml/TieZiHtml/20160418223848_4917.html";//htmlUrl，获取静态html的路径，该htmlUrl存放帖子的内容
+
+        var htmlUrl = "@post_mode.postHtmlUrl";//htmlUrl，获取静态html的路径，该htmlUrl存放帖子的内容
         $.ajax({//通过ajax请求静态html的内容
             async: false,
             url: htmlUrl,
@@ -24,10 +30,18 @@
                 $("#question_details").html(result);//将帖子内容渲染到div里
             }
         });
+
+        $("#submitBtn").click(function () {
+            editor.sync();
+            var theEditorContent = editor.text();//获得编辑框里的所有纯文本，不包含任何样式，因为要将前200个字符保存到数据库里
+            $("#editorContent").val(theEditorContent);
+            $("#postDataForm").submit();
+        });
+
     });
 </script>
 
-<script type="text/javascript">
+<script>
     var qjbl = 0;//为qjbl++做准备
     //本函数实现当用户点击评论中的回复评论框中的评论按钮时，提交回复评论框中的内容
     function cj_huifupl(x) {
@@ -60,11 +74,28 @@
 
     }
     //本函数实现当用户点击提交评论的评论按钮时，提交评论内容，创建一个新的评论到评论尾部
-    function cj_pl(x) {              //点击提交评论内容
-        var postId = x.substring(7);
+    function cj_pl(x, postTypeName) {              //点击提交评论内容
+        var postTypeId = 1;//1代表主贴
+        if (postTypeName == '回帖')
+        {
+            postTypeId = 2;//2代表回贴
+        }
+        var postId = x.substring(14);
+
+        var beCommenterUserName = "222";//被评论帖子的用户名
+        var k ="";//评论text的ID,有两种，主贴和回帖对应不同的id
+        if (postTypeName == "主贴") {
+            beCommenterUserName = "222";
+            k = "pl_text_ZhuTie_" + postId;//评论text的ID
+        }
+        else{
+            beCommenterUserName = $("#userNameHui_" + postId).text();
+            k = "pl_text_HuiTie_" + postId;//评论text的ID
+        }        
         var z = "tjpl_" + postId;//放整个评论的地方的id
-        var k = "pl_text_" + postId;//评论text的ID
-        var pl_val = document.getElementById(k).value;//评论的内容
+        var pl_val = document.getElementById(k).value;//text评论框的内容
+        
+        var theZhuTieUserName = $("#AzhuTieUserName_" + postId).html();//得到主贴的用户名
         if (pl_val.length <= 0) {
             alert("评论内容不能为空！");
         }
@@ -73,10 +104,11 @@
             //想后天添加该评论的数据
             $.ajax({
                 url: "AjaxTieZiComment",
-                data: { postId: postId, commenterUserName: theCommentUserName, beCommenterId: 2043, content: pl_val, postType: 1 },
+                data: { postId: postId, commenterUserName: theCommentUserName, beCommenterUserName: beCommenterUserName, content: pl_val, postType: postTypeId },
                 success: function (data) {
-
-                    alert("1");
+                    alert(data);
+                    var pinglunCount = $("#hidPingLunCount_" + postId).val();
+                    $("#hidPingLunCount_" + postId).val(parseInt(pinglunCount) + 1);
                 }
             });
 
@@ -187,40 +219,42 @@
             qjbl++;
         }
     }
-    //本函数实现当点击一次话题下面点赞数，点赞数增加1，再点击一次减1
-    function ht_dianzan(x) {
-        var postId = x.substring(14);
-        var y = document.getElementById(x).className;
-        var z = document.getElementById(x).innerHTML;
-        if (y == "dianzanshu") {//点赞
-            $.ajax({ //数据库点赞数+1
-                url: "AjaxPostSupportCountAdd1",
-                data: { postId: postId },
-                success: function (data) {
-                    //这里不需要任何操作
-                }
-            });
-            z++;
-            document.getElementById(x).innerHTML = z;
-            document.getElementById(x).className = "dianzanshu_";
-        }
-        else {//取消点赞
-            z--;
-            $.ajax({ //数据库点赞数-1
-                url: "AjaxPostSupportCountReduce1",
-                data: { postId: postId },
-                success: function (data) {
-                    //这里不需要任何操作
-                }
-            });
-            document.getElementById(x).innerHTML = z;
-            document.getElementById(x).className = "dianzanshu";
-        }
+    </script>
+    <script>
+        //本函数实现当点击一次话题下面点赞数，点赞数增加1，再点击一次减1
+        function ht_dianzan(x) {
+            var postId = x.substring(14);
+            var y = document.getElementById(x).className;
+            var z = document.getElementById(x).innerHTML;
+            if (y == "dianzanshu") {//点赞
+                $.ajax({ //数据库点赞数+1
+                    url: "AjaxPostSupportCountAdd1",
+                    data: {postId:postId},
+                    success: function (data) {
+                        //这里不需要任何操作
+                    }
+                });
+                z++;
+                document.getElementById(x).innerHTML = z;
+                document.getElementById(x).className = "dianzanshu_";
+            }
+            else {//取消点赞
+                z--;
+                $.ajax({ //数据库点赞数-1
+                    url: "AjaxPostSupportCountReduce1",
+                    data: { postId: postId },
+                    success: function (data) {
+                        //这里不需要任何操作
+                    }
+                });
+                document.getElementById(x).innerHTML = z;
+                document.getElementById(x).className = "dianzanshu";
+            }
 
-    }
+        }
     //本函数实现当点击一次评论内容中的点赞按钮，评论框右边的点赞数增加1，再点击一次减1
     function pl_dianzan(x) {        //评论点赞
-        var postId = x.substring(10);
+        var postId=x.substring(10);
         var z = "pl-dianzanshu" + postId;      //点赞数的值所在的span的id
         var k = "pl-dianzan-btn" + postId;     //点赞按钮的值所在的span的id
         var z_val = document.getElementById(z).innerHTML  //点赞数的值
@@ -290,9 +324,20 @@
         }
     }
     //点击评论下方的评论框时显示评论按钮
-    function xs_pl_btn(x) {
-        var postId = x.substring(8);
+    function xs_pl_btn(x, postTypeName) {
+        var postId = x.substring(15);
         var z = "pl_op_" + postId;
+        var zhuTiePingLunbtn = "pl_btn_ZhuTie_" + postId;//主贴的评论按钮
+        var huiTiePingLunbtn = "pl_btn_HuiTie_" + postId;//回贴的评论按钮
+        //如果是主贴则显示主贴的评论按钮
+        if (postTypeName == '主贴') {
+            document.getElementById(zhuTiePingLunbtn).style.display = "block";
+            document.getElementById(huiTiePingLunbtn).style.display = "none";
+        }
+        else {
+            document.getElementById(zhuTiePingLunbtn).style.display = "none";
+            document.getElementById(huiTiePingLunbtn).style.display = "block";
+        }
         document.getElementById(z).style.display = "block";
 
 
@@ -317,29 +362,76 @@
         document.getElementById(z).style.display = "none";
 
     }
-    //鼠标划过时显示正文下方被隐藏的操作按钮的div
-    function xianshi_op(x) {
-        var postId = x.substring(11);
-        var a = "yincang_op_" + postId;
-        document.getElementById(a).style.display = "block";
+    //本函数实现当点击评论按钮时，显示评论内容，再次点击时隐藏
+    function xs_pl(x,postTypeName) {       //点击显示隐藏评论           
+        var postId = x.substring(5);//获得每个帖子的编号
+        var postTypeId = 1;//1代表主贴
+        if (postTypeName == "回帖") {
+            postTypeId = 2;//2代表回贴
+        }
+        var zhuTiePingLunKuang = "pl_text_ZhuTie_" + postId;//主贴的评论输入框
+        var HuiTiePingLunKuang = "pl_text_HuiTie_" + postId;//回贴的评论输入框
+        commentCount = $("#hidPingLunCount_" + postId).val();//获取评论的条数
+        var z = "comments_kuang_" + postId;
+        var k = "pl_" + postId;
+        var g = document.getElementById(k).innerHTML;
+        flag = $("#pinglunHidden_" + postId).val(); //获取隐藏的值，1代表为已经打开，需要关闭
+        if (flag == 0)//flag为0，已经关闭，需要打开评论详情
+        {
+            //请求数据库里的帖子评论数据
+            $.ajax({
+                url: "AjaxGetCommentData",
+                data: { postId: postId, postType: postTypeId },
+                success: function (data) {
+                    var jsonData = JSON.parse(data);                        
+                    $("#pinglunHidden_" + postId).val("1");  //设置评论详情当前状态为打开，1代表打开，0代表关闭
+                    //渲染评论内容
+                    var TheCommentCodeHtml = $("#TheCommentCode").html();//一条评论数据的html模板
+                    var TheCommentPingLunHtml = $("#TheCommentPingLun").html();//用户开始评论的html模板
+                    var CommentHtml = "";//整块评论数据的html，即包含TheCommentCodeHtml和TheCommentPingLunHtml
+                    for (II = 0; II < commentCount; II++)//II为第几条评论
+                    {
+                        CommentHtml = CommentHtml + TheCommentCodeHtml;
+                        CommentHtml = CommentHtml.replace(/simplej/g, II);
+                        CommentHtml = CommentHtml.replace("simpleCommenterUser", jsonData[II].Commenter.userName);
+                        CommentHtml = CommentHtml.replace("simpleContent", jsonData[II].postCommentContent);
+                        CommentHtml = CommentHtml.replace("simpleCommenterTouXiang", jsonData[II].Commenter.touXiangUrl);
+                            
+                        //CommentHtml = CommentHtml.replace("simpleDate", jsonData[0].postCommentDate);
+                        CommentHtml = CommentHtml.replace("simpleSupportCount", jsonData[II].postCommentSupportCount);
+                            
+                    }
+                    CommentHtml = CommentHtml + TheCommentPingLunHtml;
+                    CommentHtml = CommentHtml.replace(/simplei/g, postId);//正则表达式，/g替换全部的意思
+                    $("#comments_kuang_" + postId).html(CommentHtml);
+                    document.getElementById(k).innerHTML = "收起评论";
+                    if (postTypeName == "主贴") {//如果是主贴则显示主贴的评论输入框
+                        document.getElementById(zhuTiePingLunKuang).style.display = "block";
+                        document.getElementById(HuiTiePingLunKuang).style.display = "none";
 
-
-
-    }
-    //鼠标移开时隐藏正文下方可被隐藏的操作按钮的div
-    function yincang_op(x) {
-        var postId = x.substring(11);
-        var a = "yincang_op_" + postId;
-        document.getElementById(a).style.display = "none";
+                    }
+                    else {//如果是回贴则显示回贴的评论输入框
+                        document.getElementById(zhuTiePingLunKuang).style.display = "none";
+                        document.getElementById(HuiTiePingLunKuang).style.display = "block";
+                    }
+                    document.getElementById(z).style.display = "block";
+                }
+            });
+        }
+        else {
+            $("#pinglunHidden_" + postId).val("0");  //设置评论详情状态为打开，1代表打开，0代表关闭
+            document.getElementById(z).style.display = "none";
+            document.getElementById(k).innerHTML = commentCount + " 条评论";
+        }
     }
     ////本函数实现点击关注按钮时按钮显示为取消关注，再次点击时，取消关注显示又变回关注按钮
     function guanzhu(x) {
-        var postId = x.substring(8);
+        var postId = x.substring(8);            
         var z = "gz_" + postId;
         var g = "gz_img_" + postId;
         var k = document.getElementById(z).innerHTML;
         if (k == "关注") {
-
+                
             document.getElementById(z).innerHTML = "已关注";
             document.getElementById(g).src = "../Images/Topic-Home-yiguanzhu.png"
         }
@@ -349,7 +441,7 @@
         }
     }
     ////本函数实现点击感谢按钮时按钮显示为取消感谢，再次点击时，取消感谢显示又变回感谢按钮
-    function thx(x) {
+    function thx(x) {            
         var postId = x.substring(4);
         var z = "ganxie_" + postId;
         var k = document.getElementById(z).innerHTML;
@@ -374,55 +466,86 @@
 
         }
     }
-    //本函数实现当点击评论按钮时，显示评论内容，再次点击时隐藏
-    function xs_pl(x, commentCount) {       //点击显示隐藏评论
-        var postId = x.substring(5);//获得每个帖子的编号
-        var z = "comments_kuang_" + postId;
-        var k = "pl_" + postId;
-        var g = document.getElementById(k).innerHTML;
-        flag = $("#pinglunHidden_" + postId).val(); //获取隐藏的值，1代表为已经打开，需要关闭
-        if (flag == 0)//flag为0，已经关闭，需要打开评论详情
-        {
-            //请求数据库里的帖子评论数据
-            $.ajax({
-                url: "AjaxGetCommentData",
-                data: { postId: postId, postType: "1" },
-                success: function (data) {
-                    var jsonData = JSON.parse(data);
-                    $("#pinglunHidden_" + postId).val("1");  //设置评论详情当前状态为打开，1代表打开，0代表关闭
-                    //渲染评论内容
-                    var TheCommentCodeHtml = $("#TheCommentCode").html();//一条评论数据的html模板
-                    var TheCommentPingLunHtml = $("#TheCommentPingLun").html();//用户开始评论的html模板
-                    var CommentHtml = "";//整块评论数据的html，即包含TheCommentCodeHtml和TheCommentPingLunHtml
-                    for (II = 0; II < commentCount; II++)//II为第几条评论
-                    {
-                        CommentHtml = CommentHtml + TheCommentCodeHtml;
-                        CommentHtml = CommentHtml.replace(/simplej/g, II);
-                        CommentHtml = CommentHtml.replace("simpleCommenterUser", jsonData[II].Commenter.userName);
-                        CommentHtml = CommentHtml.replace("simpleContent", jsonData[II].postCommentContent);
-                        CommentHtml = CommentHtml.replace("simpleCommenterTouXiang", jsonData[II].Commenter.touXiangUrl);
 
-                        //CommentHtml = CommentHtml.replace("simpleDate", jsonData[0].postCommentDate);
-                        CommentHtml = CommentHtml.replace("simpleSupportCount", jsonData[II].postCommentSupportCount);
-
-                    }
-                    CommentHtml = CommentHtml + TheCommentPingLunHtml;
-                    CommentHtml = CommentHtml.replace(/simplei/g, postId);//正则表达式，/g替换全部的意思
-                    $("#comments_kuang_" + postId).html(CommentHtml);
-                    document.getElementById(k).innerHTML = "收起评论";
-                    document.getElementById(z).style.display = "block";
+    //本函数实现点击省略的文章时，展开全文
+    function zhangkai(x) {
+        document.getElementById(x).style.display = "none";
+        var postId = x.substring(16);//postId为帖子编号
+        var htmlUrl = document.getElementById("hiddenHtmlUrl_" + postId).value; //获取静态html路径，该静态html存放的是帖子的完整内容
+        var z = "data_detail_data_" + postId;  //z为展示帖子内容的div编号，等一下要把静态html里的内容填充到本div里
+        $.ajax({//通过ajax请求静态html的内容
+            async: false,
+            url: htmlUrl,
+            success: function (result) {
+                $("#" + z).html(result);
+            }
+        });
 
 
-                }
-            });
-        }
-        else {
-            $("#pinglunHidden_" + postId).val("0");  //设置评论详情状态为打开，1代表打开，0代表关闭
-            document.getElementById(z).style.display = "none";
-            document.getElementById(k).innerHTML = commentCount + " 条评论";
-        }
+        var htmlUrl = "20160406200726_0329.html";//htmlUrl，获取静态html的路径，该htmlUrl存放帖子的内容
+        $.ajax({//通过ajax请求静态html的内容
+            async: false,
+            url: htmlUrl,
+            success: function (result) {
+                $("#div" ).html(result);//将帖子内容渲染到div里
+            }
+        });
+
+
+
+
+
+        $.ajax({//通过ajax请求静态html的内容
+            async: false,
+            url: "20160406200726_0329.html",
+            success: function (result) {
+                $("#div").html(result);
+            }
+        });
+
+
+
+
+
+
+
+
+        document.getElementById(z).style.display = "block";
+        var k = "xs_shouqi_" + postId;
+        document.getElementById(k).style.display = "block";
+    }
+    ///本函数实现点击收起按钮时收起详细内容，切换回省略内容
+    function shouqi(x) {
+        var postId = x.substring(7);
+        var a = "data_detail_data_" + postId;
+        var z = "data_short_data_" + postId;
+        document.getElementById(a).style.display = "none";            
+        document.getElementById(z).style.display = "block";
+        var k = "xs_shouqi_" + postId;
+        document.getElementById(k).style.display = "none";
+    }
+
+    //鼠标划过时显示正文下方被隐藏的操作按钮的div
+    function xianshi_op(x) {
+        var postId = x.substring(9, x.length);
+        var a = "yincang_op_" + postId;
+        document.getElementById(a).style.display = "block";
+
+
+
+    }
+    //鼠标移开时隐藏正文下方可被隐藏的操作按钮的div
+    function yincang_op(x) {
+        var postId = x.substring(9);
+        var a = "yincang_op_" + postId;
+        document.getElementById(a).style.display = "none";
     }
 </script>
+
+
+
+
+
 <style>
     .answersData {
         float: left;
@@ -505,14 +628,17 @@
         <div id="Left_main" class="col-md-8" style="padding-left:12px;float:left;">
             <div class="LeftBackground">
                 <div id="Question">
-                    <h4 style="margin:auto;font-weight:bold;">冬季搭配该如何穿衣搭配呢？</h4>
+                    <h4 style="margin:auto;font-weight:bold;">@post_mode.postCaption</h4>
                     <div id="question_details" class="question_details"></div><!-- <pre id="question_details">-!end-->
                     <div id="op_cz" class="op_img"style="font-size:0.9em;">
                         <div id="guanzhu_0" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_0" /><div class="data_op_n" id="gz_0">关注</div></div>
 
-                        <div id="zkpl_0" class="data_op_xx" onclick="xs_pl(this.id)">
-                            <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_0">2 条评论</div>
-                            <input type="hidden" id="pinglunHidden_0" value="0" />
+                        <div id="zkpl_@post_mode.postId" class="data_op_xx" onclick="xs_pl(this.id,'主贴')">
+                            <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@post_mode.postId">@post_mode.commentCount 条评论</div>
+                            @*评论是否为打开状态，0代表未打开i，1代表打开*@
+                            <input type="hidden" id="pinglunHidden_@post_mode.postId" value="0" />
+                            @*状态值：保存评论的条数*@
+                            <input type="hidden" id="hidPingLunCount_@post_mode.postId" value="@post_mode.commentCount" />
                         </div>
                             <div id="thx_0" class="data_op_xx" onclick="thx(this.id)">
                                 <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_0">感谢</div>
@@ -533,11 +659,13 @@
 
                     </div>
 
-                    <div id="comments_kuang_0" class="yc plk" style="font-size:0.9em;"></div>
+                    <div id="comments_kuang_@post_mode.postId" class="yc plk" style="font-size:0.9em;">
+
+                    </div>
                         <div style="border-top: 1px solid #686868; float: left; width: 100%; "></div><!--分割线-->
                         <div style="width:100%;float:left;">
                             <div class="communication">
-                                <h4 style="margin-bottom:10px;">97个回答</h4>
+                                <h4 style="margin-bottom:10px;">@post_mode.tuiTieCount 个回答</h4>
                             </div>
                             <div class="communication" style="color: #a9b7b7; float: right;margin-top:10px; margin-right:-5px;">
                                 按投票排序
@@ -545,16 +673,21 @@
                             </div>
                         </div>
                         <div style="border-top:1px solid #686868;float:left;width:100%;margin-bottom:10px;"></div><!--分割线-->
-                                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <div id="AnswersDiv_@i" style="float: left; font-size: 0.9em;" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
+
+
+
+
+                                    @foreach(var replyPost_model in Model)
+                                    {
+                                                        
+                        <div id="AnswersDiv_@replyPost_model.replyPostId" style="float: left; font-size: 0.9em;" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
                             <div>
                                 <div>
                                     <div style="float:right;">
-                                        <a href=""><img src="~/Images/UserImages/TouXiang/touxiang1.png" style="width:25px;" /></a>
+                                        <a href=""><img src="@replyPost_model.Commenter.touXiangUrl" style="width:25px;" /></a>
                                     </div>
                                     <div style="float:left;width:90%;">
-                                        <b>GG_girl,</b>做最时尚的自己
+                                        <font id="userNameHui_@replyPost_model.replyPostId">@replyPost_model.Commenter.userName</font>,@replyPost_model.Commenter.signature
                                     </div>
                                 </div>
                                 <div class="zan" style="float:left;">
@@ -563,27 +696,40 @@
                                     <a href="">ll_linna</a>等人觉得很赞
                                 </div>
 
-                                <div id="answersData_@i" class="answersData">
+                                <div id="answersData_@replyPost_model.replyPostId" class="answersData">
                                     <!--存放问题答案的div-->
                                     想显瘦的话效果最好的绝对还是黑色小脚裤，超模女星们都人手N条，杨幂、高圆圆也是它的脑残粉，和其他单品也超级百搭，秋天有了它，穿衣也变得无比省心了。
                                     <img src="~/Images/Topic-Home-wentitupian.png.jpg" />
                                 </div><!--<div id="answersData">-!end-->
-
+                                <script type="text/javascript">
+                                    $.ajax({//通过ajax请求静态html的内容 /StaticHtml/HuiTieHtml/
+                                        async: false,
+                                        url: '@replyPost_model.replyPostHtmlUrl',
+                                        success: function (result) {
+                                            $("#answersData_@replyPost_model.replyPostId").html(result);
+                                            //alert(result);
+                                            //$("#" + z).html(result);
+                                        }
+                                    });
+                                </script>
                             </div>
                             <div class="op_img" id="op_cz">
-                                <div id="guanzhu_@i" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@i" /><div class="data_op_n" id="gz_@i">关注</div></div>
+                                <div id="guanzhu_@replyPost_model.replyPostId" class="data_op_xx" onclick="guanzhu(this.id);"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@replyPost_model.replyPostId" /><div class="data_op_n" id="gz_@replyPost_model.replyPostId">关注</div></div>
 
-                                <div id="zkpl_@i" class="data_op_xx" onclick="xs_pl(this.id)">
-                                    <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@i">2 条评论</div>
-                                <input type="hidden" id="pinglunHidden_@i" value="0" />
+                                <div id="zkpl_@replyPost_model.replyPostId" class="data_op_xx" onclick="xs_pl(this.id,'回帖')">
+                                    <img src="~/Images/Topic-Home-pinglun.png" /><div class="data_op_n" id="pl_@replyPost_model.replyPostId">@replyPost_model.commentCount 条评论</div>
+                                    @*评论是否为打开状态，0代表未打开i，1代表打开*@
+                                    <input type="hidden" id="pinglunHidden_@replyPost_model.replyPostId" value="0" />
+                                    @*状态值：保存评论的条数*@
+                                    <input type="hidden" id="hidPingLunCount_@replyPost_model.replyPostId" value="@replyPost_model.commentCount" />
                             </div>
-                            <div id="yincang_op_@i" style="display:none;">
-                                <div id="thx_@i" class="data_op_xx" onclick="thx(this.id)">
-                                    <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_@i">感谢</div>
+                            <div id="yincang_op_@replyPost_model.replyPostId" style="display:none;">
+                                <div id="thx_@replyPost_model.replyPostId" class="data_op_xx" onclick="thx(this.id)">
+                                    <img src="~/Images/Topic-Home-ganxie.png" /><div class="data_op_n" id="ganxie_@replyPost_model.replyPostId">感谢</div>
                                 </div>
 
-                                <div class="data_op_xx" onclick="save(this.id)" id="save_@i">
-                                    <img src="~/Images/Topic-Home-save.png" /><div class="data_op_n" id="save_val_@i">收藏</div>
+                                <div class="data_op_xx" onclick="save(this.id)" id="save_@replyPost_model.replyPostId">
+                                    <img src="~/Images/Topic-Home-save.png" /><div class="data_op_n" id="save_val_@replyPost_model.replyPostId">收藏</div>
                                 </div>
                                 <div class="data_op_xx">
                                     <img src="~/Images/Topic-Home-fenxiang.png" /><div class="data_op_n">分享</div>
@@ -596,18 +742,14 @@
                             <div class="data_op_xx">
                                 <img src="~/Images/Topic-Home-dian.png" /><div class="data_op_n">保留权利</div>
                             </div>
-                            <div id="xs_shouqi_@i" class="data_op_xx data_op_shouqi">
+                            <div id="xs_shouqi_@replyPost_model.replyPostId" class="data_op_xx data_op_shouqi">
                                 <img src="~/Images/Topic-Home-retract.png" />
-                                <div id="shouqi_@i" class="data_op_n" onclick="shouqi(this.id)">收起</div>
+                                <div id="shouqi_@replyPost_model.replyPostId" class="data_op_n" onclick="shouqi(this.id)">收起</div>
                             </div>
 
                         </div>
 
-                            <div id="comments_kuang_@i" class="yc plk"></div>
-
-                        
-
-
+                            <div id="comments_kuang_@replyPost_model.replyPostId" class="yc plk"></div>
                     </div><!--<div id="AnswersDiv1">-!end-->
                         <div class="hr_fgx"></div><!--分割线-->
                 }
@@ -618,15 +760,26 @@
                 <div class="hr_fgx"></div><!--分割线-->
                 <div id="answerDiv">
                 <div>
-                    <span style="float:left;"><span style="color:#225599;font-weight:bold;">linjiejie</span><span>，姐姐是好好学习的孩子~</span></span>
-                    <span style="float:right;width:30px;"><img src="~/Images/Layout-usertouxiang.png" style="width:100%;border-radius:3px;"/></span>
+                    <span style="float:left;"><span style="color:#225599;font-weight:bold;">@ViewData["userName"]</span><span>，@ViewData["signature"]</span></span>
+                    <span style="float:right;width:30px;"><img src="@ViewData["TouXiangUrl"]" style="width:100%;border-radius:3px;"/></span>
                 </div>
 
                     <div id="editorDiv" style="width:100%;">
-                        <textarea id="editor_id" name="content">
-                            &lt;strong&gt;HTML内容&lt;/strong&gt;
-                        </textarea>
-                    </div>
+                        <form action="../Posts/MakePostReply" method="post" id="postDataForm">
+                            <textarea id="editor_id" name="content">
+                                &lt;strong&gt;HTML内容&lt;/strong&gt;
+                            </textarea>
+                            <div style="text-align:center;width:100%;float:left;">
+                                <input id="submitBtn" type="button" class="btn btn-primary" value="提交" />
+                            </div>
+                            <div>
+                                @*这里是隐藏数据*@
+                                <input type="hidden"  name="hidPostId"  value="@post_mode.postId"/>
+                                <input type="hidden" name="hidHuiTieUserName" value='@ViewData["userName"]' />
+                                <input type="text" id="editorContent" name="editorContent" style="display:none" />
+                            </div>
+                        </form>
+</div>
 
 
 
@@ -733,10 +886,8 @@
 
     </div>
     <hr class="pl_fgx" />
-
-
-
 </div>
+
 <div id="TheCommentPingLun" style="display:none;">
     <div id="tjpl_simplei"></div>  <!--创建评论产生的地方-->
 
@@ -744,10 +895,15 @@
     <div class="page" id="fenye_div"></div>
 
     <div class="plk_z">
-        <input id="pl_text_simplei" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
+        <input id="pl_text_ZhuTie_simplei" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id,'主贴')" />
+        <input id="pl_text_HuiTie_simplei" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id, '回帖')" />
         <div id="pl_op_simplei" class="pl_op yc">
             <span class="qx_comment"><a onclick="yc_pl_btn(this.id)" id="qx_btn_simplei">取消</a></span>
-            <span><input id="pl_btn_simplei" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id)" /></span>
+            <span><input id="pl_btn_ZhuTie_simplei" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id,'主贴')" /></span>
+            <span><input id="pl_btn_HuiTie_simplei" type="button" value="评论" class="pl_btn" onclick="cj_pl(this.id,'回帖')" /></span>
         </div>
     </div>
 </div>
+
+
+

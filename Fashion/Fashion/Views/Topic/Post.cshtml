@@ -15,8 +15,7 @@
                 width: 700,
                 height: 200,
                 langType: 'zh-CN',
-                   //***********************************************************************************************************
-                uploadJson: '../../kindeditor/asp.net/upload_json.ashx',//**！！！！！！******这个路径要改*******！！！！！*************//
+                uploadJson: '../../kindeditor/asp.net/PostUpload_json.ashx',
 
 
 
@@ -29,8 +28,8 @@
         //submitBtn  postDataForm postDataForm
         $("#submitBtn").click(function () {
             editor.sync();
-            var theContent = editor.text();
-            $("#content200").val(theContent);
+            var theEditorContent = editor.text();//获得编辑框里的所有纯文本，不包含任何样式，因为要将前200个字符保存到数据库里
+            $("#editorContent").val(theEditorContent);
             $("#postDataForm").submit();
         });
         
@@ -296,7 +295,7 @@
                 </div>
             </div>
             <div style="height:300px;">
-                <input type="text" id="content200" name="content200"  style="display:none;"/>
+                <input type="text" id="editorContent" name="editorContent" style="display:none;" />
             </div>
         </form>
     </div>

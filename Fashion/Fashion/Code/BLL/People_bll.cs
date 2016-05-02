@@ -206,7 +206,7 @@ namespace Fashion.Code.BLL
         /// <param name="introduction">简介</param>
         /// <param name="password">密码</param>
         /// <returns></returns>
-        public int ExpertRegister(string userName, string realName, string rankName, string Email, string phoneNumber, string profession, string introduction, string password)
+        public int ExpertRegister(string userName, string realName, string rankName, string Email, string phoneNumber, string profession, string introduction, string password, string quanShenZhaoUrl, string touXiangUrl)
         {
             //通过等级名得到等级编号
             Rank_dal rankDal = new Rank_dal();
@@ -230,7 +230,7 @@ namespace Fashion.Code.BLL
             string hashPassword = Convert.ToBase64String(hashBytes);
             User_dal userDal = new User_dal();
 
-            if (userDal.InsertExrertRegisterstring(userName, realName, hashPassword, salt, rankId, Email, phoneNumber, profession, introduction) == 1)
+            if (userDal.InsertExrertRegisterstring(userName, realName, hashPassword, salt, rankId, Email, phoneNumber, profession, introduction, quanShenZhaoUrl, touXiangUrl) == 1)
             {
                 return 0;
             }
@@ -270,7 +270,7 @@ namespace Fashion.Code.BLL
         /// <param name="password">密码</param>
         /// <param name="rankName">等级名（管理员，普通用户，时尚达人，专家）</param>
         /// <returns></returns>
-        public int Register(string userName,string password,string rankName,string phoneNumberOrEmail)
+        public int Register(string userName, string password, string rankName, string phoneNumberOrEmail, string quanShenZhaoUrl, string touXiangUrl)
         {
             //通过等级名得到等级编号
             Rank_dal rankDal = new Rank_dal();
@@ -285,12 +285,10 @@ namespace Fashion.Code.BLL
             }
             string rankId = rankIdObj.ToString();
 
-            //盐值
-            string salt = Guid.NewGuid().ToString();
-            //将盐值加在密码的后面，并转化为二进制
-            byte[] pwdAndSaltBytes = System.Text.Encoding.UTF8.GetBytes(password+salt);
-            //经过哈希算法加密后得到的二进制值
-            byte[] hashBytes = new System.Security.Cryptography.SHA256Managed().ComputeHash(pwdAndSaltBytes);
+
+            string salt = Guid.NewGuid().ToString();//盐值
+            byte[] pwdAndSaltBytes = System.Text.Encoding.UTF8.GetBytes(password + salt);//将盐值加在密码的后面，并转化为二进制
+            byte[] hashBytes = new System.Security.Cryptography.SHA256Managed().ComputeHash(pwdAndSaltBytes);//经过哈希算法加密后得到的二进制值
             string hashPassword = Convert.ToBase64String(hashBytes);
             User_dal userDal = new User_dal();
             ////////////////////////////////////////////
@@ -302,7 +300,7 @@ namespace Fashion.Code.BLL
             Regex emailReg = new Regex(emailStr);
             if (emailReg.IsMatch(phoneNumberOrEmail))
             {
-                if (userDal.InsertEmailRegister(userName, salt, hashPassword, rankId, phoneNumberOrEmail) == 1)
+                if (userDal.InsertEmailRegister(userName, salt, hashPassword, rankId, phoneNumberOrEmail,quanShenZhaoUrl,touXiangUrl) == 1)
                 {
                     return 0;
                 }
@@ -313,7 +311,7 @@ namespace Fashion.Code.BLL
             }
             else
             {
-                if (userDal.InsertPhoneNumberRegister(userName, salt, hashPassword, rankId, phoneNumberOrEmail) == 1)
+                if (userDal.InsertPhoneNumberRegister(userName, salt, hashPassword, rankId, phoneNumberOrEmail, quanShenZhaoUrl, touXiangUrl) == 1)
                 {
                     return 0;
                 }
@@ -377,6 +375,28 @@ namespace Fashion.Code.BLL
             else
             {
                 return -1;
+            }
+        }
+
+
+        /// <summary>
+        /// 得到用户个人全身照
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string GetQuanShenZhao(string userName)
+        {
+            User_dal user = new User_dal();
+            DataTable dt = user.GetBodyData(userName);
+            object QuanShenZhao = dt.Rows[0][10];
+
+            if (QuanShenZhao == null || QuanShenZhao == System.DBNull.Value)
+            {
+                return "1";
+            }
+            else
+            {
+                return QuanShenZhao.ToString();
             }
         }
 

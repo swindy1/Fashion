@@ -31,7 +31,7 @@ namespace Fashion.Code.BLL
         /// <param name="content">评论内容</param>
         /// <param name="datetime">评论时间</param>
         /// <param name="supportCount">点赞数</param>
-        /// <param name="postType">帖子类型</param>
+        /// <param name="postType">帖子类型 1代表主贴的评论 2代表回帖的评论</param>
         /// <returns></returns>
         public int InsertComment(int postId, int commenterId, int beCommenterId, string content, DateTime datetime, int postType)
         {

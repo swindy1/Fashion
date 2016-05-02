@@ -17,8 +17,20 @@ namespace Fashion.Controllers
         // GET: /Topic/  
         public ActionResult PostDetails()
         {
-
-            return View();
+            if (Session["userName"] == null)
+            {
+                return View("LoginRemind");
+            }
+            LoginStatusConfig();          //配置登录状态            
+            int postId = Convert.ToInt32(Request["postId"]);
+            //获取postId的原帖数据
+            Post_bll post_bll = new Post_bll();
+            Post_model post_mode = post_bll.GetOnePost(postId);
+            ViewData["post_mode"] = post_mode;
+            //获取对postId原帖的回帖数据
+            ReplyPost_bll replyPost_bll =new ReplyPost_bll();
+            List<ReplyPost_model> replyPost_modelList = replyPost_bll.GetReplyPost(postId);
+            return View(replyPost_modelList);
         }
         public ActionResult ExpertReply()
         {
@@ -41,11 +53,22 @@ namespace Fashion.Controllers
                 return View("loginremind");
             }
             string userName = Session["username"].ToString();
+            LoginStatusConfig();//配置登录状态
+
+
             User_bll user_bll = new User_bll();
+            int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ViewData["countUser_model"] = countUser_model;
+
+
+
+           
+            List<ExpertUserConsult_model> expertUserConsult_modelList = user_bll.GetExpertConsult();  //获取专家的ExpertUserConsult_model数据,用户填写特定咨询时，需要选择专家
             User_model user_model = new User_model();
             user_model = user_bll.GetUserDataConsult(userName);//用户的个人数据
-            LoginStatusConfig();//配置登录状态
-            return View(user_model);
+            ViewData["user_model"] = user_model;
+            return View(expertUserConsult_modelList);
         }
 
         /// <summary>
@@ -63,10 +86,10 @@ namespace Fashion.Controllers
             int userId = user_bll.GetUserId(userName);
             //string expertName=Request[].ToString();
             //int expertId = user_bll.GetUserId(expertName);
-            int expertId = 22;
+            int expertId = Convert.ToInt32(Request["expertId"]);
             string occasion = Request["occasion"].ToString();//场合
             string details = Request["details"].ToString();//特定咨询详情
-            
+            DateTime datetime = DateTime.Now;
             //保存个人照片到文件夹：GeRenZhao
             byte[] imgGeRenZhao64Byte = Convert.FromBase64String(Request["geRenZhao"]);//将图片数据转化为base64的格式
             System.IO.MemoryStream ms = new System.IO.MemoryStream(imgGeRenZhao64Byte);
@@ -86,8 +109,8 @@ namespace Fashion.Controllers
             string dislikeStyleImageFileName = Guid.NewGuid().ToString() + ".png";//唯一的文件名
             bitmap3.Save(Server.MapPath("~/Images/ConsultImages/DislikeStyleImage/" + dislikeStyleImageFileName), System.Drawing.Imaging.ImageFormat.Png);
 
-            SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
-            specialConsult_bll.InsertConsultData(userId, expertId, occasion, details, geRenZhaoFileName, likeStyleImageFileName, dislikeStyleImageFileName);
+            SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();//保存特定咨询数据
+            specialConsult_bll.InsertConsultData(userId, expertId, occasion, details, geRenZhaoFileName, likeStyleImageFileName, dislikeStyleImageFileName,datetime);
             return Content("特定咨询成功");
         }
         public ActionResult Test()
@@ -105,7 +128,10 @@ namespace Fashion.Controllers
         }
         
         
-        
+        /// <summary>
+        /// 主页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Home()
         {
             if (Session["userName"] == null)
@@ -113,11 +139,9 @@ namespace Fashion.Controllers
                 return View("LoginRemind");
             }
             Post_bll post_bll = new Post_bll();
-            List<Post_model>post_modelList=post_bll.GetPost(1);
-            LoginStatusConfig();          //配置登录状态
-            
+            List<Post_model>post_modelList=post_bll.GetPost(1,20);
+            LoginStatusConfig();          //配置登录状态            
             return View(post_modelList);
-            
         }
         /// <summary>
         /// 获取Home页面的数据，帖子遍历的数据
@@ -194,14 +218,21 @@ namespace Fashion.Controllers
             return Content(jsonData);
         }
 
+
+        /// <summary>
+        /// 实现帖子的评论功能,将数据保存到数据库
+        /// 帖子类型为1代表主贴的评论
+        /// 帖子类型为2代表回帖的评论
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AjaxTieZiComment()
         {
-            
             int postId = Convert.ToInt32(Request["postId"]);
             string commentUserName = Request["commenterUserName"].ToString();
             User_bll user_bll=new User_bll();
             int commenterId = user_bll.GetUserId(commentUserName);
-            int beCommenterId = Convert.ToInt32(Request["beCommenterId"]);
+            string beCommenterUserName = Request["beCommenterUserName"];
+            int beCommenterId = user_bll.GetUserId(beCommenterUserName);
             string content = Request["content"].ToString();
             int postType = Convert.ToInt32(Request["postType"]);
             DateTime datetime = DateTime.Now;
@@ -211,7 +242,14 @@ namespace Fashion.Controllers
             
         }
 
-        
+        /// <summary>
+        /// 未登录提醒页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult LoginRemind()
+        {
+            return View();
+        }
         
         public ActionResult Answer()
         {
@@ -282,17 +320,17 @@ namespace Fashion.Controllers
             string theme = Request["theme"].ToString();
             int themeId = themeName.CollocateThemeId(theme);
             string staticHtmlPath = "/StaticHtml/TieZiHtml/" + fileName;//相对路径
-            string content200 = datas[3].ToString();//data[3]的为前端传回来的发帖内容的纯文本
-            content200 = content200.Substring(content200.IndexOf('=') + 1);
+            string editorContent = datas[3].ToString();//data[3]的为前端传回来的发帖内容的纯文本
+            editorContent = editorContent.Substring(editorContent.IndexOf('=') + 1);
             System.Text.RegularExpressions.Regex regexImg = new System.Text.RegularExpressions.Regex(@"<img[^>]+>");
-            content200 = regexImg.Replace(content200, "");//过滤掉content200里图片
-            int len = content200.Length;
-            if (len > 200)//如果content200的长度超过200,取content200里的前两百个字符，将用于保存到数据库
+            editorContent = regexImg.Replace(editorContent, "");//过滤掉editorContent里图片
+            int len = editorContent.Length;
+            if (len > 200)//如果editorContent的长度超过200,取editorContent里的前两百个字符，将用于保存到数据库
             {
                 len = 200;
             }
-            
-            content200 = content200.Substring(0, len);  
+
+            string content200 = editorContent.Substring(0, len);  
             if (Post.finshInsert(caption, content200, userId, themeId, staticHtmlPath,datetime) != 1)
             {
                 return Content("保存帖子信息时数据库出错");
@@ -358,6 +396,8 @@ namespace Fashion.Controllers
             //已登录
             ViewData["LoginYes"] = 1;
             ViewData["userName"] = Session["userName"].ToString();
+            ViewData["signature"] = Session["signature"].ToString();
+            ViewData["rankName"] = Session["rank"].ToString();
             People_bll peopleBll = new People_bll();
             ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
             return true;

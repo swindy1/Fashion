@@ -7,6 +7,21 @@
 
     <script src="~/Scripts/jquery-2.0.0.min.js"></script>
     <script src="~/Scripts/MyScripts/Login.js"></script>
+    <script type="text/javascript">
+        //本函数实现退出登录
+        function AjaxMakeLoginOut()
+        {
+            $.ajax({
+                url: "../User/AjaxMakeUnLogin",
+                success: function (data) {
+                    if (data == "1")
+                    {
+                        window.location.href = "../Topic/LoginRemind";
+                    }
+                }
+            });
+        }
+    </script>
     <script>
 
         //本函数实现鼠标移上快捷栏时，快捷栏的图标变成字
@@ -130,6 +145,7 @@
             width: 140px;
             line-height: 35px;
             color: white;
+            position:relative;
         }
 
             .username li:hover {
@@ -206,7 +222,8 @@
                 //$("#theUserTouXiangImg").attr("src",touXiangUrl);
             }
             /////设置用户信息完毕
-            IsLoginDisplay(isLogin, "login_xs", "un_login_xs");//根据用户是否登录显示导航栏的用户信息
+            /////设置用户信息完毕
+            IsLoginDisplay(isLogin, "login_xs", "un_login_xs");//根据用户是否登录显示导航栏的用户信息，此函数定义在 ~/Scripts/MyScripts/Login.js
 
 
 
@@ -346,9 +363,9 @@
 
         </div>
         <ul id="login_xs" class="username" style="display:block;">
-            <li class="li_css" onclick="window.location.href = '../../People/Index';">
+            <li class="li_css" >
                 <img id="img_touXiang" style="width:20px;margin-top:8px;height:20px;" class="img_jiange" />
-                <font id="theUserNameFont"></font>
+                <font id="theUserNameFont" ></font>
                 <ul class="userset">
                     <li class="li_css" onclick="window.location.href = '../../People/Index';">
                         <img src="/Images/Layout-myzhuye.png" class="img_jiange" />我的主页
@@ -356,7 +373,7 @@
                     <li class="li_css" onclick="">
                         <img src="/Images/Layout-set.png" class="img_jiange" />设置
                     </li>
-                    <li class="li_css" onclick="">
+                    <li class="li_css" onclick="AjaxMakeLoginOut();">
                         <img src="/Images/Layout-out.png" class="img_jiange" />退出
                     </li>
                 </ul>
@@ -388,8 +405,22 @@
             </a>
 
         </div>
+        <script type="text/javascript">
+            //本函数实现搜索功能，搜索框的id为searchInput，当用户输入关键字，并且搜索框失去焦点后，调用此函数
+            //此函数将使页面跳转到后端Posts：SearchPosts。
+            function SearchPosts(theSearchTextId)
+            {
+                
+                var searchKeyWord = $("#"+theSearchTextId).val();//获取用户填写在输入框里的关键字                
+                if (searchKeyWord == "")
+                {
+                    return false;
+                }
+                window.location.href = "../Posts/SearchPosts?searchKeyWord=" + searchKeyWord;
+            }
+        </script>
         <div id="search" class="nav-tag" style="width: 15%;margin:1.7% 0 0 2.8%; ">
-            <input type="text" style="height:30px;border-radius:15px;padding-left:10px;width:100%;" placeholder="Search" />
+            <input id="searchInput" type="text" style="height:30px;border-radius:15px;padding-left:10px;width:100%;" placeholder="Search"  onblur="SearchPosts(this.id);"/>
         </div>
     </div>
     <div style="width:100%;height:2px;">
@@ -403,7 +434,7 @@
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
     <div id="sousuok" class="ssk_div">
-        <input type="text" class="ssk" />
+        <input type="text" id="inputSearchText" class="ssk" onblur="SearchPosts(this.id);" />
     </div>
     <div class="kjl_div">
         <div id="sousuo" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)">

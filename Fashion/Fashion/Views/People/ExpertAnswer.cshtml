@@ -2,5 +2,308 @@
     ViewBag.Title = "ExpertAnswer";
     Layout = "~/Views/Shared/Top_menu.cshtml";
 }
+<link href="~/kindeditor/themes/default/default.css" rel="stylesheet" />
+<script src="~/kindeditor/kindeditor-all-min.js"></script>
+<script src="~/kindeditor/lang/zh-CN.js"></script>
+<script>
+    //********当鼠标覆盖/移开在添加链接的标志上时，切换图片**************
+    function ImageChange(p, varp) { p.src = "../../Images/" + varp; }
+    //****************点击添加衣服链接****************************
+    function addLink(x) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = "<tr><td><input type='text' placeholder='请输入服饰名称' /></td><td><input type='text' placeholder='请输入对应服饰链接' /></td></tr>";
+        document.getElementById("theLinks").appendChild(tr);
 
-<h2>ExpertAnswer</h2>
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var editor;
+        KindEditor.ready(function (K) {
+            editor = K.create('#ExpertEditor', {
+                themeType: 'default',
+                width: 700,
+                height: 200,
+                langType: 'zh-CN',
+                //***********************************************************************************************************
+                uploadJson: '../../kindeditor/asp.net/upload_json.ashx',//**！！！！！！******这个路径要改*******！！！！！*************//
+
+
+
+                //items: [
+                //    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                //    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                //    'insertunorderedlist', '|', 'emoticons', 'image', 'flash', 'media', 'link']
+            });
+        });
+        //submitBtn  postDataForm postDataForm
+        $("#submitBtn").click(function () {
+            editor.sync();
+            var theContent = editor.text();
+            $("#content200").val(theContent);
+            $("#postDataForm").submit();
+        });
+
+    });
+</script>
+<style>
+    .answersData {
+        float: left;
+        margin-top: 10px;
+    }
+
+    .zan {
+        color: #a9b7b7;
+        float: left;
+        margin-bottom: 10px;
+    }
+
+        .zan a {
+            color: #a9b7b7;
+            text-decoration: none;
+        }
+
+            .zan a:hover {
+                text-decoration: underline;
+            }
+
+    .keyword {
+        background-color: white;
+        float: left;
+        height: auto;
+        width: auto;
+        padding: 2px 8px;
+        margin-right: 30px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .keyword:hover {
+            background-color: #b3dfe5;
+            color: white;
+        }
+
+    .question_details {
+        margin: 10px 0;
+        background-color: white;
+        border: none;
+        font-size: 1em;
+    }
+
+        .answersData img, .question_details img {
+            width: 100%;
+            padding: 0 8%;
+            margin: 10px 0;
+        }
+
+
+    .communication {
+        float: left;
+        font-size: 13px;
+        margin-right: 10px;
+    }
+
+    .LeftBackground {
+        background-color: white;
+        padding: 20px 25px 180px 25px;
+        float: left;
+        width: 100%;
+    }
+
+    .guanzhuzheTX img {
+        width: 25px;
+        margin: 5px;
+    }
+
+    .guanzhuzheTX a :hover {
+        border: 1px solid gray;
+    }
+   
+    .table-data {
+        width: 30px;
+        background-color: white;
+        color: gray;
+        border:none;
+    }
+    .fgline {
+        border-top: 1px solid #686868;
+        float: left;
+        width: 100%;
+        margin: 20px 0;
+    }
+   
+</style>
+
+<div class="row" style="background-color: white;height:auto;font-size:1.7em;padding-bottom:240px;">
+    <div class="col-md-10 col-md-offset-1">
+        <div id="Keyword_div" class="col-md-12" style="margin: 15px 0;">
+            <div class="keyword">冬季搭配</div>
+            <div class="keyword">时尚</div>
+            <div class="keyword">显瘦</div>
+            <div class="keyword">最流行</div>
+            <div class="keyword">女生</div>
+        </div><!-- <div id="Keyword_div">-!end-->
+        
+        <div id="Left_main" class="col-md-8" float:left;">
+            <div class="LeftBackground">
+                <div id="Question">
+                    <h1 style="text-align:center;font-weight:bold;">求一套参加同学毕业典礼的衣服！</h1>
+                    <div class="fgline"></div><!--分割线-->
+                    <div>场合：毕业典礼</div>
+                    <div class="fgline"></div><!--分割线-->
+                    <div style="text-indent: 2em; margin: 55px 0 25px 0;line-height:35px; ">过两天要参加同学的毕业典礼，想要搭配一套适合和同学拍毕业照的衣服。想要看起来有气质，但是不要和毕业生混淆的衣服但是也不要太突兀！！不喜欢日韩风，觉得有点大众化。喜欢欧美风霸气。但是还是专家看着配吧，希望鞋子也顺带帮我配好，怕到时候没鞋子穿。我的脚比较挑鞋子，脚有点胖，脚背高，脚长是XXcm,脚宽XXcm,希望能显脚小。</div>
+
+                    <div style="width:80%;margin-left:10%;"><img src="~/Images/UserImages/QuanShenZhao/20140203_112158.jpg" style="width:100%;" /></div>
+                    <table class="table table-bordered" style="text-align:center;margin:50px 0;">
+                        <caption style="text-align:center;font-weight:bold;font-size:1.5em;">体型特征</caption>
+                        <tr><td class="word-duiqi">身高：</td><td><input type="text" disabled="disabled" class="table-data" value="11" />cm</td><td class="word-duiqi">肤色：</td><td><input type="text" disabled="disabled" class="table-data" value="白皙" /></td></tr>
+                        <tr><td class="word-duiqi">体重：</td><td><input type="text" disabled="disabled" class="table-data" value="11" />cm</td><td class="word-duiqi">臀围：</td><td><input type="text" disabled="disabled" class="table-data" value="11" />cm</td></tr>
+                        <tr><td class="word-duiqi">腰围：</td><td><input type="text" disabled="disabled" class="table-data" value="11" />cm</td><td class="word-duiqi">臂围：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td></tr>
+                        <tr><td class="word-duiqi">腿长：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td><td class="word-duiqi">胸围：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td></tr>
+                        <tr><td>大腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td><td>小腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="22" />cm</td></tr>
+
+                    </table>
+                <div class="col-md-6"style="text-align:center;">
+                    <h3>喜欢的风格：</h3>
+                       <div style="width:80%;margin-left:10%;"><img src="~/Images/UserImages/QuanShenZhao/20140203_112158.jpg" style="width:100%;" /></div></div>
+                    <div class="col-md-6" style="text-align:center;">
+                        <h3>讨厌的风格：</h3>
+                        <div style="width: 80%; margin-left: 10%;"><img src="~/Images/UserImages/QuanShenZhao/20140203_112158.jpg" style="width:100%;" /></div>
+                    </div>
+                    <div class="fgline" style=" margin: 50px 0 25px 0; "></div><!--分割线-->
+
+                </div><!-- <div id="Question">-!end-->
+                <div id="theAnswerDiv">
+                    <div><h3>专家回答</h3></div>
+                    <div class="fgline" style="margin: 30px 0 50px 0; "></div><!--分割线-->
+                    <div id="theAnswer"></div><!--存放专家回答静态页面的地方-->
+                </div>
+                <div id="ExpertAswersDiv">
+                    <textarea id="ExpertEditor" name="content" placeholder="问题背景、条件等详细信息"></textarea>
+                </div>
+                <div style="margin-top:25px">
+                    <div style="float:left;margin-top:6px;"><h4 style="margin:0;">衣服购买链接：</h4></div>
+                    <table id="theLinks">
+                        <tr>
+                            <td>
+                                <input type="text" placeholder="请输入服饰名称"/>
+                            </td>
+                            <td><input type="text" placeholder="请输入对应服饰链接" /></td>
+                            <td>
+                                <img src="~/Images/People-ExpertAnswer-addlink.png" onmouseover="ImageChange(this, 'People-ExpertAnswer-addlinkover.png')" onmouseout="ImageChange(this, 'People-ExpertAnswer-addlink.png')" onclick="addLink(this,id)" />
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                @*<div style="margin-top:25px">
+        <div style="float:left;margin-top:6px;"><h4 style="margin:0;">衣服购买链接：</h4></div>
+
+        <table id="theLinks" style="float:left;">
+            <tr>
+                <td>
+                    <select>
+                        <option>帽子</option>
+                        <option>上衣</option>
+                        <option>裙子</option>
+                        <option>裤子</option>
+                        <option>鞋子</option>
+                    </select>
+                </td>
+                <td><input type="text" /></td>
+                <td>
+                    <img src="~/Images/People-ExpertAnswer-addlink.png" onmouseover="ImageChange(this, 'People-ExpertAnswer-addlinkover.png')" onmouseout="    ImageChange(this, 'People-ExpertAnswer-addlink.png')" onclick="addLink(this,id)" />
+                </td>
+            </tr>
+
+        </table>
+    </div>*@
+                <div class="fgline" style="margin: 25px 0 50px 0; "></div><!--分割线-->
+                <div style="text-align:center;width:100%;float:left;">
+                    <input type="button" class="btn btn-primary" value="提交" />
+
+                </div>
+
+
+
+
+
+            </div><!--<div class="LeftBackground">-!end-->
+
+
+        </div><!-- <div id="Left_main">-!end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div id="Right_main" class="col-md-4 visible-lg visible-md" style="background-color: white; padding: 25px 25px 180px 25px; float: left;">
+            <div style="width:100%;">
+                <button class="btn btn-default">关注问题</button>
+                <button class="btn btn-default">设置</button>
+            </div>
+            <div style="margin:15px 0;color:gray;font-size:0.9em;">
+                <a href="">234</a>人关注该问题
+            </div>
+            <div class="guanzhuzheTX">
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+                <a href=""><img src="~/Images/Layout-usertouxiang.png" /></a>
+            </div>
+            <div style="border-top: 1px solid #686868; float: left; width: 100%; margin:15px 0;"></div><!--分割线-->
+            <div>
+                <b>问题状态</b>
+            </div>
+            <div style="margin-top:5px;"><a href="" style="color: #225599; font-size: 12px; ">冬季衣服色彩搭配</a></div><div style="margin-top: 5px; "><a href="" style="color: gray; font-size: 12px; text-decoration: none;">21个回答</a></div>
+            <div style="margin-top:5px;"><a href="" style="color: #225599; font-size: 12px; ">冬季衣服色彩搭配</a></div><div style="margin-top: 5px; "><a href="" style="color: gray; font-size: 12px; text-decoration: none;">21个回答</a></div>
+            <div style="margin-top:5px;"><a href="" style="color: #225599; font-size: 12px; ">冬季衣服色彩搭配</a></div><div style="margin-top: 5px; "><a href="" style="color: gray; font-size: 12px; text-decoration: none;">21个回答</a></div>
+            <div style="margin-top:5px;"><a href="" style="color: #225599; font-size: 12px; ">冬季衣服色彩搭配</a></div><div style="margin-top: 5px; "><a href="" style="color: gray; font-size: 12px; text-decoration: none;">21个回答</a></div>
+            <div style="border-top: 1px solid #686868; float: left; width: 100%; margin: 15px 0;"></div><!--分割线-->
+
+            <div style="margin-top:15px;">
+                <b>问题状态</b>
+            </div>
+
+            <div style="margin-top:15px;">
+                <div style="color: gray; font-size: 12px;">
+                    最近活动于 昨天 17:26 • <a href=" ">
+                        查看问题日志
+                    </a>
+                    被浏览 24179 次，相关话题关注者 2143816 人
+                </div>
+
+            </div>
+
+
+
+        </div><!-- <div id="Right_main">-!end-->
+
+    </div>
+</div><!--<div class="row">!-end-->

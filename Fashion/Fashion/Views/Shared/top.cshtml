@@ -6,6 +6,33 @@
     <title>@ViewBag.Title</title>
     <script src="~/Scripts/jquery-2.0.0.min.js"></script>
     <script src="~/Scripts/MyScripts/Login.js"></script>
+    <script type="text/javascript">
+        //本函数实现搜索功能，搜索框的id为searchInput，当用户输入关键字，并且搜索框失去焦点后，调用此函数
+        //此函数将使页面跳转到后端Posts：SearchPosts。
+        function SearchPosts(theSearchTextId) {
+
+            var searchKeyWord = $("#" + theSearchTextId).val();//获取用户填写在输入框里的关键字
+            if (searchKeyWord == "") {
+                return false;
+            }
+            window.location.href = "../Posts/SearchPosts?searchKeyWord=" + searchKeyWord;
+        }
+    </script>
+
+    <script type="text/javascript">
+        //本函数实现退出登录
+        function AjaxMakeLoginOut() {
+            $.ajax({
+                url: "../User/AjaxMakeUnLogin",
+                success: function (data) {
+                    if (data == "1") {
+                        window.location.href = "../Topic/LoginRemind";
+                    }
+                }
+            });
+        }
+    </script>
+
     <script>
         $(document).ready(function () {
 
@@ -393,8 +420,7 @@
                     <li class="li_css" onclick="">
                         <img src="~/Images/Layout-set.png" class="img_jiange" />设置
                     </li>
-                    <li class="li_css" onclick="">
-
+                    <li class="li_css" onclick="AjaxMakeLoginOut();">
                         <img src="~/Images/Layout-out.png" class="img_jiange" />退出
                     </li>
                 </ul>
@@ -402,33 +428,11 @@
 
 
         </ul>
-    </div>
-    <div id="Left_div" class="Left_div">
-        <div id="touxiangkuang" class="touxiangkuang" onclick="window.location.href = '../People/Index'">
-            <img id="theUserTouXiangImg" />
-        </div>
-        <div class="Left_div_user_name">
-            <a id="theUserNameA" href="../People/Index"></a>
-        </div>
-        <div class="meau">
-            <div class="Peaple_meau" style="margin-left:28%;" onclick="window.location.href = '../People/Focus'"><em class="People_meau_number">0</em><div>关注</div></div>
-            <div class="Peaple_meau" onclick="window.location.href = '../People/Fans'"><em class="People_meau_number">0</em><div>粉丝</div></div>
-            <div class="Peaple_meau" onclick="window.location.href = '../People/Topic'"><em class="People_meau_number">0</em><div>话题</div></div>
-
-            <div class="Peaple_meau" style="margin-left:20%;" onclick="window.location.href = '../People/Asks'"><em class="People_meau_number">0</em><div>提问</div></div>
-            <div class="Peaple_meau" onclick="window.location.href = '../People/Answers'"><em class="People_meau_number">0</em><div>回答</div></div>
-            <div class="Peaple_meau" onclick="window.location.href = '../People/Collection'"><em class="People_meau_number">0</em><div>收藏</div></div>
-            <div class="Peaple_meau" onclick="window.location.href = '../People/Get_Approval'"><em class="People_meau_number">0</em><div>获赞</div></div>
-        </div>
-    </div>
-
-   
-    <div id="Right_div" class="Right_div">
+    </div>  
         @RenderBody()
-    </div>
     <!--////////////////////////将快捷键按钮移至共享页面，其他的子页面的快捷键按钮删除///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
     <div id="sousuok" class="ssk_div">
-        <input type="text" class="ssk" />
+        <input type="text" id="inputSearchText" class="ssk" onblur="SearchPosts(this.id);" />
     </div>
     <div class="kjl_div">
         <div id="sousuo" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)">

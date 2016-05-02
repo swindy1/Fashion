@@ -1,0 +1,22 @@
+﻿@{
+    Fashion.Models.CountUser_model countUser_model = ViewData["countUser_model"] as Fashion.Models.CountUser_model;
+}
+@*这里是个人设置里的左边模块的局部页面：关注（数量）、粉丝、提问、回答、收藏、获赞*@
+<div id="Left_div" class="Left_div">
+    <div id="touxiangkuang" class="touxiangkuang" onclick="window.location.href = '../People/Index'">
+        <img id="theUserTouXiangImg" />
+    </div>
+    <div class="Left_div_user_name">
+        <a id="theUserNameA" href="../People/Index"></a>
+    </div>
+    <div class="meau">
+        <div class="Peaple_meau" style="margin-left:28%;" onclick="window.location.href = '../People/Focus'"><em class="People_meau_number">@countUser_model.concernsCount</em><div>关注</div></div>
+        <div class="Peaple_meau" onclick="window.location.href = '../People/Fans'"><em class="People_meau_number">@countUser_model.fansCount</em><div>粉丝</div></div>
+        <div class="Peaple_meau" onclick="window.location.href = '../People/Topic'"><em class="People_meau_number">0</em><div>话题</div></div>
+
+        <div class="Peaple_meau" style="margin-left:20%;" onclick="window.location.href = '../People/Asks'"><em class="People_meau_number">@countUser_model.zhuTieCount</em><div>提问</div></div>
+        <div class="Peaple_meau" onclick="window.location.href = '../People/Answers'"><em class="People_meau_number">@countUser_model.replyCount</em><div>回答</div></div>
+        <div class="Peaple_meau" onclick="window.location.href = '../People/Collection'"><em class="People_meau_number">@countUser_model.collectCount</em><div>收藏</div></div>
+        <div class="Peaple_meau" onclick="window.location.href = '../People/Get_Approval'"><em class="People_meau_number">@countUser_model.supportCount</em><div>获赞</div></div>
+    </div>
+</div>

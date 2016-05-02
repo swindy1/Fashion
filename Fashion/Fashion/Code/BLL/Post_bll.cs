@@ -99,15 +99,61 @@ namespace Fashion.Code.BLL
         }
 
         /// <summary>
-        /// 获取帖子的10条数据
+        /// 获取帖子的指定条数据
         /// </summary>
         /// <param name="page">页数</param>
-        /// <param name="min">第一条数据id</param>
-        /// <param name="max">最后一条数据id</param>
-        public List<Post_model> GetPost(int page, int min = 1, int max = 10)
+        /// <param name="count">每页数据的条数</param>       
+        public List<Post_model> GetPost(int page, int count)
+        {
+            int min = (page - 1) * count + 1;//开始
+            int max = page * count;//结尾
+            Post_dal post_dal = new Post_dal();
+            return post_dal.GetPost(min, max);
+        }
+
+        /// <summary>
+        /// 获取标题包含关键字的帖子数据
+        /// 返回post_modelList;
+        /// </summary>
+        /// <param name="page">页数</param>
+        /// <param name="count">数量</param>
+        /// <param name="searchKeywork">要搜索的关键字</param>
+        /// <returns></returns>
+        public List<Post_model> GetSearchPost(int page, int count, string searchKeywork)
+        {
+            int min = (page - 1) * count + 1;//开始
+            int max = page * count;//结尾
+            Post_dal post_dal = new Post_dal();
+            return post_dal.GetSearchPost(min,max,searchKeywork);
+    
+        }
+
+
+
+        /// <summary>
+        /// 通过用户名获取某个用户userId的主贴帖子
+        /// 这次不用查询出全部的数据，只需查询一部分数据，因为不是用于详情内容，而是用于遍历
+        /// 特定咨询帖子id  标题 内容的前200字符  帖子的第一张图片 日期
+        /// 返回post_modelList;
+        /// </summary>
+        /// <param name="userId">用户id</param>       
+        /// <returns></returns>
+        public List<Post_model> GetShortPostData(int userId)
+        {
+            Post_dal post_dal=new Post_dal();
+            List<Post_model> post_modelList = post_dal.GetShortPostData(userId);
+            return post_modelList;
+        }
+
+        /// <summary>
+        /// 获取帖子编号为postId的数据,一条数据
+        /// </summary>
+        /// <param name="postId">帖子编号</param>
+        /// <returns></returns>
+        public Post_model GetOnePost(int postId)
         {
             Post_dal post_dal = new Post_dal();
-            return post_dal.GetPost(page, min, max);
+            return post_dal.GetOnePost(postId);
         }
 
         /// <summary>

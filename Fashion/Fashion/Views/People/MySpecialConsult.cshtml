@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "MySpecialConsult";
+    Layout = "~/Views/Shared/top.cshtml";
+    @model System.Collections.Generic.List<Fashion.Models.SpecialConsult_model>
+}
+
+
+<style>
+    .theQuetion {
+        float: left;
+        width: 650px;
+        padding-bottom: 50px;
+        padding-left: 3%;
+    }
+
+    .theQuetionword {
+        float: left;
+        width: 80%;
+    }
+
+    .theQuetionHead {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #3541cc;
+    }
+
+    .theUserData {
+        font-size: small;
+    }
+
+    .theQuetionData {
+        margin: 2px 0;
+    }
+
+    .dataColor {
+        color: gray;
+    }
+
+    .imgBorder {
+        float: right;
+        width: 14%;
+        height: 90px;
+    }
+
+    .theQuetionImg {
+        width: 100px;
+        height: 100px;
+        border-radius: 4px;
+    }
+
+    .dashedLine {
+        float: left;
+        width: 100%;
+        margin: 25px 0;
+        border-top: 1px dashed;
+    }
+
+    .myQuetions {
+        float: left;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: inset 0 0 1px 0px #ccc;
+        color: #5c5757;
+        background-color: #fafafa;
+        cursor: pointer;
+    }
+
+        .myQuetions:hover {
+            background-color: #f7f7f7;
+            box-shadow: inset 0 0 1px 1px #ccc;
+            color: black;
+        }
+</style>
+@RenderPage("~/Views/Shared/PeopleModulePartial.cshtml")@*这里是个人设置里的左边模块的局部页面：关注（数量）、粉丝、提问、回答、收藏、获赞*@
+<div id="Right_div" class="Right_div">
+    @RenderPage("~/Views/Shared/PeopleNavigationPartial.cshtml")@*这里是局部页面,导航条：我的主页 特定咨询 提问  回答 收藏 消息*@
+    <div id="theQuetion" class="theQuetion">
+        @foreach (var specialConsult_model in Model)
+        {
+            <div class="myQuetions" onclick="window.location.href = '../Consult/ConsultDetails?specialConsultId=@specialConsult_model.id'">
+                <div class="theQuetionword">
+                    <div class="theQuetionHead">
+                        <span>@specialConsult_model.caption</span><span><img src="~/Images/People-myAsks_huangguan.png" /></span>
+                    </div>
+                    <p id="questionOmit1" class="theQuetionData">@specialConsult_model.detail</p><!--这一段用了省略段落显示的JS-->
+                    <div class="dataColor">2016-06-07</div><!--提问的时间-->
+                    <script>
+                        //省略段落显示
+                        var titleStr = document.getElementById("questionOmit1").innerHTML;
+                        var maxLen = 65;//你想显示的长度
+                        if (titleStr.length > maxLen)//当显示的文字长度大于给定值时，显示一部分
+                            document.getElementById("questionOmit1").innerHTML = titleStr.substring(0, maxLen) + "...&nbsp;&nbsp;";
+                        else
+                            document.getElementById("questionOmit1").innerHTML = titleStr + "...&nbsp;&nbsp;";
+                    </script>
+                </div><!-- <div class="theQuetionword">-!end-->
+                <div class="imgBorder">
+                    <img src="@specialConsult_model.userPhotoUrl" class="theQuetionImg" />
+                </div>
+            </div><!--<div class="myQuetions">-!end-->
+            <div class="dashedLine"></div><!--水平分割线-->
+        }
+
+    </div><!--<div id="theQuetiones">-!end-->
+</div>
