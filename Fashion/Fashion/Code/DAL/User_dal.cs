@@ -185,38 +185,37 @@ namespace Fashion.Code.DAL
         public CountUser_model GetCountUser(int userId)
         {
             string sqlStr = @"select SpecialConsult.specialConsultCount,
-                                           Post.zhuTieCount,
-                                    	   ReplyPost.replyCount,
-                                    	   Collect.collectCount,
-                                    	   Concerns.concernsCount,
-                                    	   Fans.fansCount,
-                                    	   tb_User.User_StarCount as supportCount
-                                           from 
-                                                (select SpecialConsult_UserId userId, count(*) specialConsultCount 
-                                    			         from tb_SpecialConsult
-                                                         group by SpecialConsult_UserId)  as SpecialConsult left join
-                                                 (select Post_SenderId senderId,count(*) zhuTieCount from tb_Post 
-                                                         group by Post_SenderId) as Post 
-                                    					 on SpecialConsult.userId=Post.senderId 
-                                    					 left join
-                                    		     (select ReplyPost_ReplyerId replyId,COUNT(*) replyCount from tb_ReplyPost
-                                                         group by ReplyPost_ReplyerId) as ReplyPost 
-                                    					 on SpecialConsult.userId=ReplyPost.replyId
-                                    					 left join
-                                    					 (select  Collect_CollectorId collectorId,COUNT(*) collectCount from tb_Collect
-                                    					  group by Collect_CollectorId) as Collect
-                                    					  on SpecialConsult.userId=Collect.collectorId
-                                    					  left join 
-                                    		     (select Attention_ConcernsId as concernsId,count(*) concernsCount from tb_Attention
-                                                          group by Attention_ConcernsId)as Concerns
-                                    					  on SpecialConsult.userId=Concerns.concernsId
-                                    					  left join 
-                                    			 (select Attention_BeConcernedId as beConcernedId,count(*) fansCount  from tb_Attention 
-                                                          group by Attention_BeConcernedId)as Fans
-                                    					  on SpecialConsult.userId=Fans.beConcernedId
-                                    					  left join tb_User
-                                    					  on SpecialConsult.userId=tb_User.User_Id
-                                    where SpecialConsult.userId=@userId";
+                                                   Post.zhuTieCount,
+                                            	   ReplyPost.replyCount,
+                                            	   Collect.collectCount,
+                                            	   Concerns.concernsCount,
+                                            	   Fans.fansCount,
+                                            	   tb_User.User_StarCount as supportCount
+                                                   from  tb_User left join
+                                                        (select SpecialConsult_UserId userId, count(*) specialConsultCount 
+                                            			         from tb_SpecialConsult
+                                                                 group by SpecialConsult_UserId)  as SpecialConsult on tb_User.User_Id=SpecialConsult.userId
+                                            					  left join
+                                                         (select Post_SenderId senderId,count(*) zhuTieCount from tb_Post 
+                                                                 group by Post_SenderId) as Post 
+                                            					 on tb_User.User_Id=Post.senderId 
+                                            					 left join
+                                            		     (select ReplyPost_ReplyerId replyId,COUNT(*) replyCount from tb_ReplyPost
+                                                                 group by ReplyPost_ReplyerId) as ReplyPost 
+                                            					 on tb_User.User_Id=ReplyPost.replyId
+                                            					 left join
+                                            					 (select  Collect_CollectorId collectorId,COUNT(*) collectCount from tb_Collect
+                                            					  group by Collect_CollectorId) as Collect
+                                            					  on tb_User.User_Id=Collect.collectorId
+                                            					  left join 
+                                            		     (select Attention_ConcernsId as concernsId,count(*) concernsCount from tb_Attention
+                                                                  group by Attention_ConcernsId)as Concerns
+                                            					  on tb_User.User_Id=Concerns.concernsId
+                                            					  left join 
+                                            			 (select Attention_BeConcernedId as beConcernedId,count(*) fansCount  from tb_Attention 
+                                                                  group by Attention_BeConcernedId)as Fans
+                                            					  on tb_User.User_Id=Fans.beConcernedId
+                                            where tb_User.User_Id=@userId";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userId",userId)
             };

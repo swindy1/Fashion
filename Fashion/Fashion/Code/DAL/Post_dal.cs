@@ -107,12 +107,13 @@ namespace Fashion.Code.DAL
         public List<Post_model> GetShortPostData(int userId)
         {
             string sqlStr = @"select Post_Id as id,Post_Caption as caption,Post_Content content,Post_Date as [datetime],
-                                                   PostPhotoAll.photoUrl  from tb_Post left join 
-                                                      (select PostPhoto_PostId,PostPhoto_PhotoUrl as photoUrl,
-                                                              ROW_NUMBER()over(partition by PostPhoto_PostId order by PostPhoto_PostId) as new_index
-                                                       from tb_PostPhoto where PostPhoto_PostType=1)
-                                                    AS PostPhotoAll on tb_Post.Post_Id=PostPhotoAll.PostPhoto_PostId  
-                                            WHERE   new_index = 1 and Post_SenderId=@userId";
+                                                   PostPhotoOne.photoUrl  from tb_Post left join 
+                                                      (select * from 
+                                                            (select PostPhoto_PostId,PostPhoto_PhotoUrl as photoUrl,
+                                                             ROW_NUMBER()over(partition by PostPhoto_PostId order by PostPhoto_PostId) as new_index
+                                                            from tb_PostPhoto where PostPhoto_PostType=1) as PostPhotoAll  where new_index=1)
+                                                     AS PostPhotoOne on tb_Post.Post_Id=PostPhotoOne.PostPhoto_PostId  
+                                            WHERE   Post_SenderId=@userId";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@userId",userId)
             };
