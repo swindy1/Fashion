@@ -1,13 +1,46 @@
 ﻿@{
     ViewBag.Title = "ConsultDetails";
     Layout = "~/Views/Shared/Top_menu.cshtml";
-    @model Fashion.Models.SpecialConsult_model
+    Fashion.Models.SpecialConsult_model specialConsult_model=ViewData["specialConsult_model"] as Fashion.Models.SpecialConsult_model;
+    @model Fashion.Models.SpecialConsultAnswer_model
 }
 
 <link href="~/kindeditor/themes/default/default.css" rel="stylesheet" />
 <script src="~/kindeditor/kindeditor-all-min.js"></script>
 <script src="~/kindeditor/lang/zh-CN.js"></script>
 <link href="~/Content/Pinglun_css.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        var htmlUrl = "@Model.answerHtmlUrl";//获取专家解答的内容的静态html页面
+        var expertAnswerHtmlContent = "expertAnswerHtmlContent";  //expertAnswerHtmlContent为展示帖子内容的div编号，等一下要把静态html里的内容填充到本div里
+        $.ajax({//通过ajax请求静态html的内容
+            async: false,
+            url: htmlUrl,
+            success: function (result) {
+                $("#" + expertAnswerHtmlContent).html(result);
+            }
+        });
+
+        //////获取专家搭配的衣服
+        $.ajax({
+            url: "GetSpecialAnswerClothes",
+            data: { specialAnswerId:52},
+            success: function (data) {
+                var jsonData = JSON.parse(data);
+                var answerClothTemplateHtml = '  <div><a href="simpleClothUrl" title="点击查看服饰详情" target="_black"> simpleColthType</a></div>   ';//模板
+                var answerClothHtml = "";//购买衣服的html内容
+                for (I = 0; I < jsonData.length; I++)
+                {
+                    answerClothHtml = answerClothHtml + answerClothTemplateHtml;
+                    answerClothHtml = answerClothHtml.replace("simpleClothUrl", jsonData[I].clothUrl);
+                    answerClothHtml = answerClothHtml.replace("simpleColthType", jsonData[I].clothType);
+                }
+                $("#answerClothHtml").html(answerClothHtml);
+            }
+        });
+
+    });
+</script>
 <script type="text/javascript">
     var qjbl = 0;//为qjbl++做准备
     //本函数实现当用户点击评论中的回复评论框中的评论按钮时，提交回复评论框中的内容
@@ -497,31 +530,31 @@
         <div id="Left_main" class="col-md-8" float:left;">
             <div class="LeftBackground">
                 <div id="Question">
-                    <h1 style="text-align:center;font-weight:bold;">@Model.caption</h1>
+                    <h1 style="text-align:center;font-weight:bold;">@specialConsult_model.caption</h1>
                     <div class="fgline"></div><!--分割线-->
-                    <div>场合：@Model.occasion</div>
+                    <div>场合：@specialConsult_model.occasion</div>
                     <div class="fgline"></div><!--分割线-->
-                    <div style="text-indent: 2em; margin: 25px 0 25px 0;line-height:35px; ">@Model.detail</div>
+                    <div style="text-indent: 2em; margin: 25px 0 25px 0;line-height:35px; ">@specialConsult_model.detail</div>
                     <div style="width:80%;margin-left:10%;margin-bottom:15px;">
-                        <img src="@Model.userPhotoUrl" style="width:100%;" /></div>
+                        <img src="@specialConsult_model.userPhotoUrl" style="width:100%;" /></div>
                     <table class="table table-bordered" style="text-align:center;margin:40px 0;">
                         <caption style="text-align:center;font-weight:bold;font-size:1.5em;">体型特征</caption>
-                        <tr><td class="word-duiqi">身高：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.height" />cm</td><td class="word-duiqi">肤色：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.skinColor" /></td></tr>
-                        <tr><td class="word-duiqi">体重：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.weight" />cm</td><td class="word-duiqi">臀围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.tunWei" />cm</td></tr>
-                        <tr><td class="word-duiqi">腰围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.yaoWei" />cm</td><td class="word-duiqi">臂围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.biWei" />cm</td></tr>
-                        <tr><td class="word-duiqi">腿长：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.tuiChang" />cm</td><td class="word-duiqi">胸围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.xiongWei" />cm</td></tr>
-                        <tr><td>大腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.daTuiWei" />cm</td><td>小腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@Model.user.xiaoTunWei" />cm</td></tr>
+                        <tr><td class="word-duiqi">身高：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.height" />cm</td><td class="word-duiqi">肤色：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.skinColor" /></td></tr>
+                        <tr><td class="word-duiqi">体重：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.weight" />cm</td><td class="word-duiqi">臀围：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.tunWei" />cm</td></tr>
+                        <tr><td class="word-duiqi">腰围：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.yaoWei" />cm</td><td class="word-duiqi">臂围：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.biWei" />cm</td></tr>
+                        <tr><td class="word-duiqi">腿长：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.tuiChang" />cm</td><td class="word-duiqi">胸围：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.xiongWei" />cm</td></tr>
+                        <tr><td>大腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.daTuiWei" />cm</td><td>小腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@specialConsult_model.user.xiaoTunWei" />cm</td></tr>
 
                     </table>
                     <div class="col-md-6" style="text-align:center;">
                         <h3>喜欢的风格：</h3>
                         <div style="width:80%;margin-left:10%;">
-                            <img src="@Model.likeStyleUrl" style="width:100%;" /></div>
+                            <img src="@specialConsult_model.likeStyleUrl" style="width:100%;" /></div>
                     </div>
                     <div class="col-md-6" style="text-align: center;">
                         <h3>不喜欢的风格：</h3>
                         <div style="width:80%;margin-left:10%;">
-                            <img src="@Model.dislikeStyleUrl" style="width:100%;" /></div>
+                            <img src="@specialConsult_model.dislikeStyleUrl" style="width:100%;" /></div>
                     </div>
 
                 </div><!-- <div id="Question">-!end-->
@@ -535,81 +568,66 @@
                             <img src="~/Images/Consult-ConsultDetails-unhappy.png" />
                             <p>专家尚未回答</p>
                         </div><!--当专家没回答时，默认显示此div，若专家有回答，则先清空<div id="theAnswerhtml">里面的内容，再引入HTML文件===========================================================================================================-->
-                    <div><!--假如这是静态页面================-->
-                        <p>
-                            <span style="font-size:16px;"> &nbsp; &nbsp; &nbsp; 哈</span><span style="font-size:14px;"><span style="font-size:16px;"></span><span style="font-size:16px;"></span></span><span style="font-size:16px;font-family:SimSun;">哈，问题很详细，首先我参加毕业照，我建议您</span><span style="color:#333333;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">穿休闲雅气的衣服。首先我推荐下面比较学院风的裙子，所以黑色很好看(*^__^*) 嘻嘻……</span>
-                        </p>
-                        <br />
-
-                        <p style="text-align:center;width:80%;margin-left:10%;"><img src="~/Images/ConsultDetails-tu1.png"style="width:100%;" /></p>
-                        <br />
-                        <p>
-                            <span style="color:#333333;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;"><span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;">&nbsp; 搭配学院风长裙，</span></span><span style="font-family:SimSun;font-size:16px;color:#3C3C3C;line-height:24px;background-color:#FFFFFF;">韩版厚底松糕休闲鞋网状套脚洞洞运动鞋内增高女鞋是再适合不过了，一整套搭起来是不是各种小学妹的感觉O(∩_∩)O哈哈~</span></span>
-                        </p>
-                        <br />
-                        <p style="text-align:center;width:80%;margin-left:10%;">
-                            <img src="~/Images/ConsultDetails-tu3.png" style="width:100%;" />
-                        </p>
-                        <br />
-                        <p>
-                        <p>
-                            <span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;">&nbsp; &nbsp; &nbsp;或者</span></span><span style="font-family:SimSun;font-size:16px;color:#3C3C3C;line-height:24px;background-color:#FFFFFF;">2016夏新款方领公主裙韩版A字裙显瘦高腰3D印花连衣裙</span><span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;"><span style="font-family:SimSun;font-size:16px;">这种小洋裙也行，显气质，易搭配。名媛首选，保你在人群中仙气十足，脱颖而出~</span></span></span>
-                        </p>
-                        <br />
-                        <p style="text-align:center;width:80%;margin-left:10%;">
-                            <img src="~/Images/ConsultDetails-tu2.png" style="width:100%;" />
-                        </p>
-                        <br />
-                        <p>
-                            <span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;"><span style="font-family:SimSun;font-size:16px;">&nbsp; 名媛款公主裙最好配了，只要找比较淑女款的单鞋就可以穿了，我建议是女孩子穿裙子需要配下下有点跟的鞋子，那样能让你更加自信优雅。</span></span></span>
-                        </p>
-                        <br />
-                        <p style="text-align:center;width:80%;margin-left:10%;">
-                            <img src="~/Images/ConsultDetails-tu4.png" style="width:100%;" />
-                        </p>
-                        <br />
-                        <p>
+                        <div id="expertAnswerHtmlContent">
+                            <!--假如这是静态页面,这里面的内容有待删除，因为我已经实现了通过请求静态html渲染到此页面了================-->
+                            <p>
+                                <span style="font-size:16px;"> &nbsp; &nbsp; &nbsp; 哈</span><span style="font-size:14px;"><span style="font-size:16px;"></span><span style="font-size:16px;"></span></span><span style="font-size:16px;font-family:SimSun;">哈，问题很详细，首先我参加毕业照，我建议您</span><span style="color:#333333;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">穿休闲雅气的衣服。首先我推荐下面比较学院风的裙子，所以黑色很好看(*^__^*) 嘻嘻……</span>
+                            </p>
                             <br />
-                        </p>
-                        <p>
-                            <span style="font-family:SimSun;font-size:16px;color:#3C3C3C;line-height:1.5;background-color:#FFFFFF;">&nbsp; 名媛夏装新款女装雪纺荷叶袖上衣+阔腿短裤两件套时尚套装是今年亮眼搭配，<span style="color:#3C3C3C;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">雪纺荷叶袖上衣<span style="color:#3C3C3C;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">+阔腿短裤</span>不挑身材穿</span>，不管胖瘦都能穿。穿上气质十足。</span>
-                        </p>
-                        <br />
-                        <p style="text-align:center;width:80%;margin-left:10%;">
-                            <img src="~/Images/ConsultDetails-tu6.png" style="width:100%;" />
-                        </p>
-                        <br />
-                        <p>
-                            <span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;"><span style="font-family:SimSun;font-size:16px;">&nbsp; 不用说，这款衣服肯定是最好搭的，不管是淑女风的单鞋，还是白领气质的PU鞋，还是高跟鞋，都能百搭，简单一点的运动鞋或者板鞋也是可以的，因为是拍毕业照，比较正式还有可能要走比较多路，所以我还是建议有一点点跟的气质单鞋啦啦啦哈哈~</span></span></span>
-                        </p>
-                        <br />
-                        <p style="text-align:center;width:80%;margin-left:10%;">
-                            <img src="~/Images/ConsultDetails-tu5.png" style="width:100%;" />
-                        </p>
-                        <br />
-                        
-                       
-                    </div>
+
+                            <p style="text-align:center;width:80%;margin-left:10%;"><img src="~/Images/ConsultDetails-tu1.png" style="width:100%;" /></p>
+                            <br />
+                            <p>
+                                <span style="color:#333333;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;"><span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;">&nbsp; 搭配学院风长裙，</span></span><span style="font-family:SimSun;font-size:16px;color:#3C3C3C;line-height:24px;background-color:#FFFFFF;">韩版厚底松糕休闲鞋网状套脚洞洞运动鞋内增高女鞋是再适合不过了，一整套搭起来是不是各种小学妹的感觉O(∩_∩)O哈哈~</span></span>
+                            </p>
+                            <br />
+                            <p style="text-align:center;width:80%;margin-left:10%;">
+                                <img src="~/Images/ConsultDetails-tu3.png" style="width:100%;" />
+                            </p>
+                            <br />
+                            <p>
+                            <p>
+                                <span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;">&nbsp; &nbsp; &nbsp;或者</span></span><span style="font-family:SimSun;font-size:16px;color:#3C3C3C;line-height:24px;background-color:#FFFFFF;">2016夏新款方领公主裙韩版A字裙显瘦高腰3D印花连衣裙</span><span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;"><span style="font-family:SimSun;font-size:16px;">这种小洋裙也行，显气质，易搭配。名媛首选，保你在人群中仙气十足，脱颖而出~</span></span></span>
+                            </p>
+                            <br />
+                            <p style="text-align:center;width:80%;margin-left:10%;">
+                                <img src="~/Images/ConsultDetails-tu2.png" style="width:100%;" />
+                            </p>
+                            <br />
+                            <p>
+                                <span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;"><span style="font-family:SimSun;font-size:16px;">&nbsp; 名媛款公主裙最好配了，只要找比较淑女款的单鞋就可以穿了，我建议是女孩子穿裙子需要配下下有点跟的鞋子，那样能让你更加自信优雅。</span></span></span>
+                            </p>
+                            <br />
+                            <p style="text-align:center;width:80%;margin-left:10%;">
+                                <img src="~/Images/ConsultDetails-tu4.png" style="width:100%;" />
+                            </p>
+                            <br />
+                            <p>
+                                <br />
+                            </p>
+                            <p>
+                                <span style="font-family:SimSun;font-size:16px;color:#3C3C3C;line-height:1.5;background-color:#FFFFFF;">&nbsp; 名媛夏装新款女装雪纺荷叶袖上衣+阔腿短裤两件套时尚套装是今年亮眼搭配，<span style="color:#3C3C3C;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">雪纺荷叶袖上衣<span style="color:#3C3C3C;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">+阔腿短裤</span>不挑身材穿</span>，不管胖瘦都能穿。穿上气质十足。</span>
+                            </p>
+                            <br />
+                            <p style="text-align:center;width:80%;margin-left:10%;">
+                                <img src="~/Images/ConsultDetails-tu6.png" style="width:100%;" />
+                            </p>
+                            <br />
+                            <p>
+                                <span><span style="font-size:16px;line-height:24px;background-color:#FFFFFF;"><span style="font-family:SimSun;font-size:16px;">&nbsp; 不用说，这款衣服肯定是最好搭的，不管是淑女风的单鞋，还是白领气质的PU鞋，还是高跟鞋，都能百搭，简单一点的运动鞋或者板鞋也是可以的，因为是拍毕业照，比较正式还有可能要走比较多路，所以我还是建议有一点点跟的气质单鞋啦啦啦哈哈~</span></span></span>
+                            </p>
+                            <br />
+                            <p style="text-align:center;width:80%;margin-left:10%;">
+                                <img src="~/Images/ConsultDetails-tu5.png" style="width:100%;" />
+                            </p>
+                            <br />
+
+
+                        </div>
                     </div><!--存放专家回答静态页面的地方-->
                     <div id="theLinks"><!--存放专家给的衣服的链接=====================================================================================================================如果没有回答，则此div为空，若有回答，则此div里面的内容会随着专家提供链接的多少而创建链接-->
                     <div style="font-weight:bold;color:gray;margin-right:5px;">服饰购买链接：</div>
-                        <div><a href="https://item.taobao.com/item.htm?id=530902615768&ali_refid=a3_430676_1006:1122730230:N:女装:4f3948ded4f8ada3e53eba6977c0d291&ali_trackid=1_4f3948ded4f8ada3e53eba6977c0d291&spm=a231o.7712113.1004.456.QQlJfL" title="点击查看服饰详情" target="_black">学院风长裙</a></div>
-                        <div>
-                            <a href="https://item.taobao.com/item.htm?id=527574763219&ali_refid=a3_430676_1006:1103695909:N:%E6%98%A5%E5%A4%8F%E9%9E%8B:2f9bb169eae7ee6868b088eb9f186a2b&ali_trackid=1_2f9bb169eae7ee6868b088eb9f186a2b&spm=a231o.7712113.1004.115.ZkoGyK" title="点击查看服饰详情" target="_black">韩版厚底松糕休闲鞋</a>
-                        </div>
-                    <div>
-                        <a href="https://item.taobao.com/item.htm?id=529315890750&ali_refid=a3_430676_1006:1106797998:N:%E8%BF%9E%E8%A1%A3%E8%A3%99:37b34299e155904ff56e768c057cc0dd&ali_trackid=1_37b34299e155904ff56e768c057cc0dd&spm=a231o.7712113.1004.1.QQlJfL" title="点击查看服饰详情" target="_black">显瘦高腰3D印花连衣裙</a>
-                    </div>
-                        <div>
-                            <a href="https://detail.tmall.com/item.htm?id=526530607040&ali_refid=a3_430676_1006:1109503735:N:低跟%20单鞋:c56271479eb173a134a4cafeb7295b7c&ali_trackid=1_c56271479eb173a134a4cafeb7295b7c&spm=a231o.7712113.1004.177.PYebcV" title="点击查看服饰详情" target="_black">淑女款的单鞋</a>
-                        </div>
-                        <div>
-                            <a href="https://item.taobao.com/item.htm?id=529629836877&ali_refid=a3_430676_1006:1108306295:N:%E5%A5%B3%E8%A3%85:e26e5c3105dec1996528bed6adf9961d&ali_trackid=1_e26e5c3105dec1996528bed6adf9961d&spm=a231o.7712113.1004.348.QQlJfL" title="点击查看服饰详情" target="_black">雪纺荷叶袖上衣+阔腿短裤两件套</a>
-                        </div>
-                        <div>
-                            <a href="https://item.taobao.com/item.htm?id=527097699261&ali_refid=a3_430676_1006:1120896264:N:%E6%B0%94%E8%B4%A8%E4%BD%8E%E8%B7%9F%E5%8D%95%E9%9E%8B:03eb9d95af684223c933ff1b91a00852&ali_trackid=1_03eb9d95af684223c933ff1b91a00852&spm=a231o.7712113.1004.222.prJI3G" title="点击查看服饰详情" target="_black">气质单鞋</a>
-
-                        </div>
+                        <div id="answerClothHtml"></div>@*这里是购买衣服的链接，id为answerClothHtml，数据用js从数据库获取购买链接再渲染*@
 </div><!--<div id="theLinks">end-->
 
                 </div><!--<div id="theAnswerDiv">end-->

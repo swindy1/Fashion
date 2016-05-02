@@ -140,6 +140,7 @@
     <Compile Include="Code\BLL\Rank_bll.cs" />
     <Compile Include="Code\BLL\ReplyPost_bll.cs" />
     <Compile Include="Code\BLL\SpecialConsultAnswerClothes_bll.cs" />
+    <Compile Include="Code\BLL\SpecialConsultAnswer_bll.cs" />
     <Compile Include="Code\BLL\SpecialConsult_bll.cs" />
     <Compile Include="Code\BLL\Theme_bll.cs" />
     <Compile Include="Code\BLL\User_bll.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Code\DAL\ReplyPost_dal.cs" />
     <Compile Include="Code\DAL\share.cs" />
     <Compile Include="Code\DAL\SpecialConsultAnswerClothes_dal.cs" />
+    <Compile Include="Code\DAL\SpecialConsultAnswer_dal.cs" />
     <Compile Include="Code\DAL\SpecialConsult_dal.cs" />
     <Compile Include="Code\DAL\SqlConnectionString.cs" />
     <Compile Include="Code\DAL\SqlHelper.cs" />
@@ -190,6 +192,8 @@
     <Compile Include="Models\Post_model.cs" />
     <Compile Include="Models\Rank_model.cs" />
     <Compile Include="Models\ReplyPost_model.cs" />
+    <Compile Include="Models\SpecialConsultAnswerClothes_model.cs" />
+    <Compile Include="Models\SpecialConsultAnswer_model.cs" />
     <Compile Include="Models\SpecialConsult_model.cs" />
     <Compile Include="Models\StreetSnapType_model.cs" />
     <Compile Include="Models\StreetSnap_model.cs" />
