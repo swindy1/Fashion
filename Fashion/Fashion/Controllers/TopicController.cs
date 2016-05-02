@@ -59,14 +59,17 @@ namespace Fashion.Controllers
             User_bll user_bll = new User_bll();
             int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
             CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
-            ViewData["countUser_model"] = countUser_model;
-
-
-
-           
+            ViewData["countUser_model"] = countUser_model;     
             List<ExpertUserConsult_model> expertUserConsult_modelList = user_bll.GetExpertConsult();  //获取专家的ExpertUserConsult_model数据,用户填写特定咨询时，需要选择专家
             User_model user_model = new User_model();
-            user_model = user_bll.GetUserDataConsult(userName);//用户的个人数据
+            try { 
+                user_model = user_bll.GetUserDataConsult(userName);//用户的个人数据
+            }
+            catch(Exception e)
+            {
+                return Content(e.ToString());
+            }
+            
             ViewData["user_model"] = user_model;
             return View(expertUserConsult_modelList);
         }

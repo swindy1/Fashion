@@ -38,8 +38,17 @@ namespace Fashion.Code.BLL
         public User_model GetUserDataConsult(string userName)
         {
             User_dal user_dal = new User_dal();
-            User_model user_model=user_dal.GetUserDataConsult(userName);
-            DateTime today = new DateTime(2016, 4, 18);//今天日期
+            User_model user_model = new User_model();
+            try
+            {
+                user_model = user_dal.GetUserDataConsult(userName);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
+
+            DateTime today = DateTime.Now;//今天日期
             DateTime birthDate = user_model.birthDate;//出生年月日
             int age = today.Year - birthDate.Year;//年龄
             if (birthDate > today.AddYears(-age))//还未生日，年龄减去1
@@ -92,17 +101,7 @@ namespace Fashion.Code.BLL
             }
             catch (Exception e)
             {
-                if(e.ToString()=="1")
-                {
-                    throw new Exception("数据库出错，查询到的数据条数超过1条");
-                }
-                else
-                    if(e.ToString()=="2")
-                    {
-                        //抛出异常2，说明查询到CountUser_model数据为0，在这里如果需要可以在这里
-                        //对CountUser_model进行初始化，由于CountUser_model对象生成时已经初始化过了，所以这里就不再初始化了，可以到CountUser_model里查看
-                        return countUser_model;
-                    }
+                throw new Exception(e.ToString());
             }
             return countUser_model;
         }

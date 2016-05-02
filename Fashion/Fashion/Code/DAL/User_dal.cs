@@ -176,9 +176,7 @@ namespace Fashion.Code.DAL
 
         /// <summary>
         /// 根据用户的userId 获取用户的 特定咨询数 提问数 回答数 收藏 关注数 粉丝数 获赞数
-        /// 成功返回CountUser_model对象的实例
-        /// 失败： 查询到数据库里有多条数据，抛出异常1
-        ///              查询不到数据，抛出异常2
+        /// 成功返回CountUser_model对象的实例        
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
@@ -219,15 +217,14 @@ namespace Fashion.Code.DAL
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userId",userId)
             };
-            CountUser_model countUser_model = new CountUser_model();
             DataTable dt=SqlHelper.ExecuteDataTable(sqlStr,parameters);
             if(dt.Rows.Count>1)
             {
-                throw new Exception("1");//数据库存在多条数据
+                throw new Exception("数据库出错，查询到的数据条数超过1条");//数据库存在多条数据
             }
             if (dt.Rows.Count == 0)
-            {
-                throw new Exception("2");//查询到的数据条数为0
+            {//查询到的数据条数为0
+                return new CountUser_model();
             }
             return ToModel_CountUser(dt.Rows[0]);
         }
@@ -263,13 +260,25 @@ namespace Fashion.Code.DAL
                 new SqlParameter("@userName",userName)
             };
             DataTable userData = SqlHelper.ExecuteDataTable(sqlStr,parameters);
-            user_model.birthDate = (DateTime)userData.Rows[0]["User_BirthDate"];
-            user_model.height = Convert.ToSingle(userData.Rows[0]["User_Height"]);
-            user_model.tunWei = Convert.ToSingle(userData.Rows[0]["User_TunWei"]);
-            user_model.yaoWei = Convert.ToSingle(userData.Rows[0]["User_YaoWei"]);
-            user_model.xiongWei = Convert.ToSingle(userData.Rows[0]["User_XiongWei"]);
-            user_model.weight = Convert.ToSingle(userData.Rows[0]["User_Weight"]);
-            user_model.skinColor = userData.Rows[0]["User_SkinColor"].ToString();
+            if (userData.Rows.Count == 0)
+            {//不存在该用户时
+                throw new Exception("不存在该用户，查询到的数据为空");
+            }
+            if (userData.Rows[0]["User_BirthDate"] == System.DBNull.Value)
+            {
+            
+            }
+            else
+            {
+                user_model.birthDate = (DateTime)userData.Rows[0]["User_BirthDate"];
+            }
+
+            user_model.height = userData.Rows[0]["User_Height"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_Height"]);
+            user_model.tunWei = userData.Rows[0]["User_TunWei"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_TunWei"]);
+            user_model.yaoWei = userData.Rows[0]["User_YaoWei"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_YaoWei"]);
+            user_model.xiongWei = userData.Rows[0]["User_XiongWei"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_XiongWei"]);
+            user_model.weight = userData.Rows[0]["User_Weight"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_Weight"]);
+            user_model.skinColor = userData.Rows[0]["User_SkinColor"] == System.DBNull.Value ? "请选择" : userData.Rows[0]["User_SkinColor"].ToString();
             return user_model;
         }
 
