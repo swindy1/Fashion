@@ -128,6 +128,23 @@ namespace Fashion.Code.BLL
     
         }
 
+
+
+        /// <summary>
+        /// 通过用户名获取某个用户userId的主贴帖子
+        /// 这次不用查询出全部的数据，只需查询一部分数据，因为不是用于详情内容，而是用于遍历
+        /// 特定咨询帖子id  标题 内容的前200字符  帖子的第一张图片 日期
+        /// 返回post_modelList;
+        /// </summary>
+        /// <param name="userId">用户id</param>       
+        /// <returns></returns>
+        public List<Post_model> GetShortPostData(int userId)
+        {
+            Post_dal post_dal=new Post_dal();
+            List<Post_model> post_modelList = post_dal.GetShortPostData(userId);
+            return post_modelList;
+        }
+
         /// <summary>
         /// 获取帖子编号为postId的数据,一条数据
         /// </summary>

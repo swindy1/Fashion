@@ -2,6 +2,7 @@
 using Fashion.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -75,5 +76,18 @@ namespace Fashion.Code.BLL
             }
             return objSignature.ToString();
         }
+
+
+        /// <summary>
+        /// 根据用户的userId 获取用户的 特定咨询数 提问数 回答数 收藏 关注数 粉丝数 获赞数
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public CountUser_model GetCountUser(int userId)
+        {
+            User_dal user_dal = new User_dal();
+            return user_dal.GetCountUser(userId);
+        }
+
     }
 }

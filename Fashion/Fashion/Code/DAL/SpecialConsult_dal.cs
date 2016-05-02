@@ -60,7 +60,7 @@ namespace Fashion.Code.DAL
         /// </summary>
         /// <param name="userName">用户名id</param>
         /// <returns></returns>
-        public List<SpecialConsult_model>  GetShortConsultDate(int userId)
+        public List<SpecialConsult_model>  GetShortConsultData(int userId)
         {
             string sqlStr = @"select SpecialConsult_Id as id,SpecialConsult_Caption as caption,
                                                    SpecialConsult_UserPhotoUrl as geRenZhao,
@@ -78,6 +78,13 @@ namespace Fashion.Code.DAL
             }
             return specialConsult_modelList;
         }
+
+        /// <summary>
+        /// 将一条数据转化为SpecialConsult_model数据
+        /// 特定咨询帖子id  标题 用户个人照 详细描述 日期
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
         public SpecialConsult_model ToShortModel(DataRow row)
         {
             SpecialConsult_model specialConsult_model = new SpecialConsult_model();
@@ -88,6 +95,12 @@ namespace Fashion.Code.DAL
             specialConsult_model.datetime = (DateTime)row["date"];
             return specialConsult_model;
         }
+
+        /// <summary>
+        /// 将一条数据转化为SpecialConsult_model数据
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
         public SpecialConsult_model ToModel(DataRow row)
         {
             SpecialConsult_model specialConsult_model = new SpecialConsult_model();

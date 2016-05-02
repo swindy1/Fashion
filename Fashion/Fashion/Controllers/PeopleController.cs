@@ -24,34 +24,87 @@ namespace Fashion.Controllers
 
             return View();
         }
+
+
+        /// <summary>
+        ///遍历我的提问过的帖子
+        /// </summary>
+        /// <returns></returns>
         public ActionResult myAsks()
         {
-
-            return View();
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
+            string userName = Session["userName"].ToString();
+            User_bll user_bll = new User_bll();
+            int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ViewData["countUser_model"] = countUser_model;
+            Post_bll post_bll = new Post_bll();
+            List<Post_model> post_modelList = post_bll.GetShortPostData(userId);//获取用户的提问过的贴子
+            return View(post_modelList);
         }
+        /// <summary>
+        /// 遍历我的回答过的帖子，即回帖
+        /// </summary>
+        /// <returns></returns>
         public ActionResult myAnsweres()
         {
-
-            return View();
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
+            string userName = Session["userName"].ToString();
+            User_bll user_bll = new User_bll();
+            int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ViewData["countUser_model"] = countUser_model;
+            ReplyPost_bll replyPost_bll = new ReplyPost_bll();
+            List<ReplyPost_model> replyPost_modelList = new List<ReplyPost_model>();
+            replyPost_modelList = replyPost_bll.GetShortReplyPostData(userId);//获取用户的回帖数据
+            return View(replyPost_modelList);
         }
-
+        /// <summary>
+        /// 遍历我的特定咨询过的帖子
+        /// </summary>
+        /// <returns></returns>
         public ActionResult MySpecialConsult()
         {
-              if (Session["userName"] == null)
+            if (Session["userName"] == null)
             {
-                return RedirectToAction("LoginRemind","Topic");
+                return RedirectToAction("LoginRemind", "Topic");
             }
+            LoginStatusConfig();//配置登录状态
+           
               string userName = Session["userName"].ToString();
               User_bll user_bll = new User_bll();
               int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+              CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+              ViewData["countUser_model"] = countUser_model;
               SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
-              List<SpecialConsult_model> specialConsult_modelList = specialConsult_bll.GetMyConsultDate(userId);//通过userId获取该用户的特定咨询数据
+              List<SpecialConsult_model> specialConsult_modelList = specialConsult_bll.GetMyConsultData(userId);//通过userId获取该用户的特定咨询数据
               return View(specialConsult_modelList);
         }
         public ActionResult myCollections()
         {
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
 
-            return View();
+            string userName = Session["userName"].ToString();
+            User_bll user_bll = new User_bll();
+            int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ViewData["countUser_model"] = countUser_model;
+            Collect_bll collect_bll = new Collect_bll();
+            List<Collect_model> collect_modelList = new List<Collect_model>();
+            collect_modelList = collect_bll.GetShortCollectPostData(userId);//通过userId获取用户的收藏过的帖子
+            return View(collect_modelList);
         }
      
         public ActionResult Index()
@@ -61,10 +114,7 @@ namespace Fashion.Controllers
                 return RedirectToAction("LoginRemind","Topic");
             }
             LoginStatusConfig();//配置登录状态
-            if (Session["userName"] == null)
-            {
-                return Content("请先登录");
-            }
+        
             People_bll user = new People_bll();
             string userName = Session["userName"].ToString();
             //检测姓名是否为空
@@ -213,8 +263,21 @@ namespace Fashion.Controllers
             {
                 ViewData["ArmGirth"] = user.GetArmGirth(userName);
             }
+            //检测手臂围是否为空
+            if (user.GetQuanShenZhao(userName) == "1")
+            {
+                ViewData["QuanShenZhao"] = "请输入您的手臂围";
+            }
+            else
+            {
+                ViewData["QuanShenZhao"] = user.GetQuanShenZhao(userName);
+            }
 
-
+            //获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等
+            User_bll user_bll = new User_bll();
+            int userId = user_bll.GetUserId(userName);
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);
+            ViewData["countUser_model"] = countUser_model;
             return View();
         }
 
@@ -328,8 +391,9 @@ namespace Fashion.Controllers
             string profession = Request["profession"];
             string introduction = Request["SelfIntroduction"];
             string password = Request["password"];
-
-            if (people1.ExpertRegister(userName, realName, "专家", Email, phoneNumber, profession, introduction, password) == 0)
+            string quanShenZhaoUrl = "/Images/people-index-defaultQuanShenZhao.png";
+            string touXiangUrl = "/Images/people-geRenTouXiang.png";
+            if (people1.ExpertRegister(userName, realName, "专家", Email, phoneNumber, profession, introduction, password, quanShenZhaoUrl, touXiangUrl) == 0)
             {
                 return RedirectToAction("Login", new { finshRegister = 1 });
             }
@@ -466,7 +530,9 @@ namespace Fashion.Controllers
             string username = Request["username"];
             string password = Request["password"];
             string phoneNumberOrEmail = Request["phoneNumberOrEmail"];
-            if (people.Register(username, password, "普通用户", phoneNumberOrEmail) == 0)
+            string quanShenZhaoUrl = "/Images/people-index-defaultQuanShenZhao.png";
+            string touXiangUrl = "/Images/people-geRenTouXiang.png";
+            if (people.Register(username, password, "普通用户", phoneNumberOrEmail,quanShenZhaoUrl ,touXiangUrl) == 0)
             {
                 return RedirectToAction("Login", new { finshRegister = 1 });
             }
@@ -576,7 +642,6 @@ namespace Fashion.Controllers
         /// 未登录返回false,并且设置ViewData["LoginYes"] = 0
         /// </summary>
         /// 
-
         public bool LoginStatusConfig()
         {
             if (Session["userName"] == null)

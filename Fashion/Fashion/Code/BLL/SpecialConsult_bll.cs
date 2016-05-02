@@ -52,10 +52,10 @@ namespace Fashion.Code.BLL
         /// </summary>
         /// <param name="userName">用户名id</param>
         /// <returns></returns>
-        public List<SpecialConsult_model> GetMyConsultDate(int userId)
+        public List<SpecialConsult_model> GetMyConsultData(int userId)
         {
             SpecialConsult_dal specialConsult_dal = new DAL.SpecialConsult_dal();
-            List<SpecialConsult_model> specialConsult_modelList = specialConsult_dal.GetShortConsultDate(userId);
+            List<SpecialConsult_model> specialConsult_modelList = specialConsult_dal.GetShortConsultData(userId);
             return specialConsult_modelList;
         }
 

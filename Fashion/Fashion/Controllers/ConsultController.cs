@@ -24,6 +24,7 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult ExpertAnswer()
         {
+
             //string expertUserName = Request["expertUserName"].ToString();
             string expertUserName = "000";
             int specialConsultId = 3;
@@ -111,11 +112,40 @@ namespace Fashion.Controllers
         //特定咨询详情页面（用户和专家共用）
         public ActionResult ConsultDetails()
         {
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
             //string expertUserName = Request["expertUserName"].ToString();
-            int specialConsultId = Convert.ToInt32(Request["specialConsultId"]);            
+            int specialConsultId = Convert.ToInt32(Request["specialConsultId"]);  
+            //获取用户特定咨询的用户数据
             SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
             SpecialConsult_model specialConsult_model = specialConsult_bll.GetOneSpecialConsult(specialConsultId);//获取specialConsultId的特定咨询的数据
+            //获取特定咨询的专家解答数据
             return View(specialConsult_model);            
+        }
+
+        /// <summary>
+        /// 配置用户登录状态
+        /// 如果已登录，返回true，并且设置登录状态：设置ViewData["LoginYes"] = 1；并且从数据库里取出用户头像的链接：ViewData["TouXiangUrl"] =...；
+        /// 未登录返回false,并且设置ViewData["LoginYes"] = 0
+        /// </summary>
+        /// 
+        public bool LoginStatusConfig()
+        {
+            if (Session["userName"] == null)
+            {//未登录
+                ViewData["LoginYes"] = 0;
+                return false;
+            }
+            //已登录
+            ViewData["LoginYes"] = 1;
+            ViewData["userName"] = Session["userName"].ToString();
+            ViewData["signature"] = Session["signature"].ToString();
+            People_bll peopleBll = new People_bll();
+            ViewData["TouXiangUrl"] = peopleBll.GetImgUrlTouXiang(Session["userName"].ToString());//从数据库里获取头像url
+            return true;
         }
     }
 }

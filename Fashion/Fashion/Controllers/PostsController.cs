@@ -88,6 +88,26 @@ namespace Fashion.Controllers
             ReplyPost_bll replyPost_bll = new ReplyPost_bll();
             replyPost_bll.InsertReplyPost(postId, replyUserId, content200, supportCount, datetime, staticHuiTieHtml);
             //--------回帖数据保存成功
+
+            //////获取回帖里的所有图片的路径,并且将图片路径保存到数据库里tb_PostPhoto （PostPhoto_PostType=）
+            System.Text.RegularExpressions.Regex regImg2 = new System.Text.RegularExpressions.Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);// 定义正则表达式用来匹配 img 标签
+            System.Text.RegularExpressions.MatchCollection matches = regImg2.Matches(contentData);
+            int i = 0;
+            string[] strUrlList = new string[matches.Count];
+            foreach (System.Text.RegularExpressions.Match match in matches)
+            {
+                strUrlList[i++] = match.Groups["imgUrl"].Value;// 取得匹配项列表
+            }
+            if (strUrlList.Length >= 1)
+            {
+                int replyPostId = replyPost_bll.GetReplyPostId(staticHuiTieHtml);//根据回帖的静态html路径查询数据库，得到该贴子的replyPost_Id
+                PostPhoto_bll postPhoto_bll = new PostPhoto_bll();
+                if (postPhoto_bll.InsertPhotoUrl(replyPostId, strUrlList, 2) < 0)
+                {
+                    return Content("保存图片路径时数据库出错");
+                }
+            }
+
             return Content("回帖成功");
 
             

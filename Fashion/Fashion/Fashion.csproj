@@ -131,6 +131,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\BLL\Collect_bll.cs" />
     <Compile Include="Code\BLL\ErrorMessage_bll.cs" />
     <Compile Include="Code\BLL\People_bll.cs" />
     <Compile Include="Code\BLL\PostComment_bll.cs" />
@@ -142,12 +143,14 @@
     <Compile Include="Code\BLL\SpecialConsult_bll.cs" />
     <Compile Include="Code\BLL\Theme_bll.cs" />
     <Compile Include="Code\BLL\User_bll.cs" />
+    <Compile Include="Code\DAL\Collect_dal.cs" />
     <Compile Include="Code\DAL\ErrorMessage_dal.cs" />
     <Compile Include="Code\DAL\PostComment_dal.cs" />
     <Compile Include="Code\DAL\PostPhoto_dal.cs" />
     <Compile Include="Code\DAL\Post_dal.cs" />
     <Compile Include="Code\DAL\Rank_dal.cs" />
     <Compile Include="Code\DAL\ReplyPost_dal.cs" />
+    <Compile Include="Code\DAL\share.cs" />
     <Compile Include="Code\DAL\SpecialConsultAnswerClothes_dal.cs" />
     <Compile Include="Code\DAL\SpecialConsult_dal.cs" />
     <Compile Include="Code\DAL\SqlConnectionString.cs" />
@@ -177,6 +180,7 @@
     </Compile>
     <Compile Include="Models\Attention_model.cs" />
     <Compile Include="Models\Collect_model.cs" />
+    <Compile Include="Models\CountUser_model.cs" />
     <Compile Include="Models\ExpertUserConsult_model.cs" />
     <Compile Include="Models\PostComment_model.cs" />
     <Compile Include="Models\ErrorMessage_model.cs" />
@@ -297,6 +301,8 @@
     <Content Include="Images\People-Expert_Register-add.png" />
     <Content Include="Images\People-Expert_Register-addImg.png" />
     <Content Include="Images\People-Expert_Register-WaitForAudit.png" />
+    <Content Include="Images\people-geRenTouXiang.png" />
+    <Content Include="Images\people-index-defaultQuanShenZhao.png" />
     <Content Include="Images\People-myAsks_huangguan.png" />
     <Content Include="Images\People-Index-xiugaiziliao.png" />
     <Content Include="Images\test.png" />
