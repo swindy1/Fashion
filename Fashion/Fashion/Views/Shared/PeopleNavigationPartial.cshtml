@@ -1,0 +1,12 @@
+﻿@{
+    Fashion.Models.CountUser_model countUser_model = ViewData["countUser_model"] as Fashion.Models.CountUser_model;
+}
+@*这里是局部页面,导航条：我的主页 特定咨询 提问  回答 收藏 消息*@
+<div class="tab_bar">
+    <h2 onclick="window.location.href = 'Index'">我的主页</h2>
+    <h2 onclick="window.location.href = 'MySpecialConsult'">特定咨询<span>@countUser_model.specialConsultCount</span></h2>
+    <h2 class="tab_ing" onclick="window.location.href = 'myAsks'">提问<span>@countUser_model.zhuTieCount</span></h2>
+    <h2 onclick="window.location.href = 'myAnsweres'">回答<span>@countUser_model.replyCount</span></h2>
+    <h2 onclick="window.location.href = 'myCollections'">收藏<span>@countUser_model.collectCount</span></h2>
+    <h2 onclick="window.location.href = 'Message'">消息<span>0</span></h2>
+</div>

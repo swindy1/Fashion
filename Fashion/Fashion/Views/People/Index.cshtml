@@ -69,43 +69,46 @@
         float: left;
     }
 </style>
+@RenderPage("~/Views/Shared/PeopleModulePartial.cshtml")@*这里是个人设置里的左边模块的局部页面：关注（数量）、粉丝、提问、回答、收藏、获赞*@
+<div id="Right_div" class="Right_div">
+    @RenderPage("~/Views/Shared/PeopleNavigationPartial.cshtml")@*这里是局部页面,导航条：我的主页 特定咨询 提问  回答 收藏 消息*@
+    <div class="fl_left">
+        <div id="quanshenzhao">
+            <img src="@ViewData["QuanShenZhao"]" style="width: 100%; height: 100%; border-radius: 16px;" />
+        </div>
 
-<div class="fl_left">
-    <div id="quanshenzhao">
-        <img src="@ViewData["QuanShenZhao"]" style="width: 100%; height: 100%; border-radius: 16px;" />
+        <div class="grxx_biaotou">
+            <div class="fl_left">个人信息：</div>
+            <div class="fl_right">
+                <a href="Change_Data" title="修改">
+                    <img src="~/Images/People-Index-xiugaiziliao.png" />
+                </a>
+            </div>
+        </div>
+        <table id="grxx_table" class="grxx_table" cellspacing="20">
+            <tr><td>真实姓名：</td><td>@ViewData["realName"]</td></tr>
+            <tr><td>出生年月：</td><td>@ViewData["BirthDate"]</td></tr>
+            <tr><td>职&nbsp;&nbsp;&nwbsp;&nbsp;&nbsp;&nbsp;&nbsp;业：</td><td> @ViewData["Profession"]</td></tr>
+            <tr><td>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</td><td>@ViewData["PhoneNumber"]</td></tr>
+            <tr><td>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历：</td><td>@ViewData["CheckEducationalBackground"]</td></tr>
+            <tr><td>爱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好：</td><td>@ViewData["Interest"]</td></tr>
+        </table>
     </div>
 
-    <div class="grxx_biaotou">
-        <div class="fl_left">个人信息：</div>
+    <div class="xttz_biaotou">
+        <div class="fl_left">体型特征：</div>
         <div class="fl_right">
-            <a href="Change_Data" title="修改">
+            <a href="Change_Data#sttz" title="修改">
                 <img src="~/Images/People-Index-xiugaiziliao.png" />
             </a>
         </div>
     </div>
-    <table id="grxx_table" class="grxx_table" cellspacing="20">
-        <tr><td>真实姓名：</td><td>@ViewData["realName"]</td></tr>
-        <tr><td>出生年月：</td><td>@ViewData["BirthDate"]</td></tr>
-        <tr><td>职&nbsp;&nbsp;&nwbsp;&nbsp;&nbsp;&nbsp;&nbsp;业：</td><td> @ViewData["Profession"]</td></tr>
-        <tr><td>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</td><td>@ViewData["PhoneNumber"]</td></tr>
-        <tr><td>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历：</td><td>@ViewData["CheckEducationalBackground"]</td></tr>
-        <tr><td>爱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好：</td><td>@ViewData["Interest"]</td></tr>
+    <table id="p_char_table" class="p_char_table" cellspacing="20">
+        <tr><td class="word-duiqi">身高：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["Height"]" />cm</td><td></td><td class="word-duiqi">肤色：</td><td><input type="text" disabled="disabled" class="table-data" style="width:30px;" value="@ViewData["SkinColor"]" /></td></tr>
+        <tr><td class="word-duiqi">体重：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["Weight"]" />kg</td><td></td><td class="word-duiqi">臀围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["TunWei"]" />cm</td></tr>
+        <tr><td class="word-duiqi">腰围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["YaoWei"]" />cm</td><td></td><td class="word-duiqi">臂围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["ArmGirth"]" />cm</td></tr>
+        <tr><td class="word-duiqi">腿长：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["LegLength"]" />cm</td><td></td><td class="word-duiqi">胸围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["XiongWei"]" />cm</td></tr>
+        <tr><td>大腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["ThighGirth"]" />cm</td><td></td><td>小腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["CalfGirth"]" />cm</td></tr>
+
     </table>
 </div>
-
-<div class="xttz_biaotou">
-    <div class="fl_left">体型特征：</div>
-    <div class="fl_right">
-        <a href="Change_Data#sttz" title="修改">
-            <img src="~/Images/People-Index-xiugaiziliao.png" />
-        </a>
-    </div>
-</div>
-<table id="p_char_table" class="p_char_table" cellspacing="20">
-    <tr><td class="word-duiqi">身高：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["Height"]" />cm</td><td></td><td class="word-duiqi">肤色：</td><td><input type="text" disabled="disabled" class="table-data"style="width:30px;" value="@ViewData["SkinColor"]" /></td></tr>
-    <tr><td class="word-duiqi">体重：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["Weight"]" />kg</td><td></td><td class="word-duiqi">臀围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["TunWei"]" />cm</td></tr>
-    <tr><td class="word-duiqi">腰围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["YaoWei"]" />cm</td><td></td><td class="word-duiqi">臂围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["ArmGirth"]" />cm</td></tr>
-    <tr><td class="word-duiqi">腿长：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["LegLength"]" />cm</td><td></td><td class="word-duiqi">胸围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["XiongWei"]" />cm</td></tr>
-    <tr><td>大腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["ThighGirth"]" />cm</td><td></td><td>小腿围：</td><td><input type="text" disabled="disabled" class="table-data" value="@ViewData["CalfGirth"]" />cm</td></tr>
-
-</table>

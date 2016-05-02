@@ -287,7 +287,7 @@ namespace Fashion.Controllers
         {
             if (Session["userName"] == null)
             {
-                return Content("请先登录");
+                return RedirectToAction("LoginRemind", "Topic");
             }
             string UserName = Session["userName"].ToString();
             string SkinColor = Request["SkinColor"];
@@ -324,7 +324,7 @@ namespace Fashion.Controllers
         {
             if (Session["userName"] == null)
             {
-                return Content("请先登录");
+                return RedirectToAction("LoginRemind", "Topic");
             }
             
             string userName = Session["userName"].ToString();
@@ -557,8 +557,13 @@ namespace Fashion.Controllers
             LoginStatusConfig();//配置登录状态
             if (Session["userName"] == null)
             {
-                return Content("请先登录");
+                return RedirectToAction("LoginRemind", "Topic");
             }
+            string userName = Session["userName"].ToString();
+            User_bll user_bll = new User_bll();
+            int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
+            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ViewData["countUser_model"] = countUser_model;
             return View();
         }
         /// <summary>

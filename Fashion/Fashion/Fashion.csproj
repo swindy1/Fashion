@@ -650,6 +650,8 @@
     <Content Include="Views\Consult\ConsultDetails.cshtml" />
     <Content Include="Views\Consult\ExpertAnswer.cshtml" />
     <Content Include="Views\People\MySpecialConsult.cshtml" />
+    <Content Include="Views\Shared\PeopleNavigationPartial.cshtml" />
+    <Content Include="Views\Shared\PeopleModulePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
