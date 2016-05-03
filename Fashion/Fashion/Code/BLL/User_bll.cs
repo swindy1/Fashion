@@ -10,6 +10,32 @@ namespace Fashion.Code.BLL
 {
     public class User_bll
     {
+
+
+
+        /// <summary>
+        /// 传递一个userName参数使用户感谢+1
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public int GiveUserName(string userName)
+        {
+
+            User_dal user_dal = new User_dal();
+            if ((int)user_dal.UpdateStarCount(userName) == 1)
+                return 1;
+            else
+                return 0;
+
+        }
+
+
+
+
+
+
+
+
           /// <summary>
         /// 通过用户名查询该用户的ID，
         /// 成功返回1

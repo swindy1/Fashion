@@ -57,6 +57,20 @@ namespace Fashion.Controllers
             }
 
         }
+        
+        /// <summary>
+        /// 感谢
+        /// 成功返回1，失败返回0
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ThankUser()
+        {
+            string userName = Request["userName"];
+            User_bll user = new User_bll();
+             return Content(user.GiveUserName(userName).ToString());
+            
+        }
+
 
     }
 }

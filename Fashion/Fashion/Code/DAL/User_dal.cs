@@ -13,6 +13,23 @@ namespace Fashion.Code.DAL
     {
 
 
+
+        /// <summary>
+        /// 更新User_StarCount(感谢)成功返回1
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object UpdateStarCount(string userName)
+        {
+            string sqlStr = "update [tb_User] set User_StarCount=User_StarCount+1 where User_Name=@userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                  new SqlParameter("@userName",userName)
+                   };
+            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+
+        }
+
+
         /// <summary>
         /// 通过用户名查询数据库里该用户的条数
         /// </summary>
