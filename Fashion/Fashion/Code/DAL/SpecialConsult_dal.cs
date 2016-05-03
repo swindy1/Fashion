@@ -107,6 +107,7 @@ namespace Fashion.Code.DAL
         /// <returns></returns>
         public SpecialConsult_model ToModel(DataRow row)
         {
+            ///这里还缺少一个处理，那就是，当数据库里的某个字段为空时，要初始化什么值，或者做什么处理
             SpecialConsult_model specialConsult_model = new SpecialConsult_model();
             specialConsult_model.id = (int)row["id"];
             specialConsult_model.caption = row["caption"].ToString();
@@ -144,15 +145,16 @@ namespace Fashion.Code.DAL
         /// <param name="likeStyleImageUrl">喜欢风格的照片url</param>
         /// <param name="dislikeStyleImageUrl">不喜欢风格的照片url</param>
         /// <returns></returns>
-        public int InsertConsultData(int userId, int expertId, string occasion, string details, string geRenZhaoUrl, string likeStyleImageUrl, string dislikeStyleImageUrl)
+        public int InsertConsultData(int userId, int expertId, string occasion, string details, string geRenZhaoUrl, string likeStyleImageUrl, string dislikeStyleImageUrl,DateTime datetime)
         {
             string sqlStr = @"insert into tb_SpecialConsult 
                                                              ( SpecialConsult_UserId, SpecialConsult_UserPhotoUrl,
                                                                SpecialConsult_Occasion, SpecialConsult_LikeStyleUrl, 
-                                                               SpecialConsult_DislikeStyleUrl, SpecialConsult_Detail, SpecialConsult_ExpertId)
+                                                               SpecialConsult_DislikeStyleUrl, SpecialConsult_Detail, 
+                                                               SpecialConsult_ExpertId,SpecialConsult_Date)
                                                    values(@userId,@geRenZhaoUrl,
                                                                @occasion,@likeStyleImageUrl,
-   	                                                           @dislikeStyleImageUrl,@details,@expertId)";
+   	                                                           @dislikeStyleImageUrl,@details,@expertId,@datetime)";
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@userId",userId),
                 new SqlParameter("@expertId",expertId),
@@ -161,6 +163,7 @@ namespace Fashion.Code.DAL
                 new SqlParameter("@geRenZhaoUrl",geRenZhaoUrl),
                 new SqlParameter("@likeStyleImageUrl",likeStyleImageUrl),
                 new SqlParameter("@dislikeStyleImageUrl",dislikeStyleImageUrl),
+                new SqlParameter("@datetime",datetime),
             };
             return SqlHelper.ExecuteNonquery(sqlStr, parameters);
 

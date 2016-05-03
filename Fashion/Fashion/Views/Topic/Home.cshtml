@@ -368,15 +368,44 @@
         function thx(x) {            
             var postId = x.substring(4);
             var z = "ganxie_" + postId;
-            var k = document.getElementById(z).innerHTML;
-            if (k == "感谢") {
+            var k = "AzhuTieUserName_" + postId;//获取id
+            var Num = "0";//标识，按下感谢时，Num为1，取消感谢时为0
+            var isganxie =  document.getElementById(z).innerHTML//获取按钮字符，是感谢或取消..
+          /*  if (k == "感谢") {
                 document.getElementById(z).innerHTML = "取消感谢";
             }
             else {
                 document.getElementById(z).innerHTML = "感谢";
 
             }
+            */
+            if (isganxie == "感谢")
+                Num = "1";
+            else
+                Num = "0";
+            $.ajax({
+                url: "../User/ThankUser",
+                data: { userName: $("#" + k).html(),number:Num },
+                type: "post",
+                success: function (addone) {
+                    
+                        if (addone == "1") {
+                             if (Num == 1) {
+                                 alert("感谢成功！");
+                                 document.getElementById(z).innerHTML = "取消感谢";
+                             }
+                             if (Num == 0) {
+                                 alert("已取消感谢！");
+                                 document.getElementById(z).innerHTML = "感谢";
+                             }
+
+                        }                   
+                                           }
+                  });
         }
+   
+
+
         ////本函数实现点击收藏按钮时按钮显示为取消收藏，再次点击时，取消收藏显示又变回收藏按钮
         function save(x) {
             var postId = x.substring(5);
@@ -544,7 +573,7 @@
                             <a href="PostDetails?postId=@post_model.postId">@post_model.postCaption</a>
                         </div>
                         <div class="data_fawenzi">
-                            <a id="AzhuTieUserName_@post_model.postId" href="" title="发问者资料">@post_model.User.userName</a><span>,@post_model.User.signature</span>
+                            <a id="AzhuTieUserName_@post_model.postId" name="@post_model.User.userName" href="" title="发问者资料">@post_model.User.userName</a><span>,@post_model.User.signature</span>
                         </div>
                         <div id="data_short_data_@post_model.postId" class="data_short_data" onclick="zhangkai(this.id)">
                             

@@ -125,9 +125,8 @@ namespace Fashion.Controllers
             SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
             SpecialConsult_model specialConsult_model = specialConsult_bll.GetOneSpecialConsult(specialConsultId);//通过specialConsultId获取用户特定咨询时填写的特定咨询数据
             ViewData["specialConsult_model"] = specialConsult_model;
-            //获取特定咨询的专家解答数据
             SpecialConsultAnswer_bll specialConsultAnswer_bll = new SpecialConsultAnswer_bll();
-            SpecialConsultAnswer_model specialConsultAnswer_model = specialConsultAnswer_bll.GetOneSpecialAnswerData(specialConsultId);
+            SpecialConsultAnswer_model specialConsultAnswer_model = specialConsultAnswer_bll.GetOneSpecialAnswerData(specialConsultId);//通过specialConsultId获取特定咨询的专家解答数据
             return View(specialConsultAnswer_model);            
         }
 

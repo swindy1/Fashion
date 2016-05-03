@@ -18,7 +18,19 @@ namespace Fashion.Code.BLL
         public SpecialConsultAnswer_model GetOneSpecialAnswerData(int specialConsultId)
         {
             SpecialConsultAnswer_dal specialConsultAnswer_dal = new SpecialConsultAnswer_dal();
-            SpecialConsultAnswer_model specialConsultAnswer_model = specialConsultAnswer_dal.GetOneSpecialAnswerData(specialConsultId);
+            SpecialConsultAnswer_model specialConsultAnswer_model = new SpecialConsultAnswer_model();
+            try { 
+                specialConsultAnswer_model=specialConsultAnswer_dal.GetOneSpecialAnswerData(specialConsultId);
+            }
+            catch (Exception e)
+            {
+                if (e.ToString() == "0")
+                {//当查询到的数据为空时，初始化specialConsultAnswer_model的值
+                    specialConsultAnswer_model.specialAnswerId = 0;
+                    specialConsultAnswer_model.answerHtmlUrl = "";
+                }
+            }
+                
             return specialConsultAnswer_model;
         }
 

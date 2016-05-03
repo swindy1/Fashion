@@ -10,6 +10,32 @@ namespace Fashion.Code.BLL
 {
     public class User_bll
     {
+
+
+
+        /// <summary>
+        /// 传递一个userName参数使用户感谢+1
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public int GiveUserName(string userName,string Num)
+        {
+
+            User_dal user_dal = new User_dal();
+            if ((int)user_dal.UpdateStarCount(userName,Num) == 1)
+                return 1;
+            else
+                return 0;
+
+        }
+
+
+
+
+
+
+
+
           /// <summary>
         /// 通过用户名查询该用户的ID，
         /// 成功返回1
@@ -38,8 +64,17 @@ namespace Fashion.Code.BLL
         public User_model GetUserDataConsult(string userName)
         {
             User_dal user_dal = new User_dal();
-            User_model user_model=user_dal.GetUserDataConsult(userName);
-            DateTime today = new DateTime(2016, 4, 18);//今天日期
+            User_model user_model = new User_model();
+            try
+            {
+                user_model = user_dal.GetUserDataConsult(userName);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
+
+            DateTime today = DateTime.Now;//今天日期
             DateTime birthDate = user_model.birthDate;//出生年月日
             int age = today.Year - birthDate.Year;//年龄
             if (birthDate > today.AddYears(-age))//还未生日，年龄减去1
@@ -86,7 +121,15 @@ namespace Fashion.Code.BLL
         public CountUser_model GetCountUser(int userId)
         {
             User_dal user_dal = new User_dal();
-            return user_dal.GetCountUser(userId);
+            CountUser_model countUser_model = new CountUser_model();
+            try {
+                countUser_model=user_dal.GetCountUser(userId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
+            return countUser_model;
         }
 
     }

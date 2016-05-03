@@ -13,6 +13,8 @@ namespace Fashion.Code.DAL
         /// <summary>
         /// 通过特定咨询的帖子编号specialConsultId查询数据库的tb_SpecialConsultAnswer，
         /// 获取专家解答的数据
+        /// 无论查询到多少条数据，返回一条SpecialConsultAnswer_model对象的实例的数据
+        /// 失败： 查询不到数据，抛出异常0
         /// </summary>
         /// <param name="specialConsultId">特定咨询的帖子编号</param>
         /// <returns></returns>
@@ -27,7 +29,12 @@ namespace Fashion.Code.DAL
                 new SqlParameter("@specialConsultId",specialConsultId)
             };
             DataTable dataTable = SqlHelper.ExecuteDataTable(sqlStr, parameters);
-            SpecialConsultAnswer_model specialConsultAnswer_model = ToModel(dataTable.Rows[0]);
+            SpecialConsultAnswer_model specialConsultAnswer_model = new SpecialConsultAnswer_model();
+            if (dataTable.Rows.Count == 0)
+            {
+                throw new Exception("0");
+            }
+            specialConsultAnswer_model = ToModel(dataTable.Rows[0]);
             return specialConsultAnswer_model;
         }
 

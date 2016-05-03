@@ -13,6 +13,29 @@ namespace Fashion.Code.DAL
     {
 
 
+
+        /// <summary>
+        /// 更新User_StarCount(感谢)成功返回1
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object UpdateStarCount(string userName,string Num)
+        {   
+            
+            string sqlStr1 = "update [tb_User] set User_StarCount=User_StarCount+1 where User_Name=@userName";
+            string sqlStr2 = "update [tb_User] set User_StarCount=User_StarCount-1 where User_Name=@userName";
+            SqlParameter[] parameters = new SqlParameter[]{
+                  new SqlParameter("@userName",userName)
+                   };
+            if (Num == "1")
+                return SqlHelper.ExecuteNonquery(sqlStr1, parameters);
+            else if (Num == "0")
+                return SqlHelper.ExecuteNonquery(sqlStr2, parameters);
+            else return 2;
+
+        }
+
+
         /// <summary>
         /// 通过用户名查询数据库里该用户的条数
         /// </summary>
@@ -176,52 +199,55 @@ namespace Fashion.Code.DAL
 
         /// <summary>
         /// 根据用户的userId 获取用户的 特定咨询数 提问数 回答数 收藏 关注数 粉丝数 获赞数
+        /// 成功返回CountUser_model对象的实例        
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
         public CountUser_model GetCountUser(int userId)
         {
             string sqlStr = @"select SpecialConsult.specialConsultCount,
-                                           Post.zhuTieCount,
-                                    	   ReplyPost.replyCount,
-                                    	   Collect.collectCount,
-                                    	   Concerns.concernsCount,
-                                    	   Fans.fansCount,
-                                    	   tb_User.User_StarCount as supportCount
-                                           from 
-                                                (select SpecialConsult_UserId userId, count(*) specialConsultCount 
-                                    			         from tb_SpecialConsult
-                                                         group by SpecialConsult_UserId)  as SpecialConsult left join
-                                                 (select Post_SenderId senderId,count(*) zhuTieCount from tb_Post 
-                                                         group by Post_SenderId) as Post 
-                                    					 on SpecialConsult.userId=Post.senderId 
-                                    					 left join
-                                    		     (select ReplyPost_ReplyerId replyId,COUNT(*) replyCount from tb_ReplyPost
-                                                         group by ReplyPost_ReplyerId) as ReplyPost 
-                                    					 on SpecialConsult.userId=ReplyPost.replyId
-                                    					 left join
-                                    					 (select  Collect_CollectorId collectorId,COUNT(*) collectCount from tb_Collect
-                                    					  group by Collect_CollectorId) as Collect
-                                    					  on SpecialConsult.userId=Collect.collectorId
-                                    					  left join 
-                                    		     (select Attention_ConcernsId as concernsId,count(*) concernsCount from tb_Attention
-                                                          group by Attention_ConcernsId)as Concerns
-                                    					  on SpecialConsult.userId=Concerns.concernsId
-                                    					  left join 
-                                    			 (select Attention_BeConcernedId as beConcernedId,count(*) fansCount  from tb_Attention 
-                                                          group by Attention_BeConcernedId)as Fans
-                                    					  on SpecialConsult.userId=Fans.beConcernedId
-                                    					  left join tb_User
-                                    					  on SpecialConsult.userId=tb_User.User_Id
-                                    where SpecialConsult.userId=@userId";
+                                                   Post.zhuTieCount,
+                                            	   ReplyPost.replyCount,
+                                            	   Collect.collectCount,
+                                            	   Concerns.concernsCount,
+                                            	   Fans.fansCount,
+                                            	   tb_User.User_StarCount as supportCount
+                                                   from  tb_User left join
+                                                        (select SpecialConsult_UserId userId, count(*) specialConsultCount 
+                                            			         from tb_SpecialConsult
+                                                                 group by SpecialConsult_UserId)  as SpecialConsult on tb_User.User_Id=SpecialConsult.userId
+                                            					  left join
+                                                         (select Post_SenderId senderId,count(*) zhuTieCount from tb_Post 
+                                                                 group by Post_SenderId) as Post 
+                                            					 on tb_User.User_Id=Post.senderId 
+                                            					 left join
+                                            		     (select ReplyPost_ReplyerId replyId,COUNT(*) replyCount from tb_ReplyPost
+                                                                 group by ReplyPost_ReplyerId) as ReplyPost 
+                                            					 on tb_User.User_Id=ReplyPost.replyId
+                                            					 left join
+                                            					 (select  Collect_CollectorId collectorId,COUNT(*) collectCount from tb_Collect
+                                            					  group by Collect_CollectorId) as Collect
+                                            					  on tb_User.User_Id=Collect.collectorId
+                                            					  left join 
+                                            		     (select Attention_ConcernsId as concernsId,count(*) concernsCount from tb_Attention
+                                                                  group by Attention_ConcernsId)as Concerns
+                                            					  on tb_User.User_Id=Concerns.concernsId
+                                            					  left join 
+                                            			 (select Attention_BeConcernedId as beConcernedId,count(*) fansCount  from tb_Attention 
+                                                                  group by Attention_BeConcernedId)as Fans
+                                            					  on tb_User.User_Id=Fans.beConcernedId
+                                            where tb_User.User_Id=@userId";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userId",userId)
             };
-            CountUser_model countUser_model = new CountUser_model();
             DataTable dt=SqlHelper.ExecuteDataTable(sqlStr,parameters);
             if(dt.Rows.Count>1)
             {
-                throw new Exception("数据库错误，超过一条数据");
+                throw new Exception("数据库出错，查询到的数据条数超过1条");//数据库存在多条数据
+            }
+            if (dt.Rows.Count == 0)
+            {//查询到的数据条数为0
+                return new CountUser_model();
             }
             return ToModel_CountUser(dt.Rows[0]);
         }
@@ -257,13 +283,25 @@ namespace Fashion.Code.DAL
                 new SqlParameter("@userName",userName)
             };
             DataTable userData = SqlHelper.ExecuteDataTable(sqlStr,parameters);
-            user_model.birthDate = (DateTime)userData.Rows[0]["User_BirthDate"];
-            user_model.height = Convert.ToSingle(userData.Rows[0]["User_Height"]);
-            user_model.tunWei = Convert.ToSingle(userData.Rows[0]["User_TunWei"]);
-            user_model.yaoWei = Convert.ToSingle(userData.Rows[0]["User_YaoWei"]);
-            user_model.xiongWei = Convert.ToSingle(userData.Rows[0]["User_XiongWei"]);
-            user_model.weight = Convert.ToSingle(userData.Rows[0]["User_Weight"]);
-            user_model.skinColor = userData.Rows[0]["User_SkinColor"].ToString();
+            if (userData.Rows.Count == 0)
+            {//不存在该用户时
+                throw new Exception("不存在该用户，查询到的数据为空");
+            }
+            if (userData.Rows[0]["User_BirthDate"] == System.DBNull.Value)
+            {
+            
+            }
+            else
+            {
+                user_model.birthDate = (DateTime)userData.Rows[0]["User_BirthDate"];
+            }
+
+            user_model.height = userData.Rows[0]["User_Height"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_Height"]);
+            user_model.tunWei = userData.Rows[0]["User_TunWei"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_TunWei"]);
+            user_model.yaoWei = userData.Rows[0]["User_YaoWei"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_YaoWei"]);
+            user_model.xiongWei = userData.Rows[0]["User_XiongWei"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_XiongWei"]);
+            user_model.weight = userData.Rows[0]["User_Weight"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_Weight"]);
+            user_model.skinColor = userData.Rows[0]["User_SkinColor"] == System.DBNull.Value ? "请选择" : userData.Rows[0]["User_SkinColor"].ToString();
             return user_model;
         }
 
