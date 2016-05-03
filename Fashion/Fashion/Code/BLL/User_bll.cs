@@ -18,11 +18,11 @@ namespace Fashion.Code.BLL
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public int GiveUserName(string userName)
+        public int GiveUserName(string userName,string Num)
         {
 
             User_dal user_dal = new User_dal();
-            if ((int)user_dal.UpdateStarCount(userName) == 1)
+            if ((int)user_dal.UpdateStarCount(userName,Num) == 1)
                 return 1;
             else
                 return 0;

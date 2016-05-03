@@ -66,8 +66,9 @@ namespace Fashion.Controllers
         public ActionResult ThankUser()
         {
             string userName = Request["userName"];
-            User_bll user = new User_bll();
-             return Content(user.GiveUserName(userName).ToString());
+            string Num = Request["number"];
+            User_bll user = new User_bll();           
+             return Content(user.GiveUserName(userName,Num).ToString());
             
         }
 
