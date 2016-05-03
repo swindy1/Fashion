@@ -19,13 +19,19 @@ namespace Fashion.Code.DAL
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public object UpdateStarCount(string userName)
-        {
-            string sqlStr = "update [tb_User] set User_StarCount=User_StarCount+1 where User_Name=@userName";
+        public object UpdateStarCount(string userName,string Num)
+        {   
+            
+            string sqlStr1 = "update [tb_User] set User_StarCount=User_StarCount+1 where User_Name=@userName";
+            string sqlStr2 = "update [tb_User] set User_StarCount=User_StarCount-1 where User_Name=@userName";
             SqlParameter[] parameters = new SqlParameter[]{
                   new SqlParameter("@userName",userName)
                    };
-            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+            if (Num == "1")
+                return SqlHelper.ExecuteNonquery(sqlStr1, parameters);
+            else if (Num == "0")
+                return SqlHelper.ExecuteNonquery(sqlStr2, parameters);
+            else return 2;
 
         }
 

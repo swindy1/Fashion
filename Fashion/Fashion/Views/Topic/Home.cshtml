@@ -368,7 +368,9 @@
         function thx(x) {            
             var postId = x.substring(4);
             var z = "ganxie_" + postId;
-            var k = "AzhuTieUserName_" + postId;
+            var k = "AzhuTieUserName_" + postId;//获取id
+            var Num = "0";//标识，按下感谢时，Num为1，取消感谢时为0
+            var isganxie =  document.getElementById(z).innerHTML//获取按钮字符，是感谢或取消..
           /*  if (k == "感谢") {
                 document.getElementById(z).innerHTML = "取消感谢";
             }
@@ -376,19 +378,30 @@
                 document.getElementById(z).innerHTML = "感谢";
 
             }
-            */        
+            */
+            if (isganxie == "感谢")
+                Num = "1";
+            else
+                Num = "0";
             $.ajax({
                 url: "../User/ThankUser",
-                data: { userName: $("#" + k).html() },
+                data: { userName: $("#" + k).html(),number:Num },
                 type: "post",
                 success: function (addone) {
-                    alert("感谢成功！");
-                    if (addone == "1")                  
-                      document.getElementById(z).style.display = "None";
                     
-                }
-            });
-               
+                        if (addone == "1") {
+                             if (Num == 1) {
+                                 alert("感谢成功！");
+                                 document.getElementById(z).innerHTML = "取消感谢";
+                             }
+                             if (Num == 0) {
+                                 alert("已取消感谢！");
+                                 document.getElementById(z).innerHTML = "感谢";
+                             }
+
+                        }                   
+                                           }
+                  });
         }
    
 
