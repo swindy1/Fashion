@@ -3,7 +3,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     @model System.Collections.Generic.List<Fashion.Models.Post_model>    
     }
-
+<script >
+    userName="@ViewData["userName"]";
+</script>
     <script src="~/Scripts/jquery-2.0.0.js"></script>
     <link href="~/Content/Topic_Home.css" rel="stylesheet" />
     <script>
@@ -394,7 +396,7 @@
                                  alert("感谢成功！");
                                  document.getElementById(z).innerHTML = "取消感谢";
                              }
-                             if (Num == 0) {
+                             if (Num ==0) {
                                  alert("已取消感谢！");
                                  document.getElementById(z).innerHTML = "感谢";
                              }
@@ -410,14 +412,61 @@
         function save(x) {
             var postId = x.substring(5);
             var z = "save_val_" + postId;
-            var k = document.getElementById(z).innerHTML;
-            if (k == "收藏") {
+           // var k = document.getElementById(z).innerHTML;
+            var postType = "1";//帖子类型
+            var Num = "1";//标识，收藏为1，取消为0
+            var s = "0"//标识，按下收藏时，Num为1，取消收藏时为0
+            var isShouCang = document.getElementById(z).innerHTML;
+            //alert(isShouCang);                 
+          /* if (k == "收藏") {
                 document.getElementById(z).innerHTML = "已收藏";
+             
             }
             else {
                 document.getElementById(z).innerHTML = "收藏";
 
             }
+            */
+            if (isShouCang == "收藏") {
+                s = "1";
+                Num = "1";
+            }
+            else {
+                s = "0";
+                Num = "0";
+            }
+            $.ajax({
+                url: "../Posts/ShouCangTieZi",
+                data: { userName: userName, postId: postId, postType: postType, Num: Num },
+                type: "post",
+                success: function (update1) {
+                    if (update1 == "1") {
+                        alert("有返回");
+                                 if (s== 1)
+                                 {   
+                                 document.getElementById(z).innerHTML = "取消收藏";
+                           
+                                }
+                                if (s == 0)
+                                {
+                                 document.getElementById(z).innerHTML = "收藏";
+                           
+                                }
+                                         }
+                    if (update1 == "0") {
+                        alert("调整返回");
+                           if (s == 1) {
+                                document.getElementById(z).innerHTML = "取消收藏";
+
+                           }
+                           if (s == 0) {
+                               document.getElementById(z).innerHTML = "收藏";
+
+                           }
+                                         }
+                }
+            });
+
         }
 
         //本函数实现点击省略的文章时，展开全文

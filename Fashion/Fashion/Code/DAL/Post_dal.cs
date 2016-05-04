@@ -7,9 +7,89 @@ using System.Linq;
 using System.Web;
 
 namespace Fashion.Code.DAL
-{
+{   
+
+
+
+
+
+    
     public class Post_dal
     {
+
+        /// <summary>
+        /// 返回查询的userId
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public object select_userId(string userName)
+        {
+            string sqlStr = "select User_Id from tb_User where User_Name=@userName";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@userName",userName)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
+
+        /// <summary>
+        ///返回1，收藏已经存在,返回Null，不存在,以后可能有返回0的情况
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        public object select_ShouCang(string userId, string postId)
+        {
+            string sqlStr = "select Collect_PostType from tb_Collect where Collect_CollectorId=@userId and Collect_PostId=@postId";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@userId",userId),
+                new SqlParameter("@postId",postId),
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+
+
+        }
+
+        /// <summary>
+        /// 执行插入收藏，插入tb_Collect
+        /// 成功返回1，失败返回0
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="postId"></param>
+        /// <param name="postType"></param>
+        /// <returns></returns>
+        public int insert_ShouCang(string userId,string postId,string postType){
+               string sqlStr="insert  into tb_Collect(Collect_CollectorId,Collect_PostId,Collect_PostType)values(@userId,@postId,@postType)";
+                  SqlParameter[] parameters = new SqlParameter[] { 
+                    new SqlParameter("@userId",userId),
+                    new SqlParameter("@postId",postId),
+                    new SqlParameter("@postType",postType),
+            };        
+         return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+       }
+
+      
+    
+       /// <summary>
+        ///执行取消收藏操作, 成功返回1，失败返回0
+       /// </summary>
+       /// <param name="postId"></param>
+       /// <param name="postType"></param>
+       /// <param name="userId"></param>
+       /// <returns></returns>
+        public int delete_ShouCang(string postId,string postType){
+              string sqlStr="delete  from tb_Collect where Collect_PostId=@postId and Collect_PostType=@postType";
+                  SqlParameter[] parameters = new SqlParameter[] {                 
+                      new SqlParameter("@postId",postId),
+                      new SqlParameter("@postType",postType),
+                     
+
+            };        
+         return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+
+        }
+
+
+
          /// <summary>
         /// 通过标题查询数据库里该标题的条数
         /// </summary>
@@ -160,6 +240,7 @@ namespace Fashion.Code.DAL
             };
             DataTable dataTable = SqlHelper.ExecuteDataTable(sqlStr, parameters);
             Post_model post_model= new Post_model();
+            
             post_model = ToModel(dataTable.Rows[0]);
             return post_model;
         }
