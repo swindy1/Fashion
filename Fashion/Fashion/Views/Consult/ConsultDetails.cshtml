@@ -11,23 +11,36 @@
 <link href="~/Content/Pinglun_css.css" rel="stylesheet" />
 <script>
     $(document).ready(function () {
-        if ("@Model.answerHtmlUrl" != "")
-        {
-            var htmlUrl = "@Model.answerHtmlUrl";//获取专家解答的内容的静态html页面
-            var expertAnswerHtmlContent = "expertAnswerHtmlContent";  //expertAnswerHtmlContent为展示帖子内容的div编号，等一下要把静态html里的内容填充到本div里
-            $.ajax({//通过ajax请求静态html的内容
-                async: false,
-                url: htmlUrl,
-                success: function (result) {
-                    $("#" + expertAnswerHtmlContent).html(result);
-                }
-            });
-        }
+        var answerHtmlUrl = "@Model.answerHtmlUrl";//专家解答的静态htmlUrl
+        GetExpertAnswerHtmlContent(answerHtmlUrl);//获取专家解答的静态html页面内容
+        var specialAnswerIdData = "@Model.specialAnswerId";        
+        var rankName = "@ViewData["rankName"]";//获取用户的等级名
+        DisplayExpertAnswerBtn(rankName);//根据rankName决定是否显示专家解答按钮
         //////获取专家搭配的衣服
+        GetSpecialAnswerClothes(specialAnswerIdData);   
+    });
+
+
+    //当rankName为专家时，显示专家解答按钮
+    //当rankName不是专家时，隐藏专家解答按钮
+    //因为只有专家才能跳转到ExpertAnswer.cshtml页面
+    function DisplayExpertAnswerBtn(rankName)
+    {
+        if (rankName == "专家") {
+            $("#btnSpecialAnswer").css("display", "");
+        }
+        else {
+            $("#btnSpecialAnswer").css("display", "none");
+        }
+    }
+
+    //////获取专家搭配的衣服
+    function GetSpecialAnswerClothes(specialAnswerIdData)
+    {
         $.ajax({
             url: "GetSpecialAnswerClothes",
-            data: { specialAnswerId: 52 },
-            success: function (data) {
+            data: { specialAnswerId: specialAnswerIdData },
+            success: function (data) {                
                 var jsonData = JSON.parse(data);
                 var answerClothTemplateHtml = '  <div><a href="simpleClothUrl" title="点击查看服饰详情" target="_black"> simpleColthType</a></div>   ';//模板
                 var answerClothHtml = "";//购买衣服的html内容
@@ -39,10 +52,23 @@
                 $("#answerClothHtml").html(answerClothHtml);
             }
         });
+    }
 
+    //获取专家解答的静态html页面内容
+    function GetExpertAnswerHtmlContent(answerHtmlUrl)
+    {
+        if (answerHtmlUrl != "") {//判断专家解答的内容的静态html页面url是否为空
+            var expertAnswerHtmlContent = "expertAnswerHtmlContent";  //expertAnswerHtmlContent为展示帖子内容的div编号，等一下要把静态html里的内容填充到本div里
+            $.ajax({//通过ajax请求静态html的内容
+                async: false,
+                url: answerHtmlUrl,
+                success: function (result) {
+                    $("#" + expertAnswerHtmlContent).html(result);
+                }
+            });
+        }
+    }
 
-
-    });
 </script>
 <script type="text/javascript">
     var qjbl = 0;//为qjbl++做准备
@@ -574,7 +600,7 @@
                         <div id="expertAnswerHtmlContent">
                             <!--假如这是静态页面,这里面的内容有待删除，因为我已经实现了通过请求静态html渲染到此页面了================-->
                             <p>
-                                <span style="font-size:16px;"> &nbsp; &nbsp; &nbsp; 哈</span><span style="font-size:14px;"><span style="font-size:16px;"></span><span style="font-size:16px;"></span></span><span style="font-size:16px;font-family:SimSun;">哈，问题很详细，首先我参加毕业照，我建议您</span><span style="color:#333333;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">穿休闲雅气的衣服。首先我推荐下面比较学院风的裙子，所以黑色很好看(*^__^*) 嘻嘻……</span>
+                                <span style="font-size:16px;"> &nbsp; &nbsp; &nbsp; 哈</span><span style="font-size:14px;"><span style="font-size:16px;"></span><span style="font-size:16px;"></span></span><span style="font-size:16px;font-family:SimSun;">哈，问题很详细，首先参加毕业照，我建议您</span><span style="color:#333333;font-family:SimSun;font-size:16px;line-height:24px;background-color:#FFFFFF;">穿休闲雅气的衣服。首先我推荐下面比较学院风的裙子，所以黑色很好看(*^__^*) 嘻嘻……</span>
                             </p>
                             <br />
 
@@ -650,6 +676,13 @@
                                 </div>
                             </div>
                         </div>
+
+                    </div> 
+                    <div id="btnSpecialAnswer" style="float:left;">
+                        <input type="button" value="特定解答" 
+                               style="font-size:28px;box-shadow:5px 4px 2px gray;"
+                               title="点击进行特定解答"
+                                onclick="window.location.href = './ExpertAnswer?specialConsultId=@specialConsult_model.id&expertUserName=@specialConsult_model.expert.userName'"/>
                     </div>
                 </div><!--<div id="commentDiv">end-->
                 
