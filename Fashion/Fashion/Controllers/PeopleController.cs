@@ -28,6 +28,7 @@ namespace Fashion.Controllers
 
         /// <summary>
         ///遍历我的提问过的帖子
+        ///Creator:Simple
         /// </summary>
         /// <returns></returns>
         public ActionResult myAsks()
@@ -38,16 +39,23 @@ namespace Fashion.Controllers
             }
             LoginStatusConfig();//配置登录状态
             string userName = Session["userName"].ToString();
+            ////获取用户等级名
+            Rank_bll rank_bll = new Rank_bll();
+            string rankNameDB = rank_bll.GetRankName(userName);//该用户数据库里的等级名
+            rankNameDB = rankNameDB.Trim();//去除空格
             User_bll user_bll = new User_bll();
             int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
-            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            CountUser_model countUser_model = user_bll.GetCountUser(userId, rankNameDB);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
             ViewData["countUser_model"] = countUser_model;
+            ViewData["rankName"] = rankNameDB;//用户等级名
+            ViewData["actionName"] = "myAsks";//当前action名
             Post_bll post_bll = new Post_bll();
             List<Post_model> post_modelList = post_bll.GetShortPostData(userId);//获取用户的提问过的贴子
             return View(post_modelList);
         }
         /// <summary>
         /// 遍历我的回答过的帖子，即回帖
+        /// Creator:Simple
         /// </summary>
         /// <returns></returns>
         public ActionResult myAnsweres()
@@ -58,10 +66,17 @@ namespace Fashion.Controllers
             }
             LoginStatusConfig();//配置登录状态
             string userName = Session["userName"].ToString();
+            ////获取用户等级名
+            Rank_bll rank_bll = new Rank_bll();
+            string rankNameDB = rank_bll.GetRankName(userName);//该用户数据库里的等级名
+            rankNameDB = rankNameDB.Trim();//去除空格
+          
             User_bll user_bll = new User_bll();
             int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
-            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            CountUser_model countUser_model = user_bll.GetCountUser(userId,rankNameDB);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
             ViewData["countUser_model"] = countUser_model;
+            ViewData["rankName"] = rankNameDB;
+            ViewData["actionName"] = "myAnsweres";//当前action名
             ReplyPost_bll replyPost_bll = new ReplyPost_bll();
             List<ReplyPost_model> replyPost_modelList = new List<ReplyPost_model>();
             replyPost_modelList = replyPost_bll.GetShortReplyPostData(userId);//获取用户的回帖数据
@@ -69,6 +84,7 @@ namespace Fashion.Controllers
         }
         /// <summary>
         /// 遍历我的特定咨询过的帖子
+        /// Creator:Simple
         /// </summary>
         /// <returns></returns>
         public ActionResult MySpecialConsult()
@@ -78,16 +94,66 @@ namespace Fashion.Controllers
                 return RedirectToAction("LoginRemind", "Topic");
             }
             LoginStatusConfig();//配置登录状态
-           
               string userName = Session["userName"].ToString();
+              ////判断用户类型是否为普通用户
+              Rank_bll rank_bll = new Rank_bll();
+              string rankNameDB = rank_bll.GetRankName(userName);//该用户数据库里的等级名
+              rankNameDB = rankNameDB.Trim();//去除空格
+              if (rankNameDB != "普通用户")
+              {
+                  return Content("错误提示：您不是普通用户");
+              }
               User_bll user_bll = new User_bll();
               int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
-              CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+              CountUser_model countUser_model = user_bll.GetCountUser(userId,rankNameDB);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
               ViewData["countUser_model"] = countUser_model;
+              ViewData["rankName"] = rankNameDB;
+              ViewData["actionName"] = "MySpecialConsult";//当前action名
               SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
               List<SpecialConsult_model> specialConsult_modelList = specialConsult_bll.GetMyConsultData(userId);//通过userId获取该用户的特定咨询数据
               return View(specialConsult_modelList);
         }
+
+
+        /// <summary>
+        /// 遍历我（专家）的特定解答过的帖子
+        /// Creator:Simple
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MySpecialAnswer()
+        {
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
+
+            string expertName = Session["userName"].ToString();
+            ////判断用户类型是否为专家
+            Rank_bll rank_bll = new Rank_bll();
+            string rankNameDB = rank_bll.GetRankName(expertName);//该用户数据库里的等级名
+            rankNameDB = rankNameDB.Trim();//去除空格
+            if (rankNameDB != "专家")
+            {
+                return Content("错误提示：您不是专家");
+            }
+
+            User_bll user_bll = new User_bll();
+            int expertId = Convert.ToInt32(user_bll.GetUserId(expertName));//通过用户名获取userId
+            CountUser_model countUser_model = user_bll.GetCountUser(expertId,rankNameDB);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ViewData["countUser_model"] = countUser_model;
+            ViewData["rankName"] = rankNameDB;
+            ViewData["actionName"] = "MySpecialAnswer";//当前action名
+            SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
+            List<SpecialConsult_model> specialConsult_modelList = specialConsult_bll.GetShortConsultExpertData(expertId);//通过userId获取该用户的特定咨询数据
+            return View(specialConsult_modelList);
+        }
+
+        /// <summary>
+        /// 遍历我的收藏过的帖子
+        /// Creator:Simple
+        /// </summary>
+        /// <returns></returns>
         public ActionResult myCollections()
         {
             if (Session["userName"] == null)
@@ -97,16 +163,23 @@ namespace Fashion.Controllers
             LoginStatusConfig();//配置登录状态
 
             string userName = Session["userName"].ToString();
+            ////获取用户等级名
+            Rank_bll rank_bll = new Rank_bll();
+            string rankNameDB = rank_bll.GetRankName(userName);//该用户数据库里的等级名
+            rankNameDB = rankNameDB.Trim();//去除空格
             User_bll user_bll = new User_bll();
             int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
-            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            CountUser_model countUser_model = user_bll.GetCountUser(userId,rankNameDB);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
             ViewData["countUser_model"] = countUser_model;
+            ViewData["rankName"] = rankNameDB;
+            ViewData["actionName"] = "myCollections";//当前action名
             Collect_bll collect_bll = new Collect_bll();
             List<Collect_model> collect_modelList = new List<Collect_model>();
             collect_modelList = collect_bll.GetShortCollectPostData(userId);//通过userId获取用户的收藏过的帖子
             return View(collect_modelList);
         }
      
+        
         public ActionResult Index()
         {
             if (Session["userName"] == null)
@@ -272,12 +345,16 @@ namespace Fashion.Controllers
             {
                 ViewData["QuanShenZhao"] = user.GetQuanShenZhao(userName);
             }
-
+            ////获取用户等级名
+            Rank_bll rank_bll = new Rank_bll();
+            string rankNameDB = rank_bll.GetRankName(userName);//该用户数据库里的等级名
+            rankNameDB = rankNameDB.Trim();//去除空格
             //获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等
             User_bll user_bll = new User_bll();
             int userId = user_bll.GetUserId(userName);
-            CountUser_model countUser_model = user_bll.GetCountUser(userId);
+            CountUser_model countUser_model = user_bll.GetCountUser(userId,rankNameDB);
             ViewData["countUser_model"] = countUser_model;
+            ViewData["rankName"] = rankNameDB;
             return View();
         }
 
@@ -562,7 +639,11 @@ namespace Fashion.Controllers
             string userName = Session["userName"].ToString();
             User_bll user_bll = new User_bll();
             int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
-            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+            ////获取用户等级名
+            Rank_bll rank_bll = new Rank_bll();
+            string rankNameDB = rank_bll.GetRankName(userName);//该用户数据库里的等级名
+            rankNameDB = rankNameDB.Trim();//去除空格
+            CountUser_model countUser_model = user_bll.GetCountUser(userId,rankNameDB);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
             ViewData["countUser_model"] = countUser_model;
             return View();
         }

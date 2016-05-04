@@ -59,6 +59,20 @@ namespace Fashion.Code.BLL
             return specialConsult_modelList;
         }
 
+        /// <summary>
+        /// 通过专家名，查询特定咨询该专家的帖子，
+        /// 这次不用查询出全部的数据，只需查询一部分数据，因为不是用于详情内容，而是用于遍历
+        /// 特定咨询帖子id  标题 用户个人照 详细描述 日期
+        /// </summary>
+        /// <param name="userName">用户名id</param>
+        /// <returns></returns>
+        public List<SpecialConsult_model> GetShortConsultExpertData(int expertId)
+        {
+            SpecialConsult_dal specialConsult_dal = new DAL.SpecialConsult_dal();
+            List<SpecialConsult_model> specialConsult_modelList = specialConsult_dal.GetShortConsultExpertData(expertId);
+            return specialConsult_modelList;
+        }
+
 
 
 

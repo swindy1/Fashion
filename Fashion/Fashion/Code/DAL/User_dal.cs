@@ -198,14 +198,16 @@ namespace Fashion.Code.DAL
 
 
         /// <summary>
-        /// 根据用户的userId 获取用户的 特定咨询数 提问数 回答数 收藏 关注数 粉丝数 获赞数
-        /// 成功返回CountUser_model对象的实例
-        /// 失败： 查询到数据库里有多条数据，抛出异常1
-        ///              查询不到数据，抛出异常2
+        /// 根据用户的userId 和等级名rankName  获取用户的 特定咨询数（或特定解答数） 提问数 回答数 收藏 关注数 粉丝数 获赞数
+        /// rankName为普通用户时，查询特定咨询数
+        ///                  为专家时，查询特定解答数
+        /// 成功返回CountUser_model对象的实例   
+        /// Creator:Simple
         /// </summary>
         /// <param name="userId"></param>
+        /// <param name="rankName"></param>
         /// <returns></returns>
-        public CountUser_model GetCountUser(int userId)
+        public CountUser_model GetCountUser(int userId,string rankName)
         {
             string sqlStr = @"select SpecialConsult.specialConsultCount,
                                                    Post.zhuTieCount,
@@ -215,10 +217,6 @@ namespace Fashion.Code.DAL
                                             	   Fans.fansCount,
                                             	   tb_User.User_StarCount as supportCount
                                                    from  tb_User left join
-                                                        (select SpecialConsult_UserId userId, count(*) specialConsultCount 
-                                            			         from tb_SpecialConsult
-                                                                 group by SpecialConsult_UserId)  as SpecialConsult on tb_User.User_Id=SpecialConsult.userId
-                                            					  left join
                                                          (select Post_SenderId senderId,count(*) zhuTieCount from tb_Post 
                                                                  group by Post_SenderId) as Post 
                                             					 on tb_User.User_Id=Post.senderId 
@@ -237,26 +235,42 @@ namespace Fashion.Code.DAL
                                             					  left join 
                                             			 (select Attention_BeConcernedId as beConcernedId,count(*) fansCount  from tb_Attention 
                                                                   group by Attention_BeConcernedId)as Fans
-                                            					  on tb_User.User_Id=Fans.beConcernedId
-                                            where tb_User.User_Id=@userId";
+                                            					  on tb_User.User_Id=Fans.beConcernedId  ";
+            if (rankName == "普通用户")// rankName为普通用户时，查询特定咨询数
+            {
+                sqlStr = sqlStr + @"left join
+		                                     (select SpecialConsult_UserId userId, count(*) specialConsultCount 
+			                                   from tb_SpecialConsult
+                                               group by SpecialConsult_UserId)  as SpecialConsult on tb_User.User_Id=SpecialConsult.userId					  
+                                               where tb_User.User_Id=@userId";
+            }
+            else
+                if (rankName == "专家")//rankName为专家时，查询特定解答数
+                {
+                    sqlStr = sqlStr + @"  left join
+		                                     (select SpecialConsult_ExpertId userId, count(*) specialConsultCount 
+                                              from tb_SpecialConsult
+                                              group by SpecialConsult_ExpertId)  as SpecialConsult on tb_User.User_Id=SpecialConsult.userId					  
+                                               where tb_User.User_Id=@userId";
+                }
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userId",userId)
             };
-            CountUser_model countUser_model = new CountUser_model();
             DataTable dt=SqlHelper.ExecuteDataTable(sqlStr,parameters);
             if(dt.Rows.Count>1)
             {
-                throw new Exception("1");//数据库存在多条数据
+                throw new Exception("数据库出错，查询到的数据条数超过1条");//数据库存在多条数据
             }
             if (dt.Rows.Count == 0)
-            {
-                throw new Exception("2");//查询到的数据条数为0
+            {//查询到的数据条数为0
+                return new CountUser_model();
             }
             return ToModel_CountUser(dt.Rows[0]);
         }
 
 
         /// <summary>
+        /// Creator:Simple
         /// 获取一定数量的专家的数据：id、用户名、头像url          
         /// </summary>
         /// <returns></returns>
@@ -286,13 +300,25 @@ namespace Fashion.Code.DAL
                 new SqlParameter("@userName",userName)
             };
             DataTable userData = SqlHelper.ExecuteDataTable(sqlStr,parameters);
-            user_model.birthDate = (DateTime)userData.Rows[0]["User_BirthDate"];
-            user_model.height = Convert.ToSingle(userData.Rows[0]["User_Height"]);
-            user_model.tunWei = Convert.ToSingle(userData.Rows[0]["User_TunWei"]);
-            user_model.yaoWei = Convert.ToSingle(userData.Rows[0]["User_YaoWei"]);
-            user_model.xiongWei = Convert.ToSingle(userData.Rows[0]["User_XiongWei"]);
-            user_model.weight = Convert.ToSingle(userData.Rows[0]["User_Weight"]);
-            user_model.skinColor = userData.Rows[0]["User_SkinColor"].ToString();
+            if (userData.Rows.Count == 0)
+            {//不存在该用户时
+                throw new Exception("不存在该用户，查询到的数据为空");
+            }
+            if (userData.Rows[0]["User_BirthDate"] == System.DBNull.Value)
+            {
+            
+            }
+            else
+            {
+                user_model.birthDate = (DateTime)userData.Rows[0]["User_BirthDate"];
+            }
+
+            user_model.height = userData.Rows[0]["User_Height"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_Height"]);
+            user_model.tunWei = userData.Rows[0]["User_TunWei"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_TunWei"]);
+            user_model.yaoWei = userData.Rows[0]["User_YaoWei"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_YaoWei"]);
+            user_model.xiongWei = userData.Rows[0]["User_XiongWei"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_XiongWei"]);
+            user_model.weight = userData.Rows[0]["User_Weight"] == System.DBNull.Value ? 0 : Convert.ToSingle(userData.Rows[0]["User_Weight"]);
+            user_model.skinColor = userData.Rows[0]["User_SkinColor"] == System.DBNull.Value ? "请选择" : userData.Rows[0]["User_SkinColor"].ToString();
             return user_model;
         }
 
