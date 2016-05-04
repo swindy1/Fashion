@@ -32,7 +32,7 @@ namespace Fashion.Code.DAL
         }
 
         /// <summary>
-        ///返回1，收藏已经存在,返回Null，不存在,以后可能有返回0的情况
+        ///查询表tb_Collect中的Collect_PostType，返回1，收藏已经存在,返回Null，不存在,以后可能有返回0的情况（跟帖）
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="postId"></param>
