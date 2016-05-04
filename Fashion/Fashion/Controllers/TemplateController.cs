@@ -32,7 +32,11 @@ namespace Fashion.Controllers
             string userName = Session["userName"].ToString();
             User_bll user_bll = new User_bll();
             int userId = Convert.ToInt32(user_bll.GetUserId(userName));//通过用户名获取userId
-            CountUser_model countUser_model = user_bll.GetCountUser(userId);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
+              ////获取用户等级名
+            Rank_bll rank_bll = new Rank_bll();
+            string rankNameDB = rank_bll.GetRankName(userName);//该用户数据库里的等级名
+            rankNameDB = rankNameDB.Trim();//去除空格
+            CountUser_model countUser_model = user_bll.GetCountUser(userId, rankNameDB);//获取用户的CountUser_model 数据：点赞数 关注数 粉丝数 收藏数 提问数 回帖数 特定咨询数 等          
             ViewData["countUser_model"] = countUser_model;
             return View();
         }

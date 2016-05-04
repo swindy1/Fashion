@@ -84,6 +84,33 @@ namespace Fashion.Code.DAL
         }
 
         /// <summary>
+        /// 通过专家名，查询特定咨询该专家的帖子，
+        /// 这次不用查询出全部的数据，只需查询一部分数据，因为不是用于详情内容，而是用于遍历
+        /// 特定咨询帖子id  标题 用户个人照 详细描述 日期
+        /// </summary>
+        /// <param name="expertId">专家id</param>
+        /// <returns></returns>
+        public List<SpecialConsult_model> GetShortConsultExpertData(int expertId)
+        {
+            string sqlStr = @"select SpecialConsult_Id as id,SpecialConsult_Caption as caption,
+                                                    SpecialConsult_UserPhotoUrl as geRenZhao,
+                                                    SpecialConsult_Detail as detail,SpecialConsult_Date  as date
+	                                      from tb_SpecialConsult 
+                                          where SpecialConsult_ExpertId=@expertId";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@expertId",expertId),
+            };
+            DataTable dataTable = SqlHelper.ExecuteDataTable(sqlStr, parameters);
+            List<SpecialConsult_model> specialConsult_modelList = new List<SpecialConsult_model>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                specialConsult_modelList.Add(ToShortModel(row));
+            }
+            return specialConsult_modelList;
+        }
+
+
+        /// <summary>
         /// 将一条数据转化为SpecialConsult_model数据
         /// 特定咨询帖子id  标题 用户个人照 详细描述 日期
         /// </summary>
