@@ -198,12 +198,16 @@ namespace Fashion.Code.DAL
 
 
         /// <summary>
-        /// 根据用户的userId 获取用户的 特定咨询数 提问数 回答数 收藏 关注数 粉丝数 获赞数
-        /// 成功返回CountUser_model对象的实例        
+        /// 根据用户的userId 和等级名rankName  获取用户的 特定咨询数（或特定解答数） 提问数 回答数 收藏 关注数 粉丝数 获赞数
+        /// rankName为普通用户时，查询特定咨询数
+        ///                  为专家时，查询特定解答数
+        /// 成功返回CountUser_model对象的实例   
+        /// Creator:Simple
         /// </summary>
         /// <param name="userId"></param>
+        /// <param name="rankName"></param>
         /// <returns></returns>
-        public CountUser_model GetCountUser(int userId)
+        public CountUser_model GetCountUser(int userId,string rankName)
         {
             string sqlStr = @"select SpecialConsult.specialConsultCount,
                                                    Post.zhuTieCount,
@@ -213,10 +217,6 @@ namespace Fashion.Code.DAL
                                             	   Fans.fansCount,
                                             	   tb_User.User_StarCount as supportCount
                                                    from  tb_User left join
-                                                        (select SpecialConsult_UserId userId, count(*) specialConsultCount 
-                                            			         from tb_SpecialConsult
-                                                                 group by SpecialConsult_UserId)  as SpecialConsult on tb_User.User_Id=SpecialConsult.userId
-                                            					  left join
                                                          (select Post_SenderId senderId,count(*) zhuTieCount from tb_Post 
                                                                  group by Post_SenderId) as Post 
                                             					 on tb_User.User_Id=Post.senderId 
@@ -235,8 +235,24 @@ namespace Fashion.Code.DAL
                                             					  left join 
                                             			 (select Attention_BeConcernedId as beConcernedId,count(*) fansCount  from tb_Attention 
                                                                   group by Attention_BeConcernedId)as Fans
-                                            					  on tb_User.User_Id=Fans.beConcernedId
-                                            where tb_User.User_Id=@userId";
+                                            					  on tb_User.User_Id=Fans.beConcernedId  ";
+            if (rankName == "普通用户")// rankName为普通用户时，查询特定咨询数
+            {
+                sqlStr = sqlStr + @"left join
+		                                     (select SpecialConsult_UserId userId, count(*) specialConsultCount 
+			                                   from tb_SpecialConsult
+                                               group by SpecialConsult_UserId)  as SpecialConsult on tb_User.User_Id=SpecialConsult.userId					  
+                                               where tb_User.User_Id=@userId";
+            }
+            else
+                if (rankName == "专家")//rankName为专家时，查询特定解答数
+                {
+                    sqlStr = sqlStr + @"  left join
+		                                     (select SpecialConsult_ExpertId userId, count(*) specialConsultCount 
+                                              from tb_SpecialConsult
+                                              group by SpecialConsult_ExpertId)  as SpecialConsult on tb_User.User_Id=SpecialConsult.userId					  
+                                               where tb_User.User_Id=@userId";
+                }
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@userId",userId)
             };
@@ -254,6 +270,7 @@ namespace Fashion.Code.DAL
 
 
         /// <summary>
+        /// Creator:Simple
         /// 获取一定数量的专家的数据：id、用户名、头像url          
         /// </summary>
         /// <returns></returns>
