@@ -224,6 +224,7 @@
     <Content Include="Content\Pinglun_css.css" />
     <Content Include="Content\share.css" />
     <Content Include="Content\laydate-skins.css" />
+    <Content Include="Content\streetHome.css" />
     <Content Include="Content\test.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -309,6 +310,20 @@
     <Content Include="Images\people-index-defaultQuanShenZhao.png" />
     <Content Include="Images\People-myAsks_huangguan.png" />
     <Content Include="Images\People-Index-xiugaiziliao.png" />
+    <Content Include="Images\StreetSnap-streetHome-blog.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-blog1.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai1.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai2.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai21.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai22.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai23.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai24.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai3.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai4.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai5.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepai6.jpg" />
+    <Content Include="Images\StreetSnap-streetHome-jiepaishike.gif" />
+    <Content Include="Images\StreetSnap-streetHome-qiehuanfu.png" />
     <Content Include="Images\test.png" />
     <Content Include="Images\test2.png" />
     <Content Include="Images\Topic-Consult-huanyipi.png" />
@@ -553,6 +568,7 @@
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\MyScripts\Login.js" />
     <Content Include="Scripts\MyScripts\PostFun.js" />
+    <Content Include="Scripts\streetHome-banner.js" />
     <Content Include="Scripts\upload_tx_js\cropbox.js" />
     <Content Include="Scripts\upload_tx_js\jquery-1.11.1.min.js" />
     <Content Include="Images\people-error.png" />
@@ -622,7 +638,6 @@
     <Content Include="Views\Topic\Home.cshtml" />
     <Content Include="Views\Topic\fabu.cshtml" />
     <Content Include="Views\People\test.ashx" />
-    <Content Include="Views\StreetSnap\streetHome.cshtml" />
     <Content Include="Views\People\PeopleHomePage.cshtml" />
     <Content Include="Views\People\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
@@ -653,6 +668,7 @@
     <Content Include="Views\Shared\PeopleNavigationPartial.cshtml" />
     <Content Include="Views\Shared\PeopleModulePartial.cshtml" />
     <Content Include="Views\People\MySpecialAnswer.cshtml" />
+    <Content Include="Views\StreetSnap\streetHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
