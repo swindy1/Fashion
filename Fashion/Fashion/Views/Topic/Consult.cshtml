@@ -6,6 +6,31 @@
 }
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/MyScripts/ImageFun.js"></script>
+<script language="javascript" type="text/javascript">
+    //结合了倒数的javascript实现（IE&firefox）页面自动跳转JS
+    var second = document.getElementById('totalSecond').textContent;
+    if (navigator.appName.indexOf("Explorer") > -1) {
+        second = document.getElementById('totalSecond').innerText;
+    } else {
+        second = document.getElementById('totalSecond').textContent;
+    }
+    function StarRedirect() {     //点击确认支付按钮触发该该函数
+        setInterval("redirect()", 1000);
+    }
+    function redirect() {
+        if (second < 0) {
+            location.href = '../Consult/ConsultDetails?specialConsultId=20';
+        } else {
+            if (navigator.appName.indexOf("Explorer") > -1) {
+                document.getElementById('totalSecond').innerText = second--;
+            } else {
+                document.getElementById('totalSecond').textContent = second--;
+            }
+        }
+    }
+</script>
+
+
 <script type="text/javascript">
     //咨询填写成功后，调用ajax保存数据
     function ajaxSaveData()
@@ -24,7 +49,7 @@
             url: "MakeConsult",
             data: { geRenZhao: imgGeRenZhaoBase64, occasion: theOccasion, details: theDetails, likeStyleImage: likeStyleImageBase64, dislikeStyleImage: dislikeStyleImageBase64, expertId: theExpertId },
             type: "post",
-            success: function (result) {
+            success: function (result) {                
                 alert(result);
                
             }
@@ -358,7 +383,7 @@
         color: #f75e24;
     }
 
-    #tdzx_data_div_4 a {
+    #tdzx_data_div_4 {
         color: #f75e24;
     }
 
@@ -435,6 +460,7 @@
         color: black;
         line-height: 38px;
         background-color: white;
+        font-weight:bold;
     }
 
     .jindutiao_line {
@@ -555,7 +581,7 @@
         <div style="width:700px;float:left;">
             <div id="tdzx_step_1" class="circular_finish">
                 <div id="circular_in_1" class="circular_in_finish">
-                    <img src="~/Images/Topic-Consult-wancheng.png" style="margin-top:10px;" />
+                    1
                 </div>
             </div>
 
@@ -612,38 +638,43 @@
             for (i = 1; i <= 4; i++) {
                 var tdzx = "tdzx_step_" + i;      //特定咨询步骤id
                 var jdtl = "jindutiao_line_" + i;
-                var j = i - 1;
                 var circular_in_id = "circular_in_" + i;
+                var j = i - 1;
+                var circular_in_id1 = "circular_in_" + j;
                 if (i <= id_num) {
 
                     document.getElementById(tdzx).className = "circular_finish";
                     document.getElementById(circular_in_id).className = "circular_in_finish";
                     var jdt_val = document.getElementById(jdtl).innerHTML;
-
+                    /*
                     document.getElementById(circular_in_id).innerHTML = "";
                     var img_new = document.createElement('img');   //将进度圈内的数字替换成已完成图片
                     img_new.setAttribute('src', '../Images/Topic-Consult-wancheng.png');
                     img_new.style.marginTop = "10px";
                     document.getElementById(circular_in_id).appendChild(img_new);
-
+                   */
                     if (jdt_val.length <= 0) {         //在空进度条div中创建显示为进行到一半的进度条
                         var div_new = document.createElement('div');
                         div_new.className = "jindutiao_line_ing";
                         document.getElementById(jdtl).appendChild(div_new);
 
                     }
+                        ///*
                     else if (id_num == 4) {
+                        /*
                         document.getElementById("circular_in_4").innerHTML = "";
                         var img_new = document.createElement('img');   //将进度圈内的数字替换成已完成图片
                         img_new.setAttribute('src', '../Images/Topic-Consult-wancheng.png');
                         img_new.style.marginTop = "10px";
                         document.getElementById("circular_in_4").appendChild(img_new);
+                        */
                         document.getElementById(jdtl).innerHTML = "";    //清空进度条在div中创建显示为进行完全满的进度条
                         var div_new = document.createElement('div');
                         div_new.className = "jindutiao_line_ing";
                         div_new.style.width = "130px";
                         document.getElementById(jdtl).appendChild(div_new);
                     }
+                    //*/
                     else if (id_num == i) {       //清空进度条在div中创建显示为进行到一半的进度条
                         document.getElementById(jdtl).innerHTML = "";
                         var div_new = document.createElement('div');
@@ -867,6 +898,7 @@
             <input type="file" onchange="previewImage(this)" style="display:none;" id="upload_qsz" />
             <div id="upload_fg" class="upload_fg" onclick="document.getElementById('upload_qsz').click()" onmouseout="    document.getElementById('upload_fg').style.display = 'none'; ">点击更改照片</div>
         </div>
+        
         <table id="base_bata_table" style="float:left;margin-left:100px;" cellspacing="5">
             <tr>
                 <td>年龄：</td>
@@ -1072,7 +1104,11 @@
         <div style="width:100%;text-align:center;float:left;margin-top:25px;">
             <img src="~/Images/Topic-Consult-wanchengzhang.png" />
             <p>信息填写完成！您邀请的专家将尽快为您解答，请留意消息~</p>
-            <div style="margin-top: 10px; margin-bottom:20px;"><a href="../People/Asks">点击跳转到提问页面</a></div>
+            
+            <div style="margin-top: 10px;"><span id="totalSecond" style="color:blue;margin-right:4px;font-weight:bold;">5</span>秒后将跳转到咨询详情页面</div>
+            <div style="margin-top: 10px; margin-bottom:20px;">若倒数完不跳转，请点击<a href="../Consult/ConsultDetails?specialConsultId=20">直接跳转</a></div>
+
+            
         </div>
     </div>
 
@@ -1082,7 +1118,7 @@
         </div>
 
         <div style="width:100%;">
-            <input id="btn_4" type="button" value="确定" onclick=" xs_data_div_Comfirmdaren(this.id); ajaxSaveData(); step_click(this.id);" style="margin-right:80px;" />
+            <input id="btn_4" type="button" value="确定" onclick=" xs_data_div_Comfirmdaren(this.id); StarRedirect();step_click(this.id);  ajaxSaveData();" style="margin-right:80px;" />
 
             <input type="button" value="取消" onclick="close_comfirm_daren();" />
         </div>

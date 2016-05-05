@@ -127,7 +127,7 @@
     
     function Save_Change() {      //点击保存弹出保存成功窗口
       
-            alert('保存成功！')
+            //alert('保存成功！')
         
     }
     function tz_zhuye() {
@@ -431,7 +431,7 @@
             data: { data1: imgTouXiangBase64 },
             type:"post",
             success: function (data) {
-                alert(data);
+                window.location.href = "Index";
             }
         });   
     }
@@ -441,8 +441,7 @@
         
         var imgQuanShen = document.getElementById("imghead");
         
-        var imgQuanShenBase64 = getBase64Image(imgQuanShen);
-        alert();
+        var imgQuanShenBase64 = getBase64Image(imgQuanShen);        
         $.ajax({
             url: "UploadQuanShenZhao",
             data: { data1: imgQuanShenBase64 },

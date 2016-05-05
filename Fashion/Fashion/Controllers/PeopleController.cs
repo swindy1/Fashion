@@ -336,7 +336,7 @@ namespace Fashion.Controllers
             {
                 ViewData["ArmGirth"] = user.GetArmGirth(userName);
             }
-            //检测手臂围是否为空
+            //检测全是照
             if (user.GetQuanShenZhao(userName) == "1")
             {
                 ViewData["QuanShenZhao"] = "请输入您的手臂围";
@@ -383,7 +383,7 @@ namespace Fashion.Controllers
             People_bll user = new People_bll();
             if (user.UpdateBodyData(UserName, SkinColor, Weight, XiongWei, YaoWei, TunWei, Height, LegLength, ThighGirth, ArmGirth, CalfGirth) == 1)
             {
-                return RedirectToAction("Change_Data");
+                return RedirectToAction("Index");
             }
             else
             { 
@@ -445,8 +445,9 @@ namespace Fashion.Controllers
             else
             {
                 ViewData["finshSave"] = -1;
-                return RedirectToAction("Change_Data");
+                return RedirectToAction("Index");
             }
+
            
         }
 

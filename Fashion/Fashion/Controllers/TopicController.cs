@@ -118,7 +118,9 @@ namespace Fashion.Controllers
 
             SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();//保存特定咨询数据
             specialConsult_bll.InsertConsultData(userId, expertId, occasion, details, geRenZhaoFileName, likeStyleImageFileName, dislikeStyleImageFileName,datetime);
-            return Content("特定咨询成功");
+            //通过geRenZhaoFileName查询该咨询的id
+            int specialConsult_Id = specialConsult_bll.GetSpecialConsultId(geRenZhaoFileName);
+            return Content(specialConsult_Id.ToString());//返回specialConsult_Id
         }
         public ActionResult Test()
         {
@@ -141,10 +143,7 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult Home()
         {
-            if (Session["userName"] == null)
-            {
-                return View("LoginRemind");
-            }
+         
             Post_bll post_bll = new Post_bll();
             List<Post_model>post_modelList=post_bll.GetPost(1,50);
             LoginStatusConfig();          //配置登录状态            
@@ -343,6 +342,7 @@ namespace Fashion.Controllers
                 return Content("保存帖子信息时数据库出错");
             }//将帖子数据保存到数据库---------成功
             //////获取所有图片里的图片路径,并且将图片路径保存到数据库里
+            int postId = Post.GetPostId(caption); //根据帖子的标题查询数据库，得到该贴子的postId
             System.Text.RegularExpressions.Regex regImg2 = new System.Text.RegularExpressions.Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);// 定义正则表达式用来匹配 img 标签
             System.Text.RegularExpressions.MatchCollection matches = regImg2.Matches(contentData);            
             int i = 0;
@@ -353,14 +353,13 @@ namespace Fashion.Controllers
             }
             if(strUrlList.Length>=1)
             {
-                int postId = Post.GetPostId(caption); //根据帖子的标题查询数据库，得到该贴子的postId
                 PostPhoto_bll postPhoto_bll = new PostPhoto_bll();
                 if (postPhoto_bll.InsertPhotoUrl(postId, strUrlList,1) < 0)
                 {
                     return Content("保存图片路径时数据库出错");
                 }
             }
-            return Content("成功");
+            return RedirectToAction("PostDetails", new { postId=postId});
         }
         ///// <summary>
         ///// 验证登录是否成功；

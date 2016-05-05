@@ -12,6 +12,21 @@ namespace Fashion.Code.DAL
     {
 
         /// <summary>
+        /// Creator:Simple
+        /// 通过用户特定咨询后保存的个人照路径查询该条特定咨询数据的id，因为个人照路径geRenZhaoUrl是唯一的
+        /// </summary>
+        /// <param name="geRenZhaoUrl"></param>
+        /// <returns></returns>
+        public object GetSpecialConsultId(string geRenZhaoUrl)
+        {
+            string sqlStr = "select SpecialConsult_Id from tb_SpecialConsult where SpecialConsult_UserPhotoUrl=@geRenZhaoUrl";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@geRenZhaoUrl",geRenZhaoUrl)
+            };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        }
+
+        /// <summary>
         /// 通过专家解答的特定咨询staticConsultAnswerHtml查询该条数据的id
         /// </summary>
         /// <param name="staticConsultAnswerHtml"></param>
@@ -157,7 +172,8 @@ namespace Fashion.Code.DAL
             specialConsult_model.user.xiongWei = Convert.ToInt32(row["xiongWei"]);
             specialConsult_model.user.skinColor = row["skinColor"].ToString();
             //专家数据
-            specialConsult_model.expert.userId = (int)row["expertId"];            
+            specialConsult_model.expert.userId = (int)row["expertId"];
+            specialConsult_model.expert.userName = row["expertName"].ToString();
             return specialConsult_model;
         }
 

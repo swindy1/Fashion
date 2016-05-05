@@ -24,10 +24,13 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult ExpertAnswer()
         {
-
-            //string expertUserName = Request["expertUserName"].ToString();
-            string expertUserName = "000";
-            int specialConsultId = 3;
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
+            string expertUserName = Request["expertUserName"].ToString();
+            int specialConsultId = Convert.ToInt32(Request["specialConsultId"]);
             //检查用户是否为专家
             Rank_bll rank_bll = new Rank_bll();
             string rankName=rank_bll.GetRankName(expertUserName);//获取用户的等级名称
@@ -119,12 +122,17 @@ namespace Fashion.Controllers
                 return RedirectToAction("LoginRemind", "Topic");
             }
             LoginStatusConfig();//配置登录状态
+            string userName = Session["userName"].ToString();
+            ////获取用户等级名
+            Rank_bll rank_bll = new Rank_bll();
+            string rankNameDB = rank_bll.GetRankName(userName);//该用户数据库里的等级名
+            rankNameDB = rankNameDB.Trim();//去除空格
             //string expertUserName = Request["expertUserName"].ToString();
             int specialConsultId = Convert.ToInt32(Request["specialConsultId"]);  
-            
             SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
             SpecialConsult_model specialConsult_model = specialConsult_bll.GetOneSpecialConsult(specialConsultId);//通过specialConsultId获取用户特定咨询时填写的特定咨询数据
             ViewData["specialConsult_model"] = specialConsult_model;
+            ViewData["rankName"] = rankNameDB;
             SpecialConsultAnswer_bll specialConsultAnswer_bll = new SpecialConsultAnswer_bll();
             SpecialConsultAnswer_model specialConsultAnswer_model = specialConsultAnswer_bll.GetOneSpecialAnswerData(specialConsultId);//通过specialConsultId获取特定咨询的专家解答数据
             return View(specialConsultAnswer_model);            

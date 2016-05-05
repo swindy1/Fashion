@@ -16,20 +16,22 @@ namespace Fashion.Code.DAL
     
     public class Post_dal
     {
+        /////此函数在User_dal 里已经实现，GetUserId
+        ///// <summary>
+        ///// 返回查询的userId
+        ///// </summary>
+        ///// <param name="userName"></param>
+        ///// <returns></returns>
+        //public object select_userId(string userName)
+        //{
+        //    string sqlStr = "select User_Id from tb_User where User_Name=@userName";
+        //    SqlParameter[] parameters = new SqlParameter[] { 
+        //        new SqlParameter("@userName",userName)
+        //    };
+        //    return SqlHelper.ExecuteScalar(sqlStr, parameters);
+        //}
 
-        /// <summary>
-        /// 返回查询的userId
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <returns></returns>
-        public object select_userId(string userName)
-        {
-            string sqlStr = "select User_Id from tb_User where User_Name=@userName";
-            SqlParameter[] parameters = new SqlParameter[] { 
-                new SqlParameter("@userName",userName)
-            };
-            return SqlHelper.ExecuteScalar(sqlStr, parameters);
-        }
+
 
         /// <summary>
         ///查询表tb_Collect中的Collect_PostType，返回1，收藏已经存在,返回Null，不存在,以后可能有返回0的情况（跟帖）

@@ -167,7 +167,7 @@ namespace Fashion.Code.BLL
         /// <returns></returns>
         public bool InsertUrlQuanShenZhao(string userName, string ImgExtension)
         {
-            string QuanShenZhaoUrl = "/Images/UserImages/TouXiang/" + userName + ImgExtension;
+            string QuanShenZhaoUrl = "/Images/UserImages/QuanShenZhao/" + userName + ImgExtension;
             User_dal user_dal = new User_dal();
             int NonqCount = user_dal.InsertUrlQuanShenZhao(userName, QuanShenZhaoUrl);//受影响的函数
             if (NonqCount == 1)

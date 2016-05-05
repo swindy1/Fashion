@@ -1,5 +1,161 @@
 ﻿@{
     ViewBag.Title = "streetHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>streetHome</h2>
+<link href="~/Content/streetHome.css" rel="stylesheet" />
+<script src="~/Scripts/streetHome-banner.js"></script>
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<!--
+    作者：709593732@qq.com
+    时间：2016-05-04
+    描述：
+    页面分左右布局，左边有导航和一个街拍时刻的显示
+                    右边又分为上下两部分，上面是图片切换部分，下面左右分别是图片显示和博客部分
+-->
+
+
+<div class="left">
+
+    <div class="jiepaishike"></div>
+
+    <div class="liebiao">
+        <ul>
+            <li class="a">
+                <a href="#">国外时装周</a>
+                <ul>
+                    <li><a href="#">巴黎时装周</a></li>
+                    <li><a href="#">米兰时装周</a></li>
+                    <li><a href="#">纽约时装周</a></li>
+                    <li><a href="#">伦敦时装周</a></li>
+                </ul>
+            </li>
+            <li class="b">
+                <a href="#">国内时装周</a>
+                <ul>
+                    <li><a href="#">上海时装周</a></li>
+                    <li><a href="#">中国时装周</a></li>
+                </ul>
+            </li>
+            <li><a href="#">国&nbsp;外&nbsp;街&nbsp;拍</a></li>
+            <li><a href="#">国&nbsp;内&nbsp;街&nbsp;拍</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="right">
+    <div class="banner">
+        <div class="b-img">
+            <a href="#" style="background:center no-repeat;">
+                <img src="~/Images/StreetSnap-streetHome-jiepai1.jpg" />
+            </a>
+            <a href="#" style=" center no-repeat;">
+                <img src="~/Images/StreetSnap-streetHome-jiepai2.jpg" />
+            </a>
+            <a href="#" style=" center no-repeat;">
+                <img src="~/Images/StreetSnap-streetHome-jiepai3.jpg" />
+            </a>
+            <a href="#" style=" center no-repeat;">
+                <img src="~/Images/StreetSnap-streetHome-jiepai4.jpg" />
+            </a>
+            <a href="#" style=" center no-repeat;">
+                <img src="~/Images/StreetSnap-streetHome-jiepai5.jpg" />
+            </a>
+            <a href="#" style=" center no-repeat;">
+                <img src="~/Images/StreetSnap-streetHome-jiepai6.jpg" />
+            </a>
+        </div>
+        <a class="bar-left" href="#"><em></em></a><a class="bar-right" href="#"><em></em></a>
+    </div>
+
+
+    <div class="center">
+        <div class="pic">
+
+            <div class="pic1">
+
+
+                <div id="wrapper">
+
+                    <div class="main_img">
+                        <img src="~/Images/StreetSnap-streetHome-jiepai21.jpg">
+                        <div class="show">
+                            <span class="imgArea">
+                                <a title="观看视频" href="#">查看搭配</a>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="pic2">
+                <div id="wrapper">
+
+                    <div class="main_img">
+                        <img src="~/Images/StreetSnap-streetHome-jiepai22.jpg">
+                        <div class="show">
+                            <span class="imgArea">
+                                <a title="观看视频" href="#">查看搭配</a>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="pic3">
+                <div id="wrapper">
+
+                    <div class="main_img">
+                        <img src="~/Images/StreetSnap-streetHome-jiepai23.jpg">
+                        <div class="show">
+                            <span class="imgArea">
+                                <a title="观看视频" href="#">查看搭配</a>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="pic4">
+                <div id="wrapper">
+
+                    <div class="main_img">
+                        <img src="~/Images/StreetSnap-streetHome-jiepai24.jpg" jpg">
+                        <div class="show">
+                            <span class="imgArea">
+                                <a title="观看视频" href="#">查看搭配</a>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="blog">
+            <div class="bltop">BLOG</div>
+            <div class="blarc">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <h3>街拍秀：时尚大咖霸气闺蜜</h3>
+                            <p>
+                                在如今的街拍秀，一枝独秀已经变得不好玩了，两个人一起搭才抢眼！有“雷同装”也有“姐妹装”，
+                                看点十足的装扮为街拍镜头增加了不少趣味。打扮不再是一个人的事，而 ...[详细]
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+
+                            <h3>街拍：时尚地标的美女与宠物</h3>
+                            <img src="~/Images/StreetSnap-streetHome-blog.jpg" />
+                            <p>豢养宠物的人，都是有大爱的人。大爱必然大美。于是，当美女遇到名宠，就是最新最美的图画</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
