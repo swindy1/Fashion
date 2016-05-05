@@ -11,6 +11,32 @@ namespace Fashion.Code.BLL
     public class User_bll
     {
 
+        /// <summary>
+        /// 执行关注，取消关注或不执行操作的逻辑判断
+        /// 执行操作返回1，无操作返回0
+        /// </summary>
+        /// <param name="concernName"></param>
+        /// <param name="beConcernName"></param>
+        /// <param name="Num"></param>
+        /// <returns></returns>
+        public int LgGuanZhuUser(string concernName, string beConcernName, string Num)
+        {
+            User_dal user_dal = new User_dal();
+            int concernNameId =Convert.ToInt32( user_dal.GetUserId(concernName));
+            int beConcernNameId =Convert.ToInt32( user_dal.GetUserId(beConcernName));
+            object exist = user_dal.select_ConIdAndBeConId(concernNameId, beConcernNameId);//查询记录是否存在，null或concernNameId
+            if (exist == null && Num == "1")//无关注记录，只可插入不可删除
+                return user_dal.insert_IdTotb_Attention(concernNameId, beConcernNameId);
+            else if (exist!=null && Num == "0")//有关注记录，只可删除不可插入
+                return user_dal.delete_IdFromtb_Attention(concernNameId, beConcernNameId);
+            else
+                return 0;
+
+        }
+
+
+
+
 
 
         /// <summary>

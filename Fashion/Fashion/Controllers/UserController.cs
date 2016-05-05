@@ -73,5 +73,25 @@ namespace Fashion.Controllers
         }
 
 
+        /// <summary>
+        /// 传递三个参数到User_bll
+        /// 关注或取消关注，成功返回1，失败返回0
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GuanZhuUser()
+        {
+
+            string concernName = Request["concernName"];
+            string beConcernName = Request["beConcernName"];
+            string Num = Request["Num"];
+            User_bll user_bll = new User_bll();
+            return Content(user_bll.LgGuanZhuUser(concernName, beConcernName, Num).ToString());
+            //return Content("1");
+        }
+
+
+
+
+
     }
 }

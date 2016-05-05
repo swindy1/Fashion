@@ -9,7 +9,8 @@ namespace Fashion.Code.BLL
 {
     public class Post_bll
     {
-        
+       
+
         /// <summary>
         /// 执行收藏，取消收藏或不执行操作的逻辑判断
         /// 执行操作返回1，无操作返回0

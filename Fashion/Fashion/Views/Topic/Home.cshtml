@@ -355,16 +355,65 @@
             var postId = x.substring(8);            
             var z = "gz_" + postId;
             var g = "gz_img_" + postId;
-            var k = document.getElementById(z).innerHTML;
-            if (k == "关注") {
-                
+            var faTieZhe = "AzhuTieUserName_" + postId;//获取发帖者Id
+           // var guanZhuZhe = userName;//获取关注者Id
+            //alert($("#" + faTieZhe).html());
+           
+            // alert(guanZhuZhe);
+            var Num = "1";//标识，关注为1，取消为0
+            var s = "1"//标识，按下关注时，Num为1，取消关注时为0
+            var isguanzhu = document.getElementById(z).innerHTML;
+            if (isguanzhu == "关注")
+            {
+                s = "1";
+                Num = "1";
+            }
+             else
+            {
+                s = "0";
+                Num = "0";
+            }
+            /*
+            if (isguanzhu== "关注") {             
                 document.getElementById(z).innerHTML = "已关注";
                 document.getElementById(g).src = "../Images/Topic-Home-yiguanzhu.png"
             }
             else {
                 document.getElementById(z).innerHTML = "关注";
                 g.src = "../Images/Topic-Home-plus.png"
+               
             }
+            */
+            $.ajax({
+                url: "../User/GuanZhuUser",
+                data: {beConcernName:$("#" + faTieZhe).html(),concernName:userName,Num:Num},
+                type: "post",
+                success: function (update1) {
+                                      if (update1 == "1") {
+                                       //alert("成功返回");
+                                                 if (s == 1) {
+                                                     document.getElementById(z).innerHTML = "取消关注";
+                                                     document.getElementById(g).src = "../Images/Topic-Home-yiguanzhu.png";
+                                                  }
+                                                 if (s == 0) {
+                                                     document.getElementById(z).innerHTML = "关注";
+                                                     document.getElementById(g).src = "../Images/Topic-Home-plus.png";
+                                                  }
+                                     }
+                                    if (update1 == "0") {    //校正操作，此时没有真正的执行关注，而是将收藏按钮转为取消按钮
+                                    //alert("校正返回");
+                                                 if (s == 1) {
+                                                     document.getElementById(z).innerHTML = "取消关注";
+                                                     document.getElementById(g).src = "../Images/Topic-Home-yiguanzhu.png";
+                                                 }
+                                                 if (s == 0) {
+                                                     document.getElementById(z).innerHTML = "关注";
+                                                     document.getElementById(g).src = "../Images/Topic-Home-plus.png";
+                                                 }
+                                   }
+                                                             }
+                     });
+
         }
         ////本函数实现点击感谢按钮时按钮显示为取消感谢，再次点击时，取消感谢显示又变回感谢按钮
         function thx(x) {            
@@ -415,7 +464,7 @@
             var postType = "1";//帖子类型
             var Num = "1";//标识，收藏为1，取消为0
             var s = "0"//标识，按下收藏时，Num为1，取消收藏时为0
-            var isShouCang = document.getElementById(z).innerHTML;          
+            var isShouCang = document.getElementById(z).innerHTML;         
             if (isShouCang == "收藏") {
                 s = "1";
                 Num = "1";

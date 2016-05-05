@@ -12,6 +12,67 @@ namespace Fashion.Code.DAL
     public class User_dal
     {
 
+              /// <summary>
+              /// 查询关注记录是否存在 返回object
+              /// 存在返回查询字段concernNameId，无记录返回null
+              /// </summary>
+              /// <param name="concernNameId"></param>
+              /// <param name="beConcernNameId"></param>
+              /// <returns></returns>
+              public object select_ConIdAndBeConId(int concernNameId,int beConcernNameId)
+              {
+                  string sqlStr = "select Attention_Id from tb_Attention where Attention_ConcernsId=@concernNameId and Attention_BeConcernedId=@beConcernNameId";
+	                  SqlParameter[] parameters = new SqlParameter[] {  
+                     new SqlParameter("@concernNameId",concernNameId),
+                     new SqlParameter("@beConcernNameId",beConcernNameId),
+                   
+                           };
+                      return SqlHelper.ExecuteScalar(sqlStr, parameters);
+
+              }
+               
+              /// <summary>
+              /// 插入关注记录到tb_Attention，返回int
+              /// 成功返回1，失败返回0
+              /// </summary>
+              /// <param name="concernNameId"></param>
+              /// <param name="beConcernNameId"></param>
+              /// <returns></returns>
+              public int insert_IdTotb_Attention(int concernNameId, int beConcernNameId)
+              {
+                  string sqlStr = "insert into tb_Attention(Attention_ConcernsId,Attention_BeConcernedId)values(@concernNameId,@beConcernNameId)";
+                  SqlParameter[] parameters = new SqlParameter[] { 
+                    new SqlParameter("@concernNameId",concernNameId),
+                    new SqlParameter("@beConcernNameId",beConcernNameId),
+                   
+                   };
+                  return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+
+              }
+              
+                  /// <summary>
+                  /// 取消关注操作,删除记录，返回int,成功返回1，失败返回0
+                  /// </summary>
+                  /// <param name="concernNameId"></param>
+                  /// <param name="beConcernNameId"></param>
+                  /// <returns></returns>
+                  public int delete_IdFromtb_Attention(int concernNameId,int beConcernNameId)
+                  {
+	                    string sqlStr="delete from tb_Attention where Attention_ConcernsId=@concernNameId and Attention_BeConcernedId=@beConcernNameId";
+	                       SqlParameter[] parameters = new SqlParameter[] { 
+                                new SqlParameter("@concernNameId",concernNameId),
+                                new SqlParameter("@beConcernNameId",beConcernNameId),
+                   
+                               };        
+                            return SqlHelper.ExecuteNonquery(sqlStr, parameters);
+
+
+                  }
+
+
+
+
+
 
 
         /// <summary>
