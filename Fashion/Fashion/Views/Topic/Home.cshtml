@@ -3,7 +3,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     @model System.Collections.Generic.List<Fashion.Models.Post_model>    
     }
-
+<script >
+    userName="@ViewData["userName"]";
+</script>
     <script src="~/Scripts/jquery-2.0.0.js"></script>
     <link href="~/Content/Topic_Home.css" rel="stylesheet" />
     <script>
@@ -391,11 +393,11 @@
                     
                         if (addone == "1") {
                              if (Num == 1) {
-                                 alert("感谢成功！");
+                                 //alert("感谢成功！");
                                  document.getElementById(z).innerHTML = "取消感谢";
                              }
-                             if (Num == 0) {
-                                 alert("已取消感谢！");
+                             if (Num ==0) {
+                                 //alert("已取消感谢！");
                                  document.getElementById(z).innerHTML = "感谢";
                              }
 
@@ -409,15 +411,51 @@
         ////本函数实现点击收藏按钮时按钮显示为取消收藏，再次点击时，取消收藏显示又变回收藏按钮
         function save(x) {
             var postId = x.substring(5);
-            var z = "save_val_" + postId;
-            var k = document.getElementById(z).innerHTML;
-            if (k == "收藏") {
-                document.getElementById(z).innerHTML = "已收藏";
+            var z = "save_val_" + postId;          
+            var postType = "1";//帖子类型
+            var Num = "1";//标识，收藏为1，取消为0
+            var s = "0"//标识，按下收藏时，Num为1，取消收藏时为0
+            var isShouCang = document.getElementById(z).innerHTML;          
+            if (isShouCang == "收藏") {
+                s = "1";
+                Num = "1";
             }
             else {
-                document.getElementById(z).innerHTML = "收藏";
-
+                s = "0";
+                Num = "0";
             }
+            $.ajax({
+                url: "../Posts/ShouCangTieZi",
+                data: { userName: userName, postId: postId, postType: postType, Num: Num },
+                type: "post",
+                success: function (update1) {
+                    if (update1 == "1") {
+                       // alert("成功返回");
+                                 if (s== 1)
+                                 {   
+                                 document.getElementById(z).innerHTML = "取消收藏";
+                           
+                                }
+                                if (s == 0)
+                                {
+                                 document.getElementById(z).innerHTML = "收藏";
+                           
+                                }
+                                         }
+                    if (update1 == "0") {    //校正操作，此时没有真正的执行收藏，而是将收藏按钮转为取消按钮
+                       // alert("校正返回");
+                           if (s == 1) {
+                                document.getElementById(z).innerHTML = "取消收藏";
+
+                           }
+                           if (s == 0) {
+                               document.getElementById(z).innerHTML = "收藏";
+
+                           }
+                                         }
+                }
+            });
+
         }
 
         //本函数实现点击省略的文章时，展开全文

@@ -19,6 +19,27 @@ namespace Fashion.Controllers
         }
 
         /// <summary>
+        /// 收藏帖子
+        /// 从前端接收4个参数提交到Post_dal
+        /// 返回1更新成功
+        /// 返回0更新失败
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ShouCangTieZi() 
+        {
+            string userName = Request["userName"];
+            string postId = Request["postId"];
+            string postType = Request["postType"];
+            string Num = Request["Num"];
+            Post_bll post_bll = new Post_bll();
+            return Content(post_bll.check_ShouCangTieZi(userName, postId, postType, Num).ToString());
+        
+        
+        }
+
+
+
+        /// <summary>
         /// 在搜索框里输入关键字搜索帖子
         /// </summary>
         /// <returns></returns>
