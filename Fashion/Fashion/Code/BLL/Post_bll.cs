@@ -20,10 +20,10 @@ namespace Fashion.Code.BLL
         /// <param name="Num"></param>
         /// <returns></returns>
         public int check_ShouCangTieZi(string userName,string postId,string postType,string Num){
-                    Post_dal post1=new Post_dal();   
-                    string userId=post1.select_userId(userName).ToString(); 
+                    User_bll user_bll = new User_bll();
+                    string userId = user_bll.GetUserId(userName).ToString();
+                    Post_dal post1 = new Post_dal();
                     object type=post1.select_ShouCang(userId,postId);
-
                     if (type == null && Num == "1")//无主帖记录，只可插入不可删除
                         return post1.insert_ShouCang(userId, postId, postType);
                  
