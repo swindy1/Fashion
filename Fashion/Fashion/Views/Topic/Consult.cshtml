@@ -8,7 +8,6 @@
 <script src="~/Scripts/MyScripts/ImageFun.js"></script>
 <script language="javascript" type="text/javascript">
     //结合了倒数的javascript实现（IE&firefox）页面自动跳转JS
-    var second = document.getElementById('totalSecond').textContent;
     if (navigator.appName.indexOf("Explorer") > -1) {
         second = document.getElementById('totalSecond').innerText;
     } else {
@@ -18,18 +17,27 @@
         setInterval("redirect()", 1000);
     }
     function redirect() {
-        if (second < 0) {
-            location.href = '../Consult/ConsultDetails?specialConsultId=20';
+        var second = document.getElementById('totalSecond').textContent;
+        if (second <=0) {
+            var specialConsultId = $("#hidspecialConsultId").val();
+            window.location.href = "../Consult/ConsultDetails?specialConsultId=" + specialConsultId.toString();
         } else {
             if (navigator.appName.indexOf("Explorer") > -1) {
-                document.getElementById('totalSecond').innerText = second--;
+                document.getElementById('totalSecond').innerText = (parseInt(second) - 1).toString();
             } else {
-                document.getElementById('totalSecond').textContent = second--;
+                document.getElementById('totalSecond').textContent = (parseInt(second) - 1).toString();
             }
         }
     }
 </script>
-
+<script>
+    //特定咨询成功后，跳转到href="20" 
+    function GoToConsultDetails()
+    {
+        var specialConsultId = $("#hidspecialConsultId").val();
+        window.location.href = "../Consult/ConsultDetails?specialConsultId="+specialConsultId.toString();
+    }
+</script>
 
 <script type="text/javascript">
     //咨询填写成功后，调用ajax保存数据
@@ -49,9 +57,8 @@
             url: "MakeConsult",
             data: { geRenZhao: imgGeRenZhaoBase64, occasion: theOccasion, details: theDetails, likeStyleImage: likeStyleImageBase64, dislikeStyleImage: dislikeStyleImageBase64, expertId: theExpertId },
             type: "post",
-            success: function (result) {                
-                alert(result);
-               
+            success: function (result) {
+                $("#hidspecialConsultId").val(result);
             }
         });
     }
@@ -1106,7 +1113,7 @@
             <p>信息填写完成！您邀请的专家将尽快为您解答，请留意消息~</p>
             
             <div style="margin-top: 10px;"><span id="totalSecond" style="color:blue;margin-right:4px;font-weight:bold;">5</span>秒后将跳转到咨询详情页面</div>
-            <div style="margin-top: 10px; margin-bottom:20px;">若倒数完不跳转，请点击<a href="../Consult/ConsultDetails?specialConsultId=20">直接跳转</a></div>
+            <div style="margin-top: 10px; margin-bottom:20px;">若倒数完不跳转，请点击<a onclick="GoToConsultDetails()" style="color:#267ae0">直接跳转</a></div>
 
             
         </div>
@@ -1118,7 +1125,8 @@
         </div>
 
         <div style="width:100%;">
-            <input id="btn_4" type="button" value="确定" onclick=" xs_data_div_Comfirmdaren(this.id); StarRedirect();step_click(this.id);  ajaxSaveData();" style="margin-right:80px;" />
+            @*StarRedirect();*@
+            <input id="btn_4" type="button" value="确定" onclick=" xs_data_div_Comfirmdaren(this.id); ajaxSaveData(); StarRedirect();step_click(this.id); " style="margin-right:80px;" />
 
             <input type="button" value="取消" onclick="close_comfirm_daren();" />
         </div>
@@ -1126,5 +1134,6 @@
     </div>
     <div>
         <input type="hidden" id="hidSelectExpertId" name="hidSelectExpertId" />
+        <input type="hidden" id="hidspecialConsultId"  />
     </div>
 </div>

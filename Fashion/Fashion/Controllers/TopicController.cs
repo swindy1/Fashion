@@ -298,10 +298,10 @@ namespace Fashion.Controllers
             Request.InputStream.Read(byteData, 0, byteData.Length);//将流读取到byteData，InputStream读取到的是http头里的主体数据
             //string postData = System.Text.Encoding.Default.GetString(byteData);//系统的默认编码为gb2312,不适用这种
             string postData = System.Text.Encoding.UTF8.GetString(byteData);
-            postData = Server.UrlDecode(postData);//对数据进行url解码
             string[] datas = postData.Split('&');//对postData数据进行分割，提取出发帖内容里的html数据
             string contentData = datas[1].ToString(); //data[1]为变量名为content的内容
             contentData = contentData.Substring(contentData.IndexOf('=') + 1);//去除变量名，如content=aaa，只取出aaa
+            contentData = Server.UrlDecode(contentData);//对数据进行url解码,这个解码的操作要放在Split('&')之后，因为可能content里会含有&符号
             DateTime datetime = DateTime.Now;
             string fileName = datetime.ToString("yyyyMMddHHmmss_ffff") + ".html";//定义文件名fileName
             string fileNamePath = Server.MapPath("~/StaticHtml/TieZiHtml/") + fileName;//物理路径
@@ -327,7 +327,8 @@ namespace Fashion.Controllers
             int themeId = themeName.CollocateThemeId(theme);
             string staticHtmlPath = "/StaticHtml/TieZiHtml/" + fileName;//相对路径
             string editorContent = datas[3].ToString();//data[3]的为前端传回来的发帖内容的纯文本
-            editorContent = editorContent.Substring(editorContent.IndexOf('=') + 1);
+            contentData = Server.UrlDecode(editorContent);//对数据进行url解码,这个解码的操作要放在Split('&')之后，因为可能content里会含有&符号
+            editorContent = contentData.Substring(contentData.IndexOf('=') + 1);
             System.Text.RegularExpressions.Regex regexImg = new System.Text.RegularExpressions.Regex(@"<img[^>]+>");
             editorContent = regexImg.Replace(editorContent, "");//过滤掉editorContent里图片
             int len = editorContent.Length;
