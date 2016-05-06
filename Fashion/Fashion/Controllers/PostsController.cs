@@ -23,10 +23,15 @@ namespace Fashion.Controllers
         /// 从前端接收4个参数提交到Post_dal
         /// 返回1更新成功
         /// 返回0更新失败
+        /// 返回2提示登录
         /// </summary>
         /// <returns></returns>
         public ActionResult ShouCangTieZi() 
         {
+            if (Session["userName"] == null)
+            {
+                return Content("2");
+            }
             string userName = Request["userName"];
             string postId = Request["postId"];
             string postType = Request["postType"];

@@ -181,7 +181,8 @@
                     url: "AjaxPostSupportCountAdd1",
                     data: {postId:postId},
                     success: function (data) {
-                        //这里不需要任何操作
+                        if(data=="2")//提示登录
+                         window.location.href = "/Topic/LoginRemind";
                     }
                 });
                 z++;
@@ -194,7 +195,7 @@
                     url: "AjaxPostSupportCountReduce1",
                     data: { postId: postId },
                     success: function (data) {
-                        //这里不需要任何操作
+                        //无操作
                     }
                 });
                 document.getElementById(x).innerHTML = z;
@@ -410,7 +411,11 @@
                                                      document.getElementById(z).innerHTML = "关注";
                                                      document.getElementById(g).src = "../Images/Topic-Home-plus.png";
                                                  }
-                                   }
+                                    }
+                                    if (update1 == "2") {    //提示登录
+
+                                        window.location.href = "/Topic/LoginRemind";
+                                    }
                                                              }
                      });
 
@@ -441,17 +446,21 @@
                 success: function (addone) {
                     
                         if (addone == "1") {
-                             if (Num == 1) {
-                                 //alert("感谢成功！");
-                                 document.getElementById(z).innerHTML = "取消感谢";
-                             }
-                             if (Num ==0) {
-                                 //alert("已取消感谢！");
-                                 document.getElementById(z).innerHTML = "感谢";
-                             }
+                                    if (Num == 1) {
+                                   //alert("感谢成功！");
+                                    document.getElementById(z).innerHTML = "取消感谢";
+                                   }
+                                   if (Num ==0) {
+                                  //alert("已取消感谢！");
+                                   document.getElementById(z).innerHTML = "感谢";
+                                    }
+                            
+                                   }
+                        if (addone == "2") {    //提示登录
 
-                        }                   
-                                           }
+                            window.location.href = "/Topic/LoginRemind";
+                        }
+                                            }
                   });
         }
    
@@ -483,7 +492,6 @@
                                  if (s== 1)
                                  {   
                                  document.getElementById(z).innerHTML = "取消收藏";
-                           
                                 }
                                 if (s == 0)
                                 {
@@ -501,7 +509,12 @@
                                document.getElementById(z).innerHTML = "收藏";
 
                            }
-                                         }
+                    }
+                    if(update1=="2")
+                    {
+
+                        window.location.href = "/Topic/LoginRemind";
+                    }
                 }
             });
 
