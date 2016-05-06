@@ -178,10 +178,14 @@ namespace Fashion.Controllers
         /// 实现原贴的点赞
         /// 成功返回1
         /// 失败返回0
+        /// 返回2，提示登录
         /// </summary>
         /// <returns></returns>
         public ActionResult AjaxPostSupportCountAdd1()
         {
+            if (Session["userName"] == null)
+                return Content("2");
+
             string postIdStr=Request["postId"].ToString();
             int postId=Convert.ToInt32(postIdStr);
             Post_bll post_bll = new Post_bll();
@@ -199,6 +203,7 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult AjaxPostSupportCountReduce1()
         {
+           
             string postIdStr = Request["postId"].ToString();
             int postId = Convert.ToInt32(postIdStr);
             Post_bll post_bll = new Post_bll();

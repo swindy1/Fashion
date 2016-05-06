@@ -61,10 +61,13 @@ namespace Fashion.Controllers
         /// <summary>
         /// 感谢
         /// 成功返回1，失败返回0
+        /// 返回2提示登录
         /// </summary>
         /// <returns></returns>
         public ActionResult ThankUser()
         {
+            if (Session["userName"] == null)
+                return Content("2");
             string userName = Request["userName"];
             string Num = Request["number"];
             User_bll user = new User_bll();           
@@ -76,11 +79,13 @@ namespace Fashion.Controllers
         /// <summary>
         /// 传递三个参数到User_bll
         /// 关注或取消关注，成功返回1，失败返回0
+        /// 返回2，提示登录
         /// </summary>
         /// <returns></returns>
         public ActionResult GuanZhuUser()
         {
-
+            if (Session["userName"] == null)
+                return Content("2");
             string concernName = Request["concernName"];
             string beConcernName = Request["beConcernName"];
             string Num = Request["Num"];
