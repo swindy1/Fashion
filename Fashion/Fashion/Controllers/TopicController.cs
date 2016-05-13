@@ -118,7 +118,9 @@ namespace Fashion.Controllers
 
             SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();//保存特定咨询数据
             specialConsult_bll.InsertConsultData(userId, expertId, occasion, details, geRenZhaoFileName, likeStyleImageFileName, dislikeStyleImageFileName,datetime);
-            return Content("特定咨询成功");
+            //通过geRenZhaoFileName查询该咨询的id
+            int specialConsult_Id = specialConsult_bll.GetSpecialConsultId(geRenZhaoFileName);
+            return Content(specialConsult_Id.ToString());//返回specialConsult_Id
         }
         public ActionResult Test()
         {
@@ -141,10 +143,7 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult Home()
         {
-            if (Session["userName"] == null)
-            {
-                return View("LoginRemind");
-            }
+         
             Post_bll post_bll = new Post_bll();
             List<Post_model>post_modelList=post_bll.GetPost(1,50);
             LoginStatusConfig();          //配置登录状态            
@@ -179,10 +178,14 @@ namespace Fashion.Controllers
         /// 实现原贴的点赞
         /// 成功返回1
         /// 失败返回0
+        /// 返回2，提示登录
         /// </summary>
         /// <returns></returns>
         public ActionResult AjaxPostSupportCountAdd1()
         {
+            if (Session["userName"] == null)
+                return Content("2");
+
             string postIdStr=Request["postId"].ToString();
             int postId=Convert.ToInt32(postIdStr);
             Post_bll post_bll = new Post_bll();
@@ -200,6 +203,7 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult AjaxPostSupportCountReduce1()
         {
+           
             string postIdStr = Request["postId"].ToString();
             int postId = Convert.ToInt32(postIdStr);
             Post_bll post_bll = new Post_bll();
@@ -299,10 +303,10 @@ namespace Fashion.Controllers
             Request.InputStream.Read(byteData, 0, byteData.Length);//将流读取到byteData，InputStream读取到的是http头里的主体数据
             //string postData = System.Text.Encoding.Default.GetString(byteData);//系统的默认编码为gb2312,不适用这种
             string postData = System.Text.Encoding.UTF8.GetString(byteData);
-            postData = Server.UrlDecode(postData);//对数据进行url解码
             string[] datas = postData.Split('&');//对postData数据进行分割，提取出发帖内容里的html数据
             string contentData = datas[1].ToString(); //data[1]为变量名为content的内容
             contentData = contentData.Substring(contentData.IndexOf('=') + 1);//去除变量名，如content=aaa，只取出aaa
+            contentData = Server.UrlDecode(contentData);//对数据进行url解码,这个解码的操作要放在Split('&')之后，因为可能content里会含有&符号
             DateTime datetime = DateTime.Now;
             string fileName = datetime.ToString("yyyyMMddHHmmss_ffff") + ".html";//定义文件名fileName
             string fileNamePath = Server.MapPath("~/StaticHtml/TieZiHtml/") + fileName;//物理路径
@@ -328,7 +332,8 @@ namespace Fashion.Controllers
             int themeId = themeName.CollocateThemeId(theme);
             string staticHtmlPath = "/StaticHtml/TieZiHtml/" + fileName;//相对路径
             string editorContent = datas[3].ToString();//data[3]的为前端传回来的发帖内容的纯文本
-            editorContent = editorContent.Substring(editorContent.IndexOf('=') + 1);
+            contentData = Server.UrlDecode(editorContent);//对数据进行url解码,这个解码的操作要放在Split('&')之后，因为可能content里会含有&符号
+            editorContent = contentData.Substring(contentData.IndexOf('=') + 1);
             System.Text.RegularExpressions.Regex regexImg = new System.Text.RegularExpressions.Regex(@"<img[^>]+>");
             editorContent = regexImg.Replace(editorContent, "");//过滤掉editorContent里图片
             int len = editorContent.Length;
@@ -343,6 +348,7 @@ namespace Fashion.Controllers
                 return Content("保存帖子信息时数据库出错");
             }//将帖子数据保存到数据库---------成功
             //////获取所有图片里的图片路径,并且将图片路径保存到数据库里
+            int postId = Post.GetPostId(caption); //根据帖子的标题查询数据库，得到该贴子的postId
             System.Text.RegularExpressions.Regex regImg2 = new System.Text.RegularExpressions.Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);// 定义正则表达式用来匹配 img 标签
             System.Text.RegularExpressions.MatchCollection matches = regImg2.Matches(contentData);            
             int i = 0;
@@ -353,14 +359,13 @@ namespace Fashion.Controllers
             }
             if(strUrlList.Length>=1)
             {
-                int postId = Post.GetPostId(caption); //根据帖子的标题查询数据库，得到该贴子的postId
                 PostPhoto_bll postPhoto_bll = new PostPhoto_bll();
                 if (postPhoto_bll.InsertPhotoUrl(postId, strUrlList,1) < 0)
                 {
                     return Content("保存图片路径时数据库出错");
                 }
             }
-            return Content("成功");
+            return RedirectToAction("PostDetails", new { postId=postId});
         }
         ///// <summary>
         ///// 验证登录是否成功；

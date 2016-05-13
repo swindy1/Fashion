@@ -669,6 +669,7 @@
     <Content Include="Views\Shared\PeopleModulePartial.cshtml" />
     <Content Include="Views\People\MySpecialAnswer.cshtml" />
     <Content Include="Views\StreetSnap\streetHome.cshtml" />
+    <Content Include="Views\Test\ExpertAnswer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

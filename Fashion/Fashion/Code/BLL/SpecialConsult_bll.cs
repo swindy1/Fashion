@@ -100,6 +100,24 @@ namespace Fashion.Code.BLL
             }
             return 1;
         }
+
+        /// <summary>
+        /// Creator:Simple
+        /// 通过用户特定咨询后保存的个人照路径查询该条特定咨询数据的id，因为个人照路径geRenZhaoUrl是唯一的
+        /// </summary>
+        /// <param name="geRenZhaoUrl"></param>
+        /// <returns></returns>
+        public int GetSpecialConsultId(string geRenZhaoFileName)
+        {
+            string geRenZhaoUrl = "/Images/ConsultImages/GeRenZhao/" + geRenZhaoFileName;
+            SpecialConsult_dal specialConsult_dal = new SpecialConsult_dal();
+            object objSpecialConsult_Id = specialConsult_dal.GetSpecialConsultId(geRenZhaoUrl);
+            if (objSpecialConsult_Id == null || objSpecialConsult_Id == System.DBNull.Value)
+            {
+            }
+            return Convert.ToInt32(objSpecialConsult_Id);
+        }
+
         /// <summary>
         /// 通过专家解答的特定咨询staticConsultAnswerHtml查询该条数据的id
         /// </summary>

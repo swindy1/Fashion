@@ -19,6 +19,32 @@ namespace Fashion.Controllers
         }
 
         /// <summary>
+        /// 收藏帖子
+        /// 从前端接收4个参数提交到Post_dal
+        /// 返回1更新成功
+        /// 返回0更新失败
+        /// 返回2提示登录
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ShouCangTieZi() 
+        {
+            if (Session["userName"] == null)
+            {
+                return Content("2");
+            }
+            string userName = Request["userName"];
+            string postId = Request["postId"];
+            string postType = Request["postType"];
+            string Num = Request["Num"];
+            Post_bll post_bll = new Post_bll();
+            return Content(post_bll.check_ShouCangTieZi(userName, postId, postType, Num).ToString());
+        
+        
+        }
+
+
+
+        /// <summary>
         /// 在搜索框里输入关键字搜索帖子
         /// </summary>
         /// <returns></returns>
@@ -90,6 +116,7 @@ namespace Fashion.Controllers
             //--------回帖数据保存成功
 
             //////获取回帖里的所有图片的路径,并且将图片路径保存到数据库里tb_PostPhoto （PostPhoto_PostType=）
+            int replyPostId = replyPost_bll.GetReplyPostId(staticHuiTieHtml);//根据回帖的静态html路径查询数据库，得到该贴子的replyPost_Id
             System.Text.RegularExpressions.Regex regImg2 = new System.Text.RegularExpressions.Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);// 定义正则表达式用来匹配 img 标签
             System.Text.RegularExpressions.MatchCollection matches = regImg2.Matches(contentData);
             int i = 0;
@@ -100,17 +127,13 @@ namespace Fashion.Controllers
             }
             if (strUrlList.Length >= 1)
             {
-                int replyPostId = replyPost_bll.GetReplyPostId(staticHuiTieHtml);//根据回帖的静态html路径查询数据库，得到该贴子的replyPost_Id
                 PostPhoto_bll postPhoto_bll = new PostPhoto_bll();
                 if (postPhoto_bll.InsertPhotoUrl(replyPostId, strUrlList, 2) < 0)
                 {
                     return Content("保存图片路径时数据库出错");
                 }
             }
-
-            return Content("回帖成功");
-
-            
+            return RedirectToAction("../Topic/PostDetails", new { postId = postId });
         }
 
         /// <summary>

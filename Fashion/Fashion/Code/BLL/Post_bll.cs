@@ -9,6 +9,32 @@ namespace Fashion.Code.BLL
 {
     public class Post_bll
     {
+       
+
+        /// <summary>
+        /// 执行收藏，取消收藏或不执行操作的逻辑判断
+        /// 执行操作返回1，无操作返回0
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="postId"></param>
+        /// <param name="postType"></param>
+        /// <param name="Num"></param>
+        /// <returns></returns>
+        public int check_ShouCangTieZi(string userName,string postId,string postType,string Num){
+                    User_bll user_bll = new User_bll();
+                    string userId = user_bll.GetUserId(userName).ToString();
+                    Post_dal post1 = new Post_dal();
+                    object type=post1.select_ShouCang(userId,postId);
+                    if (type == null && Num == "1")//无主帖记录，只可插入不可删除
+                        return post1.insert_ShouCang(userId, postId, postType);
+                 
+                    else if (Convert.ToInt32(type) == 1 && Num == "0")//有主帖记录，只可删除不可插入
+                        return post1.delete_ShouCang(postId,postType);
+                    else return 0; 
+         }
+
+
+
         /// <summary>
         /// 判断是否存在该标题
         /// 结果返回1代表存在
