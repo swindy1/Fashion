@@ -575,6 +575,7 @@
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap\npm.js" />
+    <Content Include="Scripts\header.js" />
     <Content Include="Scripts\laydate.js" />
     <Content Include="Scripts\MyScripts\ImageFun.js" />
     <Content Include="Scripts\jquery.min.js" />
@@ -684,6 +685,7 @@
     <Content Include="Views\Test\ExpertAnswer.cshtml" />
     <Content Include="Views\ShangCheng\Index.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\Shared\ShortCutBarPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
