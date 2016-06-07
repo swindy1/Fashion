@@ -163,6 +163,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ShangChengController.cs" />
     <Compile Include="Controllers\StreetSnapController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -218,6 +219,7 @@
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\expert-register.css" />
+    <Content Include="Content\header.css" />
     <Content Include="Content\laydate-need.css" />
     <Content Include="Content\Peaple_upload_tx.css" />
     <Content Include="Content\People_Login.css" />
@@ -284,6 +286,16 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="Images\Header\default-tx.jpg" />
+    <Content Include="Images\Header\my-answer.png" />
+    <Content Include="Images\Header\my-home.png" />
+    <Content Include="Images\Header\my-question.png" />
+    <Content Include="Images\Header\my-show.png" />
+    <Content Include="Images\Header\out.png" />
+    <Content Include="Images\Header\prompt-bg.png" />
+    <Content Include="Images\Header\set.png" />
+    <Content Include="Images\Header\topbar.png" />
+    <Content Include="Images\ShangCheng-Index-cloth1.jpg" />
     <Content Include="Images\Consult-ConsultDetails-unhappy.png" />
     <Content Include="Images\ConsultDetails-tu1.png" />
     <Content Include="Images\ConsultDetails-tu2.png" />
@@ -670,6 +682,8 @@
     <Content Include="Views\People\MySpecialAnswer.cshtml" />
     <Content Include="Views\StreetSnap\streetHome.cshtml" />
     <Content Include="Views\Test\ExpertAnswer.cshtml" />
+    <Content Include="Views\ShangCheng\Index.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

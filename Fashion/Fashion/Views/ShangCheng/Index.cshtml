@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Header.cshtml";
+}
+
+<script src="~/Scripts/jquery-2.0.0.min.js"></script>
+<link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<style>
+    .clothContainerHeight {
+        height: 430px;
+    }
+    .clothHeight {
+        height: 400px;
+        
+    }
+    .clothHeight:hover {
+        border: 1px solid #dbc9c9;
+    }
+</style>
+<div class="container" style="width: 100%;padding:0px;">
+    <div style="border: 1px solid #2b2b2b; margin-top: 104px; height: 110px; width: 100%;background-color:#ad4a4a; ">
+        <div class="row" style="margin-top:25px;">
+            <div class="col-xs-3">
+            </div>
+            <div class="col-xs-6">
+                <form class="form-search">
+                    <input class="input-medium search-query" type="text" placeholder="输入衣服等商品名" style="width:80%;height:50px;" /> &nbsp;&nbsp;<button type="submit" class="btn alert-danger" style="width: 18%; height:50px;border-radius:15px 15px;">查找</button>
+                </form>
+            </div>
+            <div class="col-xs-3">
+
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #2b2b2b; height: 10px; ">
+
+    </div>
+    <hr/>
+    <div style="margin-left:100px;margin-right:100px;">
+        <div class="row" style="@*border:1px solid blue;*@">
+            @for (int i = 1; i < 30; i++)
+            {
+                <div id="clothContaner_@i" class="col-xs-3 clothContainerHeight">
+                    <div id="cloth_@i" class="clothHeight" style="text-align:center;padding:10px;">
+                        <img src="~/Images/ShangCheng-Index-cloth1.jpg" style="width:98%;" />
+                        <div style="text-align:left;color:#eb5f5f;margin-top:5px;font-size:20px;font-weight:bold;">
+                            ￥65.80
+                        </div>
+                        <div style="text-align:left;margin-top:1px;font-size:15px;font-weight:bold;margin-left:2px;">
+                            购买：<input type="checkbox"  checked="checked"/>&nbsp;
+                            租恁：<input type="checkbox" checked="checked" />
+                        </div>
+                    </div>
+                   
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div style="height:300px;">
+
+    </div>
+</div>
