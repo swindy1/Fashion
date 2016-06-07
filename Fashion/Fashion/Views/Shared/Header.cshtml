@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+    <script src="~/Scripts/MyScripts/Login.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap.js"></script>
+    <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/header.css" rel="stylesheet" />
+    <script src="~/Scripts/header.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!--header-->
+    <div id="Header" class="header">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="logo"><h2>时尚达人</h2></div>
+                <div class="navigation">
+                    <ul class="nav navbar-nav">
+                        <li id="headerNav1" class="navli_active" onclick="nav_switch(this.id)">首页</li>
+                        <li id="headerNav2" onclick="nav_switch(this.id)">街拍</li>
+                        <li id="headerNav3" onclick="nav_switch(this.id)">个人秀</li>
+                        <li id="headerNav4" onclick="nav_switch(this.id)">潮流资讯</li>
+                    </ul>
+                </div><!--/ <div class="navigation">/end-->
+                <div class="search_box">
+                    <input type="text" placeholder="问题/关键词/商品名" />
+                </div>
+                <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////未登录时显示模块/////////////////////////////////////////////////////-->
+                <div id="un_loginDiv" class="loginDiv" style="display:none;">
+                    <span>|</span>
+                    <span onclick="window.location = '../People/Login'" class="login_div">登录</span>
+                    <span>|</span>
+                    <span onclick="window.location = '../People/Register'" class="login_div">注册</span>
+                    <span>|</span>
+                </div><!--/ <div class="un_loginDiv">/end-->
+                <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////登录后显示模块/////////////////////////////////////////////////////-->
+                <div id="loginDiv" class="loginDiv">
+                    <div id="messageDiv">
+
+                    </div>
+                    <span class="prompt-bg">1</span><!--/////里面1为未读信息数，当没有未读信息时，<span class="prompt-bg">模块隐藏-->
+                    <div class="dropdown" style="float:left;">
+                        <div id="userDiv" data-toggle="dropdown" class="dropdown-toggle" onmouseover="dropdownOpen()">
+                            <div id="head_portraitDiv" style="color:white;">
+                                <img src="~/Images/Header/default-tx.jpg" style="width:98%;float:left;border-radius:2px;" />
+                            </div>
+                            <div id="userNameDiv">linyuanyang</div>
+                            <span id="triangle_symbol" class="triangle_symbol_close"></span>
+                            <ul id="userUl" class="dropdown-menu userdropdown-menu" role="menu" aria-labelledby="userDiv" onmouseout="dropdownClose()">
+                                <span class="dropdown-menu-topjiao"></span>
+
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-1"></span>我的主页</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-2"></span>我的提问</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#">
+                                        <span class="menu-sel-3"></span>
+                                        我的回答
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-4"></span>我的个人秀</a>
+                                </li>
+
+                                <li role="presentation" class="divider-black"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-5"></span>设置</a>
+                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-6"></span>退出</a>
+                                </li>
+                            </ul>
+
+
+                        </div><!--/ <div class="userDiv">/end-->
+                    </div>
+                </div><!--/ <div class="loginDiv">/end-->
+
+
+            </div>
+        </div>
+    </div>
+    <!--/header-->
+    <!--secondHeader-->
+    <div id="secondHeader" class="secondHeader">
+        <span id="home-nav-topjiao" class="home-nav-topjiao"></span>
+        <div id="secondHeadernNav" class="secondHeadernNav">
+            <span id="secondNav1" class="secondHeadernNav-active" onclick="secondNav_switch(this.id)">最新咨询</span>
+            <span id="secondNav2" onclick="secondNav_switch(this.id)">当季推荐</span>
+            <span id="secondNav3" onclick="secondNav_switch(this.id)">热门话题</span>
+            <span id="secondNav4" onclick="secondNav_switch(this.id)">租赁我最大</span>
+            <span id="secondNav5" onclick="secondNav_switch(this.id)">专家推荐</span>
+            <span id="secondNav6" onclick="secondNav_switch(this.id)">达人秀</span>
+        </div>
+
+
+    </div>
+    <!--/secondHeader-->
+    <div id="theContainer">
+
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
