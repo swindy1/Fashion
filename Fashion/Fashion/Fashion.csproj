@@ -141,6 +141,7 @@
     <Compile Include="Code\BLL\ReplyPost_bll.cs" />
     <Compile Include="Code\BLL\SpecialConsultAnswerClothes_bll.cs" />
     <Compile Include="Code\BLL\SpecialConsultAnswer_bll.cs" />
+    <Compile Include="Code\BLL\SpecialConsultSelectExperts_bll.cs" />
     <Compile Include="Code\BLL\SpecialConsult_bll.cs" />
     <Compile Include="Code\BLL\Theme_bll.cs" />
     <Compile Include="Code\BLL\User_bll.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Code\DAL\share.cs" />
     <Compile Include="Code\DAL\SpecialConsultAnswerClothes_dal.cs" />
     <Compile Include="Code\DAL\SpecialConsultAnswer_dal.cs" />
+    <Compile Include="Code\DAL\SpecialConsultSelectExperts_dal.cs" />
     <Compile Include="Code\DAL\SpecialConsult_dal.cs" />
     <Compile Include="Code\DAL\SqlConnectionString.cs" />
     <Compile Include="Code\DAL\SqlHelper.cs" />

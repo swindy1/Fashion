@@ -117,7 +117,7 @@ namespace Fashion.Controllers
             bitmap3.Save(Server.MapPath("~/Images/ConsultImages/DislikeStyleImage/" + dislikeStyleImageFileName), System.Drawing.Imaging.ImageFormat.Png);
 
             SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();//保存特定咨询数据
-            specialConsult_bll.InsertConsultData(userId, expertId, occasion, details, geRenZhaoFileName, likeStyleImageFileName, dislikeStyleImageFileName,datetime);
+            specialConsult_bll.InsertConsultData(userId, occasion, details, geRenZhaoFileName, likeStyleImageFileName, dislikeStyleImageFileName,datetime);
             //通过geRenZhaoFileName查询该咨询的id
             int specialConsult_Id = specialConsult_bll.GetSpecialConsultId(geRenZhaoFileName);
             return Content(specialConsult_Id.ToString());//返回specialConsult_Id
