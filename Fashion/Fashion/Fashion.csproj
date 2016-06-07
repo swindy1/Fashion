@@ -285,7 +285,6 @@
     <Content Include="Content\Topic_Home.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="Images\Header\default-tx.jpg" />
     <Content Include="Images\Header\my-answer.png" />
     <Content Include="Images\Header\my-home.png" />
@@ -684,6 +683,7 @@
     <Content Include="Views\Test\ExpertAnswer.cshtml" />
     <Content Include="Views\ShangCheng\Index.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\ShangCheng\ClothDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

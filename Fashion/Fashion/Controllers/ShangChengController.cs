@@ -15,6 +15,10 @@ namespace Fashion.Controllers
         {
             return View();
         }
+        public ActionResult ClothDetails()
+        {
+            return View();
+        }
 
     }
 }
