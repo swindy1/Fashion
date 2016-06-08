@@ -1,9 +1,16 @@
 ﻿@{
     ViewBag.Title = "Consult";
-    Layout = "~/Views/Shared/top.cshtml";
+    Layout = "~/Views/Shared/Header.cshtml";
     @model System.Collections.Generic.List<Fashion.Models.ExpertUserConsult_model> 
     Fashion.Models.User_model user_model = (Fashion.Models.User_model)ViewData["user_model"];
 }
+<script type="text/javascript">
+    //在页面加载时切换PeopleNavigationPartial菜单
+    window.onload = function () {
+        document.getElementById("zjzx").style.borderBottom = "2px solid black";
+        document.getElementById("zjzx").style.fontWeight = "bold";
+    }
+</script>
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/MyScripts/ImageFun.js"></script>
 <script language="javascript" type="text/javascript">
@@ -582,7 +589,7 @@
 @RenderPage("~/Views/Shared/PeopleModulePartial.cshtml")@*这里是个人设置里的左边模块的局部页面：关注（数量）、粉丝、提问、回答、收藏、获赞*@
 <div id="Right_div" class="Right_div">
     <div id="change_data_tab" class="tab_bar">
-        <h2 class="tab_ing">专家咨询</h2>
+        <h2 id="zjzx" class="tab_ing">专家咨询</h2>
     </div>
     <div style="width:700px;float:left;margin-left:25px;">
         <div style="width:700px;float:left;">

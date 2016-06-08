@@ -1,4 +1,6 @@
-
+body{
+    font-size:1.5em;
+}
 #kjl_div{
     display:none;
 }
@@ -10,7 +12,7 @@
 	width: 180px;
 	height: 800px;
 	float: left;
-	
+	margin-top:40px;
 	margin-left: 140px;
 	
 }
@@ -90,10 +92,11 @@ margin-top:160px;
 
 
 .right{
-	width: 780px;
+	width: 680px;
 	height: 800px;
-	margin-left:380px;
-	
+	margin-left:50px;
+	margin-top:40px;
+    float:left;
 }
 
 .banner{ 
@@ -361,7 +364,7 @@ margin-top:160px;
 
 .blog{
 	
-	width: 260px;
+	width: 210px;
 	height: 480px;
 	float: right;
 	margin-bottom: 0px;

@@ -2,7 +2,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Header.cshtml";
 }
-
+<script type="text/javascript">
+    //在页面加载时切换导航栏菜单
+    window.onload = function () {
+        document.getElementById("headerNav1").className = "none";
+        document.getElementById("headerNav2").className = "none";
+        document.getElementById("headerNav3").className = "none";
+        document.getElementById("headerNav4").className = "navli_active";
+        document.getElementById("home-nav-topjiao").style.display = "none";
+        document.getElementById("secondHeader").style.height = "6px";
+        document.getElementById("secondHeader").style.borderBottom = "1px solid black";
+    }
+</script>
 <script src="~/Scripts/jquery-2.0.0.min.js"></script>
 <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
@@ -18,7 +29,7 @@
         border: 1px solid #dbc9c9;
     }
 </style>
-<div class="container" style="width: 100%;padding:0px;">
+<div class="container" style="width: 100%;padding:0px;float:left;margin-top:-105px;">
     <div style="border: 1px solid #2b2b2b; margin-top: 104px; height: 110px; width: 100%;background-color:#ad4a4a; ">
         <div class="row" style="margin-top:25px;">
             <div class="col-xs-3">
@@ -64,4 +75,3 @@
 </div>
 
 
-@RenderPage("~/Views/Shared/ShortCutBarPartial.cshtml")@*这里是引入快捷栏*@
