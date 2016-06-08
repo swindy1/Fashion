@@ -11,12 +11,17 @@ namespace Fashion.Code.DAL
         /// 插入特定咨询选择的专家
         /// </summary>
         /// <param name="specialConsultId"></param>
-        /// <param name="expertList"></param>
+        /// <param name="expertIdList"></param>
         /// <returns></returns>
-        public int InsertSpecialConsultSelectExperts(int specialConsultId,List<string> expertList)
+        public int InsertSpecialConsultSelectExperts(int specialConsultId,List<string> expertIdList)
         {
-            string sql = "";
-            return 1;
+            string sqlStr="";
+            foreach (string expertId in expertIdList)
+            {
+                sqlStr = sqlStr + @"insert into tb_SpecialConsultSelectExperts (SpecialConsultSelectExpert_SpecialConsultId,SpecialConsultSelectExpert_ExpertId) " +
+                                   "values (" + specialConsultId + "," + expertId + ")";
+            }
+            return SqlHelper.ExecuteNonquery(sqlStr);
         }
     }
 }

@@ -688,6 +688,7 @@
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\ShangCheng\ClothDetails.cshtml" />
     <Content Include="Views\Shared\ShortCutBarPartial.cshtml" />
+    <Content Include="Views\Consult\MySpecialConsultExpertList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

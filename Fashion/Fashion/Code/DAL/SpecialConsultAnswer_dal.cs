@@ -18,15 +18,16 @@ namespace Fashion.Code.DAL
         /// </summary>
         /// <param name="specialConsultId">特定咨询的帖子编号</param>
         /// <returns></returns>
-        public SpecialConsultAnswer_model GetOneSpecialAnswerData(int specialConsultId)
+        public SpecialConsultAnswer_model GetOneSpecialAnswerData(int specialConsultId, int expertId)
         {
             string sqlStr = @"select SpecialConsultAnswer_Id as specialAnswerId,
                                                    SpecialConsultAnswer_SpecialConsultId as specialConsultId,
                                             	   SpecialConsultAnswer_HtmlUrl as answerHtmlUrl,
                                             	   SpecialConsultAnswer_Date [datetime]
-                                            from tb_SpecialConsultAnswer where SpecialConsultAnswer_SpecialConsultId=@specialConsultId";
+                                            from tb_SpecialConsultAnswer where SpecialConsultAnswer_SpecialConsultId=@specialConsultId and SpecialConsult_ExpertId=@expertId";
             SqlParameter[] parameters = new SqlParameter[] { 
-                new SqlParameter("@specialConsultId",specialConsultId)
+                new SqlParameter("@specialConsultId",specialConsultId),
+                new SqlParameter("@expertId",expertId)
             };
             DataTable dataTable = SqlHelper.ExecuteDataTable(sqlStr, parameters);
             SpecialConsultAnswer_model specialConsultAnswer_model = new SpecialConsultAnswer_model();

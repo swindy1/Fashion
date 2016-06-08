@@ -49,7 +49,23 @@ namespace Fashion.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult MakeExpertAnswer()
-        {   
+        {
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
+            string expertUserName = Session["userName"].ToString();
+            //检查用户是否为专家
+            Rank_bll rank_bll = new Rank_bll();
+            string rankName = rank_bll.GetRankName(expertUserName);//获取用户的等级名称
+            rankName = rankName.Trim();//去除字符串里的空格
+            if (rankName != "专家")
+            {
+                return Content("您不是专家");
+            }
+            User_bll user_bll = new User_bll();
+            int expertId = user_bll.GetUserId(expertUserName);
             ////先把前端传回来的content内容保存为静态页面
             byte[] byteData = new byte[Request.InputStream.Length]; //定义一个字节数组保存前端传回来的Post数据全部数据
             Request.InputStream.Read(byteData, 0, byteData.Length);//将流读取到byteData，InputStream读取到的是http头里的主体数据
@@ -78,7 +94,8 @@ namespace Fashion.Controllers
             int specialConsultId = Convert.ToInt32(Request["hidSpecialConsultId"]);//用户特定咨询的id
             string staticConsultAnswerHtml = "/StaticHtml/ConsultAnswerHtml/" + fileName;//相对路径
             SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
-            specialConsult_bll.InsertAnswerData(specialConsultId, staticConsultAnswerHtml, datetime);          
+
+            specialConsult_bll.InsertAnswerData(specialConsultId, expertId,staticConsultAnswerHtml, datetime);          
             
             ////保存购买链接
             int specialConsultAnswer_Id = specialConsult_bll.GetConsultAnswerId(staticConsultAnswerHtml);            
@@ -113,6 +130,10 @@ namespace Fashion.Controllers
             return Content(jsonData);
         }
 
+        public ActionResult MySpecialConsultExpertList()
+        {
+            return View();
+        }
 
         //特定咨询详情页面（用户和专家共用）
         public ActionResult ConsultDetails()
@@ -134,7 +155,10 @@ namespace Fashion.Controllers
             ViewData["specialConsult_model"] = specialConsult_model;
             ViewData["rankName"] = rankNameDB;
             SpecialConsultAnswer_bll specialConsultAnswer_bll = new SpecialConsultAnswer_bll();
-            SpecialConsultAnswer_model specialConsultAnswer_model = specialConsultAnswer_bll.GetOneSpecialAnswerData(specialConsultId);//通过specialConsultId获取特定咨询的专家解答数据
+            string expertUserName = Request["expertUserName"].ToString();
+            User_bll user_bll = new User_bll();
+            int expertId = user_bll.GetUserId(expertUserName);
+            SpecialConsultAnswer_model specialConsultAnswer_model = specialConsultAnswer_bll.GetOneSpecialAnswerData(specialConsultId, expertId);//通过specialConsultId获取特定咨询的专家解答数据
             return View(specialConsultAnswer_model);            
         }
 

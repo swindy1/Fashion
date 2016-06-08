@@ -90,11 +90,11 @@ namespace Fashion.Code.BLL
         /// <param name="specialConsultId">用户特定咨询数据表里的id</param>
         /// <param name="htmlUrl">专家回答的静态htmlurl</param>
         /// <returns></returns>
-        public int InsertAnswerData(int specialConsultId, string htmlUrl,DateTime datetime)
+        public int InsertAnswerData(int specialConsultId, int expertId, string htmlUrl, DateTime datetime)
         {
             SpecialConsult_dal specialConsult_dal = new SpecialConsult_dal();
 
-            if (specialConsult_dal.InsertAnswerData(specialConsultId, htmlUrl, datetime) != 1)
+            if (specialConsult_dal.InsertAnswerData(specialConsultId, expertId, htmlUrl, datetime) != 1)
             {
                 return 0;
             }

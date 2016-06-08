@@ -8,10 +8,10 @@ namespace Fashion.Code.BLL
 {
     public class SpecialConsultSelectExperts_bll
     {
-        public int InsertSpecialConsultSelectExperts(int specialConsultId, List<string> expertList)
+        public int InsertSpecialConsultSelectExperts(int specialConsultId, List<string> expertIdList)
         {
             SpecialConsultSelectExperts_dal specialConsultSelectExperts_dal = new SpecialConsultSelectExperts_dal();
-            return specialConsultSelectExperts_dal.InsertSpecialConsultSelectExperts(specialConsultId, expertList);
+            return specialConsultSelectExperts_dal.InsertSpecialConsultSelectExperts(specialConsultId, expertIdList);
         }
     }
 }
