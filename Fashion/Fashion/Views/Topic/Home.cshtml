@@ -632,28 +632,25 @@
     });
 </script>
 <div id="TheContent" class="TheContent">
-    <div id="TheContentLeft" style="display:inline-block; width: 50%;">
-        <div id="TheContentLeft-head" style="height:30px;width:100%;margin-top:20px;">
-            <div style="margin-left:8px;">
-                <div style="float:left;">
-                    <img style="width:20px" src="~/Images/Topic-Home-theNewState.png" />
-                </div>
-                <div style="width:100px;float:left;">
-                    最新动态
-                </div>
-
-                <div style="float:right;margin-right:10px;font-size:18px;">
-                    设置
-                </div>
-                <div style="float:right;">
-                    <img style="width:22px" src="~/Images/Topic-Home-setting.png" />
-                </div>
+    <div id="TheContentLeft" style="width:600px;float:left;">
+        <div id="TheContentLeft-head" style="height:30px;width:600px;margin-top:20px;float:left;height:30px;">
+            <span style="float:left;">
+                    <span class="hot-word"><span class="hot-word-symbol"></span>热门话题</span>
+                    <span class="hot-key-word">日韩风</span>
+                    <span class="hot-key-fgx">|</span>
+                    <span class="hot-key-word">欧美风</span>
+                    <span class="hot-key-fgx">|</span>
+                    <span class="hot-key-word">休闲风</span>
+                    <span class="hot-key-fgx">|</span>
+                    <span class="hot-key-word">聚会</span>
+            </span>
+            <span class="hot-key-fgx" style="float:right;">
+                更多<span class="more-symbol"></span>
+            </span>
+            <div>
+                <hr style="border:none;border-top:2px solid #c10d0c;float:left;width:600px;margin-top:5px;" />
             </div>
         </div>
-        <div>
-            <hr style="border:none;border-top:1px solid #d4cbcb" />
-        </div>
-
         @foreach (var post_model in Model)
         {
             <div id="data_all_@post_model.postId" class="data" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
@@ -753,7 +750,7 @@
         }
     </div>
     <div style="height:200px;"></div>
-
+    <div id="TheContentRight"style="border:1px solid red;width:350px;height:450px;float:left;margin-left:20px;"></div>
 </div>
 @RenderPage("~/Views/Shared/ShortCutBarPartial.cshtml")@*这里是引入快捷栏*@
 @*这里是影藏的评论html模板，用于js调用*@
