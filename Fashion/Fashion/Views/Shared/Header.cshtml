@@ -13,101 +13,233 @@
     <script src="~/Scripts/header.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <!--header-->
-    <div id="Header" class="header">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="logo"><h2>时尚达人</h2></div>
-                <div class="navigation">
-                    <ul class="nav navbar-nav">
-                        <li id="headerNav1" class="navli_active" onclick="nav_switch(this.id)">首页</li>
-                        <li id="headerNav2" onclick="nav_switch(this.id)">街拍</li>
-                        <li id="headerNav3" onclick="nav_switch(this.id)">个人秀</li>
-                        <li id="headerNav4" onclick="nav_switch(this.id)">潮流资讯</li>
-                    </ul>
-                </div><!--/ <div class="navigation">/end-->
-                <div class="search_box">
-                    <input type="text" placeholder="问题/关键词/商品名" />
-                </div>
-                <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////未登录时显示模块/////////////////////////////////////////////////////-->
-                <div id="un_loginDiv" class="loginDiv" style="display:none;">
-                    <span>|</span>
-                    <span onclick="window.location = '../People/Login'" class="login_div">登录</span>
-                    <span>|</span>
-                    <span onclick="window.location = '../People/Register'" class="login_div">注册</span>
-                    <span>|</span>
-                </div><!--/ <div class="un_loginDiv">/end-->
-                <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////登录后显示模块/////////////////////////////////////////////////////-->
-                <div id="loginDiv" class="loginDiv">
-                    <div id="messageDiv">
 
-                    </div>
-                    <span class="prompt-bg">1</span><!--/////里面1为未读信息数，当没有未读信息时，<span class="prompt-bg">模块隐藏-->
-                    <div class="dropdown" style="float:left;">
-                        <div id="userDiv" data-toggle="dropdown" class="dropdown-toggle" onmouseover="dropdownOpen()">
-                            <div id="head_portraitDiv" style="color:white;">
-                                <img src="~/Images/Header/default-tx.jpg" style="width:98%;float:left;border-radius:2px;" />
-                            </div>
-                            <div id="userNameDiv">linyuanyang</div>
-                            <span id="triangle_symbol" class="triangle_symbol_close"></span>
-                            <ul id="userUl" class="dropdown-menu" role="menu" aria-labelledby="userDiv" onmouseout="dropdownClose()">
-                                <span class="dropdown-menu-topjiao"></span>
-
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-1"></span>我的主页</a>
-                                </li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-2"></span>我的提问</a>
-                                </li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="#">
-                                        <span class="menu-sel-3"></span>
-                                        我的回答
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-4"></span>我的个人秀</a>
-                                </li>
-
-                                <li role="presentation" class="divider-black"></li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-5"></span>设置</a>
-                                    <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-6"></span>退出</a>
-                                </li>
-                            </ul>
-
-
-                        </div><!--/ <div class="userDiv">/end-->
-                    </div>
-                </div><!--/ <div class="loginDiv">/end-->
-
-
-            </div>
-        </div>
-    </div>
-    <!--/header-->
-    <!--secondHeader-->
-    <div id="secondHeader" class="secondHeader">
-        <span id="home-nav-topjiao" class="home-nav-topjiao"></span>
-        <div id="secondHeadernNav" class="secondHeadernNav">
-            <span id="secondNav1" class="secondHeadernNav-active" onclick="secondNav_switch(this.id)">最新咨询</span>
-            <span id="secondNav2" onclick="secondNav_switch(this.id)">当季推荐</span>
-            <span id="secondNav3" onclick="secondNav_switch(this.id)">热门话题</span>
-            <span id="secondNav4" onclick="secondNav_switch(this.id)">租赁我最大</span>
-            <span id="secondNav5" onclick="secondNav_switch(this.id)">专家推荐</span>
-            <span id="secondNav6" onclick="secondNav_switch(this.id)">达人秀</span>
-        </div>
-
-
-    </div>
-    <!--/secondHeader-->
-    <div id="theContainer">
-
-        @RenderBody()
-    </div>
+    @*下面两条代码要要放在前面*@
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        //本函数实现退出登录
+        function AjaxMakeLoginOut() {
+            $.ajax({
+                url: "../User/AjaxMakeUnLogin",
+                success: function (data) {
+                    if (data == "1") {
+                        window.location.href = "../Topic/LoginRemind";
+                    }
+                }
+            });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            //配置登录信息的变量,登录状态 登录名 头像url等
+            var isLogin = "@ViewData["LoginYes"]";//已登录：1；   未登录：0；
+            var touXiangUrl=""; //用户头像url
+            var userName="";  //用户名
+               if(isLogin=="1")
+            {
+                touXiangUrl = "@ViewData["TouXiangUrl"]";//这里是从后端传回来的值，是字符串，所以要加引号,不能加tostring
+                userName="@ViewData["userName"]";
+               }
+            /////配置变量完毕
+            //////若登陆成功，设置本页面的用户信息
+            if (isLogin == "1")
+            {
+                $("#theUserNameFont").text(userName);
+                $("#theUserNameA").text(userName);
+                $("#theUserTouXiangImg").attr("src", touXiangUrl);
+                $("#img_touXiang").attr("src", touXiangUrl);
+            }
+            /////设置用户信息完毕
+            IsLoginDisplay(isLogin, "login_xs", "un_login_xs");//根据用户是否登录显示导航栏的用户信息
+        });
+
+        ////实现根据用户是否登录成功来设置导航栏的用户登录或未登录状态
+        //function makeLoginDisplay(isLogin) {
+        //    if (isLogin == "1") {
+        //        LoginYesDisplay("login_xs", "un_login_xs");//本函数位于：~/Scripts/MyScripts/Login.js
+        //    }
+        //    else {
+        //        UnLoginDisplay("login_xs", "un_login_xs");//本函数位于：~/Scripts/MyScripts/Login.js
+        //    }
+        //}
+
+
+        //function InitLoginYes() {
+
+        //}
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //$("#iconOut").click(function () {
+
+            //    $("#theContainer").animate({ left: "0px" }, "slow");
+
+            //    $("#theRightHiddenPage").css("display", "block");
+            //    $("#theRightHiddenPage").animate({ width: "250px" }, "slow");
+
+            //    $("#iconOut").css("display", "none");
+            //    $("#theRightBar").css("display", "none");
+            //});
+            $("#consult").click(function () {
+                window.location.href = "Post";
+            });
+            $("#ask").click(function () {
+                window.location.href = "Post";
+            });
+            //$("#iconIn").click(function () {
+            //    //$("#TheContent").animate({ right: "100px" }, "slow");
+            //    $("#theContainer").css("left", "14%");
+            //    $("#theRightHiddenPage").animate({ width: "10px" }, "slow");
+            //    $("#theRightHiddenPage").css("display", "none");
+            //    $("#iconOut").css("display", "");
+            //    $("#theRightBar").css("display", "");
+            //});
+
+
+        });
+    </script>
+    <script type="text/javascript">
+        //本函数实现搜索功能，搜索框的id为searchInput，当用户输入关键字，并且搜索框失去焦点后，调用此函数
+        //此函数将使页面跳转到后端Posts：SearchPosts。
+        function SearchPosts(theSearchTextId) {
+
+            var searchKeyWord = $("#" + theSearchTextId).val();//获取用户填写在输入框里的关键字
+            if (searchKeyWord == "") {
+                return false;
+            }
+            window.location.href = "../Posts/SearchPosts?searchKeyWord=" + searchKeyWord;
+        }
+    </script>
+    
+
+    
+</head>
+<body>
+    <!--HeaderAll-->
+    <div id="HeaderAll">
+        <!--header-->
+        <div id="Header" class="header">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="logo" onclick="window.location.href = '../Topic/Home'"><h2>时尚达人</h2></div>
+                    <div class="navigation">
+                        <ul class="nav navbar-nav">
+                            <li id="headerNav1" onclick="nav_switch(this.id)">首页</li>
+                            <li id="headerNav2"onclick="nav_switch(this.id); window.location.href = '../Topic/Home'">搭配咨询</li>
+                            <li id="headerNav3" onclick="nav_switch(this.id); window.location.href = '../StreetSnap/streetHome'">达人秀</li>
+                            <li id="headerNav4" onclick="nav_switch(this.id); window.location.href = '../ShangCheng/Index'">商城</li>
+                        </ul>
+                    </div><!--/ <div class="navigation">/end-->
+                    <div class="search_box">
+                        <input type="text" placeholder="问题/关键词/商品名" onblur="SearchPosts(this.id);" />
+                    </div>
+                    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////未登录时显示模块/////////////////////////////////////////////////////-->
+                    <div id="un_login_xs" class="loginDiv"style="margin-left:60px;">
+                        <span>|</span>
+                        <span onclick="window.location = '../People/Login'" class="login_div">登录</span>
+                        <span>|</span>
+                        <span onclick="window.location = '../People/Register'" class="login_div">注册</span>
+                        <span>|</span>
+                    </div><!--/ <div class="un_loginDiv">/end-->
+                    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////登录后显示模块/////////////////////////////////////////////////////-->
+                    <div id="login_xs" class="loginDiv">
+                        <div id="messageDiv" onclick="window.location = '../People/myMessages'"></div>
+                        <span class="prompt-bg">1</span><!--/////里面1为未读信息数，当没有未读信息时，<span class="prompt-bg">模块隐藏-->
+                        <div class="dropdown" style="float:left;">
+                            <div id="userDiv" data-toggle="dropdown" class="dropdown-toggle" onmouseover="dropdownOpen()">
+                                <div id="head_portraitDiv" style="color:white;">
+                                    <img id="img_touXiang" src="~/Images/Header/default-tx.jpg" style="width:98%;float:left;border-radius:2px;" />
+                                </div>
+                                <div id="theUserNameFont">linyuanyang</div>
+                                <span id="triangle_symbol" class="triangle_symbol_close"></span>
+                                <ul id="userUl" class="dropdown-menu" role="menu" aria-labelledby="userDiv" onmouseout="dropdownClose()">
+                                    <span class="dropdown-menu-topjiao"></span>
+
+                                    <li role="presentation" onclick="window.location.href = '../People/Index'">
+                                        <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-1"></span>我的主页</a>
+                                    </li>
+                                    <li role="presentation" onclick="window.location.href = '../People/myAsks'">
+                                        <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-2"></span>我的提问</a>
+                                    </li>
+                                    <li role="presentation" onclick="window.location.href = '../People/myAnsweres'">
+                                        <a role="menuitem" tabindex="-1" href="#">
+                                            <span class="menu-sel-3"></span>
+                                            我的回答
+                                        </a>
+                                    </li>
+                                    <li role="presentation" onclick="window.location.href = '../StreetSnap/streetHome'">
+                                        <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-4"></span>我的个人秀</a>
+                                    </li>
+
+                                    <li role="presentation" class="divider-black"></li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-5"></span>设置</a>
+                                    </li>
+                                    <li role="presentation" onclick="AjaxMakeLoginOut();">
+                                        <a role="menuitem" tabindex="-1" href="#"><span class="menu-sel-6"></span>退出</a>
+                                    </li>
+                                </ul>
+
+
+                            </div><!--/ <div class="userDiv">/end-->
+                        </div>
+                    </div><!--/ <div class="loginDiv">/end-->
+
+
+                </div>
+            </div>
+        </div>
+        <!--/header-->
+        <!--secondHeader-->
+        <div id="secondHeader" class="secondHeader">
+            <span id="home-nav-topjiao" class="home-nav-topjiao"></span>
+            <div id="secondHeadernNav" class="secondHeadernNav">
+                <span id="secondNav1" class="secondHeadernNav-active" onclick="secondNav_switch(this.id)">最新咨询</span>
+                <span id="secondNav2" onclick="secondNav_switch(this.id)">当季推荐</span>
+                <span id="secondNav3" onclick="secondNav_switch(this.id)">热门话题</span>
+                <span id="secondNav4" onclick="secondNav_switch(this.id)">租赁我最大</span>
+                <span id="secondNav5" onclick="secondNav_switch(this.id)">专家推荐</span>
+                <span id="secondNav6" onclick="secondNav_switch(this.id)">达人秀</span>
+            </div>
+
+
+        </div>
+        <!--/secondHeader-->
+    </div><!--/HeaderAll-->
+    <div id="theContainer">
+        @RenderBody()
+    </div>
+    <div id="touming_fugai_div" class="touming_fugai_div"></div>
+    <div id="ask_div" class="ask_div">
+        <div class="ask_div_top_bg">
+            &nbsp; &nbsp; 提问
+            <img src="/Images/Layout-guanbi.png" style="float:right;margin:5px 10px 0 0;cursor:pointer;" onclick="close_ask()" />
+        </div>
+        <div class="ask_shenming">
+            <p>您提的每一个问题，时尚达人们将会为您解答！</p>
+            <p>时尚达人希望能帮您找到适合自己的搭配，走在时尚！</p>
+            <p>好的问题更容易得到好的答案。<a href="">如何提一个好问题？</a></p>
+            <h6>提问应遵循真实、客观、简洁、明确、规范的原则</h6>
+            <p>1、提问应尽可能简洁明了，避免「请问」「有谁知道」「谢谢！」等与问题本身无关的附加语。</p>
+            <p>2、应避免使用「为神马」「童鞋」「肿么办」等网络用语。</p>
+            <p>3、基于个人判断或传言的问题，在提问时应在补充说明里详细说明原由。</p>
+            <p>4、避免太宽泛问题，如调查性的问题容易变成每个人都可以发表观点，但对其他人没有价值。</p>
+            <h6>时尚达人禁止以下提问</h6>
+            <p>1、和已有问题完全重复的问题，为避免重复，提问前可以先进行搜索</p>
+            <p>2、与时尚无关的问题。</p>
+            <h6>提问前请先搜索</h6>
+            <input type="text" id="question_text" style=" width: 98%; height: 30px;border-radius: 2px; border: 1px solid #a2b6b0;padding:0 1% 0 1%;" oninput="question_sousuo()" placeholder="请输入您的问题" />
+            <div id="xg_question"></div>
+        </div>
+    </div>
+   
+
+
 </body>
+
 </html>
+

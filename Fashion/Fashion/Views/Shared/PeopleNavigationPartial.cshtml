@@ -10,19 +10,21 @@
         MySpecialConsultOrlAnswer(rankName);
         var actionName = "@ViewData["actionName"]";
         Set_TabBarSelected(actionName);
+        
+        
     });
     //根据用户的等级显示特定解答或特定咨询标题栏
     //rankName代表等级名
     function MySpecialConsultOrlAnswer(rankName)
     {
         if (rankName == "专家") {
-            $("#mySpecialAnswer").css("display", "");
+            $("#mySpecialAnswer").css("display", "block");
             $("#mySpecialConsult").css("display", "none");
         }
         else
             if (rankName=="普通用户")
             {
-                $("#mySpecialConsult").css("display", "");
+                $("#mySpecialConsult").css("display", "block");
                 $("#mySpecialAnswer").css("display", "none");
         }
     }
@@ -32,9 +34,6 @@
     {
         switch (actionName)
         {
-            case "myAsks":
-                $("#myAsks").attr("class", "tab_ing");
-                break;
             case "myAnsweres":
                 $("#myAnsweres").attr("class", "tab_ing");
                 break;
@@ -44,8 +43,14 @@
             case "MySpecialAnswer":
                 $("#mySpecialAnswer").attr("class", "tab_ing");
                 break;
-            case "MyCollections":
+            case "myCollections":
                 $("#myCollections").attr("class", "tab_ing");
+                break;
+            case "myAsks":
+                $("#myAsks").attr("class", "tab_ing");
+                break;
+            default:
+                $("#myIndex").attr("class", "tab_ing");
                 break;
         }  
     }
@@ -53,39 +58,13 @@
 
 
 </script>
-<style>
-    /*标签栏的样式*/
-    h2 {
-        font-weight: lighter;
-        padding: 20px 3% 20px 3%;
-        margin-bottom: 0;
-        cursor: pointer;
-        float: left;
-    }
-
-        h2:hover {
-            border-bottom: 2px solid black;
-        }
-
-    .tab_bar {
-        width: 100%;
-        border-bottom: 1px solid gray;
-        float: left;
-        margin-bottom: 30px;
-    }
-
-    .tab_ing {
-        font-weight: bold;
-        border-bottom: 2px solid black;
-    }
-</style>
 
 <div class="tab_bar">
     <h2 id="myIndex" onclick="window.location.href = 'Index'">我的主页</h2>
     <h2 id="mySpecialAnswer" onclick="window.location.href = 'MySpecialAnswer'">特定解答<span>@countUser_model.specialConsultCount</span></h2>
     <h2 id="mySpecialConsult" onclick="window.location.href = 'MySpecialConsult'">特定咨询<span>@countUser_model.specialConsultCount</span></h2>
     <h2 id="myAsks"  onclick="window.location.href = 'myAsks'">提问<span>@countUser_model.zhuTieCount</span></h2>
-    <h2 id="myAnsweres" onclick="window.location.href = 'myAnsweres'">回答<span>@countUser_model.replyCount</span></h2>
-    <h2 id="myCollections" onclick="window.location.href = 'myCollections'">收藏<span>@countUser_model.collectCount</span></h2>
-    <h2 id="myMessage" onclick="window.location.href = 'Message'">消息<span>0</span></h2>
+    <h2 id="myAnsweres"  onclick="window.location.href = 'myAnsweres'">回答<span>@countUser_model.replyCount</span></h2>
+    <h2 id="myCollections"  onclick="window.location.href = 'myCollections'">收藏<span>@countUser_model.collectCount</span></h2>
+    <h2 id="myMessage" onclick="window.location.href = 'myMessages'">消息<span>0</span></h2>
 </div>

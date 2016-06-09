@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "streetHome";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/Header.cshtml";
 }
 
 <link href="~/Content/streetHome.css" rel="stylesheet" />
@@ -13,7 +13,18 @@
     页面分左右布局，左边有导航和一个街拍时刻的显示
                     右边又分为上下两部分，上面是图片切换部分，下面左右分别是图片显示和博客部分
 -->
-
+<script type="text/javascript">
+    //在页面加载时切换导航栏菜单
+    window.onload = function () {
+        document.getElementById("headerNav1").className = "none";
+        document.getElementById("headerNav2").className = "none";
+        document.getElementById("headerNav4").className = "none";
+        document.getElementById("headerNav3").className = "navli_active";
+        document.getElementById("home-nav-topjiao").style.display = "none";
+        document.getElementById("secondHeader").style.height = "6px";
+        document.getElementById("secondHeader").style.borderBottom = "1px solid black";
+    }
+</script>
 
 <div class="left">
 

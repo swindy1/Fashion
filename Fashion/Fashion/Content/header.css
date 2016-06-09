@@ -25,7 +25,8 @@
     padding-right:30px;
     float:left;
     height:70px;
-    font-size:1.5em;
+    font-size:19px;
+    border-right:1px solid rgba(250, 250, 250, 0.00);
     cursor:default;
 }
 .navli_active{
@@ -65,11 +66,14 @@
     font-size:0.5em;
 }
 .login_div{
-    cursor:default;padding:0 5px;
+    cursor:default;padding:0 8px;
 }
-
+.login_div:hover{
+    color:white;
+}
 .loginDiv{
-    color:white;font-size:1.5em;
+    color:#d0cfcf;
+    font-size:14px;
     float:left;
     margin-left:25px;
 }
@@ -93,10 +97,10 @@
     margin-top:18px;
     margin-left:40px;
 }
-#userNameDiv{
+#theUserNameFont{
     margin-left:10px;
     float:left;
-    width:60px;
+    width:40px;
     overflow:hidden;
     text-overflow:ellipsis;
     color: #d0cfcf;
@@ -128,7 +132,7 @@
     background-position: -0px -230px;
     float:left;
     width:100%;
-    height:35px;
+    height:6px;
     overflow:hidden;
 }
 #userUl{
@@ -166,6 +170,7 @@
   color: #d0cfcf;
   white-space: nowrap;
   font-size:0.8em;
+  outline:none;
 }
 
 #userUl li a:hover {
@@ -221,6 +226,7 @@
     margin-left:25.8%;
     position:absolute;
     z-index:2;
+    display:none;
 }
 .secondHeadernNav{
     color:white;
@@ -240,3 +246,92 @@
     background:url(../Images/Header/topbar.png) no-repeat;
     background-position: -23px -276px;
 }
+
+/*------透明层CSS样式----------@*/
+        .div_new {
+            text-align: center;
+            border-top: 1px solid #a2b6b0;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #xg_question h6 {
+            margin-left: 5px;
+            margin-top: 0px;
+            padding-top: 5px;
+        }
+
+        #xg_question p {
+            margin-left: 5px;
+            margin-right: 5px;
+            color: gray;
+        }
+
+        #xg_question font {
+            margin-right: 5px;
+            color: black;
+        }
+
+        #xg_question p font:hover, .div_new:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        #xg_question p:hover {
+            text-decoration: none;
+            cursor: default;
+        }
+
+        .xg_question {
+            border-left: 1px solid #a2b6b0;
+            border-bottom: 1px solid #a2b6b0;
+            border-right: 1px solid #a2b6b0;
+            width: 98%;
+            
+        }
+
+        .ask_shenming h6 {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .ask_shenming {
+            padding: 10px 20px 0 20px;
+        }
+
+            .ask_shenming h6 {
+            }
+
+        .ask_div_top_bg {
+            background-color:black;
+            line-height: 30px;
+            height: 30px;
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            color: white;
+            font-weight: bold;
+        }
+
+        .ask_div {
+            background-color: white;
+            border-radius: 10px;
+            height: auto;
+            width: 40%;
+            margin-left: 28%;
+            padding-bottom: 20px;
+            top: 100px;
+            display: none;
+            position: absolute;
+        }
+
+        .touming_fugai_div {
+            height: 100%;
+            display: none;
+            width: 100%;
+            background-color: black;
+            filter: Alpha(Opacity=50); /*IE浏览器*/
+            -moz-opacity: 0.5; /*火狐浏览器*/
+            opacity: 0.5; /*其他浏览器*/
+            top: 0;
+            position: fixed;
+        }
