@@ -366,7 +366,6 @@
     <Content Include="Images\UserImages\TouXiang\daren_1.jpg" />
     <Content Include="Images\UserImages\TouXiang\daren_2.jpg" />
     <Content Include="Images\UserImages\TouXiang\daren_3.jpg" />
-    <Content Include="Images\UserImages\TouXiang\touxiang1.png" />
     <Content Include="kindeditor\asp.net\bin\LitJSON.dll" />
     <Content Include="kindeditor\asp.net\demo.aspx" />
     <Content Include="kindeditor\asp.net\README.txt" />

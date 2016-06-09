@@ -27,7 +27,7 @@
         var second = document.getElementById('totalSecond').textContent;
         if (second <=0) {
             var specialConsultId = $("#hidspecialConsultId").val();
-            window.location.href = "../Consult/ConsultDetails?specialConsultId=" + specialConsultId.toString();
+            window.location.href = "../Consult/ConsultDetails?specialConsultId=" + specialConsultId.toString() + "&expertUserName=-1";
         } else {
             if (navigator.appName.indexOf("Explorer") > -1) {
                 document.getElementById('totalSecond').innerText = (parseInt(second) - 1).toString();
@@ -42,7 +42,7 @@
     function GoToConsultDetails()
     {
         var specialConsultId = $("#hidspecialConsultId").val();
-        window.location.href = "../Consult/ConsultDetails?specialConsultId="+specialConsultId.toString();
+        window.location.href = "../Consult/ConsultDetails?specialConsultId=" + specialConsultId.toString() + "&expertUserName=-1";
     }
 </script>
 

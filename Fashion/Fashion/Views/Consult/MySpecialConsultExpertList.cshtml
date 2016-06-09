@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "MySpecialConsultExpertList";
+    Layout = "~/Views/Shared/Header.cshtml";
     @model System.Collections.Generic.List<Fashion.Models.SpecialConsultAnswer_model>
-    
 }
 
 <script src="~/Scripts/jquery-2.0.0.min.js"></script>
@@ -9,10 +9,13 @@
 <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
 
 <div class="container">
+    <div style="height:100px;">
+
+    </div>
         <div class="row" style="margin-top:25px;margin-left:100px;text-align:center;">
             @foreach (Fashion.Models.SpecialConsultAnswer_model specialConsultAnswer_model in Model)
             { 
-            <div class="col-xs-5" style="border: 1px solid red; height: 300px;padding:0px;">
+            <div class="col-xs-5" style="border: 1px solid red; height: 300px;padding:0px;margin-left:25px;">
                 <div class="col-xs-12" style="border: 1px solid blue; height: 80px; padding:0px;">
                     <div class="col-xs-2" style="border:1px solid blue;height:80px;">
                         @specialConsultAnswer_model.specialAnswerId
