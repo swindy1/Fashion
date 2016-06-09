@@ -34,5 +34,12 @@ namespace Fashion.Code.BLL
             return specialConsultAnswer_model;
         }
 
+
+        public List<SpecialConsultAnswer_model> GetAllSelectExpertShortAnswer(int specialConsultId)
+        {
+            SpecialConsultAnswer_dal specialConsultAnswer_dal = new SpecialConsultAnswer_dal();
+            return specialConsultAnswer_dal.GetAllSelectExpertShortAnswer(specialConsultId);
+        }
+
     }
 }

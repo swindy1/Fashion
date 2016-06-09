@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.Title = "MySpecialConsultExpertList";
+    @model System.Collections.Generic.List<Fashion.Models.SpecialConsultAnswer_model>
+    
 }
 
 <script src="~/Scripts/jquery-2.0.0.min.js"></script>
@@ -7,24 +9,23 @@
 <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
 
 <div class="container">
-        <div class="row" style="margin-top:25px;margin-left:100px;">
+        <div class="row" style="margin-top:25px;margin-left:100px;text-align:center;">
+            @foreach (Fashion.Models.SpecialConsultAnswer_model specialConsultAnswer_model in Model)
+            { 
             <div class="col-xs-5" style="border: 1px solid red; height: 300px;padding:0px;">
                 <div class="col-xs-12" style="border: 1px solid blue; height: 80px; padding:0px;">
                     <div class="col-xs-2" style="border:1px solid blue;height:80px;">
-                        专家一
+                        @specialConsultAnswer_model.specialAnswerId
                     </div>
-                    <div class="col-xs-2" style="border:1px solid blue;height:80px;">
-                        头像
+                    <div class="col-xs-2" style="border:1px solid blue;height:80px;padding:0px;">
+                        <img src="@specialConsultAnswer_model.expert_model.touXiangUrl"  style="width:100%;height:100%;"/>
+
+                        
                     </div>
                     <div class="col-xs-4" style="border: 1px solid blue; height: 80px; padding:0px;">
-                        <div class="col-xs-12" style="border:1px solid blue;height:40px;">
-                            用户名
-                        </div>
-                        <div class="col-xs-12"  style="border:1px solid blue;height:40px;">
-                            个性签名
-                        </div>
+                        用户名:@specialConsultAnswer_model.expert_model.userName
                     </div>
-                    <div class="col-xs-4" style="border:1px solid blue;height:80px;">
+                    <div class="col-xs-4" style="border:1px solid blue;height:80px;" onclick="window.location.href ='../Consult/ConsultDetails?specialConsultId=@ViewData["specialConsultId"]&expertUserName=@specialConsultAnswer_model.expert_model.userName'">
                         点击进入
                     </div>
                 </div>
@@ -34,24 +35,19 @@
                         搭配套装
                     </div>
                     <div class="col-xs-10 " style="border:1px solid blue;height:160px;padding:0px;">
-                        <div class="col-xs-12 " style="border:1px solid blue;height:40px;">
-                            搭配套装1
-                        </div>
-                        <div class="col-xs-12 " style="border:1px solid blue;height:40px;">
-                            搭配套装2
-                        </div>
-                        <div class="col-xs-12 " style="border:1px solid blue;height:40px;">
-                            搭配套装3
-                        </div>
-                        <div class="col-xs-12 " style="border:1px solid blue;height:40px;">
-                            搭配套装4
-                        </div>
+                        @foreach(Fashion.Models.SpecialConsultAnswerClothes_model specialConsultAnswerClothes_model in specialConsultAnswer_model.clothList_model)
+                        {
+                            <div class="col-xs-12 " style="border:1px solid blue;height:40px;">
+                                <a href="@specialConsultAnswerClothes_model.clothUrl" target="_blank">@specialConsultAnswerClothes_model.clothType</a>
+                        </div>    
+                        }
                     </div>
                 </div>
                 <div class="col-xs-4 col-xs-offset-4" style="border:1px solid red;height:60px;">
                    选择此套装
                 </div>
             </div>
+            }
                 
             </div>
     

@@ -1,4 +1,5 @@
 ﻿using Fashion.Code.BLL;
+using Fashion.Code.DAL;
 using Fashion.Models;
 using System;
 using System.Collections.Generic;
@@ -114,7 +115,7 @@ namespace Fashion.Controllers
             }
             SpecialConsultAnswerClothes_bll specialConsultAnswerClothes_bll = new SpecialConsultAnswerClothes_bll();
             specialConsultAnswerClothes_bll.InsertConsultAnswerClothes(specialConsultAnswer_Id,selectClothUrlDic);
-            return RedirectToAction("ConsultDetails", new { specialConsultId = specialConsultId });
+            return RedirectToAction("ConsultDetails", new { specialConsultId = specialConsultId, expertUserName=expertId });
         }
 
         /// <summary>
@@ -130,9 +131,17 @@ namespace Fashion.Controllers
             return Content(jsonData);
         }
 
+        /// <summary>
+        /// 显示特定咨询选择的专家列表解答情况
+        /// </summary>
+        /// <returns></returns>
         public ActionResult MySpecialConsultExpertList()
         {
-            return View();
+            int specialConsultId = Convert.ToInt32(Request["specialConsultId"]);//特定咨询帖子的id
+            ViewData["specialConsultId"] = specialConsultId;
+            SpecialConsultAnswer_bll specialConsultAnswer_bll = new SpecialConsultAnswer_bll();
+            List<SpecialConsultAnswer_model> specialConsultAnswer_modelList = specialConsultAnswer_bll.GetAllSelectExpertShortAnswer(specialConsultId);
+            return View(specialConsultAnswer_modelList);
         }
 
         //特定咨询详情页面（用户和专家共用）

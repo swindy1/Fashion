@@ -23,5 +23,7 @@ namespace Fashion.Code.DAL
             }
             return SqlHelper.ExecuteNonquery(sqlStr);
         }
+
+        
     }
 }
