@@ -137,10 +137,18 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult MySpecialConsultExpertList()
         {
+            if (Session["userName"] == null)
+            {
+                return RedirectToAction("LoginRemind", "Topic");
+            }
+            LoginStatusConfig();//配置登录状态
             int specialConsultId = Convert.ToInt32(Request["specialConsultId"]);//特定咨询帖子的id
             ViewData["specialConsultId"] = specialConsultId;
+            SpecialConsult_bll specialConsult_bll = new SpecialConsult_bll();
+            SpecialConsult_model specialConsult_model=specialConsult_bll.GetOneShortConsultData(specialConsultId);//获取的咨询的标题，场合，内容以及时间
+            ViewData["specialConsult_model"] = specialConsult_model;
             SpecialConsultAnswer_bll specialConsultAnswer_bll = new SpecialConsultAnswer_bll();
-            List<SpecialConsultAnswer_model> specialConsultAnswer_modelList = specialConsultAnswer_bll.GetAllSelectExpertShortAnswer(specialConsultId);
+            List<SpecialConsultAnswer_model> specialConsultAnswer_modelList = specialConsultAnswer_bll.GetAllSelectExpertShortAnswer(specialConsultId);//获取选择的多个专家的解答数据
             return View(specialConsultAnswer_modelList);
         }
 

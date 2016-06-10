@@ -52,9 +52,10 @@
         <div class="row" style="@*border:1px solid blue;*@">
             @for (int i = 1; i < 30; i++)
             {
-                <div id="clothContaner_@i" class="col-xs-3 clothContainerHeight">
+                string imgSrc = "/Images/ShangCheng/"+i+".jpg";
+                <div id="clothContaner_@i" class="col-xs-3 clothContainerHeight" onclick="window.location.href='Index'+@i">
                     <div id="cloth_@i" class="clothHeight" style="text-align:center;padding:10px;">
-                        <img src="~/Images/ShangCheng-Index-cloth1.jpg" style="width:98%;" />
+                        <img src="@imgSrc" style="width:98%;" />
                         <div style="text-align:left;color:#eb5f5f;margin-top:5px;font-size:20px;font-weight:bold;">
                             ￥65.80
                         </div>
