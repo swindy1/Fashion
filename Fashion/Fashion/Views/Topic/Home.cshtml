@@ -632,20 +632,21 @@
     });
 </script>
 <div id="TheContent" class="TheContent">
-    <div id="TheContentLeft" style="width:600px;float:left;">
-        <div id="TheContentLeft-head" style="height:30px;width:600px;margin-top:20px;float:left;height:30px;">
+    <div id="TheContentLeft" class="TheContentLeft">
+        <div id="TheContentLeft-head" class="TheContentLeft-head">
             <span style="float:left;">
-                    <span class="hot-word"><span class="hot-word-symbol"></span>热门话题</span>
-                    <span class="hot-key-word">日韩风</span>
-                    <span class="hot-key-fgx">|</span>
-                    <span class="hot-key-word">欧美风</span>
-                    <span class="hot-key-fgx">|</span>
-                    <span class="hot-key-word">休闲风</span>
-                    <span class="hot-key-fgx">|</span>
-                    <span class="hot-key-word">聚会</span>
+                <span class="hot-word"><span class="hot-word-symbol"></span>热门话题</span>
+                <span class="hot-key-word">日韩风</span>
+                <span class="hot-key-fgx">|</span>
+                <span class="hot-key-word">欧美风</span>
+                <span class="hot-key-fgx">|</span>
+                <span class="hot-key-word">休闲风</span>
+                <span class="hot-key-fgx">|</span>
+                <span class="hot-key-word">聚会</span>
             </span>
-            <span class="hot-key-fgx" style="float:right;">
-                更多<span class="more-symbol"></span>
+            <span class="hot-key-word" style="float:right;">
+                更多
+                <span class="more-symbol"></span>
             </span>
             <div>
                 <hr style="border:none;border-top:2px solid #c10d0c;float:left;width:600px;margin-top:5px;" />
@@ -655,8 +656,6 @@
         {
             <div id="data_all_@post_model.postId" class="data" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
                 <div class="data_left">
-
-
                     <div>
                         <a href="" title="话题详情"><img src="@post_model.User.touXiangUrl" /></a>
                     </div>
@@ -664,8 +663,6 @@
                     <div id="ht-dianzanshu-@post_model.postId" class="dianzanshu" onclick="ht_dianzan(this.id)">
                         @post_model.postSupportCount
                     </div>
-
-
                 </div>
 
                 <div class="data_main">
@@ -680,28 +677,21 @@
                     </div>
                     <div id="data_short_data_@post_model.postId" class="data_short_data" onclick="zhangkai(this.id)">
 
-                        <div class="data_img"><img src="@post_model.firstPostPhotoUrl" style="width:140px;height:120px;" /></div>
+                        <div class="data_img"><img src="@post_model.firstPostPhotoUrl" /></div>
                         <div id="title_@post_model.postId" class="data_words"></div>
                         <script>
-                                var titleStr = "@post_model.postContent";//你从数据库里读到的字符串内容
-                                var maxLen = 145;//你想显示的长度
+                            var titleStr = "@post_model.postContent";//你从数据库里读到的字符串内容
+                            var maxLen = 145;//你想显示的长度
 
-                                if (titleStr.length > maxLen)//当显示的文字长度大于给定值时，显示一部分
-                                    document.getElementById("title_@post_model.postId").innerHTML = titleStr.substring(0, maxLen) + "...&nbsp;&nbsp;<span class='xianshiquanbu'>显示全部</span>";
-                                else
-                                    document.getElementById("title_@post_model.postId").innerHTML = titleStr + "...&nbsp;&nbsp;<span class='xianshiquanbu'>显示全部</span>";
+                            if (titleStr.length > maxLen)//当显示的文字长度大于给定值时，显示一部分
+                                document.getElementById("title_@post_model.postId").innerHTML = titleStr.substring(0, maxLen) + "...&nbsp;&nbsp;<span class='xianshiquanbu'>显示全部</span>";
+                            else
+                                document.getElementById("title_@post_model.postId").innerHTML = titleStr + "...&nbsp;&nbsp;<span class='xianshiquanbu'>显示全部</span>";
                         </script>
-
-
                     </div>
                     <input type="hidden" id="hiddenHtmlUrl_@post_model.postId" value="@post_model.postHtmlUrl" />
                     <div id="data_detail_data_@post_model.postId" class="data_detail_data" style="">
                     </div>
-
-
-
-
-
                     <div class="op_img" id="op_cz">
                         <div id="guanzhu_@post_model.postId" class="data_op_xx" onclick="guanzhu(this.id)"><img src="~/Images/Topic-Home-plus.png" id="gz_img_@post_model.postId" /><div class="data_op_n" id="gz_@post_model.postId">关注</div></div>
 
@@ -735,22 +725,60 @@
                             <img src="~/Images/Topic-Home-retract.png" />
                             <div id="shouqi_@post_model.postId" class="data_op_n" onclick="shouqi(this.id)">收起</div>
                         </div>
-
                     </div>
-
                     <div id="comments_kuang_@post_model.postId" class="yc plk">
-
                     </div>
-
-
-                    <hr class="hr_fgx" />
-
                 </div>
             </div>
+            <hr class="hr_fgx" />
+
         }
     </div>
-    <div style="height:200px;"></div>
-    <div id="TheContentRight"style="border:1px solid red;width:350px;height:450px;float:left;margin-left:20px;"></div>
+
+    <div id="TheContentRight" class="TheContentRight">
+        
+        <div class="zhuanjiatj">
+            <span class="right-header">入驻专家</span>
+            <span class="read-more"style="float:right;">查看全部></span>
+            <hr class="right-fgx" />
+            @for (int i = 0; i < 5; i++)
+            {
+            <div class="expers-box">
+                <div class="expers-tx-box">
+                    <img src="~/Images/UserImages/TouXiang/ljiejie.png" />
+                </div>
+                <div class="expers-introduce">
+                    <div class="expers-name">林姐姐Linna</div>
+                    <div class="read-more">时尚公司服装顾问</div>
+                </div>
+            
+            </div>
+                
+            }
+            <button class="btn apply-btn" onclick="window.location.href = '../People/Expert_Register'">申请成为时尚专家</button>
+
+        </div>
+        <div class="zhuanjiatj">
+            <span class="right-header">达人榜</span>
+            <span class="read-more" style="float:right;">查看全部></span>
+            <hr class="right-fgx" />
+            @for (int i = 0; i < 6; i++)
+            {
+            <div class="daren-box">
+                <div class="daren-tx-box">
+                    <img src="~/Images/UserImages/TouXiang/haha.png" />
+                </div>
+                <div class="daren-introduce">
+                    <div class="dare-data">林姐姐Linna<span class="daren-symbol"></span></div>
+                    <div class="color-gray dare-data">时尚公司服装顾问</div>
+                </div>
+            
+            </div>
+            }
+
+        </div>
+
+    </div>
 </div>
 @RenderPage("~/Views/Shared/ShortCutBarPartial.cshtml")@*这里是引入快捷栏*@
 @*这里是影藏的评论html模板，用于js调用*@
@@ -787,8 +815,6 @@
     <div id="tjpl_simplei"></div>  <!--创建评论产生的地方-->
 
     <hr style="border:none;border-top:1px solid #ebe4e4;width:100%;" />
-    <div class="page" id="fenye_div"></div>
-
     <div class="plk_z">
         <input id="pl_text_simplei" type="text" placeholder="写下你的评论..." class="pinglun_text" onclick="xs_pl_btn(this.id)" />
         <div id="pl_op_simplei" class="pl_op yc">

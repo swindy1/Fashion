@@ -5,13 +5,13 @@ a{
     text-decoration:none;
 }
 .laizi{
-    width:100%;color:#cfbebe;
+    width:100%;color:gray;
     font-size:small;
     height:20px;
     line-height:20px;
 }
 .laizi a{
-    color:#cfbebe;
+    color:gray;
 
 }
 .laizi a:hover{
@@ -83,7 +83,8 @@ a{
     text-decoration:underline;
 }
 .plk_z{
-    border-top: 1px solid #ebe4e4; width: 94%; background-color: #fbfbfb; border-radius:0 0 4px 4px;padding:15px 3% 15px 3%;float:left;
+    border-top: 1px solid #ebe4e4; width: 94%; background-color: #fbfbfb; border-radius:0 0 4px 4px;
+    padding:15px 3% 15px 3%;float:left;
 }
 .yc{
     display:none;
@@ -133,6 +134,8 @@ a{
     height:120px;width:30%;float:left;margin-right:2%;
 }
 .data_img img{
+    border:1px solid #dddddd;
+    width:140px;height:120px;
 }
 .data_words{
     height: 120px; width: 68%; overflow: hidden; float: left;font-size:small; 
@@ -173,9 +176,10 @@ a{
 }
 
  .TheContent {
-            width: 1000px;
+            width: 1350px;
             float:left;
-            margin-left:200px;
+            padding-bottom:200px;
+            background-color:#f5f5f5;
         }
  .comment_op {
      color:gray;
@@ -196,6 +200,10 @@ a{
       margin-top:9px;
       padding:0 12px;
       color: #666;
+      cursor:pointer;
+  }
+  .hot-key-word:hover,.read-more:hover{
+      text-decoration:underline;
   }
   .hot-word{
       font-size: 20px; 
@@ -225,5 +233,118 @@ a{
       background-position: -0px -240px;
       float:right;
       width:12px;
+      margin-top:3px;
       height:12px;
+      margin-right:10px;
+      margin-left:5px;
   }
+  .TheContentLeft-head{
+      height:30px;
+      width:600px;
+      float:left;
+      height:30px;
+      margin-bottom:20px;
+  }
+  .TheContentLeft{
+      width:640px;float:left;
+      background-color:white;
+      margin-left:220px;border-left:1px solid #dddddd;padding:30px 20px 700px 20px;
+  }
+  .TheContentRight{
+      border:1px solid #dddddd;width:250px;
+      height:auto;
+      float:left;
+      background-color:white;
+      padding-bottom:300px;
+      padding-top:30px;
+  }
+  .zhuanjiatj{
+      float:left;
+      width:250px;
+      padding: 10px 20px;
+  }
+  .right-header,.expers-name{
+      float: left;
+      font-size:12px;
+      font-weight:bold;
+      color:#636161;
+      
+  }
+  .read-more{
+      font-size:8px;
+      color:gray;
+  }
+  .right-fgx{
+    border:none;border-top:1px solid #b5b3b3;width:100%;
+    margin:8px 0;
+    float:left;
+  }
+  .expers-box{
+      background-color:#fafafa;
+      cursor:pointer;
+     
+  }
+  .expers-box:hover{
+      background-color:#efeeee;
+  }
+  .expers-tx-box{
+      float:left;
+      height:60px;
+      width:60px;
+  }
+  .expers-tx-box img, .daren-tx-box img{
+      float:left;
+      width:100%;
+  }
+  .expers-introduce{
+      float:left;
+      height:60px;
+      border:1px solid #dddddd;
+      width:149px;
+      border-left:none;
+      padding:5px 10px;
+  }
+  .expers-name{
+      width:100%;
+      margin-bottom:5px;
+      font-size:14px;
+  }
+  .apply-btn{
+      font-weight:bold;width:100%;
+      background:url(../Images/Header/apply-btn-bg.png) repeat-x;
+      float:left;
+      border:1px solid #dddddd;
+      margin:8px 0;
+      font-size:12px;
+  }
+   .apply-btn:hover{
+      background:url(../Images/Header/apply-btn-hover.png) repeat-x;
+      background-size:100%;
+  }
+   .daren-box,.expers-box{
+      float:left;
+      margin:8px 0;
+      width:100%;
+   }
+   .daren-tx-box{
+       float:left;
+       height:45px;
+       width:45px;
+   }
+   .dare-data{
+       font-size:8px;
+       margin:4px 0px 0px 10px;
+       float:left;
+   }
+    .color-gray{
+       color:gray;
+   }
+ .daren-symbol{
+     background:url(../Images/Header/icon.png) no-repeat;
+      background-position: -0px -0px;
+      float:right;
+      width:13px;
+      height:13px;
+      margin-left:5px;
+ }
+ 

@@ -295,6 +295,7 @@
     <Content Include="Images\Header\prompt-bg.png" />
     <Content Include="Images\Header\set.png" />
     <Content Include="Images\Header\topbar.png" />
+    <Content Include="Images\Header\Topic-Home.png" />
     <Content Include="Images\ShangCheng-Index-cloth1.jpg" />
     <Content Include="Images\Consult-ConsultDetails-unhappy.png" />
     <Content Include="Images\ConsultDetails-tu1.png" />
