@@ -15,6 +15,17 @@ namespace Fashion.Controllers
     {
         //
         // GET: /Topic/  
+
+        public ActionResult HomeTWO()
+        {
+            return View();
+        }
+
+        
+
+
+
+
         public ActionResult PostDetails()
         {
             if (Session["userName"] == null)

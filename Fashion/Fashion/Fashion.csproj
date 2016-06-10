@@ -164,6 +164,7 @@
     <Compile Include="Controllers\ConsultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
+    <Compile Include="Controllers\PersonShowController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ShangChengController.cs" />
     <Compile Include="Controllers\StreetSnapController.cs" />
@@ -688,6 +689,8 @@
     <Content Include="Views\ShangCheng\ClothDetails.cshtml" />
     <Content Include="Views\Shared\ShortCutBarPartial.cshtml" />
     <Content Include="Views\Consult\MySpecialConsultExpertList.cshtml" />
+    <Content Include="Views\PersonShow\PersonShow.cshtml" />
+    <Content Include="Views\Topic\HomeTWO.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
