@@ -233,10 +233,8 @@ a{
       background-position: -0px -240px;
       float:right;
       width:12px;
-      margin-top:3px;
       height:12px;
-      margin-right:10px;
-      margin-left:5px;
+      margin:3px 5px 0 5px;
   }
   .TheContentLeft-head{
       height:30px;
@@ -248,7 +246,7 @@ a{
   .TheContentLeft{
       width:640px;float:left;
       background-color:white;
-      margin-left:220px;border-left:1px solid #dddddd;padding:30px 20px 700px 20px;
+      margin-left:170px;border-left:1px solid #dddddd;padding:30px 20px 700px 20px;
   }
   .TheContentRight{
       border:1px solid #dddddd;width:250px;

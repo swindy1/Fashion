@@ -652,6 +652,19 @@
                 <hr style="border:none;border-top:2px solid #c10d0c;float:left;width:600px;margin-top:5px;" />
             </div>
         </div>
+        <div class="alert alert-warning alert-dismissable" style="float: left; width: 100%; padding: 0px 30px 0px 20px; margin: 0px;margin-top:-12px;margin-bottom:10px;">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            没有找到满意的帖子？？？
+            <a onclick="xianshi_ask_div()" style="cursor:pointer;">去提问</a>
+            或
+            <a onclick="window.location.href = '../Topic/Consult'"style="cursor:pointer;">
+                找专家量身搭配？
+            </a>
+            <span class="i"></span>
+        </div>
         @foreach (var post_model in Model)
         {
             <div id="data_all_@post_model.postId" class="data" onmouseover="xianshi_op(this.id)" onmouseout="yincang_op(this.id)">
@@ -755,8 +768,8 @@
             </div>
                 
             }
+            <button class="btn apply-btn" onclick="window.location.href = '../Topic/Consult'">向专家咨询</button>
             <button class="btn apply-btn" onclick="window.location.href = '../People/Expert_Register'">申请成为时尚专家</button>
-
         </div>
         <div class="zhuanjiatj">
             <span class="right-header">达人榜</span>

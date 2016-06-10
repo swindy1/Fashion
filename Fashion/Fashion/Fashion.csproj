@@ -286,7 +286,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="Images\Header\apply-btn-bg.png" />
+    <Content Include="Images\Header\apply-btn-hover.png" />
     <Content Include="Images\Header\default-tx.jpg" />
+    <Content Include="Images\Header\icon.png" />
     <Content Include="Images\Header\my-answer.png" />
     <Content Include="Images\Header\my-home.png" />
     <Content Include="Images\Header\my-question.png" />
