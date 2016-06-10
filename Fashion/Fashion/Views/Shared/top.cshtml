@@ -34,6 +34,7 @@
     </script>
 
     <script>
+
         $(document).ready(function () {
 
             //配置登录信息的变量,登录状态 登录名 头像url等
@@ -43,7 +44,7 @@
                if(isLogin=="1")
             {
                 touXiangUrl = "@ViewData["TouXiangUrl"]";//这里是从后端传回来的值，是字符串，所以要加引号,不能加tostring
-                userName="@ViewData["userName"]";
+                   userName = "@ViewData["userName"]";
                }
             /////配置变量完毕
             //////若登陆成功，设置本页面的用户信息
@@ -57,7 +58,7 @@
             /////设置用户信息完毕
             IsLoginDisplay(isLogin, "login_xs", "un_login_xs");//根据用户是否登录显示导航栏的用户信息
         });
-        
+       
         ////实现根据用户是否登录成功来设置导航栏的用户登录或未登录状态
         //function makeLoginDisplay(isLogin) {
         //    if (isLogin == "1") {
@@ -72,62 +73,6 @@
         //function InitLoginYes() {
             
         //}
-    </script>
-    <script>
-
-        //本函数实现鼠标移上快捷栏时，快捷栏的图标变成字
-        function kuaijie_over(x) {
-            document.getElementById(x).style.backgroundColor = "#808080";
-
-            if (x == "sousuo") {
-                document.getElementById(x).innerHTML = "点击搜索";
-                sousuok.style.display = "block";
-            }
-            else {
-                sousuo.innerHTML = "";
-                sousuo.style.backgroundColor = "#c4bfbf";
-                var img_tb = document.createElement('img');//创建图片图标
-                sousuok.style.display = "none";
-                img_tb.setAttribute('src', '/Images/Topic-Home-sousuo.png');
-
-                img_tb.className = "width_full";
-                sousuo.appendChild(img_tb);
-
-                if (x == "backtop") {
-                    document.getElementById(x).innerHTML = "返回顶部";
-                }
-                else if (x == "tiwen") {
-                    document.getElementById(x).innerHTML = "点击提问";
-                }
-                else if (x == "zixun") {
-                    document.getElementById(x).innerHTML = "专家咨询";
-                }
-                else if (x == "xinxi") {
-                    document.getElementById(x).innerHTML = "查看信息";
-                }
-            }
-        }
-        //实现当鼠标移开时，快捷栏还原
-        function kuaijie_out(x) {
-            document.getElementById(x).innerHTML = "";
-            document.getElementById(x).style.backgroundColor = "#c4bfbf";
-            var img_tb = document.createElement('img');//创建图片图标
-            sousuok.style.display = "none";
-            if (x == "tiwen") {
-                img_tb.setAttribute('src', '/Images/Topic-Home-woyaotiwen.png');
-            }
-            else if (x == "zixun") {
-                img_tb.setAttribute('src', '/Images/Topic-Home-zixun.png');
-            }
-            else if (x == "xinxi") {
-                img_tb.setAttribute('src', '/Images/Topic-Home-xinxi.png');
-            }
-            else if (x == "backtop") {
-                img_tb.setAttribute('src', '/Images/Topic-Home-backtop.png');
-            }
-            img_tb.className = "width_full";
-            document.getElementById(x).appendChild(img_tb);
-        }
     </script>
     <style>
         #top {
@@ -225,49 +170,6 @@
             font-style: normal;
             margin: 35px 0 0 25%;
             font-size: 1em;
-        }
-    </style>
-    <style>
-        /*快捷栏样式*/
-        .ssk {
-            height: 20px;
-            border-radius: 4px;
-            width: 150px;
-        }
-
-        .kjl_div {
-            position: fixed;
-            top: 45%;
-            right: 13%;
-            width: 30px;
-        }
-
-        .ssk_div {
-            position: fixed;
-            top: 45.5%;
-            background-color: #808080;
-            right: 14.8%;
-            border-radius: 4px;
-            width: 150px;
-            padding: 14px;
-            display: none;
-        }
-
-        .kuaijie_btn {
-            border-radius: 4px;
-            background-color: #c4bfbf;
-            margin-top: 10%;
-            width: 100%;
-            padding: 30%;
-            color: white;
-            font-size: 1em;
-            text-align: center;
-            cursor: pointer;
-            z-index: 9;
-        }
-
-        .width_full {
-            width: 100%;
         }
     </style>
     <style>

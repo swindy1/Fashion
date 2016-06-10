@@ -1,0 +1,132 @@
+﻿@*这里是快捷栏模块*@
+<div id="sousuok" class="ssk_div">
+    <input type="text" id="inputSearchText" class="ssk" onblur="SearchPosts(this.id);" />
+</div>
+<div id="kjl_div" class="kjl_div">
+    <div id="sousuo" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)">
+        <img src="~/Images/Topic-Home-sousuo.png" class="width_full" />
+    </div>
+    <div id="tiwen" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)" onmouseout="    kuaijie_out(this.id)" onclick="xianshi_ask_div()">
+        <img src="/Images/Topic-Home-woyaotiwen.png" id="tiwen1" class="width_full" />
+    </div>
+    <div id="zixun" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)" onmouseout="kuaijie_out(this.id)" onclick="    window.location.href = '../Topic/Consult'">
+        <img src="/Images/Topic-Home-zixun.png" id="zixun1" class="width_full" />
+    </div>
+    <div id="xinxi" class="kuaijie_btn" onmouseover="kuaijie_over(this.id)" onmouseout="kuaijie_out(this.id)">
+        <img src="/Images/Topic-Home-xinxi.png" id="xinxi1" class="width_full" />
+    </div>
+    <div id="backtop" class="kuaijie_btn" onclick="scroll(0, 0)" onmouseover="kuaijie_over(this.id)" onmouseout="kuaijie_out(this.id)">
+        <img src="/Images/Topic-Home-backtop.png" id="backtop1" class="width_full" />
+    </div>
+</div>
+<script>
+
+    //本函数实现鼠标移上快捷栏时，快捷栏的图标变成字
+    function kuaijie_over(x) {
+        document.getElementById(x).className = "kuaijie_btn-hover";
+        if (x == "sousuo") {
+            document.getElementById(x).innerHTML = "点击搜索";
+            sousuok.style.display = "block";
+        }
+        else {
+            sousuo.innerHTML = "";
+            sousuo.className = "kuaijie_btn-hover";
+            var img_tb = document.createElement('img');//创建图片图标
+            sousuok.style.display = "none";
+            img_tb.setAttribute('src', '/Images/Topic-Home-sousuo.png');
+
+            img_tb.className = "width_full";
+            sousuo.appendChild(img_tb);
+
+            if (x == "backtop") {
+                document.getElementById(x).innerHTML = "返回顶部";
+            }
+            else if (x == "tiwen") {
+                document.getElementById(x).innerHTML = "点击提问";
+            }
+            else if (x == "zixun") {
+                document.getElementById(x).innerHTML = "专家咨询";
+            }
+            else if (x == "xinxi") {
+                document.getElementById(x).innerHTML = "查看信息";
+            }
+        }
+    }
+    //实现当鼠标移开时，快捷栏还原
+    function kuaijie_out(x) {
+        document.getElementById(x).innerHTML = "";
+        document.getElementById(x).className = "kuaijie_btn";
+        var img_tb = document.createElement('img');//创建图片图标
+        sousuok.style.display = "none";
+        if (x == "tiwen") {
+            img_tb.setAttribute('src', '/Images/Topic-Home-woyaotiwen.png');
+        }
+        else if (x == "zixun") {
+            img_tb.setAttribute('src', '/Images/Topic-Home-zixun.png');
+        }
+        else if (x == "xinxi") {
+            img_tb.setAttribute('src', '/Images/Topic-Home-xinxi.png');
+        }
+        else if (x == "backtop") {
+            img_tb.setAttribute('src', '/Images/Topic-Home-backtop.png');
+        }
+        img_tb.className = "width_full";
+        document.getElementById(x).appendChild(img_tb);
+    }
+</script>
+<style>
+
+
+
+    
+
+    
+</style>
+<style>
+    .ssk {
+        height: 22px;
+        width: 120px;
+    }
+
+    .kjl_div {
+        position: fixed;
+        top: 350px;
+        right: 100px;
+    }
+    .ssk_div {
+        position: fixed;
+        top: 350px;
+        right: 145px;
+        width: 150px;
+        height: 45px;
+        background: rgba(42, 42, 42,1);
+        padding: 12px 17px;
+        display: none;
+    }
+    .kuaijie_btn {
+        width: 45px;
+        height: 45px;
+        font-size: 0.2em;
+        background: rgba(42, 42, 42, 0.94);
+        padding: 6px;
+        margin-bottom: 1px;
+        text-align: center;
+        color: #c4bfbf;
+        cursor: default;
+    }
+    .width_full {
+        width: 86%;
+        margin-top:12%;
+    }
+    .kuaijie_btn-hover {
+        width: 45px;
+        height: 45px;
+        font-size: 0.2em;
+        padding: 6px;
+        margin-bottom: 1px;
+        text-align: center;
+        cursor: default;
+        color: white;
+        background: rgb(42, 42, 42);
+    }
+</style>

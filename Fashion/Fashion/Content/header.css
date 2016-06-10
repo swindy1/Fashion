@@ -1,0 +1,337 @@
+﻿
+.header{
+    background:url(../Images/Header/topbar.png) repeat;
+    background-position: -0px -80px;
+    float:left;
+    width:100%;
+    height:70px;
+    line-height:70px;
+}
+.logo{
+    color:white;
+    margin-left:12%;
+    margin-top:0;
+    float:left;
+    height:70px;
+}
+.navigation{
+    height:70px;
+    float:left;
+    margin-left:2%;
+}
+.navigation ul li{
+    color:white;
+    padding-left:30px;
+    padding-right:30px;
+    float:left;
+    height:70px;
+    font-size:19px;
+    border-right:1px solid rgba(250, 250, 250, 0.00);
+    cursor:default;
+}
+.navli_active{
+    background:url(../Images/Header/topbar.png) no-repeat;
+    overflow: hidden;
+    background-position: -0px -155px;
+    border-right:1px solid black;
+}
+.navigation ul li:hover{
+    background:url(../Images/Header/topbar.png) no-repeat;
+    overflow: hidden;
+    border-right:1px solid black;
+    background-position: -0px -470px;
+}
+.search_box{
+    background:url(../Images/Header/topbar.png) no-repeat;
+    overflow: hidden;
+    background-position: -0px -550px;
+    margin-left:20px;
+    float:left;
+    border:none;
+    width:210px;
+    height:35px;
+    margin-top:17px;
+    padding-left:35px;
+    line-height:35px;
+}
+.search_box input{
+    color:black;
+    height:20px;
+    float:left;
+    line-height:20px;
+    border:none;
+    background:none;
+    outline:none;
+    padding-top:9px;
+    font-size:0.5em;
+}
+.login_div{
+    cursor:default;padding:0 8px;
+}
+.login_div:hover{
+    color:white;
+}
+.loginDiv{
+    color:#d0cfcf;
+    font-size:14px;
+    float:left;
+    margin-left:25px;
+}
+#messageDiv{
+    background:url(../Images/Header/topbar.png) no-repeat;
+    background-position: -0px -60px;
+    height:17px;
+    float:left;
+    width:23px;
+    margin-top:25px;
+}
+#messageDiv:hover{
+    background-position: -60px -60px;
+}
+#head_portraitDiv{
+    background:url(../Images/Header/topbar.png) no-repeat;
+    background-position: -0px -390px;
+    float:left;
+    width:30px;
+    height:30px;
+    margin-top:18px;
+    margin-left:40px;
+}
+#theUserNameFont{
+    margin-left:10px;
+    float:left;
+    width:40px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    color: #d0cfcf;
+    font-size:0.5em;
+}
+.triangle_symbol_close{
+    background:url(../Images/Header/topbar.png) no-repeat;
+    background-position: -228px -380px;
+    float:left;
+    height:8px;
+    width:12px;
+    margin-top:32px;
+    margin-left:2px;
+}
+.triangle_symbol_open{
+    background:url(../Images/Header/topbar.png) no-repeat;
+    background-position: -228px -418px;
+    float:left;
+    height:8px;
+    width:12px;
+    margin-top:32px;
+    margin-left:2px;
+}
+#userDiv{
+    float:left;
+}
+.secondHeader{
+    background:url(../Images/Header/topbar.png) repeat;
+    background-position: -0px -230px;
+    float:left;
+    width:100%;
+    height:6px;
+    overflow:hidden;
+}
+#userUl{
+    background: rgb(42, 42, 42);
+    border:1px solid #404040;
+    border-radius: 3px;
+    color:white;
+    margin-top:-10px;
+    box-shadow: 0 0 0 1px black;
+    margin-left:20px;
+}
+.dropdown-menu-topjiao{
+    background:url(../Images/Header/topbar.png) repeat;
+    background-position: -190px -24px;
+    float:left;
+    width:16px;
+    height:8px;
+    z-index:90;
+    margin-top:-13px;
+    margin-left:66px;
+    position: absolute;
+}
+.divider-black{
+    margin: 9px 0;
+    overflow: hidden;
+    border-bottom:1px solid #404040;
+    border-top:1px solid black;
+}
+#userUl li a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 2.2em;
+  color: #d0cfcf;
+  white-space: nowrap;
+  font-size:0.8em;
+  outline:none;
+}
+
+#userUl li a:hover {
+  background-color: #404040;
+  color:white;
+}
+#userUl li span {
+    height:15px;
+    float:left;
+    width:15px;
+    margin-right:15px;
+    margin-top:6px;
+    margin:6px 12px auto 10px;
+}
+.menu-sel-1{
+    background:url(../Images/Header/my-home.png);
+}
+.menu-sel-2{
+  background:url(../Images/Header/my-question.png);
+}
+.menu-sel-3{
+  background:url(../Images/Header/my-answer.png);
+}
+.menu-sel-4{
+  background:url(../Images/Header/my-show.png);
+}
+.menu-sel-5{
+  background:url(../Images/Header/set.png);
+}
+.menu-sel-6{
+  background:url(../Images/Header/out.png);
+}
+.prompt-bg{
+    float:left;
+    font-size:0.1em;
+    margin-top:15px;
+    background-size:8px 8px;
+    background:url(../Images/Header/prompt-bg.png);
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    padding:9px 7px;
+    height:9px;
+    line-height:0px;
+    margin-left:-10px;
+}
+.home-nav-topjiao{
+    background:url(../Images/Header/topbar.png) no-repeat;
+    background-position: -226px -0px;
+    float:left;
+    width:14px;
+    height:9px;
+    margin-top:-7px;
+    margin-left:25.8%;
+    position:absolute;
+    z-index:2;
+    display:none;
+}
+.secondHeadernNav{
+    color:white;
+    height:20px;
+    line-height:20px;
+    margin-left:23.5%;
+}
+.secondHeadernNav span{
+    margin-right:50px;
+    float:left;
+    margin-top:8px;
+    border-radius:10px;
+    padding:0 15px;
+    cursor:pointer;
+}
+.secondHeadernNav-active,.secondHeadernNav span:hover{
+    background:url(../Images/Header/topbar.png) no-repeat;
+    background-position: -23px -276px;
+}
+
+/*------透明层CSS样式----------@*/
+        .div_new {
+            text-align: center;
+            border-top: 1px solid #a2b6b0;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #xg_question h6 {
+            margin-left: 5px;
+            margin-top: 0px;
+            padding-top: 5px;
+        }
+
+        #xg_question p {
+            margin-left: 5px;
+            margin-right: 5px;
+            color: gray;
+        }
+
+        #xg_question font {
+            margin-right: 5px;
+            color: black;
+        }
+
+        #xg_question p font:hover, .div_new:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        #xg_question p:hover {
+            text-decoration: none;
+            cursor: default;
+        }
+
+        .xg_question {
+            border-left: 1px solid #a2b6b0;
+            border-bottom: 1px solid #a2b6b0;
+            border-right: 1px solid #a2b6b0;
+            width: 98%;
+            
+        }
+
+        .ask_shenming h6 {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .ask_shenming {
+            padding: 10px 20px 0 20px;
+        }
+
+            .ask_shenming h6 {
+            }
+
+        .ask_div_top_bg {
+            background-color:black;
+            line-height: 30px;
+            height: 30px;
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            color: white;
+            font-weight: bold;
+        }
+
+        .ask_div {
+            background-color: white;
+            border-radius: 10px;
+            height: auto;
+            width: 40%;
+            margin-left: 28%;
+            padding-bottom: 20px;
+            top: 100px;
+            display: none;
+            position: absolute;
+        }
+
+        .touming_fugai_div {
+            height: 100%;
+            display: none;
+            width: 100%;
+            background-color: black;
+            filter: Alpha(Opacity=50); /*IE浏览器*/
+            -moz-opacity: 0.5; /*火狐浏览器*/
+            opacity: 0.5; /*其他浏览器*/
+            top: 0;
+            position: fixed;
+        }

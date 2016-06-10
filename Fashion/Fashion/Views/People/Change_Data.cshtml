@@ -1,7 +1,15 @@
 ﻿@{
     ViewBag.Title = "Change_Data";
-    Layout = "~/Views/Shared/top.cshtml";
+    Layout = "~/Views/Shared/Header.cshtml";
 }
+<script type="text/javascript">
+    //在页面加载时切换PeopleNavigationPartial菜单
+    window.onload = function () {
+        document.getElementById("Change_Data").style.borderBottom = "2px solid black";
+        document.getElementById("Change_Data").style.fontWeight = "bold";
+    }
+</script>
+<script src="~/Scripts/upload_tx_js/cropbox.js"></script>    <!--******一定要放在所有引用的js文件的后面！！！！！！**********-->
 <script src="~/Scripts/laydate.js"></script>
 <script src="~/Scripts/MyScripts/ImageFun.js"></script>
 <script type="text/javascript">
@@ -89,7 +97,7 @@
     }
 </style>
 <style>
-    .baocun {
+     .baocun {
         float: left;
         margin-top: 15px;
         margin-left: 20px;
@@ -133,10 +141,9 @@
     function tz_zhuye() {
         window.location.href = "Index";   //点击页面下方保存按钮后，跳转到个人主页
     }
+
 </script>
-<script src="~/Scripts/upload_tx_js/jquery-1.11.1.min.js"></script>
-<script src="~/Scripts/jquery.min.js"></script>
-<script src="~/Scripts/upload_tx_js/cropbox.js"></script>    <!--******一定要放在所有引用的js文件的后面！！！！！！**********-->
+
 <script type="text/javascript">
     //*****************上传头像的js代码*****************
     $(window).load(function () {
@@ -171,7 +178,6 @@
         })
     });
 </script>
-
 <script>
     //**********验证名字是否为2-4个中文字******
     function test_name(x) {
@@ -418,10 +424,6 @@
     });
 </script>
 <script type="text/javascript">
-
-   
-
-    
     function Save_Change_TouXiang()
     {
         var imgTouXiang = document.getElementById("imgBig");
@@ -435,7 +437,6 @@
             }
         });   
     }
-
     function Save_Change_QuanShenZhao()
     {
         
@@ -453,10 +454,11 @@
 
     }
 </script>
+
 @RenderPage("~/Views/Shared/PeopleModulePartial.cshtml")@*这里是个人设置里的左边模块的局部页面：关注（数量）、粉丝、提问、回答、收藏、获赞*@
 <div id="Right_div" class="Right_div">
     <div id="change_data_tab" class="tab_bar">
-        <h2 class="tab_ing">修改资料</h2>
+        <h2 id="Change_Data" class="tab_ing">修改资料</h2>
     </div>
     <div style="width: 100%; margin-bottom:80px; float: left;">
         <table cellspacing="10" style="float:left;">
@@ -669,7 +671,7 @@
                         <div id="LegLength_Choose">
                             <input type="text" name="LegLength" />
                             <ul>
-                                @for (int i = 20; i < 80; i++)
+                                @for (int i = 50; i < 140; i++)
                                 {
                                     <li>@i </li>
                                 }
