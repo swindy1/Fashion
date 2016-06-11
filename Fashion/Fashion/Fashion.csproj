@@ -223,6 +223,7 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\expert-register.css" />
     <Content Include="Content\header.css" />
+    <Content Include="Content\index.css" />
     <Content Include="Content\laydate-need.css" />
     <Content Include="Content\Peaple_upload_tx.css" />
     <Content Include="Content\People_Login.css" />
@@ -292,7 +293,11 @@
     <Content Include="Content\Topic_Home.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HtmlPage1.html" />
+    <Content Include="Images\Header\apply-btn-bg.png" />
+    <Content Include="Images\Header\apply-btn-hover.png" />
     <Content Include="Images\Header\default-tx.jpg" />
+    <Content Include="Images\Header\icon.png" />
     <Content Include="Images\Header\my-answer.png" />
     <Content Include="Images\Header\my-home.png" />
     <Content Include="Images\Header\my-question.png" />
@@ -352,6 +357,7 @@
     <Content Include="Images\PersonShowImg\VideoShowIndexImg\8.jpg" />
     <Content Include="Images\PersonShowImg\VideoShowIndexImg\bg_png.png" />
     <Content Include="Images\PersonShowImg\VideoShowIndexImg\foucebox_h2.png" />
+    <Content Include="Images\Header\Topic-Home.png" />
     <Content Include="Images\ShangCheng-Index-cloth1.jpg" />
     <Content Include="Images\Consult-ConsultDetails-unhappy.png" />
     <Content Include="Images\ConsultDetails-tu1.png" />
