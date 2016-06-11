@@ -41,7 +41,7 @@
 
                 var htmllist = "";
                 // alert(jsonData);
-                for (i = 0; i < 4; i++) {
+                for (i = 0; i < jsonData.length; i++) {
                     var ThePictureHtml = $("#ThePicture").html();
                     ThePictureHtml = ThePictureHtml.replace("swindyPutongzixunPicture", jsonData[i].firstPostPhotoUrl);
                     ThePictureHtml = ThePictureHtml.replace("swindyTedingzixunContent", jsonData[i].postContent);
