@@ -795,8 +795,6 @@
     <Content Include="Views\PersonShow\PictureShowIndex.cshtml" />
     <Content Include="Views\PersonShow\PersonShowIndex.cshtml" />
     <Content Include="Views\PersonShow\VideoPlay.cshtml" />
-    <Content Include="Videos\6.mkv" />
-    <Content Include="Videos\7.mkv" />
     <Content Include="Views\PersonShow\VideoPlay2.cshtml" />
     <Content Include="Views\PersonShow\VideoPlay3.cshtml" />
     <Content Include="Views\PersonShow\VideoPlay4.cshtml" />
@@ -809,6 +807,7 @@
     <Content Include="Views\PersonShow\PicturePlay.cshtml" />
     <Content Include="Views\PersonShow\PersonShow.cshtml" />
     <Content Include="Views\Topic\HomeTWO.cshtml" />
+    <Content Include="Videos\6.mkv" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
