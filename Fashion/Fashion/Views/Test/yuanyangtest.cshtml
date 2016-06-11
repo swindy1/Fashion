@@ -1,276 +1,342 @@
-﻿<div id="Right_div" class="Right_div">
-    <div id="change_data_tab" class="tab_bar">
-        <h2 class="tab_ing">修改资料</h2>
+﻿@{
+    ViewBag.Title = "Post";
+    Layout = "~/Views/Shared/Header.cshtml";
+}
+<link href="~/kindeditor/themes/default/default-yuanyang.css" rel="stylesheet" />
+<script src="~/kindeditor/lang/zh-CN.js"></script>
+<script src="~/kindeditor/kindeditor_yuanyang.js"></script>
+<link href="~/Content/Topic_Home.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        var editor;
+        KindEditor.ready(function (K) {
+            editor = K.create('#theEditor', {
+                themeType: 'default',
+                width: 550,
+                height: 500,
+                langType: 'zh-CN',
+                uploadJson: '../../kindeditor/asp.net/PostUpload_json.ashx',
+
+
+
+                //items: [
+                //    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                //    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                //    'insertunorderedlist', '|', 'emoticons', 'image', 'flash', 'media', 'link']
+            });
+        });
+        //submitBtn  postDataForm postDataForm
+        $("#submitBtn").click(function () {
+            editor.sync();
+            var theEditorContent = editor.text();//获得编辑框里的所有纯文本，不包含任何样式，因为要将前200个字符保存到数据库里
+            $("#editorContent").val(theEditorContent);
+            $("#postDataForm").submit();
+        });
+
+    });
+</script>
+<style>
+    #user_search {
+        width: 550px;
+        height: 30px;
+        border-radius: 4px;
+        font-size: 14px;
+        border: 1px solid #9D9D9D;
+        padding-left: 10px;
+    }
+
+    .content {
+        height: 70px;
+        visibility: hidden;
+    }
+
+    p.p1 {
+        float: left;
+    }
+
+    p.p2 {
+        float: right;
+        color: #ADADAD;
+        padding-right: 30px;
+    }
+
+
+    #niming {
+        padding-top: 10px;
+    }
+
+    #tijiao {
+        float: right;
+    }
+
+    .submit {
+        height: 35px;
+        width: 50px;
+        border-radius: 4px;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    /*#fenge {
+            padding: 0px 10px 0px 10px;
+            float: left;
+        }
+
+        #fengexian {
+            background-color: #5B5B5B;
+            width: 2px;
+            height: 475px;
+        }*/
+
+    .Answer {
+        display: none;
+        width: 350px;
+        height: 450px;
+        float: left;
+        padding-top: 30px;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .question {
+        padding-left: 45px;
+        color: #3C3C3C;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
+    .xian {
+        height: 1px;
+        width: 260px;
+        border: none;
+        border-top: 1px solid #D0D0D0;
+    }
+
+    .xiangguan {
+        padding: 10px 0px 0px 100px;
+        color: #808080;
+    }
+
+    .TheContentLeft {
+        padding: 30px 45px;
+    }
+</style>
+<script type="text/javascript">
+    //提交和清除键颜色的切换
+    $(document).ready(function () {
+        $("input#qingchu").mouseover(function () {
+            $("input#qingchu").css("background-color", "#0094ff");
+            $("input#submit").css("background-color", "#7dcaf6");
+        })
+        $("input#qingchu").mouseout(function () {
+            $("input#qingchu").css("background-color", "#7dcaf6")
+            $("input#submit").css("background-color", "#0094ff");
+        })
+    })
+</script>
+
+
+<script type="text/javascript">
+
+    function answer(x) {//右边切换模块
+        var y = document.getElementById(x).value;
+        if (y.length == 0) {
+            document.getElementById("hair").style.display = "none";
+            document.getElementById("wu").style.display = "none";
+            document.getElementById("zhu").style.display = "block";
+        }
+        else if (y == "发型") {
+            document.getElementById("hair").style.display = "block";
+            document.getElementById("wu").style.display = "none";
+            document.getElementById("zhu").style.display = "none";
+        }
+        else {
+            document.getElementById("wu").style.display = "block";
+            document.getElementById("hair").style.display = "none";
+            document.getElementById("zhu").style.display = "none";
+        }
+    }
+
+
+
+
+    function del() {                        //提交按钮
+        if (confirm("确实要提交吗？"))
+            alert("已经提交！")
+        else
+            alert("已经取消了提交操作");
+    }
+</script>
+<div id="TheContent" class="TheContent">
+    <div id="TheContentLeft" class="TheContentLeft">
+        <div id="TheContentLeft-head" class="TheContentLeft-head">
+            <span style="float:left;">
+                <span class="hot-word"><span class="hot-word-symbol"></span>我要提问</span>
+            </span>
+            <hr style="border:none;border-top:2px solid #c10d0c;float:left;width:550px;margin-top:5px;" />
+        </div>
+        <form action="postData" method="post" id="postDataForm">
+            <input type="text" placeholder="请在这里输入问题标题" id="user_search" name="question" class="question" onchange="answer(this.id)" oninput="answer(this.id)" />
+            <h4>问题描述：</h4>
+            <textarea id="theEditor" name="content" placeholder="问题背景、条件、照片等详细信息"></textarea>
+
+
+            <!--
+            复选框风格
+
+             <div style="float:left; width:100%; padding:0px 0px 5px 80px;">
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox"/>流行
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />男生
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />女生
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />风格
+                </div>
+            </div>
+            <div style="float:left; width:100%; padding:0px 0px 20px 80px;">
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />首饰
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />时装
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />街拍
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />技巧
+                </div>
+            </div>
+            -->
+            <!-- 下拉列表风格-->
+            <div style="float:left; width:100%; padding:0px 0px 15px 0px;">
+                <select name="theme" style="width: 680px; height: 30px; border-radius: 4px;">
+                    <option value="发型">发型</option>
+                    <option value="饰品">饰品</option>
+                    <option value="女装">女装</option>
+                    <option value="男装">男装</option>
+                    <option value="鞋帽">鞋帽</option>
+                    <option value="箱包">箱包</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <div id="niming" style="float:left;">
+                <input type="checkbox" />匿名
+            </div>
+            <div id="tijiao">
+                <input id="qingchu" class="submit" type="reset" value="清除" style="border: 1px solid #7dcaf6; background-color: #7dcaf6; " />
+
+                <input type="button" id="submitBtn" value="提交" style="border: 1px solid #0094ff;
+            background-color: #0094ff;" class="submit" />
+
+            </div>
+            <div style="height:300px;">
+                <input type="text" id="editorContent" name="editorContent" style="display:none;" />
+            </div>
+        </form>
+
+
+
+
     </div>
-    <div style="width: 100%; margin-bottom:80px; float: left;">
-        <table cellspacing="10" style="float:left;">
-            <caption style="float:left;font-size:1.5em;">头像修改</caption>
-            <tr>
-                <td>
-                    <div class="container">
-                        <div style="float:left;width:250px;">
-                            <div class="imageBox">
-                                <div class="thumbBox"></div>
-                                <div class="spinner" style="display: none">Loading...</div>
-                            </div>
-                            <div class="action">
-                                <!-- <input type="file" id="file" style=" width: 200px">-->
-                                <div class="new-contentarea tc">
-                                    <a href="javascript:void(0)" class="upload-img">
-                                        <label for="upload-file">上传图像</label>
-                                    </a>
-                                    <input type="file" class="" name="upload-file" id="upload-file" />
-                                </div>
-                                <input type="button" id="btnCrop" class="Btnsty_peyton" value="裁切">
-                                <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+">
-                                <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-">
-                            </div>
-                        </div>
-                        <div class="cropped"></div>
+    <div id="TheContentRight" class="TheContentRight">
+
+        <div class="zhuanjiatj">
+            <span class="right-header">入驻专家</span>
+            <span class="read-more" style="float:right;">查看全部></span>
+            <hr class="right-fgx" />
+            @for (int i = 0; i < 5; i++)
+            {
+                <div class="expers-box">
+                    <div class="expers-tx-box">
+                        <img src="~/Images/UserImages/TouXiang/ljiejie.png" />
                     </div>
-                </td>
-            </tr>
+                    <div class="expers-introduce">
+                        <div class="expers-name">林姐姐Linna</div>
+                        <div class="read-more">时尚公司服装顾问</div>
+                    </div>
 
-        </table>
-        <div class="baocun" id="baoCunTouXiang" onclick="Save_Change_TouXiang()">保存</div>
-    </div>
-    <div style="width: 100%; margin-bottom: 80px; float: left;">
-        <form action="UpdateInformation" method="post">
-            <table cellspacing="10" style="float:left;">
-                <caption style="float:left;font-size:1.5em;">个人信息</caption>
-                <tr><td>真实姓名：</td><td><input type="text" id="Real_name" name="realName" onblur="test_name(this.id)" /></td></tr>
-                <tr>
-                    <td>出生年月：</td>
-                    <td>
-                        <input class="laydate-icon" id="demo" name="BirthDate">
-                        <script type="text/javascript">
-                            !function () {
-                                laydate.skin('default');//切换皮肤，请查看skins下面皮肤库
-                                laydate({ elem: '#demo' });//绑定元素
-                            }();
-                        </script>
+                </div>
 
-                    </td>
-                </tr>
-                <tr>
-                    <td>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业：</td>
-                    <td>
-                        <div id="Job_Choose">
-                            <input type="text" name="Profession" />
-                            <ul style="display:none;">
-                                <li>教师</li>
-                                <li>学生</li>
-                                <li>白领</li>
-                                <li>家庭主妇</li>
-                                <li>其他</li>
-                            </ul>
-                        </div>
-                    </td>
+            }
+            <button class="btn apply-btn" onclick="window.location.href = '../Topic/Consult'">向专家咨询</button>
+            <button class="btn apply-btn" onclick="window.location.href = '../People/Expert_Register'">申请成为时尚专家</button>
+        </div>
+        <div class="zhuanjiatj">
+            <span class="right-header">达人榜</span>
+            <span class="read-more" style="float:right;">查看全部></span>
+            <hr class="right-fgx" />
+            @for (int i = 0; i < 6; i++)
+            {
+                <div class="daren-box">
+                    <div class="daren-tx-box">
+                        <img src="~/Images/UserImages/TouXiang/haha.png" />
+                    </div>
+                    <div class="daren-introduce">
+                        <div class="dare-data">林姐姐Linna<span class="daren-symbol"></span></div>
+                        <div class="color-gray dare-data">时尚公司服装顾问</div>
+                    </div>
 
-                </tr>
-                <tr><td>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</td><td><input type="text" id="phone_num" onblur="phone_num_test(this.id)" name="PhoneNumber" /></td></tr>
-                <tr>
-                    <td>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历：</td>
-                    <td>
-                        <div id="edu_bg_Choose">
-                            <input type="text" name="EducationalBackground" />
-                            <ul>
-                                <li>小学以下</li>
-                                <li>小学</li>
-                                <li>初中</li>
-                                <li>中专</li>
-                                <li>高中</li>
-                                <li>大专</li>
-                                <li>本科</li>
-                                <li>硕士</li>
-                                <li>博士</li>
-                                <li>博士后</li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                <tr><td>爱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好：</td><td><input type="text" name="Interest" /></td></tr>
-            </table>
-            <input type="submit" class="baocun" name="" value=" 保存" onclick="Save_Change()" />
+                </div>
+            }
 
-            <a name="sttz"></a>
-        </form>
-    </div>
-
-    <div style="width: 100%; margin-bottom: 80px; float: left;">
-        <form action="UpdateBodyData" method="post">
-            <table cellspacing="10" style="float:left;">
-                <caption style="float:left;font-size:1.5em;">体型特征</caption>
-                <tr>
-                    <td>肤&nbsp;&nbsp;&nbsp;&nbsp;色：</td>
-                    <td>
-                        <div id="skin_Choose">
-                            <input type="text" name="SkinColor" />
-                            <ul>
-                                <li>白皙</li>
-                                <li>粉嫩</li>
-                                <li>偏黑</li>
-                                <li>偏黄</li>
-                                <li>黝黑</li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>身&nbsp;&nbsp;&nbsp;&nbsp;高：</td>
-                    <td>
-                        <div id="height_Choose">
-                            <input type="text" name="Height" />
-                            <ul>
-                                @for (int i = 50; i < 240; i++)
-                                {
-                                    <li>@i </li>
-                                }
-                            </ul>
-                        </div>
-                    </td>
-                    <td>cm</td>
-                </tr>
-                <tr>
-                    <td>体&nbsp;&nbsp;&nbsp;&nbsp;重：</td>
-                    <td>
-                        <div id="weight_Choose">
-                            <input type="text" name="Weight" />
-                            <ul>
-                                @for (int i = 20; i < 200; i++)
-                                {
-                                    <li>@i </li>
-                                }
-                            </ul>
-                        </div>
-                    </td>
-                    <td>cm</td>
-                </tr>
-                <tr>
-                    <td>胸&nbsp;&nbsp;&nbsp;&nbsp;围：</td>
-                    <td>
-                        <div id="chest_Choose">
-                            <input type="text" name="XiongWei" />
-                            <ul>
-                                @for (int i = 50; i < 120; i++)
-                                {
-                                    <li>@i </li>
-                                }
-                            </ul>
-                        </div>
-                    </td>
-                    <td>cm</td>
-                </tr>
-                <tr>
-                    <td>腰&nbsp;&nbsp;&nbsp;&nbsp;围：</td>
-                    <td>
-                        <div id="Waist_Choose">
-                            <input type="text" name="YaoWei" />
-                            <ul>
-                                @for (int i = 50; i < 120; i++)
-                                {
-                                    <li>@i </li>
-                                }
-                            </ul>
-                        </div>
-                    </td>
-                    <td>cm</td>
-                </tr>
-                <tr>
-                    <td>臀&nbsp;&nbsp;&nbsp;&nbsp;围：</td>
-                    <td>
-                        <div id="hipline_Choose">
-                            <input type="text" name="TunWei" />
-                            <ul>
-                                @for (int i = 50; i < 120; i++)
-                                {
-                                    <li>@i </li>
-                                }
-                            </ul>
-                        </div>
-                    </td>
-                    <td>cm</td>
-                </tr>
-                <tr>
-                    <td>臂&nbsp;&nbsp;&nbsp;&nbsp;围：</td>
-                    <td>
-                        <div id="ArmGirth_Choose">
-                            <input type="text" name="ArmGirth" />
-                            <ul>
-                                @for (int i = 20; i < 80; i++)
-                                {
-                                    <li>@i </li>
-                                }
-                            </ul>
-                        </div>
-                    </td>
-                    <td>cm</td>
-                </tr>
-
-                <tr>
-                    <td>腿&nbsp;&nbsp;&nbsp;&nbsp;长：</td>
-                    <td>
-                        <div id="LegLength_Choose">
-                            <input type="text" name="LegLength" />
-                            <ul>
-                                @for (int i = 20; i < 80; i++)
-                                {
-                                    <li>@i </li>
-                                }
-                            </ul>
-                        </div>
-                    </td>
-                    <td>cm</td>
-                </tr>
-                <tr>
-                    <td>大腿围：</td>
-                    <td>
-                        <div id="ThighGirth_Choose">
-                            <input type="text" name="ThighGirth" />
-                            <ul>
-                                @for (int i = 20; i < 80; i++)
-                                {
-                                    <li>@i </li>
-                                }
-                            </ul>
-                        </div>
-                    </td>
-                    <td>cm</td>
-                </tr>
-                <tr>
-                    <td>小腿围：</td>
-                    <td>
-                        <div id="CalfGirth_Choose">
-                            <input type="text" name="CalfGirth" />
-                            <ul>
-                                @for (int i = 20; i < 80; i++)
-                                {
-                                    <li>@i </li>
-                                }
-                            </ul>
-                        </div>
-                    </td>
-                    <td>cm</td>
-                </tr>
-            </table>
-            <input type="submit" class="baocun" name="" value=" 保存" onclick="Save_Change()" />
-        </form>
+        </div>
 
     </div>
-    <div style="width: 100%; margin-bottom: 50px; float: left;">
-        <table cellspacing="10" style="float:left;">
-            <caption style="float:left;font-size:1.5em;">全身照</caption>
-            <tr>
-                <td>
-                    <div id="preview" style="height:350px;width:250px;border-radius:20px;border:1px solid black;"></div>
 
-                    <input type="file" onchange="previewImage(this)" style="margin-top:20px;" />
-                </td>
-            </tr>
-        </table>
-        <div class="baocun" id="baoCunQuanShenZhao" onclick="Save_Change_QuanShenZhao()">保存</div>
-
-    </div>
-    <hr />
-    <button class="save_zl" onclick="Save_Change(),tz_zhuye()">保存</button>
 </div>
+
+
+
+@*<div style=" float:left ;">
+        <div id="fenge">
+            <div id="fengexian"></div>
+        </div>
+
+        <div id="hair" class="Answer">
+            <div class="xiangguan">
+                您的问题可能已经有答案
+            </div>
+            <hr class="xian" />
+            <a href="http://www.yoka.com/dna/195/997/index.html" class="question">发型很重要么？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跪求发型。？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">关于发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">男士发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跛co发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">跪求发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">求发型简单好打理的发型推荐？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">最近发型被各种人吐槽，求换发型？</a>
+            <hr class="xian" />
+            <a href=" http://www.yoka.com/dna/195/997/index.html" class="question">脸大适合什么发型？</a>
+            <hr class="xian" />
+        </div>
+
+        <div id="wu" class="Answer">
+            <div class="xiangguan">
+                目前还没有相似的问题
+            </div>
+            <hr class="xian" />
+        </div>
+
+        <div id="zhu" class="Answer" style="display:block;">
+            <p class="question">时尚达人网欢迎您的提问。</p>
+            <p class="question">若您的问题已曾被提出，</p>
+            <p class="question">请不要发布，以免造成信息重复。</p>
+            <p class="question">您的支持是我们最大的动力！</p>
+            <p class="question">时尚达人将尽快为您解答。</p>
+        </div>
+
+    </div>*@

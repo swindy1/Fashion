@@ -2,18 +2,18 @@
     ViewBag.Title = "Post";
     Layout = "~/Views/Shared/Header.cshtml";
 }
-<link href="~/kindeditor/themes/default/default.css" rel="stylesheet" />
-<script src="~/kindeditor/kindeditor-all-min.js"></script>
+<link href="~/kindeditor/themes/default/default-yuanyang.css" rel="stylesheet" />
 <script src="~/kindeditor/lang/zh-CN.js"></script>
-    <script src="~/Scripts/jquery-1.11.0.min.js"></script>
+<script src="~/kindeditor/kindeditor_yuanyang.js"></script>
+<link href="~/Content/Topic_Home.css" rel="stylesheet" />
 <script type="text/javascript">
     $(document).ready(function () {
         var editor;
         KindEditor.ready(function (K) {
-                editor = K.create('#theEditor', {
+            editor = K.create('#theEditor', {
                 themeType: 'default',
-                width: 670,
-                height: 200,
+                width: 550,
+                height: 500,
                 langType: 'zh-CN',
                 uploadJson: '../../kindeditor/asp.net/PostUpload_json.ashx',
 
@@ -23,7 +23,7 @@
                 //    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
                 //    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
                 //    'insertunorderedlist', '|', 'emoticons', 'image', 'flash', 'media', 'link']
-                });
+            });
         });
         //submitBtn  postDataForm postDataForm
         $("#submitBtn").click(function () {
@@ -32,94 +32,53 @@
             $("#editorContent").val(theEditorContent);
             $("#postDataForm").submit();
         });
-        
+
     });
 </script>
+<style>
+    #user_search {
+        width: 550px;
+        height: 30px;
+        border-radius: 4px;
+        font-size: 14px;
+        border: 1px solid #9D9D9D;
+        padding-left: 10px;
+    }
 
-    <style>
-     
+    .content {
+        height: 70px;
+        visibility: hidden;
+    }
 
-        #left {
-            float: left;
-            padding-top: 30px;
-            width: 55%;
-            height: 500px;
-            /*width: 570px;*/
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.8);
-            
-        }
+    p.p1 {
+        float: left;
+    }
 
-        #title {
-            width: 680px;
-            height: 40px;
-            background-color: #0094ff;
-            border-radius: 4px;
-            margin-left: 25px;
-        }
+    p.p2 {
+        float: right;
+        color: #ADADAD;
+        padding-right: 30px;
+    }
 
-        #title_word {
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: bold;
-            padding-left: 15px;
-            padding-top: 8px;
-        }
 
-        #form {
-            padding-left: 30px;
-        }
+    #niming {
+        padding-top: 10px;
+    }
 
-        #form_one {
-            padding: 15px 0px 5px 0px;
-        }
+    #tijiao {
+        float: right;
+    }
 
-        #user_search {
-            width: 655px;
-            height: 30px;
-            border-radius: 4px;
-            font-size: 14px;
-            border: 1px solid #9D9D9D;
-            padding-left: 10px;
-        }
+    .submit {
+        height: 35px;
+        width: 50px;
+        border-radius: 4px;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: bold;
+    }
 
-       
-
-        .content {
-            height: 70px;
-            visibility: hidden;
-        }
-
-        p.p1 {
-            float: left;
-        }
-
-        p.p2 {
-            float: right;
-            color: #ADADAD;
-            padding-right: 30px;
-        }
-
-       
-        #niming {
-            padding-top: 10px;
-        }
-
-        #tijiao {
-            float: right;
-            margin-right: 25px;
-        }
-
-        .submit {
-            height: 35px;
-            width: 50px;
-            border-radius: 4px;
-            color: #ffffff;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
-        /*#fenge {
+    /*#fenge {
             padding: 0px 10px 0px 10px;
             float: left;
         }
@@ -130,167 +89,212 @@
             height: 475px;
         }*/
 
-        .Answer {
-            display: none;
-            width: 350px;
-            height: 450px;
-            float: left;
-            padding-top: 30px;
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.8);
-        }
+    .Answer {
+        display: none;
+        width: 350px;
+        height: 450px;
+        float: left;
+        padding-top: 30px;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
 
-        .question {
-            padding-left: 45px;
-            color: #3C3C3C;
-            text-decoration: none;
-        }
+    .question {
+        padding-left: 45px;
+        color: #3C3C3C;
+        text-decoration: none;
+        margin-top: 10px;
+    }
 
-        .xian {
-            height: 1px;
-            width: 260px;
-            border: none;
-            border-top: 1px solid #D0D0D0;
-        }
+    .xian {
+        height: 1px;
+        width: 260px;
+        border: none;
+        border-top: 1px solid #D0D0D0;
+    }
 
-        .xiangguan {
-            padding: 10px 0px 0px 100px;
-            color: #808080;
-        }
-    </style>
-    <script type="text/javascript">
-        //提交和清除键颜色的切换
-        $(document).ready(function () {
-            $("input#qingchu").mouseover(function () {
-                $("input#qingchu").css("background-color", "#0094ff");
-                $("input#submit").css("background-color", "#7dcaf6");
-            })
-            $("input#qingchu").mouseout(function () {
-                $("input#qingchu").css("background-color", "#7dcaf6")
-                $("input#submit").css("background-color", "#0094ff");
-            })
+    .xiangguan {
+        padding: 10px 0px 0px 100px;
+        color: #808080;
+    }
+
+    .TheContentLeft {
+        padding: 30px 45px;
+    }
+</style>
+<script type="text/javascript">
+    //提交和清除键颜色的切换
+    $(document).ready(function () {
+        $("input#qingchu").mouseover(function () {
+            $("input#qingchu").css("background-color", "#0094ff");
+            $("input#submit").css("background-color", "#7dcaf6");
         })
-    </script>
+        $("input#qingchu").mouseout(function () {
+            $("input#qingchu").css("background-color", "#7dcaf6")
+            $("input#submit").css("background-color", "#0094ff");
+        })
+    })
+</script>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        function answer(x) {//右边切换模块
-            var y = document.getElementById(x).value;
-            if (y.length == 0) {
-                document.getElementById("hair").style.display = "none";
-                document.getElementById("wu").style.display = "none";
-                document.getElementById("zhu").style.display = "block";
-            }
-            else if (y == "发型") {
-                document.getElementById("hair").style.display = "block";
-                document.getElementById("wu").style.display = "none";
-                document.getElementById("zhu").style.display = "none";
-            }
-            else {
-                document.getElementById("wu").style.display = "block";
-                document.getElementById("hair").style.display = "none";
-                document.getElementById("zhu").style.display = "none";
-            }
+    function answer(x) {//右边切换模块
+        var y = document.getElementById(x).value;
+        if (y.length == 0) {
+            document.getElementById("hair").style.display = "none";
+            document.getElementById("wu").style.display = "none";
+            document.getElementById("zhu").style.display = "block";
         }
-
-
-
-
-        function del() {                        //提交按钮
-            if (confirm("确实要提交吗？"))
-                alert("已经提交！")
-            else
-                alert("已经取消了提交操作");
+        else if (y == "发型") {
+            document.getElementById("hair").style.display = "block";
+            document.getElementById("wu").style.display = "none";
+            document.getElementById("zhu").style.display = "none";
         }
-    </script>
+        else {
+            document.getElementById("wu").style.display = "block";
+            document.getElementById("hair").style.display = "none";
+            document.getElementById("zhu").style.display = "none";
+        }
+    }
 
 
 
-    <div id="left" style="margin-left:300px;">
-        <div id="title">
-            <div id="title_word">
-                我想咨询
-            </div>
+
+    function del() {                        //提交按钮
+        if (confirm("确实要提交吗？"))
+            alert("已经提交！")
+        else
+            alert("已经取消了提交操作");
+    }
+</script>
+<div id="TheContent" class="TheContent">
+    <div id="TheContentLeft" class="TheContentLeft">
+        <div id="TheContentLeft-head" class="TheContentLeft-head">
+            <span style="float:left;">
+                <span class="hot-word"><span class="hot-word-symbol"></span>我要提问</span>
+            </span>
+            <hr style="border:none;border-top:2px solid #c10d0c;float:left;width:550px;margin-top:5px;" />
         </div>
         <form action="postData" method="post" id="postDataForm">
-            <div id="form">
-                <div id="form_one">
-                    <input type="text" placeholder="写下你的问题" id="user_search" name="question" class="question" onchange="answer(this.id)" oninput="answer(this.id)" />
-                </div>
-                <div>
-                    <div style=" display:inline-block;"><p>问题说明（可选）：</p></div>
-                </div>
-                <div>
-                    <textarea id="theEditor"name="content" placeholder="问题背景、条件等详细信息"></textarea>
-                </div>
+            <input type="text" placeholder="请在这里输入问题标题" id="user_search" name="question" class="question" onchange="answer(this.id)" oninput="answer(this.id)" />
+            <h4>问题描述：</h4>
+            <textarea id="theEditor" name="content" placeholder="问题背景、条件、照片等详细信息"></textarea>
 
-                <div>
-                    <p class="p1">选择话题：</p>
-                    <p class="p2">话题越精准，越容易让相关领域专业人士看到你的问题</p>
-                </div>
-                <!--
-                复选框风格
 
-                 <div style="float:left; width:100%; padding:0px 0px 5px 80px;">
-                    <div style="float:left ;width:60px;">
-                        <input type="checkbox"/>流行
-                    </div>
-                    <div style="float:left ;width:60px;">
-                        <input type="checkbox" />男生
-                    </div>
-                    <div style="float:left ;width:60px;">
-                        <input type="checkbox" />女生
-                    </div>
-                    <div style="float:left ;width:60px;">
-                        <input type="checkbox" />风格
-                    </div>
-                </div>
-                <div style="float:left; width:100%; padding:0px 0px 20px 80px;">
-                    <div style="float:left ;width:60px;">
-                        <input type="checkbox" />首饰
-                    </div>
-                    <div style="float:left ;width:60px;">
-                        <input type="checkbox" />时装
-                    </div>
-                    <div style="float:left ;width:60px;">
-                        <input type="checkbox" />街拍
-                    </div>
-                    <div style="float:left ;width:60px;">
-                        <input type="checkbox" />技巧
-                    </div>
-                </div>
-                -->
-                <!-- 下拉列表风格-->
-                <div style="float:left; width:100%; padding:0px 0px 15px 0px;">
-                    <select name="theme" style="width: 680px; height: 30px; border-radius: 4px;">
-                        <option value="发型">发型</option>
-                        <option value="饰品">饰品</option>
-                        <option value="女装">女装</option>
-                        <option value="男装">男装</option>
-                        <option value="鞋帽">鞋帽</option>
-                        <option value="箱包">箱包</option>
-                        <option value="其他">其他</option>
-                    </select>
-                </div>
-                <br />
-                <div id="niming" style="float:left;">
-                    <input type="checkbox" />匿名
-                </div>
-                <div id="tijiao">
-                    <input id="qingchu" class="submit" type="reset" value="清除" style="border: 1px solid #7dcaf6; background-color: #7dcaf6; " />
+            <!--
+            复选框风格
 
-                    <input type="button" id="submitBtn" value="提交" style="border: 1px solid #0094ff;
+             <div style="float:left; width:100%; padding:0px 0px 5px 80px;">
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox"/>流行
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />男生
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />女生
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />风格
+                </div>
+            </div>
+            <div style="float:left; width:100%; padding:0px 0px 20px 80px;">
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />首饰
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />时装
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />街拍
+                </div>
+                <div style="float:left ;width:60px;">
+                    <input type="checkbox" />技巧
+                </div>
+            </div>
+            -->
+            <!-- 下拉列表风格-->
+            <div style="float:left; width:100%; padding:0px 0px 15px 0px;">
+                <select name="theme" style="width: 680px; height: 30px; border-radius: 4px;">
+                    <option value="发型">发型</option>
+                    <option value="饰品">饰品</option>
+                    <option value="女装">女装</option>
+                    <option value="男装">男装</option>
+                    <option value="鞋帽">鞋帽</option>
+                    <option value="箱包">箱包</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <div id="niming" style="float:left;">
+                <input type="checkbox" />匿名
+            </div>
+            <div id="tijiao">
+                <input id="qingchu" class="submit" type="reset" value="清除" style="border: 1px solid #7dcaf6; background-color: #7dcaf6; " />
+
+                <input type="button" id="submitBtn" value="提交" style="border: 1px solid #0094ff;
             background-color: #0094ff;" class="submit" />
 
-                </div>
             </div>
             <div style="height:300px;">
                 <input type="text" id="editorContent" name="editorContent" style="display:none;" />
             </div>
         </form>
+
+
+
+
     </div>
-    @*<div style=" float:left ;">
+    <div id="TheContentRight" class="TheContentRight">
+
+        <div class="zhuanjiatj">
+            <span class="right-header">入驻专家</span>
+            <span class="read-more" style="float:right;">查看全部></span>
+            <hr class="right-fgx" />
+            @for (int i = 0; i < 5; i++)
+            {
+                <div class="expers-box">
+                    <div class="expers-tx-box">
+                        <img src="~/Images/UserImages/TouXiang/ljiejie.png" />
+                    </div>
+                    <div class="expers-introduce">
+                        <div class="expers-name">林姐姐Linna</div>
+                        <div class="read-more">时尚公司服装顾问</div>
+                    </div>
+
+                </div>
+
+            }
+            <button class="btn apply-btn" onclick="window.location.href = '../Topic/Consult'">向专家咨询</button>
+            <button class="btn apply-btn" onclick="window.location.href = '../People/Expert_Register'">申请成为时尚专家</button>
+        </div>
+        <div class="zhuanjiatj">
+            <span class="right-header">达人榜</span>
+            <span class="read-more" style="float:right;">查看全部></span>
+            <hr class="right-fgx" />
+            @for (int i = 0; i < 6; i++)
+            {
+                <div class="daren-box">
+                    <div class="daren-tx-box">
+                        <img src="~/Images/UserImages/TouXiang/haha.png" />
+                    </div>
+                    <div class="daren-introduce">
+                        <div class="dare-data">林姐姐Linna<span class="daren-symbol"></span></div>
+                        <div class="color-gray dare-data">时尚公司服装顾问</div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+@*<div style=" float:left ;">
         <div id="fenge">
             <div id="fengexian"></div>
         </div>

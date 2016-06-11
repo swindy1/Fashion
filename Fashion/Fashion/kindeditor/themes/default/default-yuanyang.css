@@ -425,7 +425,7 @@
 /* toolbar */
 .ke-toolbar {
 	border-bottom: 1px solid #CCC;
-	background-color: #F0F0EE;
+	background-color: #E9EFF6;
 	padding: 2px 5px;
 	text-align: left;
 	overflow: hidden;
@@ -505,7 +505,7 @@
 .ke-statusbar {
 	position: relative;
 	background-color: #F0F0EE;
-	border-top: 1px solid #CCCCCC;
+	border-top: 1px solid ke-toolbarCCC;
 	font-size: 0;
 	line-height: 0;
 	*height: 12px;
@@ -1144,4 +1144,3 @@
 	width: 30%;
 	text-align: center;
 }
-
