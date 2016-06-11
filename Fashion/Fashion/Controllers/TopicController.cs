@@ -18,6 +18,7 @@ namespace Fashion.Controllers
 
         public ActionResult HomeTWO()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
 
@@ -202,8 +203,8 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult AjaxPostSupportCountAdd1()
         {
-            if (Session["userName"] == null)
-                return Content("2");
+            //if (Session["userName"] == null)
+            //    return Content("2");
 
             string postIdStr=Request["postId"].ToString();
             int postId=Convert.ToInt32(postIdStr);

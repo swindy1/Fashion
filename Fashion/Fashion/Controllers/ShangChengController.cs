@@ -19,150 +19,187 @@ namespace Fashion.Controllers
         }
         public ActionResult ClothDetails()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index1()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index2()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index3()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index4()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index5()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index6()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index7()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index8()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index9()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index10()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index11()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index12()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index13()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index14()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index15()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index16()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index17()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index18()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index19()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index20()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index21()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index22()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index23()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index24()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index25()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index26()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index27()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index28()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index29()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index30()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index31()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index32()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index33()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index34()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index35()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         public ActionResult Index36()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
         
