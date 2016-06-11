@@ -56,7 +56,7 @@ namespace Fashion.Code.DAL
             Post_model post_model = new Post_model();
             post_model.postContent = row["content"].ToString();//内容
             post_model.firstPostPhotoUrl = row["PostPhoto_PhotoUrl"].ToString();//图
-            post_model.postHtmlUrl = row["htmlUrl"].ToString();
+            post_model.postId = (int)row["id"];
             return post_model;
         }
 

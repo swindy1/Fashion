@@ -29,10 +29,7 @@ namespace Fashion.Controllers
 
         public ActionResult PostDetails()
         {
-            if (Session["userName"] == null)
-            {
-                return View("LoginRemind");
-            }
+         
             LoginStatusConfig();          //配置登录状态            
             int postId = Convert.ToInt32(Request["postId"]);
             //获取postId的原帖数据
