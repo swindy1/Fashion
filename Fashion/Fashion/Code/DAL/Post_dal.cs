@@ -10,9 +10,6 @@ namespace Fashion.Code.DAL
 {   
 
 
-
-
-
     
     public class Post_dal
     {
@@ -30,6 +27,39 @@ namespace Fashion.Code.DAL
         //    };
         //    return SqlHelper.ExecuteScalar(sqlStr, parameters);
         //}
+
+
+
+
+        /// <summary>
+        /// 从数据库获取四张普通咨询帖子的首图、html链接、内容前两百个字符
+        /// </summary>
+        /// <returns></returns>
+        public List<Post_model> GetFourPuTongPost()
+        {
+            string sqlStr = "select top 4 * from PostView";
+            DataTable dataTable = SqlHelper.ExecuteDataTable(sqlStr);
+            List<Post_model> post_modelList = new List<Post_model>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                post_modelList.Add(ToPictureModel(row));//调用ToPictureModel()函数
+            }
+
+            return post_modelList;
+
+        }
+
+        //将一条数据转化为Post-model数据
+        //帖子的第一张图片，内容的前200个字符
+        public Post_model ToPictureModel(DataRow row)
+        {
+            Post_model post_model = new Post_model();
+            post_model.postContent = row["content"].ToString();//内容
+            post_model.firstPostPhotoUrl = row["PostPhoto_PhotoUrl"].ToString();//图
+            post_model.postHtmlUrl = row["htmlUrl"].ToString();
+            return post_model;
+        }
+
 
 
 

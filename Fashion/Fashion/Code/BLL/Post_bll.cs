@@ -9,7 +9,25 @@ namespace Fashion.Code.BLL
 {
     public class Post_bll
     {
-       
+
+        /// <summary>
+        /// 获取4张普通咨询的帖子
+        /// </summary>
+        /// <returns></returns>
+        public List<Post_model> GetFourPuTongPost()
+        {
+            Post_dal post_dal = new Post_dal();
+            List<Post_model> post_model = post_dal.GetFourPuTongPost();
+            return post_model;
+        }
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// 执行收藏，取消收藏或不执行操作的逻辑判断

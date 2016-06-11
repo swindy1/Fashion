@@ -807,6 +807,8 @@
     <Content Include="Views\PersonShow\VideoPlay9.cshtml" />
     <Content Include="Views\PersonShow\VideoPlay10.cshtml" />
     <Content Include="Views\PersonShow\PicturePlay.cshtml" />
+    <Content Include="Views\PersonShow\PersonShow.cshtml" />
+    <Content Include="Views\Topic\HomeTWO.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
