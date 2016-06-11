@@ -146,8 +146,23 @@ namespace Fashion.Code.DAL
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@caption",caption)
             };
+            return SqlHelper.ExecuteScalar(sqlStr, parameters);  
+        }
+
+        /// <summary>
+        /// 通过静态post页面url查询数据库获得postId
+        /// 结果返回1代表数据库出错
+        /// </summary>
+        /// <param name="caption"></param>
+        /// <returns></returns>
+        public object GetPostIdBy_PostHtmlUrl(string postHtmlUrl)
+        {
+            string sqlStr = "select Post_Id from tb_Post where Post_HtmlUrl=@postHtmlUrl";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@postHtmlUrl",postHtmlUrl)
+            };
             return SqlHelper.ExecuteScalar(sqlStr, parameters);
-            
+
         }
 
       

@@ -186,12 +186,14 @@
     </Compile>
     <Compile Include="Models\Attention_model.cs" />
     <Compile Include="Models\Collect_model.cs" />
+    <Compile Include="Models\Comment_model.cs" />
     <Compile Include="Models\CountUser_model.cs" />
     <Compile Include="Models\ExpertUserConsult_model.cs" />
     <Compile Include="Models\PostComment_model.cs" />
     <Compile Include="Models\ErrorMessage_model.cs" />
     <Compile Include="Models\Message_model.cs" />
     <Compile Include="Models\Module_model.cs" />
+    <Compile Include="Models\PostFull_model.cs" />
     <Compile Include="Models\PostPhoto_model.cs" />
     <Compile Include="Models\Post_model.cs" />
     <Compile Include="Models\Rank_model.cs" />
@@ -223,7 +225,7 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\expert-register.css" />
     <Content Include="Content\header.css" />
-    <Content Include="Content\index.css" />
+    <Content Include="Content\footer.css" />
     <Content Include="Content\laydate-need.css" />
     <Content Include="Content\Peaple_upload_tx.css" />
     <Content Include="Content\People_Login.css" />
@@ -293,7 +295,6 @@
     <Content Include="Content\Topic_Home.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="Images\Header\apply-btn-bg.png" />
     <Content Include="Images\Header\apply-btn-hover.png" />
     <Content Include="Images\Header\default-tx.jpg" />
@@ -386,6 +387,9 @@
     <Content Include="Images\People-myAsks_huangguan.png" />
     <Content Include="Images\People-Index-xiugaiziliao.png" />
     <Content Include="Images\ShangCheng\1.jpg" />
+    <Content Include="Images\ShangCheng\10.jpg" />
+    <Content Include="Images\ShangCheng\11.jpg" />
+    <Content Include="Images\ShangCheng\12.jpg" />
     <Content Include="Images\ShangCheng\2.jpg" />
     <Content Include="Images\ShangCheng\3.jpg" />
     <Content Include="Images\ShangCheng\4.jpg" />
@@ -393,6 +397,7 @@
     <Content Include="Images\ShangCheng\6.jpg" />
     <Content Include="Images\ShangCheng\7.jpg" />
     <Content Include="Images\ShangCheng\8.jpg" />
+    <Content Include="Images\ShangCheng\9.jpg" />
     <Content Include="Images\ShangCheng\cart.gif" />
     <Content Include="Images\ShangCheng\right-icon.gif" />
     <Content Include="Images\StreetSnap-streetHome-blog.jpg" />
@@ -811,9 +816,20 @@
     <Content Include="Views\PersonShow\VideoPlay9.cshtml" />
     <Content Include="Views\PersonShow\VideoPlay10.cshtml" />
     <Content Include="Views\PersonShow\PicturePlay.cshtml" />
-    <Content Include="Views\PersonShow\PersonShow.cshtml" />
     <Content Include="Views\Topic\HomeTWO.cshtml" />
     <Content Include="Videos\6.mkv" />
+    <Content Include="Views\ShangCheng\Index26.cshtml" />
+    <Content Include="Views\ShangCheng\Index27.cshtml" />
+    <Content Include="Views\ShangCheng\Index28.cshtml" />
+    <Content Include="Views\ShangCheng\Index29.cshtml" />
+    <Content Include="Views\ShangCheng\Index30.cshtml" />
+    <Content Include="Views\ShangCheng\Index31.cshtml" />
+    <Content Include="Views\ShangCheng\Index32.cshtml" />
+    <Content Include="Views\ShangCheng\Index33.cshtml" />
+    <Content Include="Views\ShangCheng\Index34.cshtml" />
+    <Content Include="Views\ShangCheng\Index35.cshtml" />
+    <Content Include="Views\ShangCheng\Index36.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

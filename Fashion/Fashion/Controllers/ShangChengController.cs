@@ -121,6 +121,51 @@ namespace Fashion.Controllers
         {
             return View();
         }
+        public ActionResult Index26()
+        {
+            return View();
+        }
+        public ActionResult Index27()
+        {
+            return View();
+        }
+        public ActionResult Index28()
+        {
+            return View();
+        }
+        public ActionResult Index29()
+        {
+            return View();
+        }
+        public ActionResult Index30()
+        {
+            return View();
+        }
+        public ActionResult Index31()
+        {
+            return View();
+        }
+        public ActionResult Index32()
+        {
+            return View();
+        }
+        public ActionResult Index33()
+        {
+            return View();
+        }
+        public ActionResult Index34()
+        {
+            return View();
+        }
+        public ActionResult Index35()
+        {
+            return View();
+        }
+        public ActionResult Index36()
+        {
+            return View();
+        }
+        
 
         /// <summary>
         /// 配置用户登录状态
