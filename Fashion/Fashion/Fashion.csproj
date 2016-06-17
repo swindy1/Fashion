@@ -673,7 +673,9 @@
     <Content Include="Images\people-register-next_2.png" />
     <Content Include="Images\people-right.png" />
     <Content Include="Images\people-wrong.png" />
+    <Content Include="Videos\1.avi" />
     <Content Include="Videos\1.mp4" />
+    <Content Include="Videos\1.swf" />
     <Content Include="Videos\2.mp4" />
     <Content Include="Videos\3.mp4" />
     <Content Include="Videos\4.mp4" />
