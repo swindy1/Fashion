@@ -256,17 +256,14 @@ K.options = {
 	indentChar : '\t',
 	cssPath : '',
 	cssData : '',
-	minWidth : 650,
+	minWidth : 350,
 	minHeight : 100,
 	minChangeSize : 50,
 	zIndex : 811213,
 	items : [
-		'source', '|', 'undo', 'redo', '|', 'preview', '|', 'justifyleft', 'justifycenter', 'justifyright',
-		'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
-		'superscript',  '|', 'fullscreen', '/',
 		'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
 		'italic', 'underline',  'lineheight','|', 'image',
-		 'hr', 'emoticons',  'pagebreak','link', 'unlink'
+		 'hr', 'link', 'unlink'
 	],
 	noDisableItems : ['source', 'fullscreen'],
 	colorTable : [

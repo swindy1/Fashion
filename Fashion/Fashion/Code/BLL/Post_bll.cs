@@ -95,6 +95,22 @@ namespace Fashion.Code.BLL
             }
             return (int)postId;
         }
+        /// <summary>
+        /// 通过静态post页面url查询数据库获得postId
+        /// 结果返回1代表数据库出错
+        /// </summary>
+        /// <param name="caption"></param>
+        /// <returns></returns>
+        public int GetPostIdBy_PostHtmlUrl(string postHtmlUrl)
+        {
+            Post_dal post_dal = new Post_dal();
+            object postId = post_dal.GetPostIdBy_PostHtmlUrl(postHtmlUrl);
+            if (postId == null || postId == System.DBNull.Value)
+            {
+                return 0;
+            }
+            return (int)postId;
+        }
 
         /// <summary>
         /// 通过原贴的帖子id获取该贴的点赞数

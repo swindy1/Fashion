@@ -18,6 +18,7 @@ namespace Fashion.Controllers
 
         public ActionResult HomeTWO()
         {
+            LoginStatusConfig();          //配置登录状态     
             return View();
         }
 
@@ -28,10 +29,7 @@ namespace Fashion.Controllers
 
         public ActionResult PostDetails()
         {
-            if (Session["userName"] == null)
-            {
-                return View("LoginRemind");
-            }
+         
             LoginStatusConfig();          //配置登录状态            
             int postId = Convert.ToInt32(Request["postId"]);
             //获取postId的原帖数据
@@ -202,8 +200,8 @@ namespace Fashion.Controllers
         /// <returns></returns>
         public ActionResult AjaxPostSupportCountAdd1()
         {
-            if (Session["userName"] == null)
-                return Content("2");
+            //if (Session["userName"] == null)
+            //    return Content("2");
 
             string postIdStr=Request["postId"].ToString();
             int postId=Convert.ToInt32(postIdStr);
@@ -367,7 +365,9 @@ namespace Fashion.Controllers
                 return Content("保存帖子信息时数据库出错");
             }//将帖子数据保存到数据库---------成功
             //////获取所有图片里的图片路径,并且将图片路径保存到数据库里
-            int postId = Post.GetPostId(caption); //根据帖子的标题查询数据库，得到该贴子的postId
+
+
+            int postId = Post.GetPostIdBy_PostHtmlUrl(staticHtmlPath); //根据帖子的标题查询数据库，得到该贴子的postId
             System.Text.RegularExpressions.Regex regImg2 = new System.Text.RegularExpressions.Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);// 定义正则表达式用来匹配 img 标签
             System.Text.RegularExpressions.MatchCollection matches = regImg2.Matches(contentData);            
             int i = 0;

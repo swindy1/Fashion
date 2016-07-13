@@ -67,7 +67,31 @@ namespace Fashion.Code.DAL
             return specialConsult_model;
         }
 
-
+        /// <summary>
+        /// 根据specialConsultId获取特定咨询的SpecialConsult_Caption，SpecialConsult_Occasion，SpecialConsult_Detail，SpecialConsult_Date
+        /// </summary>
+        /// <param name="specialConsultId"></param>
+        /// <returns></returns>
+        public SpecialConsult_model GetOneShortConsultData(int specialConsultId)
+        {
+            string sqlStr = @"select SpecialConsult_Caption caption,SpecialConsult_Occasion occasion,
+                                                   SpecialConsult_Detail detail,SpecialConsult_Date [date]
+                                              from tb_SpecialConsult
+                                              where SpecialConsult_Id=@specialConsultId";
+            SqlParameter[] parameters = new SqlParameter[] { 
+                new SqlParameter("@specialConsultId",specialConsultId)
+            };
+            DataTable dt = SqlHelper.ExecuteDataTable(sqlStr, parameters);
+            SpecialConsult_model specialConsult_model = new SpecialConsult_model();
+            if (dt.Rows.Count == 1)
+            {
+                specialConsult_model.caption = dt.Rows[0]["caption"].ToString();
+                specialConsult_model.datetime = (DateTime)dt.Rows[0]["date"];
+                specialConsult_model.occasion = dt.Rows[0]["occasion"].ToString();
+                specialConsult_model.detail = dt.Rows[0]["detail"].ToString();
+            }
+            return specialConsult_model;
+        }
 
 
         /// <summary>

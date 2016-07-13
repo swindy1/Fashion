@@ -125,18 +125,18 @@
         <div id="Header" class="header">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="logo" onclick="window.location.href = '../Topic/Home'"><h2>时尚达人</h2></div>
+                    <div class="logo" onclick="window.location.href = '../Topic/Home'"><h3>时尚达人</h3></div>
                     <div class="navigation">
                         <ul class="nav navbar-nav">
                             <li id="headerNav1" onclick="nav_switch(this.id);window.location.href ='../Topic/HomeTWO'">首页</li>
                             <li id="headerNav2"onclick="nav_switch(this.id); window.location.href = '../Topic/Home'">搭配咨询</li>
                             <li id="headerNav3" onclick="nav_switch(this.id); window.location.href = '../StreetSnap/streetHome'">街拍</li>
-                            <li id="headerNav4" onclick="nav_switch(this.id); window.location.href = '../StreetSnap/streetHome'">达人秀</li>
-                            <li id="headerNav5" onclick="nav_switch(this.id); window.location.href = '../ShangCheng/Index'">商城</li>
+                            <li id="headerNav4" onclick="nav_switch(this.id); window.location.href = '../PersonShow/PersonShowIndex'">达人秀</li>
+                            <li id="headerNav5" onclick="nav_switch(this.id); window.open('../ShangCheng/Index')">商城</li>
                         </ul>
                     </div><!--/ <div class="navigation">/end-->
                     <div class="search_box">
-                        <input type="text" placeholder="问题/关键词/商品名" onblur="SearchPosts(this.id);" />
+                        <input type="text" placeholder="搜索帖子" onblur="SearchPosts(this.id);" />
                     </div>
                     <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////未登录时显示模块/////////////////////////////////////////////////////-->
                     <div id="un_login_xs" class="loginDiv"style="margin-left:60px;">
@@ -239,7 +239,7 @@
     </div>
    
 
-
+    
 </body>
 
 </html>

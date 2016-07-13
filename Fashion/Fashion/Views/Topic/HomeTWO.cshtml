@@ -13,7 +13,6 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap/bootstrap.js"></script>
     <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/index.css" rel="stylesheet" />
    <!-- <style>
         div {
             border: 3px solid #000;
@@ -24,7 +23,7 @@
 
 <script>
 
-
+    alert("由于系统兼容性原因，目前建议使用Chrome（谷歌浏览器）进行访问，后期我们团队会实现其他浏览器的兼容性。");
 
 
     //取出普通咨询的四张简化帖子
@@ -42,11 +41,11 @@
 
                 var htmllist = "";
                 // alert(jsonData);
-                for (i = 0; i < 4; i++) {
+                for (i = 0; i < jsonData.length; i++) {
                     var ThePictureHtml = $("#ThePicture").html();
                     ThePictureHtml = ThePictureHtml.replace("swindyPutongzixunPicture", jsonData[i].firstPostPhotoUrl);
                     ThePictureHtml = ThePictureHtml.replace("swindyTedingzixunContent", jsonData[i].postContent);
-                    ThePictureHtml = ThePictureHtml.replace("swindyPutongzixunHtmlUrl", jsonData[i].postHtmlUrl);
+                    ThePictureHtml = ThePictureHtml.replace("swindyPutongzixunHtmlUrl", "PostDetails?postId=" + jsonData[i].postId);
                    //alert(jsonData[i].postHtmlUrl);
                     htmllist += ThePictureHtml;
                     //alert("看看你是什么样子：" + htmllist);
@@ -130,25 +129,25 @@
 
         <div class="col-lg-3 col-md-3  col-sm-3 col-xs-3">
             <!--第一排-->
-            <a href="#" target="_blank">
+            <a href="../PersonShow/PicturePlay" target="_blank">
                 <img src="/Images/照片秀1.jpg" class="img-responsive img-rounded">
             </a>
             <p>菇凉们，春天就要来了，是不是觉得衣橱里面又少了衣服啊。那么给自己选上几件休闲时尚百搭的衣服还是有必要的</p>
         </div>
         <div class="col-lg-3 col-md-3  col-sm-3 col-xs-3">
-            <a href="#" target="_blank">
+            <a href="../PersonShow/PicturePlay" target="_blank">
                 <img src="/Images/照片秀2.jpg" class="img-responsive img-rounded">
             </a>
             <p>菇凉们，春天就要来了，是不是觉得衣橱里面又少了衣服啊。那么给自己选上几件休闲时尚百搭的衣服还是有必要的</p>
         </div>
         <div class="col-lg-3 col-md-3  col-sm-3 col-xs-3">
-            <a href="#" target="_blank">
+            <a href="../PersonShow/PicturePlay" target="_blank">
                 <img src="/Images/照片秀3.jpg" class="img-responsive img-rounded">
             </a>
             <p>菇凉们，春天就要来了，是不是觉得衣橱里面又少了衣服啊。那么给自己选上几件休闲时尚百搭的衣服还是有必要的</p>
         </div>
         <div class="col-lg-3 col-md-3  col-sm-3 col-xs-3">
-            <a href="#" target="_blank">
+            <a href="../PersonShow/PicturePlay" target="_blank">
                 <img src="/Images/照片秀4.jpg" class="img-responsive img-rounded">
             </a>
             <p>菇凉们，春天就要来了，是不是觉得衣橱里面又少了衣服啊。那么给自己选上几件休闲时尚百搭的衣服还是有必要的</p>
@@ -162,7 +161,7 @@
     <!--视频秀-->
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <a href="#" target="_blank">
+            <a href="../PersonShow/VideoShowIndex" target="_blank">
                 <!--链接 指向街拍页面-->
                 <img src="~/Images/视频秀.jpg" class="img-responsive"><!--标题栏-->
             </a>
@@ -170,25 +169,25 @@
 
         <div class="col-lg-3 col-md-3  col-sm-3 col-xs-3">
             <!--第一排-->
-            <a href="#" target="_blank">
+            <a href="../PersonShow/VideoShowIndex" target="_blank">
                 <img src="http://www.7dapei.com/images/201603b/64.jpg" class="img-responsive img-rounded">
             </a>
             <p>菇凉们，春天就要来了，是不是觉得衣橱里面又少了衣服啊。那么给自己选上几件休闲时尚百搭的衣服还是有必要的</p>
         </div>
         <div class="col-lg-3 col-md-3  col-sm-3 col-xs-3">
-            <a href="#" target="_blank">
+            <a href="../PersonShow/VideoShowIndex" target="_blank">
                 <img src="http://www.7dapei.com/images/201603b/64.jpg" class="img-responsive img-rounded">
             </a>
             <p>菇凉们，春天就要来了，是不是觉得衣橱里面又少了衣服啊。那么给自己选上几件休闲时尚百搭的衣服还是有必要的</p>
         </div>
         <div class="col-lg-3 col-md-3  col-sm-3 col-xs-3">
-            <a href="#" target="_blank">
+            <a href="../PersonShow/VideoShowIndex" target="_blank">
                 <img src="http://www.7dapei.com/images/201603b/64.jpg" class="img-responsive img-rounded">
             </a>
             <p>菇凉们，春天就要来了，是不是觉得衣橱里面又少了衣服啊。那么给自己选上几件休闲时尚百搭的衣服还是有必要的</p>
         </div>
         <div class="col-lg-3 col-md-3  col-sm-3 col-xs-3">
-            <a href="#" target="_blank">
+            <a href="../PersonShow/VideoShowIndex" target="_blank">
                 <img src="http://www.7dapei.com/images/201603b/64.jpg" class="img-responsive img-rounded">
             </a>
             <p>菇凉们，春天就要来了，是不是觉得衣橱里面又少了衣服啊。那么给自己选上几件休闲时尚百搭的衣服还是有必要的</p>
@@ -239,30 +238,7 @@
     </div>
 
 
-    <!--关于-->
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 foot">
-        <span>
-            <a rel ="nofollow" href="#" target="_blank">开发者：惠州学院SimplePower团队</a>
-            </span>
-        <span>
-            <a rel="nofollow" href="#" target="_blank">关于我们</a>|
-            <a rel="nofollow" href="#" target="_blank">免责声明</a>|
-            <a rel="nofollow" href="#" target="_blank">广告服务</a>|
-            <a rel="nofollow" href="#" target="_blank">联系我们</a>|
-            <a rel="nofollow" href="#" target="_blank">网站律师</a>|
-            <a rel="nofollow" href="#" target="_blank">意见反馈</a>|
-            <a rel="nofollow" href="#" target="_blank">参加搭配专家招聘</a>|
-            <a rel="nofollow" href="#" target="_blank">友情链接</a>|
-            <a rel="nofollow" href="#" target="_blank">网站纠错</a>|
-            <a rel="nofollow" href="#" target="_blank">官方微博</a>
-        </span>
-
-        <span>不良信息举报电话：000-00000000 举报邮箱：xxxxxxxxx@163.com</span>
-
-
-
-
-    </div>
+   
 
 
 <!--普通咨询模板-->
@@ -305,6 +281,6 @@
     </div>
 </div>
 
-
+    @RenderPage("~/Views/Shared/Footer.cshtml")@*这里是引入页脚*@
 
 
